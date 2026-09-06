@@ -281,4 +281,11 @@ ingest tests feed fixture HTML and fixture caption cues rather than fetching.
 
 ## Licence
 
-Not yet chosen.
+[PolyForm Noncommercial 1.0.0](LICENSE.md). Personal use, study, hobby projects and
+non-profits are covered. Using recut to make money is not: content marketing for a
+business, client work, agency output, or running it as a service. For that, see
+[COMMERCIAL.md](COMMERCIAL.md).
+
+The `vidsmith` output target emits a project for a separate tool under its own
+noncommercial licence, so commercial video output needs one from
+[veer0608/vidsmith](https://github.com/veer0608/vidsmith) as well.
