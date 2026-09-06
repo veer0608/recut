@@ -38,11 +38,11 @@ timed sources, because rewriting an article as an article is not repurposing, it
 plagiarism surface with a different font.
 
 ```bash
-cd /c/Users/veera/claude/recut && .venv/Scripts/python -m recut run path/to/post.md
+python -m recut run path/to/post.md
 ```
 
 ```bash
-cd /c/Users/veera/claude/recut && .venv/Scripts/python -m recut run "https://www.youtube.com/watch?v=0PkBP0dk4Lw"
+python -m recut run "https://www.youtube.com/watch?v=0PkBP0dk4Lw"
 ```
 
 The source type is picked from what you type. All three adapters return the same
@@ -89,7 +89,7 @@ own `_project_dir` accepts a path, so it builds where it lands with nothing copi
 and nothing edited:
 
 ```bash
-.venv/Scripts/python -m vidsmith build "C:/Users/veera/claude/recut/out/<slug>/vidsmith"
+python -m vidsmith build /path/to/recut/out/<slug>/vidsmith
 ```
 
 ```
@@ -221,11 +221,17 @@ to editorialise.
   survive is a rate over the easy ones.
 
 ```bash
-cd /c/Users/veera/claude/recut && .venv/Scripts/python eval/run_eval.py --run v1
+python eval/run_eval.py --run v1
 ```
 
 Checkpointing is per source, so a quota cliff costs one source and the same command
 resumes.
+
+Seven of the fifteen golden sources are READMEs from sibling repositories checked out
+next to this one, which a fresh clone will not have. Those sources fail to ingest and,
+by the abandonment rule, that withholds the headline number rather than quietly
+scoring the eight that remain. Point `eval/golden/sources.yaml` at your own long-form
+writing to run it somewhere else.
 
 ### Known limits of this measurement
 
@@ -238,7 +244,12 @@ resumes.
 ## Setup
 
 ```bash
-cd /c/Users/veera/claude/recut && python -m venv .venv && .venv/Scripts/python -m pip install -e ".[dev]"
+git clone https://github.com/veer0608/recut.git
+cd recut
+python -m venv .venv
+.venv/Scripts/activate       # Windows
+# source .venv/bin/activate  # macOS and Linux
+python -m pip install -e ".[web,dev]"
 ```
 
 Then copy `.env.example` to `.env` and fill in a Gemini or Groq key. Either alone is
@@ -261,7 +272,7 @@ Both providers have traps that cost real runs, so the client works around them:
 ## Tests
 
 ```bash
-cd /c/Users/veera/claude/recut && .venv/Scripts/python -m pytest -q
+python -m pytest -q
 ```
 
 118 tests, none of which touch the network. The pipeline tests drive a scripted model
