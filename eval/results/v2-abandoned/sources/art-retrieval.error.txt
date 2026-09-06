@@ -1,0 +1,19 @@
+Traceback (most recent call last):
+  File "C:\Users\veera\claude\recut\eval\run_eval.py", line 187, in main
+    result = run_source(entry, targets, llm, judge_llm, args.seed)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\veera\claude\recut\eval\run_eval.py", line 55, in run_source
+    claims = repurpose_claims = extract(document, llm)
+                                ^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\veera\claude\recut\recut\extract.py", line 112, in extract
+    raw = llm.structured(prompt, _RawExtract)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\veera\claude\recut\recut\llm.py", line 223, in structured
+    return model_type.model_validate_json(_extract_json(raw))
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\veera\claude\recut\.venv\Lib\site-packages\pydantic\main.py", line 782, in model_validate_json
+    return cls.__pydantic_validator__.validate_json(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+pydantic_core._pydantic_core.ValidationError: 1 validation error for _RawExtract
+  Invalid JSON: EOF while parsing a list at line 17 column 5 [type=json_invalid, input_value='{\n  "thesis": "Retrieva..."verbatim": null\n    }', input_type=str]
+    For further information visit https://errors.pydantic.dev/2.13/v/json_invalid

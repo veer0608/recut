@@ -1,0 +1,161 @@
+{
+  "id": "art-vector-db",
+  "kind": "article",
+  "ref": "https://en.wikipedia.org/wiki/Vector_database",
+  "title": "Vector database - Wikipedia",
+  "segments": 14,
+  "chars": 13607,
+  "extracted_claims": 13,
+  "dropped_unanchored": 0,
+  "targets": [
+    "linkedin",
+    "thread"
+  ],
+  "verifier_errors": {
+    "linkedin": [],
+    "thread": []
+  },
+  "format_violations": {},
+  "repaired": [
+    "linkedin",
+    "thread"
+  ],
+  "claim_utilisation": 0.6923076923076923,
+  "judged": {
+    "linkedin": {
+      "sentences": 8,
+      "claims": 8,
+      "unsupported": 3,
+      "rate": 0.375,
+      "unjudged": 0,
+      "verdicts": [
+        {
+          "n": 1,
+          "sentence": "HNSW-based implementations have been among the best performers in recent benchmarks for vector search.",
+          "verdict": "supported",
+          "why": "The source explicitly states in [s8] that HNSW-based implementations have been among the best performers in recent benchmarks."
+        },
+        {
+          "n": 2,
+          "sentence": "Vector databases store data as high-dimensional vectors, which are mathematical representations of features or attributes.",
+          "verdict": "supported",
+          "why": "This directly matches footnote 4 in [s12] and the explanation in [s2]."
+        },
+        {
+          "n": 3,
+          "sentence": "These embeddings represent data in a space with dimensions ranging from a few hundred to tens of thousands.",
+          "verdict": "supported",
+          "why": "The source states in [s2] that vector embeddings represent data in a high-dimensional space with dimensions ranging from a few hundred to tens of thousands."
+        },
+        {
+          "n": 4,
+          "sentence": "By implementing approximate nearest neighbor algorithms, these databases enable semantic search rather than relying on exact matches.",
+          "verdict": "supported",
+          "why": "The source states in [s1] that vector databases implement approximate nearest neighbor algorithms to search semantically rather than by exact match."
+        },
+        {
+          "n": 5,
+          "sentence": "This infrastructure is essential for retrieval-augmented generation, where a vector database provides relevant documents to improve the responses of large language models.",
+          "verdict": "unsupported",
+          "why": "The sentence claims vector database infrastructure is 'essential' for RAG, but [s10] explicitly states that the retrieval component of a RAG 'can be any search system'."
+        },
+        {
+          "n": 6,
+          "sentence": "Hybrid workflows also allow for vector retrieval to be combined with metadata filtering or lexical search.",
+          "verdict": "supported",
+          "why": "The source states in [s4] that vector retrieval can be combined with metadata filtering or lexical search to support filtered and hybrid retrieval workflows."
+        },
+        {
+          "n": 7,
+          "sentence": "Companies are heavily investing in this space, with Zilliz raising $60M and Chroma securing $18 million in seed funding at a $75 million valuation.",
+          "verdict": "unsupported",
+          "why": "The claim that 'Companies are heavily investing in this space' is not stated in the source text, though specific funding events are listed in reference titles."
+        },
+        {
+          "n": 8,
+          "sentence": "Vector databases are becoming a critical component of modern machine learning stacks.",
+          "verdict": "unsupported",
+          "why": "The source states that vector databases are used in machine learning applications [s9], but does not claim they are 'becoming a critical component of modern machine learning stacks'."
+        }
+      ]
+    },
+    "thread": {
+      "sentences": 8,
+      "claims": 8,
+      "unsupported": 1,
+      "rate": 0.125,
+      "unjudged": 0,
+      "verdicts": [
+        {
+          "n": 1,
+          "sentence": "HNSW-based implementations have been among the best performers in recent benchmarks for vector search.",
+          "verdict": "supported",
+          "why": "The source explicitly states that in recent benchmarks, HNSW-based implementations have been among the best performers."
+        },
+        {
+          "n": 2,
+          "sentence": "These databases store data as high-dimensional vectors, which are mathematical representations of features or attributes.",
+          "verdict": "supported",
+          "why": "The source states that vector databases store data as high-dimensional vectors, which are mathematical representations of features or attributes."
+        },
+        {
+          "n": 3,
+          "sentence": "Embeddings represent data in a space with dimensions ranging from a few hundred to tens of thousands.",
+          "verdict": "supported",
+          "why": "The source states that vector embeddings represent data in a space with the number of dimensions ranging from a few hundred to tens of thousands."
+        },
+        {
+          "n": 4,
+          "sentence": "They typically implement approximate nearest neighbor algorithms to allow for semantic search.",
+          "verdict": "supported",
+          "why": "The source states that vector databases typically implement approximate nearest neighbor algorithms so users can search for records semantically similar to an input."
+        },
+        {
+          "n": 5,
+          "sentence": "Retrieval-augmented generation uses these to retrieve relevant documents to improve the responses of large language models.",
+          "verdict": "supported",
+          "why": "The source explains that RAG improves responses of large language models by querying the vector database to retrieve the most relevant documents."
+        },
+        {
+          "n": 6,
+          "sentence": "Vector retrieval can be combined with metadata filtering or lexical search for hybrid workflows.",
+          "verdict": "supported",
+          "why": "The source explicitly states that vector retrieval can be combined with metadata filtering or lexical search to support hybrid retrieval workflows."
+        },
+        {
+          "n": 7,
+          "sentence": "Weaviate is an open-source option that stores both objects and vectors, allowing for the combination of vector search with structured filtering.",
+          "verdict": "supported",
+          "why": "The reference text for Weaviate states it is an open-source vector database that stores both objects and vectors, combining vector search with structured filtering."
+        },
+        {
+          "n": 8,
+          "sentence": "Modern machine learning applications rely on this infrastructure to enable efficient semantic retrieval in high-dimensional spaces.",
+          "verdict": "unsupported",
+          "why": "The source states vector databases are used in machine learning applications, but it does not state that modern machine learning applications rely on this infrastructure to enable efficient semantic retrieval in high-dimensional spaces."
+        }
+      ]
+    }
+  },
+  "judged_claims": 16,
+  "judged_unsupported": 4,
+  "injections": {
+    "planted": 8,
+    "caught": 8,
+    "recall": 1.0,
+    "recall_by_rule": {
+      "number": 1.0,
+      "quote": 1.0,
+      "entity": 1.0,
+      "citation": 1.0
+    },
+    "missed": [],
+    "clean_bodies": 2,
+    "false_positive_bodies": 0,
+    "false_positives": []
+  },
+  "bodies": {
+    "linkedin": "HNSW-based implementations have been among the best performers in recent benchmarks for vector search.\n\nVector databases store data as high-dimensional vectors, which are mathematical representations of features or attributes. These embeddings represent data in a space with dimensions ranging from a few hundred to tens of thousands.\n\nBy implementing approximate nearest neighbor algorithms, these databases enable semantic search rather than relying on exact matches. This infrastructure is essential for retrieval-augmented generation, where a vector database provides relevant documents to improve the responses of large language models.\n\nHybrid workflows also allow for vector retrieval to be combined with metadata filtering or lexical search. Companies are heavily investing in this space, with Zilliz raising $60M and Chroma securing $18 million in seed funding at a $75 million valuation.\n\nVector databases are becoming a critical component of modern machine learning stacks.",
+    "thread": "HNSW-based implementations have been among the best performers in recent benchmarks for vector search.\n\nThese databases store data as high-dimensional vectors, which are mathematical representations of features or attributes.\n\nEmbeddings represent data in a space with dimensions ranging from a few hundred to tens of thousands.\n\nThey typically implement approximate nearest neighbor algorithms to allow for semantic search.\n\nRetrieval-augmented generation uses these to retrieve relevant documents to improve the responses of large language models.\n\nVector retrieval can be combined with metadata filtering or lexical search for hybrid workflows.\n\nWeaviate is an open-source option that stores both objects and vectors, allowing for the combination of vector search with structured filtering.\n\nModern machine learning applications rely on this infrastructure to enable efficient semantic retrieval in high-dimensional spaces."
+  }
+}

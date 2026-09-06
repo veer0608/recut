@@ -1,0 +1,200 @@
+{
+  "id": "md-moneytrail",
+  "kind": "markdown",
+  "ref": "C:\\Users\\veera\\claude\\moneytrail\\README.md",
+  "title": "moneytrail",
+  "segments": 153,
+  "chars": 35444,
+  "extracted_claims": 54,
+  "dropped_unanchored": 0,
+  "targets": [
+    "linkedin",
+    "thread"
+  ],
+  "verifier_errors": {
+    "linkedin": [],
+    "thread": [
+      "[error/intensity] 'the only way': the source never says 'the only way'; do not add force it did not use"
+    ]
+  },
+  "format_violations": {},
+  "repaired": [
+    "thread"
+  ],
+  "claim_utilisation": 0.18518518518518517,
+  "judged": {
+    "linkedin": {
+      "sentences": 10,
+      "claims": 10,
+      "unsupported": 0,
+      "rate": 0.0,
+      "unjudged": 0,
+      "verdicts": [
+        {
+          "n": 1,
+          "sentence": "Most personal finance tools start by categorizing transactions, but that is the wrong first step.",
+          "verdict": "supported",
+          "why": "The source states that every personal-finance tool starts by categorising transactions and that this is the wrong first step. 'Every' entails 'most'."
+        },
+        {
+          "n": 2,
+          "sentence": "Parsing errors render subsequent insights silently incorrect.",
+          "verdict": "supported",
+          "why": "The source explains that if a parse drops a row, subsequent category totals and insights are 'quietly wrong'."
+        },
+        {
+          "n": 3,
+          "sentence": "Moneytrail uses a reconciliation gate to check bank statements against arithmetic published by the bank.",
+          "verdict": "supported",
+          "why": "The source explicitly mentions that moneytrail's first component is a reconciliation gate checked against arithmetic published by the bank."
+        },
+        {
+          "n": 4,
+          "sentence": "Money is represented as an integer count of paise to avoid inaccuracies associated with binary floating-point arithmetic.",
+          "verdict": "supported",
+          "why": "The source states that money is an integer count of paise and avoids floats because binary floating-point arithmetic cannot promise accuracy to the paisa."
+        },
+        {
+          "n": 5,
+          "sentence": "Statements that fail to reconcile are stamped with a 'reconciled = NO' status.",
+          "verdict": "supported",
+          "why": "The source states that statements failing to reconcile are exported with every row carrying 'reconciled = NO'."
+        },
+        {
+          "n": 6,
+          "sentence": "The tool rejects scanned PDFs rather than guessing at the content.",
+          "verdict": "supported",
+          "why": "The source explicitly says scanned PDFs are rejected rather than guessed at."
+        },
+        {
+          "n": 7,
+          "sentence": "In one test of 225 transactions, 32% were unclassified and merchant coverage was 18%.",
+          "verdict": "supported",
+          "why": "The source describes a real-world test of a 225-transaction statement where merchant coverage was 18% and 32% remained unclassified."
+        },
+        {
+          "n": 8,
+          "sentence": "Matching transfers between own accounts removes the amount from both the bank outflow and inflow totals to prevent false reporting of earnings and spending.",
+          "verdict": "supported",
+          "why": "The source explains that the 'spend' command matches transfers between accounts and removes them from both sides to avoid double-counting or false reporting of earnings and spending."
+        },
+        {
+          "n": 9,
+          "sentence": "The system refuses to answer questions about merchants not present in the ledger rather than returning an incorrect total.",
+          "verdict": "supported",
+          "why": "The source states that the tool refuses to answer questions about unknown merchants rather than returning a total for everything that month."
+        },
+        {
+          "n": 10,
+          "sentence": "Arithmetic integrity must be verified before categorization.",
+          "verdict": "supported",
+          "why": "The source argues that starting with categorization is the 'wrong first step' and that the tool's first component is a reconciliation gate to ensure arithmetic integrity."
+        }
+      ]
+    },
+    "thread": {
+      "sentences": 11,
+      "claims": 11,
+      "unsupported": 0,
+      "rate": 0.0,
+      "unjudged": 0,
+      "verdicts": [
+        {
+          "n": 1,
+          "sentence": "Merchant coverage on the real statement was 18%.",
+          "verdict": "supported",
+          "why": "The source explicitly states that merchant coverage on the real statement was 18%."
+        },
+        {
+          "n": 2,
+          "sentence": "Chasing that number would have been the wrong response.",
+          "verdict": "supported",
+          "why": "The source states that chasing the 18% coverage figure would have been the wrong response."
+        },
+        {
+          "n": 3,
+          "sentence": "Personal finance tools often start by categorizing transactions.",
+          "verdict": "supported",
+          "why": "The source mentions that every personal-finance tool starts by categorising transactions."
+        },
+        {
+          "n": 4,
+          "sentence": "This is the wrong first step.",
+          "verdict": "supported",
+          "why": "The source explicitly states that starting with categorization is the wrong first step."
+        },
+        {
+          "n": 5,
+          "sentence": "Parsing errors render subsequent insights silently incorrect.",
+          "verdict": "supported",
+          "why": "The source explains that if a parse drops a row, every insight built on top is quietly wrong."
+        },
+        {
+          "n": 6,
+          "sentence": "A reconciliation gate must verify arithmetic integrity first.",
+          "verdict": "supported",
+          "why": "The source describes the reconciliation gate as the first component, checked against bank-published arithmetic."
+        },
+        {
+          "n": 7,
+          "sentence": "Money is represented as an integer count of paise to avoid inaccuracies associated with binary floating-point arithmetic.",
+          "verdict": "supported",
+          "why": "The source states that money is an integer count of paise because a float pipeline cannot promise accuracy to the paisa in binary."
+        },
+        {
+          "n": 8,
+          "sentence": "Statements that fail to reconcile are stamped with a 'reconciled = NO' status and trigger a non-zero exit code.",
+          "verdict": "supported",
+          "why": "The source says failed reconciliations are stamped 'reconciled = NO' and that the exit code is non-zero if anything fails to reconcile."
+        },
+        {
+          "n": 9,
+          "sentence": "Counting both a bank debit and a card repayment as spending double-counts the money.",
+          "verdict": "supported",
+          "why": "The source explicitly states that counting both the bank outflow and the card credit for a repayment double-counts the money."
+        },
+        {
+          "n": 10,
+          "sentence": "The system refuses to answer questions about merchants not present in the ledger rather than returning an incorrect total.",
+          "verdict": "supported",
+          "why": "The source explains that the tool refuses to answer questions about unknown merchants rather than returning a total for everything."
+        },
+        {
+          "n": 11,
+          "sentence": "Verification must precede categorization because arithmetic integrity is the only way to prevent silent data loss.",
+          "verdict": "supported",
+          "why": "The source argues that categorization is the wrong first step because it hides parsing errors (silent data loss), and uses a reconciliation gate first to catch these errors."
+        }
+      ]
+    }
+  },
+  "judged_claims": 21,
+  "judged_unsupported": 0,
+  "injections": {
+    "planted": 10,
+    "caught": 10,
+    "recall": 1.0,
+    "recall_by_rule": {
+      "number": 1.0,
+      "quote": 1.0,
+      "entity": 1.0,
+      "intensity": 1.0,
+      "citation": 1.0
+    },
+    "missed": [],
+    "clean_bodies": 2,
+    "false_positive_bodies": 1,
+    "false_positives": [
+      {
+        "target": "thread",
+        "spans": [
+          "[error/intensity] 'the only way': the source never says 'the only way'; do not add force it did not use"
+        ]
+      }
+    ]
+  },
+  "bodies": {
+    "linkedin": "Most personal finance tools start by categorizing transactions, but that is the wrong first step.\n\nParsing errors render subsequent insights silently incorrect. Moneytrail uses a reconciliation gate to check bank statements against arithmetic published by the bank. Money is represented as an integer count of paise to avoid inaccuracies associated with binary floating-point arithmetic.\n\nStatements that fail to reconcile are stamped with a 'reconciled = NO' status. The tool rejects scanned PDFs rather than guessing at the content. In one test of 225 transactions, 32% were unclassified and merchant coverage was 18%.\n\nMatching transfers between own accounts removes the amount from both the bank outflow and inflow totals to prevent false reporting of earnings and spending. The system refuses to answer questions about merchants not present in the ledger rather than returning an incorrect total.\n\nArithmetic integrity must be verified before categorization.",
+    "thread": "Merchant coverage on the real statement was 18%. Chasing that number would have been the wrong response.\n\nPersonal finance tools often start by categorizing transactions. This is the wrong first step.\n\nParsing errors render subsequent insights silently incorrect. A reconciliation gate must verify arithmetic integrity first.\n\nMoney is represented as an integer count of paise to avoid inaccuracies associated with binary floating-point arithmetic.\n\nStatements that fail to reconcile are stamped with a 'reconciled = NO' status and trigger a non-zero exit code.\n\nCounting both a bank debit and a card repayment as spending double-counts the money.\n\nThe system refuses to answer questions about merchants not present in the ledger rather than returning an incorrect total.\n\nVerification must precede categorization because arithmetic integrity is the only way to prevent silent data loss."
+  }
+}

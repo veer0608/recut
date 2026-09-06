@@ -1,0 +1,172 @@
+{
+  "id": "art-retrieval",
+  "kind": "article",
+  "ref": "https://en.wikipedia.org/wiki/Retrieval-augmented_generation",
+  "title": "Retrieval-augmented generation - Wikipedia",
+  "segments": 26,
+  "chars": 14498,
+  "extracted_claims": 26,
+  "dropped_unanchored": 0,
+  "targets": [
+    "linkedin",
+    "thread"
+  ],
+  "verifier_errors": {
+    "linkedin": [],
+    "thread": []
+  },
+  "format_violations": {},
+  "repaired": [
+    "thread"
+  ],
+  "claim_utilisation": 0.46153846153846156,
+  "judged": {
+    "linkedin": {
+      "sentences": 8,
+      "claims": 8,
+      "unsupported": 3,
+      "rate": 0.375,
+      "unjudged": 0,
+      "verdicts": [
+        {
+          "n": 1,
+          "sentence": "A single error by Google's LLM regarding the James Webb Space Telescope contributed to a $100 billion decline in the company's stock value.",
+          "verdict": "supported",
+          "why": "The source explicitly states that an incorrect statement by Google's LLM about the James Webb Space Telescope contributed to a $100 billion decline in Google's stock value."
+        },
+        {
+          "n": 2,
+          "sentence": "Retrieval-augmented generation was proposed in 2020 to address these risks.",
+          "verdict": "unsupported",
+          "why": "While the source mentions RAG was proposed in 2020 and is used to prevent errors, it does not state that it was specifically proposed in 2020 to address these risks."
+        },
+        {
+          "n": 3,
+          "sentence": "It functions by blending the LLM process with a web search or other document look-up process to help LLMs stick to the facts.",
+          "verdict": "supported",
+          "why": "The source quotes Ars Technica stating that RAG works by blending the LLM process with a web search or document look-up to help LLMs stick to facts."
+        },
+        {
+          "n": 4,
+          "sentence": "By redesigning the language model with a retriever, a 25-time smaller network can achieve comparable perplexity to larger models.",
+          "verdict": "supported",
+          "why": "The source states that redesigning the language model with the retriever in mind allows a 25-time smaller network to get comparable perplexity to much larger counterparts."
+        },
+        {
+          "n": 5,
+          "sentence": "Despite this, the technology is not a perfect fix.",
+          "verdict": "supported",
+          "why": "The source states that RAG 'does not solve all the problems' and 'does not eliminate all challenges.'"
+        },
+        {
+          "n": 6,
+          "sentence": "\"It is not a direct solution because the LLM can still hallucinate around the source material in its response.\" Even with external data, models may misinterpret context or fail to recognize when they lack sufficient information to provide a reliable answer.",
+          "verdict": "supported",
+          "why": "The source contains the exact quote from Ars Technica and explicitly mentions that models may misinterpret context or struggle to recognize when they lack sufficient information to provide a reliable response."
+        },
+        {
+          "n": 7,
+          "sentence": "Organizations must balance the computational savings of avoiding full model retraining against the ongoing challenges of clinical and ethical reliability in sensitive fields like healthcare.",
+          "verdict": "unsupported",
+          "why": "The source discusses computational savings and healthcare challenges separately, but it never claims that organizations must balance these factors."
+        },
+        {
+          "n": 8,
+          "sentence": "RAG remains a necessary evolution, but it does not eliminate the inherent risks of AI.",
+          "verdict": "unsupported",
+          "why": "The source does not state or imply that RAG is a 'necessary evolution' or frame the issue around 'inherent risks of AI'."
+        }
+      ]
+    },
+    "thread": {
+      "sentences": 10,
+      "claims": 10,
+      "unsupported": 4,
+      "rate": 0.4,
+      "unjudged": 0,
+      "verdicts": [
+        {
+          "n": 1,
+          "sentence": "A single error by an LLM regarding the James Webb Space Telescope contributed to a $100 billion decline in the company's stock value.",
+          "verdict": "supported",
+          "why": "The source explicitly states that an incorrect statement by Google's LLM about the James Webb Space Telescope contributed to a $100 billion decline in Google's stock value."
+        },
+        {
+          "n": 2,
+          "sentence": "Chatbots frequently hallucinate non-existent policies or fake legal cases.",
+          "verdict": "unsupported",
+          "why": "The source notes that hallucinations have caused chatbots to describe non-existent policies or recommend non-existent legal cases, but it does not state that this happens 'frequently'."
+        },
+        {
+          "n": 3,
+          "sentence": "This creates significant risks for users relying on automated outputs.",
+          "verdict": "unsupported",
+          "why": "The source does not state or entail that this creates significant risks for users relying on automated outputs."
+        },
+        {
+          "n": 4,
+          "sentence": "Developers use prompt stuffing to force models to prioritize supplied external data over pre-existing training knowledge.",
+          "verdict": "unsupported",
+          "why": "The source states prompt stuffing 'encourages' the model to prioritize supplied data, not that it 'forces' it to do so."
+        },
+        {
+          "n": 5,
+          "sentence": "Even with retrieval, models can still fail.",
+          "verdict": "supported",
+          "why": "The source confirms that RAG/retrieval does not prevent hallucinations or solve all problems, and models can still generate false information."
+        },
+        {
+          "n": 6,
+          "sentence": "\"It is not a direct solution because the LLM can still hallucinate around the source material in its response.\"",
+          "verdict": "supported",
+          "why": "This exact quotation from Ars Technica is present in source paragraph [s22]."
+        },
+        {
+          "n": 7,
+          "sentence": "Misinterpretation of retrieved context remains a major hurdle.",
+          "verdict": "unsupported",
+          "why": "The source mentions that misinterpreting context causes errors, but it does not characterize it as a 'major hurdle'."
+        },
+        {
+          "n": 8,
+          "sentence": "Models may provide factually correct sources but still generate misinformation.",
+          "verdict": "supported",
+          "why": "The source states that LLMs can generate misinformation even when pulling from factually correct sources."
+        },
+        {
+          "n": 9,
+          "sentence": "Redesigning a language model with a retriever allows a 25-time smaller network to achieve comparable perplexity to larger models.",
+          "verdict": "supported",
+          "why": "The source directly states that redesigning the language model with the retriever in mind allows a 25-time smaller network to get comparable perplexity as its much larger counterparts."
+        },
+        {
+          "n": 10,
+          "sentence": "By incorporating external data, systems mitigate the limitations of static training sets and reduce the need for costly retraining.",
+          "verdict": "supported",
+          "why": "The source explains that RAG pulls relevant data to address static training set limitations and reduces the need to retrain LLMs, saving computational and financial costs."
+        }
+      ]
+    }
+  },
+  "judged_claims": 18,
+  "judged_unsupported": 7,
+  "injections": {
+    "planted": 8,
+    "caught": 8,
+    "recall": 1.0,
+    "recall_by_rule": {
+      "number": 1.0,
+      "quote": 1.0,
+      "entity": 1.0,
+      "citation": 1.0
+    },
+    "missed": [],
+    "clean_bodies": 2,
+    "false_positive_bodies": 0,
+    "false_positives": []
+  },
+  "bodies": {
+    "linkedin": "A single error by Google's LLM regarding the James Webb Space Telescope contributed to a $100 billion decline in the company's stock value.\n\nRetrieval-augmented generation was proposed in 2020 to address these risks. It functions by blending the LLM process with a web search or other document look-up process to help LLMs stick to the facts. By redesigning the language model with a retriever, a 25-time smaller network can achieve comparable perplexity to larger models.\n\nDespite this, the technology is not a perfect fix. \"It is not a direct solution because the LLM can still hallucinate around the source material in its response.\" Even with external data, models may misinterpret context or fail to recognize when they lack sufficient information to provide a reliable answer.\n\nOrganizations must balance the computational savings of avoiding full model retraining against the ongoing challenges of clinical and ethical reliability in sensitive fields like healthcare. RAG remains a necessary evolution, but it does not eliminate the inherent risks of AI.\n\n#ai #rag #llm",
+    "thread": "A single error by an LLM regarding the James Webb Space Telescope contributed to a $100 billion decline in the company's stock value.\n\nChatbots frequently hallucinate non-existent policies or fake legal cases. This creates significant risks for users relying on automated outputs.\n\nDevelopers use prompt stuffing to force models to prioritize supplied external data over pre-existing training knowledge.\n\nEven with retrieval, models can still fail. \"It is not a direct solution because the LLM can still hallucinate around the source material in its response.\"\n\nMisinterpretation of retrieved context remains a major hurdle. Models may provide factually correct sources but still generate misinformation.\n\nRedesigning a language model with a retriever allows a 25-time smaller network to achieve comparable perplexity to larger models.\n\nBy incorporating external data, systems mitigate the limitations of static training sets and reduce the need for costly retraining."
+  }
+}

@@ -1,0 +1,174 @@
+{
+  "id": "md-geojit",
+  "kind": "markdown",
+  "ref": "C:\\Users\\veera\\claude\\geojit-report-app\\README.md",
+  "title": "Equity Research Report Generator (Geojit-style)",
+  "segments": 41,
+  "chars": 7397,
+  "extracted_claims": 15,
+  "dropped_unanchored": 0,
+  "targets": [
+    "linkedin",
+    "thread"
+  ],
+  "verifier_errors": {
+    "linkedin": [],
+    "thread": [
+      "[error/intensity] 'ensures': the source never says 'ensures?'; do not add force it did not use"
+    ]
+  },
+  "format_violations": {},
+  "repaired": [],
+  "claim_utilisation": 0.7333333333333333,
+  "judged": {
+    "linkedin": {
+      "sentences": 9,
+      "claims": 9,
+      "unsupported": 0,
+      "rate": 0.0,
+      "unjudged": 0,
+      "verdicts": [
+        {
+          "n": 1,
+          "sentence": "Missing fields in generated financial reports are rendered as \"NA\" and noted in the report and API output.",
+          "verdict": "supported",
+          "why": "The source explicitly states that missing fields render as 'NA' and are listed in an on-report note and the missing_fields API field."
+        },
+        {
+          "n": 2,
+          "sentence": "The equity research report generator is a minimal web app that converts financial context documents into downloadable, auto-filled PDF research reports.",
+          "verdict": "supported",
+          "why": "The source describes the project as a minimal web app that turns a financial context document into a downloadable, auto-filled PDF research report."
+        },
+        {
+          "n": 3,
+          "sentence": "It supports PDF, CSV, and TXT file formats for input.",
+          "verdict": "supported",
+          "why": "The source lists PDF, CSV, and TXT as supported input formats in several places."
+        },
+        {
+          "n": 4,
+          "sentence": "The extraction system uses Claude if an ANTHROPIC_API_KEY is provided, or falls back to a deterministic rule-based parser if the key is missing or the LLM call fails.",
+          "verdict": "supported",
+          "why": "The source explains that the extractor uses Claude if the API key is set and falls back to deterministic parsing if the key is missing or the call fails."
+        },
+        {
+          "n": 5,
+          "sentence": "The application uses ReportLab and matplotlib for rendering the PDF and its charts.",
+          "verdict": "supported",
+          "why": "The source mentions ReportLab for PDF generation and matplotlib for charts."
+        },
+        {
+          "n": 6,
+          "sentence": "To match a specific Geojit PDF pixel-for-pixel, users can adjust color and geometry settings in app/config.py and modify section order or spacing in app/report/pdf_builder.py.",
+          "verdict": "supported",
+          "why": "The source states that to match a sample pixel-for-pixel, one can adjust geometry and colors in config.py and section order/spacing in pdf_builder.py."
+        },
+        {
+          "n": 7,
+          "sentence": "The data model and extraction logic do not need to change to match a specific PDF style.",
+          "verdict": "supported",
+          "why": "The source explicitly states that the data model and extraction don't need to change when fine-tuning to an exact sample."
+        },
+        {
+          "n": 8,
+          "sentence": "The quick start process takes under 2 minutes.",
+          "verdict": "supported",
+          "why": "The source includes a heading titled 'Quick start (under 2 minutes)'."
+        },
+        {
+          "n": 9,
+          "sentence": "Generated reports are not investment advice.",
+          "verdict": "supported",
+          "why": "The source includes a disclaimer stating that generated reports are not investment advice."
+        }
+      ]
+    },
+    "thread": {
+      "sentences": 8,
+      "claims": 8,
+      "unsupported": 0,
+      "rate": 0.0,
+      "unjudged": 0,
+      "verdicts": [
+        {
+          "n": 1,
+          "sentence": "The extraction system uses Claude if an ANTHROPIC_API_KEY is provided, or falls back to a deterministic rule-based parser if the key is missing or the LLM call fails.",
+          "verdict": "supported",
+          "why": "The source states that Claude is used when the ANTHROPIC_API_KEY is set, and it falls back to deterministic parsing if the key is missing or the call fails."
+        },
+        {
+          "n": 2,
+          "sentence": "This hybrid extraction approach ensures that generation does not break when an LLM call fails.",
+          "verdict": "supported",
+          "why": "The source explicitly mentions that the LLM path degrades gracefully to the deterministic path on any error so that generation never breaks."
+        },
+        {
+          "n": 3,
+          "sentence": "Missing fields in the generated report are rendered as \"NA\" and noted in the report and API output.",
+          "verdict": "supported",
+          "why": "The source states that anything not found renders as 'NA' and is listed in an on-report note and the missing_fields API field."
+        },
+        {
+          "n": 4,
+          "sentence": "The quick start process takes under 2 minutes.",
+          "verdict": "supported",
+          "why": "The source includes a heading titled 'Quick start (under 2 minutes)'."
+        },
+        {
+          "n": 5,
+          "sentence": "Users can adjust color and geometry settings in app/config.py to match a specific Geojit PDF pixel-for-pixel without changing the data model or extraction logic.",
+          "verdict": "supported",
+          "why": "The source states that to match a sample pixel-for-pixel, one can adjust geometry in app/config.py and that the data model and extraction do not need to change."
+        },
+        {
+          "n": 6,
+          "sentence": "The provided research template is not affiliated with, and not produced by, Geojit Financial Services Ltd.",
+          "verdict": "supported",
+          "why": "The disclaimer at the end of the source states the template is not affiliated with or produced by Geojit Financial Services Ltd."
+        },
+        {
+          "n": 7,
+          "sentence": "Generated reports are not investment advice.",
+          "verdict": "supported",
+          "why": "The disclaimer at the end of the source states that generated reports are not investment advice."
+        },
+        {
+          "n": 8,
+          "sentence": "Automated financial reporting can be achieved by combining deterministic parsing with LLM-based extraction to transform unstructured data into standardized research documents.",
+          "verdict": "supported",
+          "why": "The source describes a tool that achieves automated financial reporting by using LLM and deterministic extraction to transform various document formats into research reports."
+        }
+      ]
+    }
+  },
+  "judged_claims": 17,
+  "judged_unsupported": 0,
+  "injections": {
+    "planted": 10,
+    "caught": 10,
+    "recall": 1.0,
+    "recall_by_rule": {
+      "number": 1.0,
+      "quote": 1.0,
+      "entity": 1.0,
+      "intensity": 1.0,
+      "citation": 1.0
+    },
+    "missed": [],
+    "clean_bodies": 2,
+    "false_positive_bodies": 1,
+    "false_positives": [
+      {
+        "target": "thread",
+        "spans": [
+          "[error/intensity] 'ensures': the source never says 'ensures?'; do not add force it did not use"
+        ]
+      }
+    ]
+  },
+  "bodies": {
+    "linkedin": "Missing fields in generated financial reports are rendered as \"NA\" and noted in the report and API output.\n\nThe equity research report generator is a minimal web app that converts financial context documents into downloadable, auto-filled PDF research reports. It supports PDF, CSV, and TXT file formats for input.\n\nThe extraction system uses Claude if an ANTHROPIC_API_KEY is provided, or falls back to a deterministic rule-based parser if the key is missing or the LLM call fails. The application uses ReportLab and matplotlib for rendering the PDF and its charts.\n\nTo match a specific Geojit PDF pixel-for-pixel, users can adjust color and geometry settings in app/config.py and modify section order or spacing in app/report/pdf_builder.py. The data model and extraction logic do not need to change to match a specific PDF style.\n\nThe quick start process takes under 2 minutes.\n\nGenerated reports are not investment advice.",
+    "thread": "The extraction system uses Claude if an ANTHROPIC_API_KEY is provided, or falls back to a deterministic rule-based parser if the key is missing or the LLM call fails.\n\nThis hybrid extraction approach ensures that generation does not break when an LLM call fails.\n\nMissing fields in the generated report are rendered as \"NA\" and noted in the report and API output.\n\nThe quick start process takes under 2 minutes.\n\nUsers can adjust color and geometry settings in app/config.py to match a specific Geojit PDF pixel-for-pixel without changing the data model or extraction logic.\n\nThe provided research template is not affiliated with, and not produced by, Geojit Financial Services Ltd.\n\nGenerated reports are not investment advice.\n\nAutomated financial reporting can be achieved by combining deterministic parsing with LLM-based extraction to transform unstructured data into standardized research documents."
+  }
+}

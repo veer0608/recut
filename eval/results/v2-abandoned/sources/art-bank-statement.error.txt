@@ -1,0 +1,19 @@
+Traceback (most recent call last):
+  File "C:\Users\veera\claude\recut\eval\run_eval.py", line 187, in main
+    result = run_source(entry, targets, llm, judge_llm, args.seed)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\veera\claude\recut\eval\run_eval.py", line 60, in run_source
+    judged[artifact.target] = judge(artifact.body, document, judge_llm)
+                              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\veera\claude\recut\eval\judge.py", line 105, in judge
+    response = llm.structured(prompt, _Response)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\veera\claude\recut\recut\llm.py", line 213, in structured
+    raw = self.text(prompt, as_json=True)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\veera\claude\recut\recut\llm.py", line 209, in text
+    raise LLMError("every provider failed:\n  " + "\n  ".join(failures))
+recut.llm.LLMError: every provider failed:
+  gemini 429: {   "error": {     "code": 429,     "message": "You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://ai.google.dev/gemini-api/docs/rate-limits.
+  gemini 429: {   "error": {     "code": 429,     "message": "You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://ai.google.dev/gemini-api/docs/rate-limits.
+  gemini 429: {   "error": {     "code": 429,     "message": "You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://ai.google.dev/gemini-api/docs/rate-limits.

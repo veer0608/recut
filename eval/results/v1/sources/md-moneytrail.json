@@ -1,0 +1,202 @@
+{
+  "id": "md-moneytrail",
+  "kind": "markdown",
+  "ref": "C:\\Users\\veera\\claude\\moneytrail\\README.md",
+  "title": "moneytrail",
+  "segments": 153,
+  "chars": 35444,
+  "extracted_claims": 47,
+  "dropped_unanchored": 0,
+  "targets": [
+    "linkedin",
+    "thread"
+  ],
+  "verifier_errors": {
+    "linkedin": [],
+    "thread": []
+  },
+  "format_violations": {},
+  "repaired": [
+    "thread"
+  ],
+  "claim_utilisation": 0.2765957446808511,
+  "judged": {
+    "linkedin": {
+      "sentences": 10,
+      "claims": 10,
+      "unsupported": 0,
+      "rate": 0.0,
+      "unjudged": 0,
+      "verdicts": [
+        {
+          "n": 1,
+          "sentence": "Merchant coverage on a real bank statement is only 18%.",
+          "verdict": "supported",
+          "why": "The source states that merchant coverage on the real statement came out at 18% in [s41]."
+        },
+        {
+          "n": 2,
+          "sentence": "Most personal finance tools start by categorizing transactions, but that is the wrong first step.",
+          "verdict": "supported",
+          "why": "The source states in [s7] that every personal-finance tool starts by categorising transactions and that is the wrong first step."
+        },
+        {
+          "n": 3,
+          "sentence": "If the parse drops a single row, every subsequent insight is quietly wrong.",
+          "verdict": "supported",
+          "why": "The source states in [s7] that if the parse dropped a row, every category total, insight, and answer built on top of it is quietly wrong."
+        },
+        {
+          "n": 4,
+          "sentence": "Money is an integer count of paise, everywhere.",
+          "verdict": "supported",
+          "why": "The source explicitly states verbatim: 'Money is an integer count of paise, everywhere.' in [s11]."
+        },
+        {
+          "n": 5,
+          "sentence": "Moneytrail avoids floating-point numbers to ensure accuracy to the paisa.",
+          "verdict": "supported",
+          "why": "The source states in [s11] that a float pipeline cannot promise 'to the paisa', so there are no floats in this codebase."
+        },
+        {
+          "n": 6,
+          "sentence": "It uses a reconciliation gate that checks arithmetic against the bank's published data before performing any analysis.",
+          "verdict": "supported",
+          "why": "The source states in [s8] that moneytrail's first component is a reconciliation gate checked against arithmetic the bank already published."
+        },
+        {
+          "n": 7,
+          "sentence": "In a sample 225-transaction statement, 41% of transactions were person-to-person transfers, 18% were credit-card bill repayments, 5% were bank charges, 4% were recognized merchants, and 32% remained unclassified.",
+          "verdict": "supported",
+          "why": "The source table in [s42] lists these exact breakdown figures for a 225-transaction statement: 41%, 18%, 5%, 4%, and 32%."
+        },
+        {
+          "n": 8,
+          "sentence": "Counting both a bank debit for a card payment and the corresponding card-side charge results in double-counting the money spent.",
+          "verdict": "supported",
+          "why": "The source explains in [s46] that recording both a bank debit and a card-side payment double-counts the money."
+        },
+        {
+          "n": 9,
+          "sentence": "Statements that fail to reconcile are exported with a failure status and an exit code is 1.",
+          "verdict": "supported",
+          "why": "The source states in [s78] that a statement failing to reconcile is still exported, stamped with reconciled = NO, the certificate leads with failure, and the exit code is 1."
+        },
+        {
+          "n": 10,
+          "sentence": "Data integrity must precede categorization.",
+          "verdict": "supported",
+          "why": "The core thesis in [s7]-[s8] states that categorization is the wrong first step and reconciliation (data integrity) must come first."
+        }
+      ]
+    },
+    "thread": {
+      "sentences": 13,
+      "claims": 13,
+      "unsupported": 0,
+      "rate": 0.0,
+      "unjudged": 0,
+      "verdicts": [
+        {
+          "n": 1,
+          "sentence": "Categorizing transactions as a first step is flawed because parsing errors lead to silent inaccuracies in all subsequent insights.",
+          "verdict": "supported",
+          "why": "The source states in [s7] that categorizing first is wrong because dropped rows during parsing make all category totals and downstream insights quietly wrong without warning."
+        },
+        {
+          "n": 2,
+          "sentence": "Every personal-finance tool starts by categorizing transactions, but that is the wrong first step.",
+          "verdict": "supported",
+          "why": "The source explicitly states in [s7] that 'Every personal-finance tool starts by categorising transactions. That is the wrong first step.'"
+        },
+        {
+          "n": 3,
+          "sentence": "Most bank statements contain no ruling lines.",
+          "verdict": "supported",
+          "why": "The source states in [s62] that 'Most real bank statements draw no ruling at all.'"
+        },
+        {
+          "n": 4,
+          "sentence": "Three sample PDF bank statements from ICICI and HDFC contained zero lines, zero rects, and zero edges.",
+          "verdict": "supported",
+          "why": "The source states in [s62] that three sample PDFs (two ICICI and one HDFC) report 'zero lines, zero rects and zero edges between them.'"
+        },
+        {
+          "n": 5,
+          "sentence": "Geometric methods fail when words flow left-to-right without column information.",
+          "verdict": "supported",
+          "why": "The source states in [s66] that when text is generated by flowing words left to right without column information, no geometric method can read it."
+        },
+        {
+          "n": 6,
+          "sentence": "Money is an integer count of paise, everywhere.",
+          "verdict": "supported",
+          "why": "The source explicitly states in [s11] that 'Money is an integer count of paise, everywhere.'"
+        },
+        {
+          "n": 7,
+          "sentence": "The codebase avoids floating-point numbers to ensure accuracy to the paisa.",
+          "verdict": "supported",
+          "why": "The source states in [s11] that because a float pipeline cannot promise accuracy to the paisa, there are no floats in the codebase."
+        },
+        {
+          "n": 8,
+          "sentence": "A statement either reconciles to the paisa or it does not.",
+          "verdict": "supported",
+          "why": "The source states in [s10] that 'A statement either reconciles to the paisa or it does not.'"
+        },
+        {
+          "n": 9,
+          "sentence": "A test of 225 HDFC transactions over three months reconciled to the paisa against the bank's summary block.",
+          "verdict": "supported",
+          "why": "The source states in [s37] that 225 transactions across three months of an HDFC statement reconciled to the paisa against the closing balance printed in the bank's summary block."
+        },
+        {
+          "n": 10,
+          "sentence": "Credit card statements are reconciled using a summary box arithmetic check rather than a running balance chain.",
+          "verdict": "supported",
+          "why": "The source states in [s32] and [s33] that card statements have no running balance chain, so they are checked against the summary box arithmetic."
+        },
+        {
+          "n": 11,
+          "sentence": "Counting both a bank debit for a card payment and the corresponding card-side charge results in double-counting the money spent.",
+          "verdict": "supported",
+          "why": "The source states in [s46] that counting both a debit leaving the bank and credit reducing what the card says you owe double-counts the money."
+        },
+        {
+          "n": 12,
+          "sentence": "Transfers between a user's own accounts are matched and removed to prevent artificial inflation of spending and income.",
+          "verdict": "supported",
+          "why": "The source states in [s56] that naive merging of transfers between accounts falsely records money spent and earned, so spend matches and removes them from both sides."
+        },
+        {
+          "n": 13,
+          "sentence": "Personal finance tools must prioritize a mathematical reconciliation gate over categorization to ensure data integrity before performing any analysis.",
+          "verdict": "supported",
+          "why": "The source states in [s7] and [s8] that categorizing first is flawed and that a reconciliation gate checked against bank arithmetic must come first to prevent quiet errors."
+        }
+      ]
+    }
+  },
+  "judged_claims": 23,
+  "judged_unsupported": 0,
+  "injections": {
+    "planted": 8,
+    "caught": 8,
+    "recall": 1.0,
+    "recall_by_rule": {
+      "number": 1.0,
+      "quote": 1.0,
+      "entity": 1.0,
+      "citation": 1.0
+    },
+    "missed": [],
+    "clean_bodies": 2,
+    "false_positive_bodies": 0,
+    "false_positives": []
+  },
+  "bodies": {
+    "linkedin": "Merchant coverage on a real bank statement is only 18%. Most personal finance tools start by categorizing transactions, but that is the wrong first step. If the parse drops a single row, every subsequent insight is quietly wrong.\n\nMoney is an integer count of paise, everywhere. Moneytrail avoids floating-point numbers to ensure accuracy to the paisa. It uses a reconciliation gate that checks arithmetic against the bank's published data before performing any analysis.\n\nIn a sample 225-transaction statement, 41% of transactions were person-to-person transfers, 18% were credit-card bill repayments, 5% were bank charges, 4% were recognized merchants, and 32% remained unclassified. Counting both a bank debit for a card payment and the corresponding card-side charge results in double-counting the money spent.\n\nStatements that fail to reconcile are exported with a failure status and an exit code is 1. Data integrity must precede categorization.\n\n#moneytrail #fintech #data",
+    "thread": "Categorizing transactions as a first step is flawed because parsing errors lead to silent inaccuracies in all subsequent insights. Every personal-finance tool starts by categorizing transactions, but that is the wrong first step.\n\nMost bank statements contain no ruling lines. Three sample PDF bank statements from ICICI and HDFC contained zero lines, zero rects, and zero edges. Geometric methods fail when words flow left-to-right without column information.\n\nMoney is an integer count of paise, everywhere. The codebase avoids floating-point numbers to ensure accuracy to the paisa. A statement either reconciles to the paisa or it does not.\n\nA test of 225 HDFC transactions over three months reconciled to the paisa against the bank's summary block. Credit card statements are reconciled using a summary box arithmetic check rather than a running balance chain.\n\nCounting both a bank debit for a card payment and the corresponding card-side charge results in double-counting the money spent. Transfers between a user's own accounts are matched and removed to prevent artificial inflation of spending and income.\n\nPersonal finance tools must prioritize a mathematical reconciliation gate over categorization to ensure data integrity before performing any analysis."
+  }
+}

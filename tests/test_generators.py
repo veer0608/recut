@@ -1,0 +1,213 @@
+"""The phase 2 targets, driven by a scripted model. No network."""
+
+import json
+
+import pytest
+import yaml
+
+from recut.generate import article, newsletter, vidsmith
+from recut.ingest.markdown import ingest_text
+from recut.ingest.youtube import ingest_youtube
+from recut.models import ClaimSet
+from recut.pipeline import applicable, repurpose, unsupported, write_out
+
+from .test_pipeline import EXTRACT_REPLY, SOURCE, ScriptedLLM
+
+CUES = [
+    {"text": "the merchant name on a transaction is typed by the processor.", "start": 0.0, "duration": 4.0},
+    {"text": "the date you see is usually the settlement date.", "start": 4.0, "duration": 4.0},
+]
+
+
+@pytest.fixture
+def text_doc():
+    return ingest_text(SOURCE, source_ref="test")
+
+
+@pytest.fixture
+def video_doc():
+    return ingest_youtube("https://youtu.be/0PkBP0dk4Lw", cues=CUES, title="Statements")
+
+
+@pytest.fixture
+def claims(text_doc):
+    from recut.extract import extract
+
+    return extract(text_doc, ScriptedLLM([EXTRACT_REPLY]))
+
+
+def paragraph(words):
+    return " ".join(["processors"] * words)
+
+
+class TestTargetGuards:
+    def test_article_needs_a_timed_source(self, text_doc):
+        assert unsupported("article", text_doc) == "only offered for video and audio sources"
+
+    def test_article_is_offered_for_video(self, video_doc):
+        assert unsupported("article", video_doc) is None
+
+    def test_all_expands_differently_per_source(self, text_doc, video_doc):
+        assert "article" not in applicable(text_doc)
+        assert "article" in applicable(video_doc)
+        assert set(applicable(text_doc)) == {"linkedin", "thread", "newsletter", "vidsmith"}
+
+    def test_an_unrunnable_target_is_refused_by_name(self, text_doc):
+        with pytest.raises(ValueError, match="only offered for video"):
+            repurpose(text_doc, ["article"], ScriptedLLM([EXTRACT_REPLY]))
+
+
+class TestNewsletter:
+    def _reply(self, **over):
+        payload = {
+            "subject": "The date on your statement is not the date you paid",
+            "preview": "Settlement dates drift, and nobody tells you",
+            "body": "## Why\n\n" + paragraph(320),
+            "claim_ids": ["c0"],
+        }
+        payload.update(over)
+        return json.dumps(payload)
+
+    def test_subject_and_preview_are_verified_with_the_body(self, text_doc, claims):
+        llm = ScriptedLLM([self._reply(subject="Refunds rose 91% last quarter")])
+        art = newsletter.build(text_doc, claims, llm)
+        assert art.body.startswith("Subject: Refunds rose 91%")
+
+    def test_a_long_subject_is_flagged(self, text_doc, claims):
+        llm = ScriptedLLM([self._reply(subject="x" * 80)])
+        art = newsletter.build(text_doc, claims, llm)
+        assert "subject is 80 chars" in art.meta["format_violation"]
+
+    def test_a_long_preview_is_flagged(self, text_doc, claims):
+        llm = ScriptedLLM([self._reply(preview="y" * 120)])
+        assert "preview is 120 chars" in newsletter.build(text_doc, claims, llm).meta[
+            "format_violation"
+        ]
+
+    def test_a_short_issue_is_flagged(self, text_doc, claims):
+        llm = ScriptedLLM([self._reply(body="too short")])
+        assert "2 words" in newsletter.build(text_doc, claims, llm).meta["format_violation"]
+
+    def test_a_well_formed_issue_has_no_violation(self, text_doc, claims):
+        art = newsletter.build(text_doc, claims, ScriptedLLM([self._reply()]))
+        assert "format_violation" not in art.meta
+        assert art.meta["words"] == 322
+
+
+class TestArticle:
+    def _reply(self, **over):
+        payload = {
+            "title": "Settlement dates drift and nobody tells you",
+            "body": "## One\n\n" + paragraph(200) + "\n\n## Two\n\n" + paragraph(200),
+            "claim_ids": ["c0"],
+        }
+        payload.update(over)
+        return json.dumps(payload)
+
+    def test_title_becomes_an_h1(self, video_doc, claims):
+        art = article.build(video_doc, claims, ScriptedLLM([self._reply()]))
+        assert art.body.startswith("# Settlement dates drift")
+
+    def test_sections_are_counted(self, video_doc, claims):
+        art = article.build(video_doc, claims, ScriptedLLM([self._reply()]))
+        assert art.meta["sections"] == 2
+        assert "format_violation" not in art.meta
+
+    def test_one_section_is_flagged(self, video_doc, claims):
+        llm = ScriptedLLM([self._reply(body="## Only\n\n" + paragraph(600))])
+        assert "1 sections" in article.build(video_doc, claims, llm).meta["format_violation"]
+
+    def test_length_follows_the_material(self, video_doc, claims):
+        # Two claims cannot honestly fill 800 words, so the floor drops rather than
+        # inviting the model to pad.
+        art = article.build(video_doc, claims, ScriptedLLM([self._reply()]))
+        assert art.meta["target_words"] == 350
+
+    def test_the_prompt_asks_for_the_same_range_it_checks(self, video_doc, claims):
+        llm = ScriptedLLM([self._reply()])
+        article.build(video_doc, claims, llm)
+        assert "210 to 525 words" in llm.prompts[0]
+
+    def test_transcript_tells_are_flagged(self, video_doc, claims):
+        # An article that says "in this video" has not been repurposed, it has been
+        # transcribed with extra steps.
+        llm = ScriptedLLM([self._reply(body="## One\n\nIn this video we look at it. " + paragraph(600))])
+        violation = article.build(video_doc, claims, llm).meta["format_violation"]
+        assert "reads as a transcript: in this video" in violation
+
+
+class TestVidsmith:
+    def _scenes(self, count=6, narration="Merchant names come from the processor and not the shop."):
+        return [
+            {"heading": f"Beat {i}", "visual": "farmer walking away from a field", "narration": narration}
+            for i in range(count)
+        ]
+
+    def _reply(self, **over):
+        payload = {"title": "Statements lie about dates", "scenes": self._scenes(), "claim_ids": ["c0"]}
+        payload.update(over)
+        return json.dumps(payload)
+
+    def test_it_emits_a_project_not_a_paragraph(self, text_doc, claims):
+        art = vidsmith.build(text_doc, claims, ScriptedLLM([self._reply()]))
+        assert set(art.files) == {"vidsmith/script.md", "vidsmith/config.yaml"}
+
+    def test_the_script_is_in_vidsmith_format(self, text_doc, claims):
+        script = vidsmith.build(text_doc, claims, ScriptedLLM([self._reply()])).files[
+            "vidsmith/script.md"
+        ]
+        assert script.startswith("# Statements lie about dates")
+        assert script.count("## ") == 6
+        assert script.count("[visual: ") == 6
+
+    def test_the_config_is_valid_yaml_and_names_the_source(self, text_doc, claims):
+        raw = vidsmith.build(text_doc, claims, ScriptedLLM([self._reply()])).files[
+            "vidsmith/config.yaml"
+        ]
+        config = yaml.safe_load(raw)
+        assert config["title"] == "Statements lie about dates"
+        assert config["render"]["aspect"] == "9:16"
+        assert "test" in raw
+
+    def test_only_narration_is_verified(self, text_doc, claims):
+        # A visual query names things the source never did. That is correct: it is a
+        # stock search string, not a published sentence.
+        art = vidsmith.build(text_doc, claims, ScriptedLLM([self._reply()]))
+        assert "[visual:" not in art.body
+        assert "farmer walking" not in art.body
+
+    def test_too_few_scenes_is_flagged(self, text_doc, claims):
+        llm = ScriptedLLM([self._reply(scenes=self._scenes(3))])
+        assert "3 scenes" in vidsmith.build(text_doc, claims, llm).meta["format_violation"]
+
+    def test_symbols_a_voice_cannot_read_are_flagged(self, text_doc, claims):
+        scenes = self._scenes()
+        scenes[2]["narration"] = "Refunds rose 38% and nobody noticed the drift at all."
+        llm = ScriptedLLM([self._reply(scenes=scenes)])
+        assert "voice cannot read" in vidsmith.build(text_doc, claims, llm).meta["format_violation"]
+
+    def test_an_unfilmable_visual_query_is_flagged(self, text_doc, claims):
+        scenes = self._scenes()
+        scenes[1]["visual"] = "the concept of economic decline"
+        llm = ScriptedLLM([self._reply(scenes=scenes)])
+        assert "unfilmable visual queries" in vidsmith.build(text_doc, claims, llm).meta[
+            "format_violation"
+        ]
+
+    def test_a_missing_visual_query_is_flagged(self, text_doc, claims):
+        scenes = self._scenes()
+        scenes[0]["visual"] = ""
+        llm = ScriptedLLM([self._reply(scenes=scenes)])
+        assert "no visual query" in vidsmith.build(text_doc, claims, llm).meta["format_violation"]
+
+    def test_runtime_is_estimated_from_the_word_count(self, text_doc, claims):
+        art = vidsmith.build(text_doc, claims, ScriptedLLM([self._reply()]))
+        assert art.meta["words"] == 60
+        assert art.meta["estimated_seconds"] == pytest.approx(23.1, abs=0.1)
+
+    def test_the_project_lands_on_disk(self, text_doc, claims, tmp_path):
+        llm = ScriptedLLM([EXTRACT_REPLY, self._reply()])
+        claim_set, artifacts = repurpose(text_doc, ["vidsmith"], llm)
+        out = write_out(tmp_path / "run", text_doc, claim_set, artifacts)
+        assert (out / "vidsmith" / "script.md").exists()
+        assert (out / "vidsmith" / "config.yaml").exists()

@@ -1,0 +1,150 @@
+{
+  "id": "md-vidsmith",
+  "kind": "markdown",
+  "ref": "C:\\Users\\veera\\claude\\vidsmith\\README.md",
+  "title": "vidsmith",
+  "segments": 141,
+  "chars": 29674,
+  "extracted_claims": 52,
+  "dropped_unanchored": 0,
+  "targets": [
+    "linkedin",
+    "thread"
+  ],
+  "verifier_errors": {
+    "linkedin": [],
+    "thread": []
+  },
+  "format_violations": {},
+  "repaired": [
+    "linkedin",
+    "thread"
+  ],
+  "claim_utilisation": 0.15384615384615385,
+  "judged": {
+    "linkedin": {
+      "sentences": 8,
+      "claims": 8,
+      "unsupported": 1,
+      "rate": 0.125,
+      "unjudged": 0,
+      "verdicts": [
+        {
+          "n": 1,
+          "sentence": "Nothing transcribed the audio to place those captions: the speech engine reports when each word starts and stops.",
+          "verdict": "supported",
+          "why": "The source explicitly states that nothing transcribed the audio and that the speech engine reports when each word starts and stops."
+        },
+        {
+          "n": 2,
+          "sentence": "Most tools generate speech and then run Whisper over that audio to find out where the words landed. vidsmith avoids this by using Edge's TTS WordBoundary events to derive timing directly from the engine.",
+          "verdict": "supported",
+          "why": "The source describes how other tools use Whisper and how vidsmith uses WordBoundary events from Edge's TTS to get timings directly."
+        },
+        {
+          "n": 3,
+          "sentence": "This prevents drift and model dependency in the final output.",
+          "verdict": "supported",
+          "why": "The source states that this method means there is nothing to drift and no model to download."
+        },
+        {
+          "n": 4,
+          "sentence": "Because WordBoundary events drop punctuation, the system stitches it back onto the script before grouping captions.",
+          "verdict": "unsupported",
+          "why": "The source says punctuation is stitched back on 'from' the source script, not 'onto' the script. Punctuation is already in the script; it is missing from the timing events."
+        },
+        {
+          "n": 5,
+          "sentence": "The pipeline processes scripts through specific stages including scene splitting, b-roll searching, audio generation, visual normalization, caption creation, and multi-pass ffmpeg rendering.",
+          "verdict": "supported",
+          "why": "The source lists the pipeline stages in section [s94], which correspond to the stages mentioned in the sentence."
+        },
+        {
+          "n": 6,
+          "sentence": "Each stage skips work already present on disk to avoid redundant processing.",
+          "verdict": "supported",
+          "why": "The source states that every stage skips work it already has on disk."
+        },
+        {
+          "n": 7,
+          "sentence": "If a sentence exceeds the maximum shot duration, it is broken at the last comma.",
+          "verdict": "supported",
+          "why": "The source confirms that a sentence longer than max_shot_seconds is broken at its last comma."
+        },
+        {
+          "n": 8,
+          "sentence": "A demo build takes 62s to build.",
+          "verdict": "supported",
+          "why": "The source provides a log of a demo build that took exactly 62s to build."
+        }
+      ]
+    },
+    "thread": {
+      "sentences": 6,
+      "claims": 6,
+      "unsupported": 0,
+      "rate": 0.0,
+      "unjudged": 0,
+      "verdicts": [
+        {
+          "n": 1,
+          "sentence": "Nothing transcribed the audio to place those captions: the speech engine reports when each word starts and stops.",
+          "verdict": "supported",
+          "why": "The source explicitly states that nothing transcribed the audio and that the speech engine reports word start and stop times."
+        },
+        {
+          "n": 2,
+          "sentence": "Most tools generate speech, then run Whisper over that speech to find out where the words landed. vidsmith avoids this by using Edge's TTS WordBoundary events.",
+          "verdict": "supported",
+          "why": "The source mentions that most tools use Whisper but vidsmith uses Edge's TTS WordBoundary events instead."
+        },
+        {
+          "n": 3,
+          "sentence": "Punctuation is stitched back onto the script before captions are grouped because WordBoundary events drop it.",
+          "verdict": "supported",
+          "why": "The source states that punctuation is stitched back on from the script because the WordBoundary events drop it."
+        },
+        {
+          "n": 4,
+          "sentence": "Scenes are split into shots at sentence boundaries to avoid the look of generated video caused by long, unbroken takes.",
+          "verdict": "supported",
+          "why": "The source explains that scenes are split into shots at sentence boundaries to prevent the video from looking generated due to long takes."
+        },
+        {
+          "n": 5,
+          "sentence": "If a sentence exceeds the maximum shot duration, it is broken at the last comma.",
+          "verdict": "supported",
+          "why": "The source confirms that sentences longer than the maximum shot duration are broken at the last comma."
+        },
+        {
+          "n": 6,
+          "sentence": "Caption timing should be derived directly from the speech engine's WordBoundary events rather than through post-generation transcription to prevent drift.",
+          "verdict": "supported",
+          "why": "The source states that timings come from the engine to ensure there is nothing to drift and no transcription step to be wrong."
+        }
+      ]
+    }
+  },
+  "judged_claims": 14,
+  "judged_unsupported": 1,
+  "injections": {
+    "planted": 10,
+    "caught": 10,
+    "recall": 1.0,
+    "recall_by_rule": {
+      "number": 1.0,
+      "quote": 1.0,
+      "entity": 1.0,
+      "intensity": 1.0,
+      "citation": 1.0
+    },
+    "missed": [],
+    "clean_bodies": 2,
+    "false_positive_bodies": 0,
+    "false_positives": []
+  },
+  "bodies": {
+    "linkedin": "Nothing transcribed the audio to place those captions: the speech engine reports when each word starts and stops.\n\nMost tools generate speech and then run Whisper over that audio to find out where the words landed. vidsmith avoids this by using Edge's TTS WordBoundary events to derive timing directly from the engine. This prevents drift and model dependency in the final output.\n\nBecause WordBoundary events drop punctuation, the system stitches it back onto the script before grouping captions. The pipeline processes scripts through specific stages including scene splitting, b-roll searching, audio generation, visual normalization, caption creation, and multi-pass ffmpeg rendering. Each stage skips work already present on disk to avoid redundant processing.\n\nIf a sentence exceeds the maximum shot duration, it is broken at the last comma. A demo build takes 62s to build.\n\n#vidsmith #automation #videoediting",
+    "thread": "Nothing transcribed the audio to place those captions: the speech engine reports when each word starts and stops.\n\nMost tools generate speech, then run Whisper over that speech to find out where the words landed. vidsmith avoids this by using Edge's TTS WordBoundary events.\n\nPunctuation is stitched back onto the script before captions are grouped because WordBoundary events drop it.\n\nScenes are split into shots at sentence boundaries to avoid the look of generated video caused by long, unbroken takes.\n\nIf a sentence exceeds the maximum shot duration, it is broken at the last comma.\n\nCaption timing should be derived directly from the speech engine's WordBoundary events rather than through post-generation transcription to prevent drift."
+  }
+}

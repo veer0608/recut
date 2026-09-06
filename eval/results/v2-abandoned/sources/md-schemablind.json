@@ -1,0 +1,153 @@
+{
+  "id": "md-schemablind",
+  "kind": "markdown",
+  "ref": "C:\\Users\\veera\\claude\\schemablind\\README.md",
+  "title": "schemablind",
+  "segments": 77,
+  "chars": 13752,
+  "extracted_claims": 28,
+  "dropped_unanchored": 0,
+  "targets": [
+    "linkedin",
+    "thread"
+  ],
+  "verifier_errors": {
+    "linkedin": [],
+    "thread": []
+  },
+  "format_violations": {},
+  "repaired": [],
+  "claim_utilisation": 0.39285714285714285,
+  "judged": {
+    "linkedin": {
+      "sentences": 8,
+      "claims": 8,
+      "unsupported": 0,
+      "rate": 0.0,
+      "unjudged": 0,
+      "verdicts": [
+        {
+          "n": 1,
+          "sentence": "A SQL agent can be evaluated on its ability to perform schema discovery without being provided a pre-defined database schema.",
+          "verdict": "supported",
+          "why": "The source describes a 'schema-blind' agent that is given no schema and must find its own way to the answer using discovery verbs."
+        },
+        {
+          "n": 2,
+          "sentence": "This schema-blind agent runs 9.2 turns and 13,600 tokens per question on real BIRD databases.",
+          "verdict": "supported",
+          "why": "The source explicitly states that on real BIRD databases the agent runs 9.2 turns and 13,600 tokens per question."
+        },
+        {
+          "n": 3,
+          "sentence": "The agent uses four security layers to prevent untrusted SQL input from writing to the database: mode=ro, PRAGMA query_only, restricting to SELECT/WITH, and one statement per call.",
+          "verdict": "supported",
+          "why": "The source lists these exact four layers (mode=ro, PRAGMA query_only, SELECT/WITH only, and one statement per call) as the security measures for untrusted input."
+        },
+        {
+          "n": 4,
+          "sentence": "Execution accuracy is measured by comparing the rows returned by the agent's query and a reference query against the same database.",
+          "verdict": "supported",
+          "why": "The source defines execution accuracy as running the agent's query and the reference query against the same database and comparing the rows."
+        },
+        {
+          "n": 5,
+          "sentence": "A reference query that fails to run is not charged to the agent.",
+          "verdict": "supported",
+          "why": "The source states that a reference query that fails to run is never charged to the agent."
+        },
+        {
+          "n": 6,
+          "sentence": "On the openai/gpt-oss-120b model, the dev half achieved 43% execution accuracy, while the held-out half achieved 50% execution accuracy.",
+          "verdict": "supported",
+          "why": "The table in the source for openai/gpt-oss-120b shows 43% for the dev half and 50% for the held-out half."
+        },
+        {
+          "n": 7,
+          "sentence": "The free tier's daily token cap, rather than money, is the primary blocker for model testing.",
+          "verdict": "supported",
+          "why": "The source explicitly identifies the daily token cap, rather than money, as the blocker for the project."
+        },
+        {
+          "n": 8,
+          "sentence": "There is deliberately no salt used in the hashing process for splitting the test set.",
+          "verdict": "supported",
+          "why": "The source states that there is deliberately no salt to turn in the hashing process used to split the test set."
+        }
+      ]
+    },
+    "thread": {
+      "sentences": 7,
+      "claims": 7,
+      "unsupported": 0,
+      "rate": 0.0,
+      "unjudged": 0,
+      "verdicts": [
+        {
+          "n": 1,
+          "sentence": "A schema-blind agent on real BIRD databases runs 9.2 turns and 13,600 tokens per question.",
+          "verdict": "supported",
+          "why": "The source explicitly states that on real BIRD databases, the agent runs 9.2 turns and 13,600 tokens per question."
+        },
+        {
+          "n": 2,
+          "sentence": "This agent is given no schema and must find its own way to the answer using four verbs.",
+          "verdict": "supported",
+          "why": "The source describes the agent as being given no schema and having to find its own way to the answer using four specific verbs."
+        },
+        {
+          "n": 3,
+          "sentence": "To prevent untrusted SQL input from writing to the database, the agent uses four security layers including mode=ro and PRAGMA query_only.",
+          "verdict": "supported",
+          "why": "The source details four security layers used to handle untrusted input, specifically mentioning mode=ro and PRAGMA query_only."
+        },
+        {
+          "n": 4,
+          "sentence": "A reference query that fails to run is not charged to the agent.",
+          "verdict": "supported",
+          "why": "The source states that a reference query that fails to run is never charged to the agent."
+        },
+        {
+          "n": 5,
+          "sentence": "The free tier's daily token cap, rather than money, is the primary blocker for model testing.",
+          "verdict": "supported",
+          "why": "The source identifies the free tier's daily token cap, rather than money, as the factor blocking the project's completion."
+        },
+        {
+          "n": 6,
+          "sentence": "Tuning a prompt based on failed questions and then scoring it on those same questions results in a performance number fitted to the answer key.",
+          "verdict": "supported",
+          "why": "The source explains that tuning a prompt on failed questions and scoring it on those same questions results in a number fitted to its own answer key."
+        },
+        {
+          "n": 7,
+          "sentence": "Evaluation should determine where the accuracy-by-cost curve flattens rather than identifying a single best model.",
+          "verdict": "supported",
+          "why": "The source states the goal is to produce an accuracy x cost curve and find where it flattens, rather than just identifying the best model."
+        }
+      ]
+    }
+  },
+  "judged_claims": 15,
+  "judged_unsupported": 0,
+  "injections": {
+    "planted": 10,
+    "caught": 10,
+    "recall": 1.0,
+    "recall_by_rule": {
+      "number": 1.0,
+      "quote": 1.0,
+      "entity": 1.0,
+      "intensity": 1.0,
+      "citation": 1.0
+    },
+    "missed": [],
+    "clean_bodies": 2,
+    "false_positive_bodies": 0,
+    "false_positives": []
+  },
+  "bodies": {
+    "linkedin": "A SQL agent can be evaluated on its ability to perform schema discovery without being provided a pre-defined database schema.\n\nThis schema-blind agent runs 9.2 turns and 13,600 tokens per question on real BIRD databases. The agent uses four security layers to prevent untrusted SQL input from writing to the database: mode=ro, PRAGMA query_only, restricting to SELECT/WITH, and one statement per call.\n\nExecution accuracy is measured by comparing the rows returned by the agent's query and a reference query against the same database. A reference query that fails to run is not charged to the agent.\n\nOn the openai/gpt-oss-120b model, the dev half achieved 43% execution accuracy, while the held-out half achieved 50% execution accuracy. The free tier's daily token cap, rather than money, is the primary blocker for model testing.\n\nThere is deliberately no salt used in the hashing process for splitting the test set.\n\n#sql #llm #database",
+    "thread": "A schema-blind agent on real BIRD databases runs 9.2 turns and 13,600 tokens per question.\n\nThis agent is given no schema and must find its own way to the answer using four verbs.\n\nTo prevent untrusted SQL input from writing to the database, the agent uses four security layers including mode=ro and PRAGMA query_only.\n\nA reference query that fails to run is not charged to the agent.\n\nThe free tier's daily token cap, rather than money, is the primary blocker for model testing.\n\nTuning a prompt based on failed questions and then scoring it on those same questions results in a performance number fitted to the answer key.\n\nEvaluation should determine where the accuracy-by-cost curve flattens rather than identifying a single best model."
+  }
+}

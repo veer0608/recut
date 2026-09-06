@@ -1,0 +1,147 @@
+{
+  "id": "md-reruns",
+  "kind": "markdown",
+  "ref": "C:\\Users\\veera\\claude\\reruns\\README.md",
+  "title": "reruns",
+  "segments": 61,
+  "chars": 14231,
+  "extracted_claims": 25,
+  "dropped_unanchored": 0,
+  "targets": [
+    "linkedin",
+    "thread"
+  ],
+  "verifier_errors": {
+    "linkedin": [],
+    "thread": []
+  },
+  "format_violations": {},
+  "repaired": [],
+  "claim_utilisation": 0.32,
+  "judged": {
+    "linkedin": {
+      "sentences": 8,
+      "claims": 8,
+      "unsupported": 0,
+      "rate": 0.0,
+      "unjudged": 0,
+      "verdicts": [
+        {
+          "n": 1,
+          "sentence": "In 24 trials, every write occurred after the simulated customer had left, and all 24 of these trials passed.",
+          "verdict": "supported",
+          "why": "The source explicitly mentions that in 24 trials every write occurred after the customer left and all 24 passed."
+        },
+        {
+          "n": 2,
+          "sentence": "Evaluating support agent reliability requires testing across multiple independent trials.",
+          "verdict": "supported",
+          "why": "The source states that running a task multiple times (five times) is how you learn whether an agent can be relied on, which is a measure of reliability."
+        },
+        {
+          "n": 3,
+          "sentence": "The reruns benchmark runs every task \"five times\" to determine which ones survive.",
+          "verdict": "supported",
+          "why": "The source describes the benchmark as running every task five times and reporting what survives."
+        },
+        {
+          "n": 4,
+          "sentence": "An agent scoring \"0.60\" on single attempts would sit near 0.08 on five independent trials.",
+          "verdict": "supported",
+          "why": "This is a direct quote from the source regarding the statistical outcome of independent trials."
+        },
+        {
+          "n": 5,
+          "sentence": "A task passes only when the final database matches the expected state, the transcript follows the policy, and the required tools are used correctly.",
+          "verdict": "supported",
+          "why": "The source specifies that a task passes only when three conditions hold: state (database matches), calls (required tools used), and policy (transcript followed policy)."
+        },
+        {
+          "n": 6,
+          "sentence": "The grader does not require the agent to speak, allowing tasks like status_question to be passed in total silence.",
+          "verdict": "supported",
+          "why": "The source states that nothing in the grader requires the agent to speak and specifically mentions status_question can be passed in silence."
+        },
+        {
+          "n": 7,
+          "sentence": "The --regrade feature allows re-scoring finished trials from disk without re-running the model, saving costs when grading rules change.",
+          "verdict": "supported",
+          "why": "The source explains that --regrade replays saved calls without touching a model, allowing re-scoring from disk when rules change."
+        },
+        {
+          "n": 8,
+          "sentence": "Testing agents requires letting them break rules to see if they follow them.",
+          "verdict": "supported",
+          "why": "The source explicitly states that the only way to find out whether an agent follows a policy is to let it break one."
+        }
+      ]
+    },
+    "thread": {
+      "sentences": 6,
+      "claims": 6,
+      "unsupported": 0,
+      "rate": 0.0,
+      "unjudged": 0,
+      "verdicts": [
+        {
+          "n": 1,
+          "sentence": "In 24 trials, every write occurred after the simulated customer had left, and all 24 of these trials passed.",
+          "verdict": "supported",
+          "why": "The source explicitly mentions that in 24 trials every write occurred after the customer left and that all 24 of those trials passed."
+        },
+        {
+          "n": 2,
+          "sentence": "The reruns benchmark runs every task five times and reports which ones survive.",
+          "verdict": "supported",
+          "why": "The source describes the benchmark as running every task five times and reporting what survives."
+        },
+        {
+          "n": 3,
+          "sentence": "An agent scoring 0.60 on single attempts would sit near 0.08 on five independent trials.",
+          "verdict": "supported",
+          "why": "This is a direct quote from the source regarding the statistical drop-off between single attempts and five independent trials."
+        },
+        {
+          "n": 4,
+          "sentence": "A task passes only when the final database matches the expected state, the transcript follows the policy, and the required tools are used correctly.",
+          "verdict": "supported",
+          "why": "The source states a task passes only when all three criteria (state, calls, and policy) hold, which correspond to the database matching, tool usage, and policy adherence."
+        },
+        {
+          "n": 5,
+          "sentence": "The backend is designed to permit policy violations to determine if an agent follows rules when it is actually possible to break them.",
+          "verdict": "supported",
+          "why": "The source explains that the backend is designed to permit violations because the only way to verify policy adherence is to allow the agent the opportunity to break it."
+        },
+        {
+          "n": 6,
+          "sentence": "To accurately evaluate a support agent's reliability, one must test it across multiple independent trials rather than relying on single-turn success rates.",
+          "verdict": "supported",
+          "why": "The source argues that single-turn success (pass@1) does not measure reliability and that multiple trials are necessary to determine if an agent can be relied upon."
+        }
+      ]
+    }
+  },
+  "judged_claims": 14,
+  "judged_unsupported": 0,
+  "injections": {
+    "planted": 10,
+    "caught": 10,
+    "recall": 1.0,
+    "recall_by_rule": {
+      "number": 1.0,
+      "quote": 1.0,
+      "entity": 1.0,
+      "intensity": 1.0,
+      "citation": 1.0
+    },
+    "missed": [],
+    "clean_bodies": 2,
+    "false_positive_bodies": 0,
+    "false_positives": []
+  },
+  "bodies": {
+    "linkedin": "In 24 trials, every write occurred after the simulated customer had left, and all 24 of these trials passed.\n\nEvaluating support agent reliability requires testing across multiple independent trials. The reruns benchmark runs every task \"five times\" to determine which ones survive.\n\nAn agent scoring \"0.60\" on single attempts would sit near 0.08 on five independent trials. A task passes only when the final database matches the expected state, the transcript follows the policy, and the required tools are used correctly.\n\nThe grader does not require the agent to speak, allowing tasks like status_question to be passed in total silence. The --regrade feature allows re-scoring finished trials from disk without re-running the model, saving costs when grading rules change.\n\nTesting agents requires letting them break rules to see if they follow them.",
+    "thread": "In 24 trials, every write occurred after the simulated customer had left, and all 24 of these trials passed.\n\nThe reruns benchmark runs every task five times and reports which ones survive.\n\nAn agent scoring 0.60 on single attempts would sit near 0.08 on five independent trials.\n\nA task passes only when the final database matches the expected state, the transcript follows the policy, and the required tools are used correctly.\n\nThe backend is designed to permit policy violations to determine if an agent follows rules when it is actually possible to break them.\n\nTo accurately evaluate a support agent's reliability, one must test it across multiple independent trials rather than relying on single-turn success rates."
+  }
+}

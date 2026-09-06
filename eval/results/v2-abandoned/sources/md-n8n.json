@@ -1,0 +1,150 @@
+{
+  "id": "md-n8n",
+  "kind": "markdown",
+  "ref": "C:\\Users\\veera\\claude\\n8n-statement-extractor\\README.md",
+  "title": "Statement & Invoice PDF \u2192 Reconciled Rows",
+  "segments": 46,
+  "chars": 11348,
+  "extracted_claims": 16,
+  "dropped_unanchored": 0,
+  "targets": [
+    "linkedin",
+    "thread"
+  ],
+  "verifier_errors": {
+    "linkedin": [],
+    "thread": []
+  },
+  "format_violations": {},
+  "repaired": [
+    "linkedin",
+    "thread"
+  ],
+  "claim_utilisation": 0.5,
+  "judged": {
+    "linkedin": {
+      "sentences": 8,
+      "claims": 8,
+      "unsupported": 0,
+      "rate": 0.0,
+      "unjudged": 0,
+      "verdicts": [
+        {
+          "n": 1,
+          "sentence": "The Date object can silently corrupt dates where days are 12 or less by interpreting them as months.",
+          "verdict": "supported",
+          "why": "The source explicitly states that for the Date object, days less than or equal to 12 corrupt silently because JS assumes a MM/DD/YYYY format."
+        },
+        {
+          "n": 2,
+          "sentence": "Automated document extraction should rely on deterministic parsing for data extraction and arithmetic validation for proof, rather than relying solely on vision models to interpret raw numbers.",
+          "verdict": "supported",
+          "why": "The source contrasts its deterministic extraction and arithmetic check approach against the common practice of piping PDFs into vision models, which it claims leads to drift."
+        },
+        {
+          "n": 3,
+          "sentence": "The design rule is that the model never touches a number it could invent.",
+          "verdict": "supported",
+          "why": "This is a direct quote from the source under the heading 'The design rule'."
+        },
+        {
+          "n": 4,
+          "sentence": "The workflow uses deterministic extraction for values and uses the model only to assign columns.",
+          "verdict": "supported",
+          "why": "The source states that extraction pulls values deterministically and the model only says which column each one goes in (assigns roles)."
+        },
+        {
+          "n": 5,
+          "sentence": "In a test of 16 rows, the LLM node structured 15 of 16 rows correctly and got one wrong.",
+          "verdict": "supported",
+          "why": "The source explicitly mentions a test where the model structured 15 of 16 rows correctly and got one wrong."
+        },
+        {
+          "n": 6,
+          "sentence": "A row is never counted as reconciled unless it was actually verified.",
+          "verdict": "supported",
+          "why": "This is a direct quote from the source regarding the reconciliation reporting states."
+        },
+        {
+          "n": 7,
+          "sentence": "The reconciliation process is performed row-by-row rather than just comparing opening and closing balances to catch movement errors.",
+          "verdict": "supported",
+          "why": "The source explains that the check is row-by-row rather than just opening-vs-closing to catch movement errors in the middle."
+        },
+        {
+          "n": 8,
+          "sentence": "Extraction has been proven on a real 86-row card statement, but no real balance-column statement has been reconciled yet.",
+          "verdict": "supported",
+          "why": "The source explicitly states that extraction is proven on a real 86-row card statement but no real balance-column statement has been reconciled yet."
+        }
+      ]
+    },
+    "thread": {
+      "sentences": 6,
+      "claims": 6,
+      "unsupported": 0,
+      "rate": 0.0,
+      "unjudged": 0,
+      "verdicts": [
+        {
+          "n": 1,
+          "sentence": "The design rule is that the model never touches a number it could invent.",
+          "verdict": "supported",
+          "why": "The source explicitly states this as 'The design rule' in bold text."
+        },
+        {
+          "n": 2,
+          "sentence": "The workflow uses deterministic extraction for values and uses the model only to assign columns.",
+          "verdict": "supported",
+          "why": "The source states that extraction pulls values deterministically and the model only says which column each one goes in."
+        },
+        {
+          "n": 3,
+          "sentence": "A row is never counted as reconciled unless it was actually verified.",
+          "verdict": "supported",
+          "why": "The source contains this exact sentence verbatim."
+        },
+        {
+          "n": 4,
+          "sentence": "In a test of 16 rows, the LLM node structured 15 of 16 rows correctly and got one wrong.",
+          "verdict": "supported",
+          "why": "The source states that when tested against a real model, it structured 15 of 16 rows correctly and got one wrong."
+        },
+        {
+          "n": 5,
+          "sentence": "In a digital run of the workflow, 16/16 rows, 100% reconciled.",
+          "verdict": "supported",
+          "why": "The source provides a table and summary showing the digital run resulted in 16/16 rows being 100% reconciled."
+        },
+        {
+          "n": 6,
+          "sentence": "Automated document extraction should rely on deterministic parsing for data extraction and arithmetic validation for proof, rather than relying solely on vision models to interpret raw numbers.",
+          "verdict": "supported",
+          "why": "The source advocates for this approach by contrasting its deterministic extraction and arithmetic checks against the 'hope' of vision models used by others."
+        }
+      ]
+    }
+  },
+  "judged_claims": 14,
+  "judged_unsupported": 0,
+  "injections": {
+    "planted": 10,
+    "caught": 10,
+    "recall": 1.0,
+    "recall_by_rule": {
+      "number": 1.0,
+      "quote": 1.0,
+      "entity": 1.0,
+      "intensity": 1.0,
+      "citation": 1.0
+    },
+    "missed": [],
+    "clean_bodies": 2,
+    "false_positive_bodies": 0,
+    "false_positives": []
+  },
+  "bodies": {
+    "linkedin": "The Date object can silently corrupt dates where days are 12 or less by interpreting them as months.\n\nAutomated document extraction should rely on deterministic parsing for data extraction and arithmetic validation for proof, rather than relying solely on vision models to interpret raw numbers. The design rule is that the model never touches a number it could invent. The workflow uses deterministic extraction for values and uses the model only to assign columns.\n\nIn a test of 16 rows, the LLM node structured 15 of 16 rows correctly and got one wrong. A row is never counted as reconciled unless it was actually verified. The reconciliation process is performed row-by-row rather than just comparing opening and closing balances to catch movement errors.\n\nExtraction has been proven on a real 86-row card statement, but no real balance-column statement has been reconciled yet.",
+    "thread": "The design rule is that the model never touches a number it could invent.\n\nThe workflow uses deterministic extraction for values and uses the model only to assign columns.\n\nA row is never counted as reconciled unless it was actually verified.\n\nIn a test of 16 rows, the LLM node structured 15 of 16 rows correctly and got one wrong.\n\nIn a digital run of the workflow, 16/16 rows, 100% reconciled.\n\nAutomated document extraction should rely on deterministic parsing for data extraction and arithmetic validation for proof, rather than relying solely on vision models to interpret raw numbers."
+  }
+}

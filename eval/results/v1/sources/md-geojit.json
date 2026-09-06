@@ -1,0 +1,161 @@
+{
+  "id": "md-geojit",
+  "kind": "markdown",
+  "ref": "C:\\Users\\veera\\claude\\geojit-report-app\\README.md",
+  "title": "Equity Research Report Generator (Geojit-style)",
+  "segments": 41,
+  "chars": 7397,
+  "extracted_claims": 12,
+  "dropped_unanchored": 0,
+  "targets": [
+    "linkedin",
+    "thread"
+  ],
+  "verifier_errors": {
+    "linkedin": [],
+    "thread": [
+      "[error/citation] 'THESIS': cites a claim id that does not exist"
+    ]
+  },
+  "format_violations": {},
+  "repaired": [],
+  "claim_utilisation": 0.9166666666666666,
+  "judged": {
+    "linkedin": {
+      "sentences": 8,
+      "claims": 8,
+      "unsupported": 0,
+      "rate": 0.0,
+      "unjudged": 0,
+      "verdicts": [
+        {
+          "n": 1,
+          "sentence": "The LLM extraction path automatically degrades to the deterministic path if an error occurs, ensuring generation never breaks.",
+          "verdict": "supported",
+          "why": "s14 states that the LLM path degrades gracefully to the deterministic path on any error, so generation never breaks."
+        },
+        {
+          "n": 2,
+          "sentence": "This Equity Research Report Generator produces PDF notes that mirror the layout of Geojit-style reports.",
+          "verdict": "supported",
+          "why": "s1 states the generator turns documents into a PDF research report mirroring the layout of a Geojit-style equity-research note."
+        },
+        {
+          "n": 3,
+          "sentence": "The system supports PDF, CSV, and TXT input formats while using ReportLab and matplotlib for rendering charts and documents.",
+          "verdict": "supported",
+          "why": "s1, s18, s26, and s32 support input formats (PDF, CSV, TXT) and using ReportLab and matplotlib for rendering PDF and charts."
+        },
+        {
+          "n": 4,
+          "sentence": "Developers can achieve a pixel-for-pixel match of a specific Geojit PDF by modifying the theme, geometry, and section spacing in the configuration files.",
+          "verdict": "supported",
+          "why": "s38 states that to match a specific Geojit PDF pixel-for-pixel, adjust colors/geometry in config.py and section order/spacing in pdf_builder.py."
+        },
+        {
+          "n": 5,
+          "sentence": "The underlying data model and extraction logic remain unchanged during this process.",
+          "verdict": "supported",
+          "why": "s38 explicitly notes that 'The data model and extraction don't need to change.'"
+        },
+        {
+          "n": 6,
+          "sentence": "Missing fields in the input data are rendered as 'NA' in the final report.",
+          "verdict": "supported",
+          "why": "s26 states that missing fields render as 'NA'."
+        },
+        {
+          "n": 7,
+          "sentence": "The project is built using Python 3.11, FastAPI, and uvicorn.",
+          "verdict": "supported",
+          "why": "s32 states Python 3.11, FastAPI + Uvicorn are used."
+        },
+        {
+          "n": 8,
+          "sentence": "These generated reports are not investment advice.",
+          "verdict": "supported",
+          "why": "s40 explicitly states 'Generated reports are not investment advice.'"
+        }
+      ]
+    },
+    "thread": {
+      "sentences": 7,
+      "claims": 7,
+      "unsupported": 0,
+      "rate": 0.0,
+      "unjudged": 0,
+      "verdicts": [
+        {
+          "n": 1,
+          "sentence": "The LLM extraction path automatically degrades to the deterministic path on any error, ensuring report generation never breaks.",
+          "verdict": "supported",
+          "why": "The source explicitly states that the LLM path degrades gracefully to the deterministic path on any error so generation never breaks."
+        },
+        {
+          "n": 2,
+          "sentence": "This system supports PDF, CSV, and TXT input formats to feed the extraction engine.",
+          "verdict": "supported",
+          "why": "The source confirms support for PDF, CSV, and TXT input formats."
+        },
+        {
+          "n": 3,
+          "sentence": "Missing fields in the input data are rendered as 'NA' in the final report.",
+          "verdict": "supported",
+          "why": "The source notes that missing fields render as 'NA' on the report."
+        },
+        {
+          "n": 4,
+          "sentence": "The project uses Python 3.11, FastAPI, and Uvicorn to handle the backend logic.",
+          "verdict": "supported",
+          "why": "The tech stack listed in the source includes Python 3.11, FastAPI, and Uvicorn."
+        },
+        {
+          "n": 5,
+          "sentence": "Users can achieve a pixel-for-pixel match of a Geojit PDF by modifying theme, geometry, and section spacing in configuration files.",
+          "verdict": "supported",
+          "why": "The source explains how to match a Geojit PDF pixel-for-pixel by adjusting theme/geometry in config.py and spacing/order in pdf_builder.py."
+        },
+        {
+          "n": 6,
+          "sentence": "The data model and extraction logic do not require changes to match a specific PDF style.",
+          "verdict": "supported",
+          "why": "The source directly states that the data model and extraction do not need to change to achieve this."
+        },
+        {
+          "n": 7,
+          "sentence": "Automating the creation of equity research reports is achievable through a modular system that combines flexible data extraction with a standardized PDF rendering pipeline.",
+          "verdict": "supported",
+          "why": "The source demonstrates and details a modular system doing this exact process with extraction and rendering pipelines."
+        }
+      ]
+    }
+  },
+  "judged_claims": 15,
+  "judged_unsupported": 0,
+  "injections": {
+    "planted": 8,
+    "caught": 8,
+    "recall": 1.0,
+    "recall_by_rule": {
+      "number": 1.0,
+      "quote": 1.0,
+      "entity": 1.0,
+      "citation": 1.0
+    },
+    "missed": [],
+    "clean_bodies": 2,
+    "false_positive_bodies": 1,
+    "false_positives": [
+      {
+        "target": "thread",
+        "spans": [
+          "[error/citation] 'THESIS': cites a claim id that does not exist"
+        ]
+      }
+    ]
+  },
+  "bodies": {
+    "linkedin": "The LLM extraction path automatically degrades to the deterministic path if an error occurs, ensuring generation never breaks.\n\nThis Equity Research Report Generator produces PDF notes that mirror the layout of Geojit-style reports. The system supports PDF, CSV, and TXT input formats while using ReportLab and matplotlib for rendering charts and documents.\n\nDevelopers can achieve a pixel-for-pixel match of a specific Geojit PDF by modifying the theme, geometry, and section spacing in the configuration files. The underlying data model and extraction logic remain unchanged during this process.\n\nMissing fields in the input data are rendered as 'NA' in the final report. The project is built using Python 3.11, FastAPI, and uvicorn.\n\nThese generated reports are not investment advice.\n\n#python #fintech",
+    "thread": "The LLM extraction path automatically degrades to the deterministic path on any error, ensuring report generation never breaks.\n\nThis system supports PDF, CSV, and TXT input formats to feed the extraction engine.\n\nMissing fields in the input data are rendered as 'NA' in the final report.\n\nThe project uses Python 3.11, FastAPI, and Uvicorn to handle the backend logic.\n\nUsers can achieve a pixel-for-pixel match of a Geojit PDF by modifying theme, geometry, and section spacing in configuration files.\n\nThe data model and extraction logic do not require changes to match a specific PDF style.\n\nAutomating the creation of equity research reports is achievable through a modular system that combines flexible data extraction with a standardized PDF rendering pipeline."
+  }
+}

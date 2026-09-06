@@ -1,0 +1,152 @@
+{
+  "id": "md-reruns",
+  "kind": "markdown",
+  "ref": "C:\\Users\\veera\\claude\\reruns\\README.md",
+  "title": "reruns",
+  "segments": 61,
+  "chars": 14231,
+  "extracted_claims": 20,
+  "dropped_unanchored": 0,
+  "targets": [
+    "linkedin",
+    "thread"
+  ],
+  "verifier_errors": {
+    "linkedin": [],
+    "thread": []
+  },
+  "format_violations": {},
+  "repaired": [],
+  "claim_utilisation": 0.4,
+  "judged": {
+    "linkedin": {
+      "sentences": 9,
+      "claims": 9,
+      "unsupported": 0,
+      "rate": 0.0,
+      "unjudged": 0,
+      "verdicts": [
+        {
+          "n": 1,
+          "sentence": "An agent scoring 0.60 on single attempts would sit near 0.08 on five trials if they were independent.",
+          "verdict": "supported",
+          "why": "Matches s6: 'An agent scoring 0.60 on single attempts, if its trials were independent, would sit near 0.08 on five.'"
+        },
+        {
+          "n": 2,
+          "sentence": "Reliability in support agents should be measured by running tasks multiple times to see if they consistently follow policy, rather than relying on single-attempt success rates.",
+          "verdict": "supported",
+          "why": "Matches the core thesis established across s2, s6, and s26-s27 regarding testing reliability through repeated trials versus single-attempt success."
+        },
+        {
+          "n": 3,
+          "sentence": "The support agent benchmark runs every task \"five times\".",
+          "verdict": "supported",
+          "why": "Directly matches s2: 'A support agent benchmark that runs every task **five times** and reports what survives.'"
+        },
+        {
+          "n": 4,
+          "sentence": "A task passes only when the final state, tool usage, and policy adherence all hold.",
+          "verdict": "supported",
+          "why": "Matches s14-s18 stating a task passes only when all three hold (state, calls, policy)."
+        },
+        {
+          "n": 5,
+          "sentence": "The backend is designed to permit policy violations so that the agent's adherence can be tested.",
+          "verdict": "supported",
+          "why": "Matches s21-s22: backend permits every violation by design because the only way to find out if an agent follows policy is to let it break one."
+        },
+        {
+          "n": 6,
+          "sentence": "In the current run, 29 of 37 state-changing calls occurred after the simulated customer had left.",
+          "verdict": "supported",
+          "why": "Matches s56: 'Across this run's banked trials, 29 of 37 state-changing calls happened after the simulated customer had left'"
+        },
+        {
+          "n": 7,
+          "sentence": "The evaluation harness uses two fixture tasks, oracle and mute, which must score 1.000 and 0.000 respectively to ensure the scoring logic remains valid.",
+          "verdict": "supported",
+          "why": "Matches s35-s36 detailing the two fixtures `oracle` (must score 1.000) and `mute` (must score 0.000) used to ensure grading logic/invariants hold in CI."
+        },
+        {
+          "n": 8,
+          "sentence": "The evaluation suite consists of twenty hand-written tasks rather than tasks sampled from real support logs.",
+          "verdict": "supported",
+          "why": "Matches s58: 'The twenty tasks are hand-written, not sampled from real support logs'"
+        },
+        {
+          "n": 9,
+          "sentence": "Run that task once and you learn whether the agent can do it; run it five times and you learn whether it can be relied on.",
+          "verdict": "supported",
+          "why": "Matches s6: 'Run that task once and you learn whether the agent can do it. Run it five times and you learn whether it can be relied on to'"
+        }
+      ]
+    },
+    "thread": {
+      "sentences": 6,
+      "claims": 6,
+      "unsupported": 1,
+      "rate": 0.16666666666666666,
+      "unjudged": 0,
+      "verdicts": [
+        {
+          "n": 1,
+          "sentence": "The backend is designed to permit policy violations so that the agent's adherence can be tested.",
+          "verdict": "supported",
+          "why": "The source explicitly states that the backend permits every violation by design so that it can find out whether an agent follows policy."
+        },
+        {
+          "n": 2,
+          "sentence": "The support agent benchmark runs every task five times.",
+          "verdict": "supported",
+          "why": "The source states that this support agent benchmark runs every task five times."
+        },
+        {
+          "n": 3,
+          "sentence": "An agent scoring 0.60 on single attempts would sit near 0.08 on five trials if they were independent.",
+          "verdict": "supported",
+          "why": "The source explicitly notes that an agent scoring 0.60 on single attempts with independent trials would sit near 0.08 on five."
+        },
+        {
+          "n": 4,
+          "sentence": "A task passes only when the final state, tool usage, and policy adherence all hold.",
+          "verdict": "supported",
+          "why": "The source states that a task passes only when all three verdicts (state, calls/tool usage, and policy) hold."
+        },
+        {
+          "n": 5,
+          "sentence": "Pass^k is defined as the share of tasks that passed on all k trials.",
+          "verdict": "supported",
+          "why": "The source explicitly defines pass^k as the 'share of TASKS that passed on all k trials'."
+        },
+        {
+          "n": 6,
+          "sentence": "Reliability in support agents should be measured by running tasks multiple times to see if they consistently follow policy, rather than relying on single-attempt success rates.",
+          "verdict": "unsupported",
+          "why": "The source contrasts running tasks once versus five times to evaluate reliability, but it does not make the normative claim that support agent reliability 'should be measured' in this specific way."
+        }
+      ]
+    }
+  },
+  "judged_claims": 15,
+  "judged_unsupported": 1,
+  "injections": {
+    "planted": 8,
+    "caught": 8,
+    "recall": 1.0,
+    "recall_by_rule": {
+      "number": 1.0,
+      "quote": 1.0,
+      "entity": 1.0,
+      "citation": 1.0
+    },
+    "missed": [],
+    "clean_bodies": 2,
+    "false_positive_bodies": 0,
+    "false_positives": []
+  },
+  "bodies": {
+    "linkedin": "An agent scoring 0.60 on single attempts would sit near 0.08 on five trials if they were independent.\n\nReliability in support agents should be measured by running tasks multiple times to see if they consistently follow policy, rather than relying on single-attempt success rates. The support agent benchmark runs every task \"five times\".\n\nA task passes only when the final state, tool usage, and policy adherence all hold. The backend is designed to permit policy violations so that the agent's adherence can be tested.\n\nIn the current run, 29 of 37 state-changing calls occurred after the simulated customer had left. The evaluation harness uses two fixture tasks, oracle and mute, which must score 1.000 and 0.000 respectively to ensure the scoring logic remains valid.\n\nThe evaluation suite consists of twenty hand-written tasks rather than tasks sampled from real support logs. Run that task once and you learn whether the agent can do it; run it five times and you learn whether it can be relied on.",
+    "thread": "The backend is designed to permit policy violations so that the agent's adherence can be tested.\n\nThe support agent benchmark runs every task five times.\n\nAn agent scoring 0.60 on single attempts would sit near 0.08 on five trials if they were independent.\n\nA task passes only when the final state, tool usage, and policy adherence all hold.\n\nPass^k is defined as the share of tasks that passed on all k trials.\n\nReliability in support agents should be measured by running tasks multiple times to see if they consistently follow policy, rather than relying on single-attempt success rates."
+  }
+}

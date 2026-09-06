@@ -1,0 +1,166 @@
+{
+  "id": "art-ocr",
+  "kind": "article",
+  "ref": "https://en.wikipedia.org/wiki/Optical_character_recognition",
+  "title": "Optical character recognition - Wikipedia",
+  "segments": 48,
+  "chars": 31494,
+  "extracted_claims": 40,
+  "dropped_unanchored": 0,
+  "targets": [
+    "linkedin",
+    "thread"
+  ],
+  "verifier_errors": {
+    "linkedin": [],
+    "thread": []
+  },
+  "format_violations": {},
+  "repaired": [
+    "thread"
+  ],
+  "claim_utilisation": 0.3,
+  "judged": {
+    "linkedin": {
+      "sentences": 10,
+      "claims": 10,
+      "unsupported": 3,
+      "rate": 0.3,
+      "unjudged": 0,
+      "verdicts": [
+        {
+          "n": 1,
+          "sentence": "Some OCR technology claims to capture 99.91% of data.",
+          "verdict": "supported",
+          "why": "Reference 41 explicitly titles an article 'How the Best OCR Technology Captures 99.91% of Data'."
+        },
+        {
+          "n": 2,
+          "sentence": "This evolution began in 1914 when Emanuel Goldberg developed a machine that converted characters into standard telegraph code.",
+          "verdict": "supported",
+          "why": "The source states in [s3] that early OCR traces to telegraphy technologies, and in 1914 Emanuel Goldberg developed a machine that read characters and converted them into standard telegraph code."
+        },
+        {
+          "n": 3,
+          "sentence": "By 1931, he was granted US Patent number 1,838,389 for a statistical machine used to search microfilm archives.",
+          "verdict": "supported",
+          "why": "The source states in [s4] that Goldberg developed a Statistical Machine for searching microfilm archives and was granted US Patent number 1,838,389 in 1931."
+        },
+        {
+          "n": 4,
+          "sentence": "Modern systems have moved far beyond those early experiments.",
+          "verdict": "supported",
+          "why": "This is a reasonable summary/paraphrase of the progression from early historical experiments in [s3]-[s4] to advanced modern systems described in [s2], [s6], and [s19]."
+        },
+        {
+          "n": 5,
+          "sentence": "Today, tools like PaddleOCR support over 80 languages, while specialized processes like binarization convert images to black-and-white to separate text from the background.",
+          "verdict": "supported",
+          "why": "The source explicitly states in [s19] that PaddleOCR supports over 80 languages, and in [s14] that binarization converts images to black-and-white to separate text from the background."
+        },
+        {
+          "n": 6,
+          "sentence": "Other systems use the Levenshtein Distance algorithm to optimize results during post-processing.",
+          "verdict": "supported",
+          "why": "The source states in [s27] that the Levenshtein Distance algorithm has been used in OCR post-processing to further optimize results."
+        },
+        {
+          "n": 7,
+          "sentence": "Efficiency remains a priority for large-scale operations.",
+          "verdict": "unsupported",
+          "why": "The source mentions efficiency in algorithms, but does not state that efficiency remains a priority for large-scale operations."
+        },
+        {
+          "n": 8,
+          "sentence": "The New York Times uses a tool called Document Helper to process up to 5,400 pages per hour.",
+          "verdict": "supported",
+          "why": "The source states in [s29] that The New York Times uses a tool named Document Helper that enables them to process up to 5,400 pages per hour."
+        },
+        {
+          "n": 9,
+          "sentence": "Despite these advancements, OCR systems still encounter 'scannos' when processing complex documents.",
+          "verdict": "unsupported",
+          "why": "The source defines a 'scanno' in [s42] as an error introduced by OCR scanning, but does not claim that they specifically occur when processing complex documents."
+        },
+        {
+          "n": 10,
+          "sentence": "Accuracy is the ultimate metric for machine-encoded text.",
+          "verdict": "unsupported",
+          "why": "The source discusses accuracy measurements in [s37] and [s38], but never claims that accuracy is the 'ultimate metric'."
+        }
+      ]
+    },
+    "thread": {
+      "sentences": 7,
+      "claims": 7,
+      "unsupported": 0,
+      "rate": 0.0,
+      "unjudged": 0,
+      "verdicts": [
+        {
+          "n": 1,
+          "sentence": "Some OCR technology claims to capture 99.91% of data.",
+          "verdict": "supported",
+          "why": "The source includes reference [41] titled 'How the Best OCR Technology Captures 99.91% of Data'."
+        },
+        {
+          "n": 2,
+          "sentence": "Errors in this process are sometimes referred to as 'scannos'.",
+          "verdict": "supported",
+          "why": "The source explicitly states in paragraph [s42] that an error introduced by OCR scanning is sometimes termed a 'scanno'."
+        },
+        {
+          "n": 3,
+          "sentence": "A character error rate of 1% (99% accuracy) may result in an error rate of 5% or worse if word context is not used.",
+          "verdict": "supported",
+          "why": "The source directly states in paragraph [s38] that if word context is not used, a character error rate of 1% (99% accuracy) may result in a word error rate of 5% or worse."
+        },
+        {
+          "n": 4,
+          "sentence": "The Levenshtein Distance algorithm is used in OCR post-processing to optimize results.",
+          "verdict": "supported",
+          "why": "The source states in paragraph [s27] that the Levenshtein Distance algorithm has been used in OCR post-processing to optimize results."
+        },
+        {
+          "n": 5,
+          "sentence": "Near-neighbor analysis uses co-occurrence frequencies to correct OCR errors.",
+          "verdict": "supported",
+          "why": "The source explicitly states in paragraph [s25] that near-neighbor analysis can make use of co-occurrence frequencies to correct errors."
+        },
+        {
+          "n": 6,
+          "sentence": "Total OCR accuracy can be achieved through human review or Data Dictionary Authentication.",
+          "verdict": "supported",
+          "why": "The source explicitly states in paragraph [s37] that 'total accuracy can be achieved by human review or Data Dictionary Authentication.'"
+        },
+        {
+          "n": 7,
+          "sentence": "Machines have evolved from early telegraphic experiments to systems that now interpret and act upon visual text from diverse sources.",
+          "verdict": "supported",
+          "why": "The source details the origin tracing back to telegraphy technologies in [s3] and describes modern systems capturing text from diverse sources (scanned documents, scene photos, video subtitles) and using it in machine processes in [s0] and [s1]."
+        }
+      ]
+    }
+  },
+  "judged_claims": 17,
+  "judged_unsupported": 3,
+  "injections": {
+    "planted": 8,
+    "caught": 8,
+    "recall": 1.0,
+    "recall_by_rule": {
+      "number": 1.0,
+      "quote": 1.0,
+      "entity": 1.0,
+      "citation": 1.0
+    },
+    "missed": [],
+    "clean_bodies": 2,
+    "false_positive_bodies": 0,
+    "false_positives": []
+  },
+  "bodies": {
+    "linkedin": "Some OCR technology claims to capture 99.91% of data.\n\nThis evolution began in 1914 when Emanuel Goldberg developed a machine that converted characters into standard telegraph code. By 1931, he was granted US Patent number 1,838,389 for a statistical machine used to search microfilm archives.\n\nModern systems have moved far beyond those early experiments. Today, tools like PaddleOCR support over 80 languages, while specialized processes like binarization convert images to black-and-white to separate text from the background. Other systems use the Levenshtein Distance algorithm to optimize results during post-processing.\n\nEfficiency remains a priority for large-scale operations. The New York Times uses a tool called Document Helper to process up to 5,400 pages per hour. Despite these advancements, OCR systems still encounter 'scannos' when processing complex documents.\n\nAccuracy is the ultimate metric for machine-encoded text.\n\n#ocr #technology #data",
+    "thread": "Some OCR technology claims to capture 99.91% of data.\n\nErrors in this process are sometimes referred to as 'scannos'.\n\nA character error rate of 1% (99% accuracy) may result in an error rate of 5% or worse if word context is not used.\n\nThe Levenshtein Distance algorithm is used in OCR post-processing to optimize results.\n\nNear-neighbor analysis uses co-occurrence frequencies to correct OCR errors.\n\nTotal OCR accuracy can be achieved through human review or Data Dictionary Authentication.\n\nMachines have evolved from early telegraphic experiments to systems that now interpret and act upon visual text from diverse sources."
+  }
+}

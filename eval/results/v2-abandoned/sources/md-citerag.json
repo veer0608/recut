@@ -1,0 +1,204 @@
+{
+  "id": "md-citerag",
+  "kind": "markdown",
+  "ref": "C:\\Users\\veera\\claude\\citerag\\README.md",
+  "title": "CiteRAG",
+  "segments": 95,
+  "chars": 28402,
+  "extracted_claims": 44,
+  "dropped_unanchored": 0,
+  "targets": [
+    "linkedin",
+    "thread"
+  ],
+  "verifier_errors": {
+    "linkedin": [],
+    "thread": [
+      "[error/intensity] 'necessary': the source never says 'necess(?:ary|ity|itates)'; do not add force it did not use"
+    ]
+  },
+  "format_violations": {},
+  "repaired": [],
+  "claim_utilisation": 0.29545454545454547,
+  "judged": {
+    "linkedin": {
+      "sentences": 11,
+      "claims": 11,
+      "unsupported": 0,
+      "rate": 0.0,
+      "unjudged": 0,
+      "verdicts": [
+        {
+          "n": 1,
+          "sentence": "Table-aware ingestion decreased recall@5 from 0.733 to 0.667 and was rejected.",
+          "verdict": "supported",
+          "why": "The source table in section 35 shows that table-aware ingestion was rejected after recall@5 dropped from 0.733 to 0.667."
+        },
+        {
+          "n": 2,
+          "sentence": "Most RAG projects skip the golden-question eval harness, but relying on qualitative assessment hides performance drops.",
+          "verdict": "supported",
+          "why": "The source states that most tutorial RAG projects skip the eval harness and that the harness is used to prove quality with numbers rather than vibes, which prevents shipping features on faith."
+        },
+        {
+          "n": 3,
+          "sentence": "When I tested structure-aware chunking, it improved recall@5 from 0.367 \u2192 0.467.",
+          "verdict": "supported",
+          "why": "The source explicitly states in sections 31 and 35 that structure-aware chunking moved recall@5 from 0.367 to 0.467."
+        },
+        {
+          "n": 4,
+          "sentence": "Adding a re-ranker further improved recall@5 from 0.467 \u2192 0.500.",
+          "verdict": "supported",
+          "why": "The source states in sections 31 and 35 that adding a re-ranker moved recall@5 from 0.467 to 0.500."
+        },
+        {
+          "n": 5,
+          "sentence": "Hybrid retrieval using dense and lexical search provided the largest gain, moving recall@5 from 0.500 \u2192 0.733.",
+          "verdict": "supported",
+          "why": "The source states in section 31 that hybrid retrieval (dense + lexical) moved recall@5 from 0.500 to 0.733 and was the biggest single lever."
+        },
+        {
+          "n": 6,
+          "sentence": "Increasing the re-rank pool from 20 to 50 candidates also failed, decreasing recall@5 from 0.733 to 0.700.",
+          "verdict": "supported",
+          "why": "The source table in section 35 shows that increasing the re-rank pool to 50 candidates decreased recall@5 from 0.733 to 0.700 and was rejected."
+        },
+        {
+          "n": 7,
+          "sentence": "Aggregate metrics can be misleading.",
+          "verdict": "supported",
+          "why": "The source states in section 68 that an aggregate metric was the 'wrong instrument' and contradicted the hypothesis, implying it was misleading."
+        },
+        {
+          "n": 8,
+          "sentence": "In one case, a metric contradicted the hypothesis that fixing welded tokens would improve retrieval.",
+          "verdict": "supported",
+          "why": "The source states in section 68 that the aggregate 'share of very long words' metric contradicted the hypothesis regarding fixing welded tokens."
+        },
+        {
+          "n": 9,
+          "sentence": "Reading the failures instead of trusting the bucket label revealed the real cause.",
+          "verdict": "supported",
+          "why": "This is a direct quote from section 53 of the source."
+        },
+        {
+          "n": 10,
+          "sentence": "The project uses SQLite and sqlite-vec for a fully local setup.",
+          "verdict": "supported",
+          "why": "The source states in sections 8 and 11 that the project uses SQLite and sqlite-vec for a zero-infra, fully local setup."
+        },
+        {
+          "n": 11,
+          "sentence": "Measurement errors like false hits from stripping whitespace can obscure actual system performance.",
+          "verdict": "supported",
+          "why": "The source states in sections 70 and 71 that measurement bugs like false hits from stripping whitespace were discovered, which affected the accuracy of the evaluation."
+        }
+      ]
+    },
+    "thread": {
+      "sentences": 11,
+      "claims": 11,
+      "unsupported": 1,
+      "rate": 0.09090909090909091,
+      "unjudged": 0,
+      "verdicts": [
+        {
+          "n": 1,
+          "sentence": "Table-aware ingestion decreased recall@5 from 0.733 to 0.667.",
+          "verdict": "supported",
+          "why": "The results table in the source shows that adding table-aware ingestion resulted in a recall@5 of 0.667, which was a decrease from the previous baseline of 0.733."
+        },
+        {
+          "n": 2,
+          "sentence": "We rejected it because the data proved it hurt performance, even though it seemed like a good idea.",
+          "verdict": "supported",
+          "why": "The source states that table-aware ingestion was rejected because it 'measured worse' and was 'rejected rather than shipped on faith,' implying it was an experiment that failed to prove its value."
+        },
+        {
+          "n": 3,
+          "sentence": "Most RAG projects skip the hard work of building a golden-question eval harness.",
+          "verdict": "unsupported",
+          "why": "The source specifically mentions that 'most tutorial RAG projects' skip this part, not 'most RAG projects' in general. It also does not describe the process as 'hard work.'"
+        },
+        {
+          "n": 4,
+          "sentence": "Without objective, numerical proof, you are just guessing if your retrieval actually works.",
+          "verdict": "supported",
+          "why": "The source contrasts 'numbers' with 'vibes' and 'faith,' stating that the eval harness 'proves retrieval quality with numbers, not vibes.'"
+        },
+        {
+          "n": 5,
+          "sentence": "My naive retrieval pipeline only hit a recall@5 of 0.367.",
+          "verdict": "supported",
+          "why": "The source identifies the naive pipeline as the baseline and records its recall@5 as 0.367."
+        },
+        {
+          "n": 6,
+          "sentence": "Structure-aware chunking pushed that to 0.467, and hybrid retrieval brought it up to 0.733.",
+          "verdict": "supported",
+          "why": "The source's results table shows structure-aware chunking reached 0.467, and Phase 5 explicitly states that hybrid retrieval brought the recall@5 from 0.500 to 0.733."
+        },
+        {
+          "n": 7,
+          "sentence": "The corpus contains 1,971 / 2,144 (92%) chunks with a 16+ character all-lowercase weld.",
+          "verdict": "supported",
+          "why": "The source contains a table stating that 1,971 out of 2,144 chunks (92%) contain a 16+ character all-lowercase weld."
+        },
+        {
+          "n": 8,
+          "sentence": "These welded tokens hide data from keyword search and break retrieval.",
+          "verdict": "supported",
+          "why": "The source explains that these welded tokens made the lexical search (BM25) 'structurally blind' to certain data, causing it to never be retrieved."
+        },
+        {
+          "n": 9,
+          "sentence": "Increasing the evaluation set from 30 to 60 questions was necessary.",
+          "verdict": "supported",
+          "why": "The source states that the original 30-question set was 'too small to justify further tuning' because results sat 'inside the noise,' making the expansion to 60 questions necessary for reliable measurement."
+        },
+        {
+          "n": 10,
+          "sentence": "It stopped us from chasing the wrong levers and revealed that 45% of failures were never-retrieved chunks.",
+          "verdict": "supported",
+          "why": "The source states that the 30-question set 'pointed at the wrong lever' and that the 60-question set revealed that 'never-retrieved' chunks were the largest failure mode at 45%."
+        },
+        {
+          "n": 11,
+          "sentence": "A RAG system should be evaluated using a golden-question harness that provides objective, numerical proof of retrieval quality rather than relying on qualitative assessment.",
+          "verdict": "supported",
+          "why": "The source advocates for using a golden-question eval harness to prove quality with 'numbers, not vibes,' which is a direct paraphrase of this sentence."
+        }
+      ]
+    }
+  },
+  "judged_claims": 22,
+  "judged_unsupported": 1,
+  "injections": {
+    "planted": 10,
+    "caught": 10,
+    "recall": 1.0,
+    "recall_by_rule": {
+      "number": 1.0,
+      "quote": 1.0,
+      "entity": 1.0,
+      "intensity": 1.0,
+      "citation": 1.0
+    },
+    "missed": [],
+    "clean_bodies": 2,
+    "false_positive_bodies": 1,
+    "false_positives": [
+      {
+        "target": "thread",
+        "spans": [
+          "[error/intensity] 'necessary': the source never says 'necess(?:ary|ity|itates)'; do not add force it did not use"
+        ]
+      }
+    ]
+  },
+  "bodies": {
+    "linkedin": "Table-aware ingestion decreased recall@5 from 0.733 to 0.667 and was rejected.\n\nMost RAG projects skip the golden-question eval harness, but relying on qualitative assessment hides performance drops. When I tested structure-aware chunking, it improved recall@5 from 0.367 \u2192 0.467. Adding a re-ranker further improved recall@5 from 0.467 \u2192 0.500.\n\nHybrid retrieval using dense and lexical search provided the largest gain, moving recall@5 from 0.500 \u2192 0.733. Increasing the re-rank pool from 20 to 50 candidates also failed, decreasing recall@5 from 0.733 to 0.700.\n\nAggregate metrics can be misleading. In one case, a metric contradicted the hypothesis that fixing welded tokens would improve retrieval. Reading the failures instead of trusting the bucket label revealed the real cause. The project uses SQLite and sqlite-vec for a fully local setup.\n\nMeasurement errors like false hits from stripping whitespace can obscure actual system performance.",
+    "thread": "Table-aware ingestion decreased recall@5 from 0.733 to 0.667. We rejected it because the data proved it hurt performance, even though it seemed like a good idea.\n\nMost RAG projects skip the hard work of building a golden-question eval harness. Without objective, numerical proof, you are just guessing if your retrieval actually works.\n\nMy naive retrieval pipeline only hit a recall@5 of 0.367. Structure-aware chunking pushed that to 0.467, and hybrid retrieval brought it up to 0.733.\n\nThe corpus contains 1,971 / 2,144 (92%) chunks with a 16+ character all-lowercase weld. These welded tokens hide data from keyword search and break retrieval.\n\nIncreasing the evaluation set from 30 to 60 questions was necessary. It stopped us from chasing the wrong levers and revealed that 45% of failures were never-retrieved chunks.\n\nA RAG system should be evaluated using a golden-question harness that provides objective, numerical proof of retrieval quality rather than relying on qualitative assessment."
+  }
+}

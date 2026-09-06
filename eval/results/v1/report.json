@@ -1,0 +1,35 @@
+{
+  "run": {
+    "at": "2026-09-06T10:50:12+00:00",
+    "seed": 0,
+    "targets": [
+      "linkedin",
+      "thread"
+    ],
+    "judge_models": [
+      "gemini-3.7-flash",
+      "gemini-3.6-flash",
+      "gemini-3-flash-preview"
+    ],
+    "model_calls": 120
+  },
+  "complete": true,
+  "sources_attempted": 15,
+  "sources_completed": 15,
+  "failures": [],
+  "unsupported_claim_rate": 0.15503875968992248,
+  "unsupported_claim_rate_provisional": 0.15503875968992248,
+  "judged_claims": 258,
+  "judged_unsupported": 40,
+  "verifier_recall_on_injections": 1.0,
+  "verifier_recall_by_rule": {
+    "number": 1.0,
+    "quote": 1.0,
+    "entity": 1.0,
+    "citation": 1.0
+  },
+  "verifier_false_positive_rate": 0.03333333333333333,
+  "format_compliance": 1.0,
+  "claim_utilisation": 0.5454554473510436,
+  "artifacts": 30
+}

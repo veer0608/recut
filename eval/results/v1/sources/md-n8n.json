@@ -1,0 +1,148 @@
+{
+  "id": "md-n8n",
+  "kind": "markdown",
+  "ref": "C:\\Users\\veera\\claude\\n8n-statement-extractor\\README.md",
+  "title": "Statement & Invoice PDF \u2192 Reconciled Rows",
+  "segments": 46,
+  "chars": 11348,
+  "extracted_claims": 15,
+  "dropped_unanchored": 0,
+  "targets": [
+    "linkedin",
+    "thread"
+  ],
+  "verifier_errors": {
+    "linkedin": [],
+    "thread": []
+  },
+  "format_violations": {},
+  "repaired": [
+    "linkedin"
+  ],
+  "claim_utilisation": 0.5333333333333333,
+  "judged": {
+    "linkedin": {
+      "sentences": 9,
+      "claims": 9,
+      "unsupported": 3,
+      "rate": 0.3333333333333333,
+      "unjudged": 0,
+      "verdicts": [
+        {
+          "n": 1,
+          "sentence": "The LLM node structured 15 of 16 rows correctly in a test, with one error where a salary disbursement was mislabeled as a credit.",
+          "verdict": "supported",
+          "why": "Directly supported by s25, which states the model structured 15 of 16 rows correctly and labelled a salary disbursement a credit."
+        },
+        {
+          "n": 2,
+          "sentence": "Automated document extraction for financial statements should prioritize deterministic arithmetic validation over reliance on vision models to ensure accuracy.",
+          "verdict": "unsupported",
+          "why": "This is a prescriptive normative claim ('should prioritize...') not explicitly stated by the text, which merely describes its own design rule and choices."
+        },
+        {
+          "n": 3,
+          "sentence": "The design rule for the workflow is that the model never touches a number it could invent.",
+          "verdict": "supported",
+          "why": "Directly supported by s6: 'The model never touches a number it could invent.'"
+        },
+        {
+          "n": 4,
+          "sentence": "In the n8n library, there are 17 paid listings against 177 free ones for document extraction.",
+          "verdict": "supported",
+          "why": "Directly supported by s4: '17 paid listings against 177 free ones'."
+        },
+        {
+          "n": 5,
+          "sentence": "A review pass identified eight flaws in the system, all of which have been addressed.",
+          "verdict": "supported",
+          "why": "Directly supported by s35: 'A review pass turned up eight flaws; all are addressed.'"
+        },
+        {
+          "n": 6,
+          "sentence": "Even with these fixes, reconciliation against a real statement containing a balance column remains unproven.",
+          "verdict": "supported",
+          "why": "Directly supported by s28: 'One thing remains unproven: reconciliation against a real statement with a balance column.'"
+        },
+        {
+          "n": 7,
+          "sentence": "When the digital PDF parse reached 16/16 rows, 100% reconciled, it proved the end-to-end path of scan, OCR, parse, and reconcile using a demo image-only PDF.",
+          "verdict": "unsupported",
+          "why": "Conflates two separate tests. The 16/16 digital PDF parse was for digital text; the scanned test used an image-only PDF with live OCR (s20, s24)."
+        },
+        {
+          "n": 8,
+          "sentence": "The model slips, but the reconciliation catches it instead of shipping it.",
+          "verdict": "supported",
+          "why": "Directly supported by s27: 'The product's core promise \u2014 the model slips, the reconciliation catches it instead of shipping it \u2014 is demonstrated...'"
+        },
+        {
+          "n": 9,
+          "sentence": "Deterministic validation is the only way to ensure accuracy.",
+          "verdict": "unsupported",
+          "why": "The text does not claim that deterministic validation is the 'only' way to ensure accuracy."
+        }
+      ]
+    },
+    "thread": {
+      "sentences": 5,
+      "claims": 5,
+      "unsupported": 1,
+      "rate": 0.2,
+      "unjudged": 0,
+      "verdicts": [
+        {
+          "n": 1,
+          "sentence": "The LLM node structured 15 of 16 rows correctly in a test, with one error where a salary disbursement was mislabeled as a credit.",
+          "verdict": "supported",
+          "why": "The source explicitly states that live Gemini structured 15 of 16 rows correctly and mislabeled a salary disbursement as a credit."
+        },
+        {
+          "n": 2,
+          "sentence": "A review pass identified eight flaws in the system, all of which have been addressed.",
+          "verdict": "supported",
+          "why": "The source states that a review pass turned up eight flaws and that all of them have been addressed."
+        },
+        {
+          "n": 3,
+          "sentence": "The design rule for the workflow is that the model never touches a number it could invent.",
+          "verdict": "supported",
+          "why": "The source explicitly lists 'The model never touches a number it could invent' as its design rule."
+        },
+        {
+          "n": 4,
+          "sentence": "Reconciliation against a real statement containing a balance column remains unproven.",
+          "verdict": "supported",
+          "why": "The source explicitly notes that reconciliation against a real statement with a balance column remains unproven."
+        },
+        {
+          "n": 5,
+          "sentence": "Automated document extraction for financial statements should prioritize deterministic arithmetic validation over reliance on vision models to ensure accuracy.",
+          "verdict": "unsupported",
+          "why": "The source describes its own specific design rule and critiques competitors piping PDFs into vision models, but does not make this general prescriptive industry statement."
+        }
+      ]
+    }
+  },
+  "judged_claims": 14,
+  "judged_unsupported": 4,
+  "injections": {
+    "planted": 8,
+    "caught": 8,
+    "recall": 1.0,
+    "recall_by_rule": {
+      "number": 1.0,
+      "quote": 1.0,
+      "entity": 1.0,
+      "citation": 1.0
+    },
+    "missed": [],
+    "clean_bodies": 2,
+    "false_positive_bodies": 0,
+    "false_positives": []
+  },
+  "bodies": {
+    "linkedin": "The LLM node structured 15 of 16 rows correctly in a test, with one error where a salary disbursement was mislabeled as a credit.\n\nAutomated document extraction for financial statements should prioritize deterministic arithmetic validation over reliance on vision models to ensure accuracy. The design rule for the workflow is that the model never touches a number it could invent.\n\nIn the n8n library, there are 17 paid listings against 177 free ones for document extraction. A review pass identified eight flaws in the system, all of which have been addressed. Even with these fixes, reconciliation against a real statement containing a balance column remains unproven.\n\nWhen the digital PDF parse reached 16/16 rows, 100% reconciled, it proved the end-to-end path of scan, OCR, parse, and reconcile using a demo image-only PDF. The model slips, but the reconciliation catches it instead of shipping it.\n\nDeterministic validation is the only way to ensure accuracy.",
+    "thread": "The LLM node structured 15 of 16 rows correctly in a test, with one error where a salary disbursement was mislabeled as a credit.\n\nA review pass identified eight flaws in the system, all of which have been addressed.\n\nThe design rule for the workflow is that the model never touches a number it could invent.\n\nReconciliation against a real statement containing a balance column remains unproven.\n\nAutomated document extraction for financial statements should prioritize deterministic arithmetic validation over reliance on vision models to ensure accuracy."
+  }
+}

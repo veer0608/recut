@@ -1,0 +1,152 @@
+{
+  "id": "art-bank-statement",
+  "kind": "article",
+  "ref": "https://en.wikipedia.org/wiki/Bank_statement",
+  "title": "Bank statement - Wikipedia",
+  "segments": 19,
+  "chars": 8061,
+  "extracted_claims": 14,
+  "dropped_unanchored": 0,
+  "targets": [
+    "linkedin",
+    "thread"
+  ],
+  "verifier_errors": {
+    "linkedin": [],
+    "thread": []
+  },
+  "format_violations": {},
+  "repaired": [],
+  "claim_utilisation": 0.5714285714285714,
+  "judged": {
+    "linkedin": {
+      "sentences": 8,
+      "claims": 8,
+      "unsupported": 2,
+      "rate": 0.25,
+      "unjudged": 0,
+      "verdicts": [
+        {
+          "n": 1,
+          "sentence": "Some mortgage lenders have used bank statement deposits to evaluate borrower income for self-employed individuals or those with nontraditional income since the early 2010s.",
+          "verdict": "supported",
+          "why": "The source states that beginning in the early 2010s, some mortgage lenders introduced programs evaluating borrower income via bank statement deposits for self-employed individuals and those with nontraditional income."
+        },
+        {
+          "n": 2,
+          "sentence": "Financial institutions have shifted toward electronic statements and direct integration with accounting software to manage communication and operational costs.",
+          "verdict": "unsupported",
+          "why": "The source specifies that direct downloads into accounting software are offered to streamline the reconciliation process for account holders, not to manage communication and operational costs for the financial institution."
+        },
+        {
+          "n": 3,
+          "sentence": "These digital statements are often generated in PDF format to prevent recipients from easily altering the content.",
+          "verdict": "supported",
+          "why": "The source states that electronic statements are commonly generated in PDF format to reduce the recipient's ability to electronically alter the statement."
+        },
+        {
+          "n": 4,
+          "sentence": "In the United States, banks are only required to send a checking account statement if at least one transaction occurred in a month.",
+          "verdict": "supported",
+          "why": "The source confirms that banks in the US are only required to send a checking account statement if one transaction has been made from that account in a month."
+        },
+        {
+          "n": 5,
+          "sentence": "Meanwhile, Japan has no tradition of mailing bank statements, as customers track activity via passbooks at ATMs.",
+          "verdict": "supported",
+          "why": "The source states that Japan never had a tradition of mailing statements, as individual account holders track their activity using passbooks at ATMs."
+        },
+        {
+          "n": 6,
+          "sentence": "Banks began using computers in the 1960s, which generally led to the production of monthly statements.",
+          "verdict": "supported",
+          "why": "The source explicitly states that since the introduction of computers in banks in the 1960s, bank statements have generally been produced monthly."
+        },
+        {
+          "n": 7,
+          "sentence": "A bank statement represents the bank's view of an account, where credit entries increase the bank's debt to the customer.",
+          "verdict": "unsupported",
+          "why": "The source states that credit entries increase the bank's debit (not the bank's debt)."
+        },
+        {
+          "n": 8,
+          "sentence": "Financial institutions are changing how they handle account summaries.",
+          "verdict": "supported",
+          "why": "The source details ongoing shifts by financial institutions in how they handle account summaries, such as transitioning to paperless electronic statements, offering transaction histories, and charging fees for paper statements."
+        }
+      ]
+    },
+    "thread": {
+      "sentences": 7,
+      "claims": 7,
+      "unsupported": 1,
+      "rate": 0.14285714285714285,
+      "unjudged": 0,
+      "verdicts": [
+        {
+          "n": 1,
+          "sentence": "In Japan, there is no tradition of mailing bank statements, as customers track activity via passbooks at ATMs.",
+          "verdict": "supported",
+          "why": "This directly matches s8, which states that Japan never had a tradition of mailing statements and account holders track balances using passbooks at ATMs."
+        },
+        {
+          "n": 2,
+          "sentence": "Banks began using computers in the 1960s, which generally led to the production of monthly statements.",
+          "verdict": "supported",
+          "why": "This is directly supported by s5, which notes that since the introduction of computers in banks in the 1960s, bank statements have generally been produced monthly."
+        },
+        {
+          "n": 3,
+          "sentence": "Banks in the United States are only required to send a checking account statement if at least one transaction occurred in a month.",
+          "verdict": "supported",
+          "why": "This accurately reflects s15, which states US banks are only required to send a statement for a checking account if one transaction has been made in a month."
+        },
+        {
+          "n": 4,
+          "sentence": "Transaction descriptions on bank statements may differ from a business's consumer-facing trading name.",
+          "verdict": "supported",
+          "why": "This is supported by s13, which states that transaction descriptions shown on bank statements may not always be identical to a business's consumer-facing trading name."
+        },
+        {
+          "n": 5,
+          "sentence": "Since the early 2010s, some mortgage lenders have used bank statement deposits to evaluate borrower income for self-employed individuals or those with nontraditional income.",
+          "verdict": "supported",
+          "why": "This accurately summarizes s17, which describes loan programs introduced in the early 2010s that evaluate borrower income using bank statement deposits for self-employed individuals and those with non-traditional income."
+        },
+        {
+          "n": 6,
+          "sentence": "Electronic statements are often generated in PDF format to prevent recipients from easily altering the content.",
+          "verdict": "supported",
+          "why": "This is supported by s10, which states electronic statements are commonly generated in PDF format to reduce the recipient's ability to electronically alter them."
+        },
+        {
+          "n": 7,
+          "sentence": "Financial institutions have shifted toward electronic statements and direct integration with accounting software to manage communication, security, and operational costs.",
+          "verdict": "unsupported",
+          "why": "The source states that direct downloads into accounting software are offered 'to streamline the reconciliation process' (s2), not specifically 'to manage communication, security, and operational costs'."
+        }
+      ]
+    }
+  },
+  "judged_claims": 15,
+  "judged_unsupported": 3,
+  "injections": {
+    "planted": 8,
+    "caught": 8,
+    "recall": 1.0,
+    "recall_by_rule": {
+      "number": 1.0,
+      "quote": 1.0,
+      "entity": 1.0,
+      "citation": 1.0
+    },
+    "missed": [],
+    "clean_bodies": 2,
+    "false_positive_bodies": 0,
+    "false_positives": []
+  },
+  "bodies": {
+    "linkedin": "Some mortgage lenders have used bank statement deposits to evaluate borrower income for self-employed individuals or those with nontraditional income since the early 2010s.\n\nFinancial institutions have shifted toward electronic statements and direct integration with accounting software to manage communication and operational costs. These digital statements are often generated in PDF format to prevent recipients from easily altering the content.\n\nIn the United States, banks are only required to send a checking account statement if at least one transaction occurred in a month. Meanwhile, Japan has no tradition of mailing bank statements, as customers track activity via passbooks at ATMs.\n\nBanks began using computers in the 1960s, which generally led to the production of monthly statements. A bank statement represents the bank's view of an account, where credit entries increase the bank's debt to the customer.\n\nFinancial institutions are changing how they handle account summaries.",
+    "thread": "In Japan, there is no tradition of mailing bank statements, as customers track activity via passbooks at ATMs.\n\nBanks began using computers in the 1960s, which generally led to the production of monthly statements.\n\nBanks in the United States are only required to send a checking account statement if at least one transaction occurred in a month.\n\nTransaction descriptions on bank statements may differ from a business's consumer-facing trading name.\n\nSince the early 2010s, some mortgage lenders have used bank statement deposits to evaluate borrower income for self-employed individuals or those with nontraditional income.\n\nElectronic statements are often generated in PDF format to prevent recipients from easily altering the content.\n\nFinancial institutions have shifted toward electronic statements and direct integration with accounting software to manage communication, security, and operational costs."
+  }
+}

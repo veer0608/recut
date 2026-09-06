@@ -1,0 +1,69 @@
+{
+  "run": {
+    "at": "2026-09-06T11:17:36+00:00",
+    "seed": 0,
+    "targets": [
+      "linkedin",
+      "thread"
+    ],
+    "judge_models": [
+      "gemini-3.7-flash",
+      "gemini-3.6-flash",
+      "gemini-3-flash-preview"
+    ],
+    "model_calls": 101
+  },
+  "complete": false,
+  "sources_attempted": 15,
+  "sources_completed": 7,
+  "failures": [
+    {
+      "id": "art-bank-statement",
+      "error": "LLMError: every provider failed:\n  gemini 429: {   \"error\": {     \"code\": 429,     \"message\": \"You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://ai.google.dev/gemini-api/docs/rate-limits.\n  gemini 429: {   \"error\": {     \"code\": 429,     \"message\": \"You exceeded your current quota, please check your plan and billing de"
+    },
+    {
+      "id": "art-double-entry",
+      "error": "LLMError: every provider failed:\n  gemini 429: {   \"error\": {     \"code\": 429,     \"message\": \"You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://ai.google.dev/gemini-api/docs/rate-limits.\n  gemini 429: {   \"error\": {     \"code\": 429,     \"message\": \"You exceeded your current quota, please check your plan and billing de"
+    },
+    {
+      "id": "art-vector-db",
+      "error": "LLMError: every provider failed:\n  gemini 429: {   \"error\": {     \"code\": 429,     \"message\": \"You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://ai.google.dev/gemini-api/docs/rate-limits.\n  gemini 429: {   \"error\": {     \"code\": 429,     \"message\": \"You exceeded your current quota, please check your plan and billing de"
+    },
+    {
+      "id": "art-retrieval",
+      "error": "ValidationError: 1 validation error for _RawExtract\n  Invalid JSON: EOF while parsing a list at line 17 column 5 [type=json_invalid, input_value='{\\n  \"thesis\": \"Retrieva...\"verbatim\": null\\n    }', input_type=str]\n    For further information visit https://errors.pydantic.dev/2.13/v/json_invalid"
+    },
+    {
+      "id": "art-ocr",
+      "error": "LLMError: every provider failed:\n  gemini 429: {   \"error\": {     \"code\": 429,     \"message\": \"You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://ai.google.dev/gemini-api/docs/rate-limits.\n  gemini 429: {   \"error\": {     \"code\": 429,     \"message\": \"You exceeded your current quota, please check your plan and billing de"
+    },
+    {
+      "id": "art-reconciliation",
+      "error": "LLMError: every provider failed:\n  gemini 429: {   \"error\": {     \"code\": 429,     \"message\": \"You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://ai.google.dev/gemini-api/docs/rate-limits.\n  gemini 429: {   \"error\": {     \"code\": 429,     \"message\": \"You exceeded your current quota, please check your plan and billing de"
+    },
+    {
+      "id": "art-willison",
+      "error": "LLMError: every provider failed:\n  gemini 429: {   \"error\": {     \"code\": 429,     \"message\": \"You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://ai.google.dev/gemini-api/docs/rate-limits.\n  gemini 429: {   \"error\": {     \"code\": 429,     \"message\": \"You exceeded your current quota, please check your plan and billing de"
+    },
+    {
+      "id": "yt-rome",
+      "error": "LLMError: every provider failed:\n  gemini 429: {   \"error\": {     \"code\": 429,     \"message\": \"You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://ai.google.dev/gemini-api/docs/rate-limits.\n  gemini 429: {   \"error\": {     \"code\": 429,     \"message\": \"You exceeded your current quota, please check your plan and billing de"
+    }
+  ],
+  "unsupported_claim_rate": null,
+  "unsupported_claim_rate_provisional": 0.017094017094017096,
+  "judged_claims": 117,
+  "judged_unsupported": 2,
+  "verifier_recall_on_injections": 1.0,
+  "verifier_recall_by_rule": {
+    "number": 1.0,
+    "quote": 1.0,
+    "entity": 1.0,
+    "intensity": 1.0,
+    "citation": 1.0
+  },
+  "verifier_false_positive_rate": 0.21428571428571427,
+  "format_compliance": 1.0,
+  "claim_utilisation": 0.3686680515251944,
+  "artifacts": 14
+}

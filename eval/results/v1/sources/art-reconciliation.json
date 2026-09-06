@@ -1,0 +1,160 @@
+{
+  "id": "art-reconciliation",
+  "kind": "article",
+  "ref": "https://en.wikipedia.org/wiki/Bank_reconciliation",
+  "title": "Bank reconciliation - Wikipedia",
+  "segments": 10,
+  "chars": 2637,
+  "extracted_claims": 6,
+  "dropped_unanchored": 0,
+  "targets": [
+    "linkedin",
+    "thread"
+  ],
+  "verifier_errors": {
+    "linkedin": [],
+    "thread": []
+  },
+  "format_violations": {},
+  "repaired": [
+    "thread"
+  ],
+  "claim_utilisation": 1.0,
+  "judged": {
+    "linkedin": {
+      "sentences": 9,
+      "claims": 9,
+      "unsupported": 2,
+      "rate": 0.2222222222222222,
+      "unjudged": 0,
+      "verdicts": [
+        {
+          "n": 1,
+          "sentence": "Stale cheques should be reversed rather than cancelled.",
+          "verdict": "supported",
+          "why": "The source states that when cheques become stale, they would typically be reversed, not cancelled."
+        },
+        {
+          "n": 2,
+          "sentence": "Your internal book balance and the balance reported by a financial institution are often not in sync.",
+          "verdict": "unsupported",
+          "why": "The source states that differences 'may arise', but does not claim that the balances are 'often' not in sync."
+        },
+        {
+          "n": 3,
+          "sentence": "These differences typically arise from timing differences, transactions recorded by the bank but not the account holder, or recording errors.",
+          "verdict": "supported",
+          "why": "The source explicitly lists timing differences, transactions recorded by the bank but not the account holder, and recording errors as the three main reasons differences arise."
+        },
+        {
+          "n": 4,
+          "sentence": "Bank reconciliation is the process of matching these two figures.",
+          "verdict": "supported",
+          "why": "The source defines bank reconciliation as reconciling the entity's bank account book balance to the balance reported by the financial institution."
+        },
+        {
+          "n": 5,
+          "sentence": "A bank reconciliation statement lists entries that cause these differences, such as outstanding cheques.",
+          "verdict": "supported",
+          "why": "The source explicitly states that a bank reconciliation statement sets out the entries causing the difference between the balances, such as outstanding cheques."
+        },
+        {
+          "n": 6,
+          "sentence": "Financial institutions often provide transaction data downloads in .csv format to assist with this process.",
+          "verdict": "supported",
+          "why": "The source states that many financial institutions offer direct downloads of transaction info into accounting software to assist in reconciliations, typically using .csv format."
+        },
+        {
+          "n": 7,
+          "sentence": "Any difference between the two figures needs to be examined and, if appropriate, rectified.",
+          "verdict": "supported",
+          "why": "This is a direct verbatim quote from the source."
+        },
+        {
+          "n": 8,
+          "sentence": "Reconciling at frequent intervals is considered good practice to minimize the workload.",
+          "verdict": "supported",
+          "why": "The source states that to minimise the amount of work involved, it is good practice to reconcile at reasonably frequent intervals."
+        },
+        {
+          "n": 9,
+          "sentence": "Regular reconciliation is a necessary accounting practice.",
+          "verdict": "unsupported",
+          "why": "The source describes reconciling at frequent intervals as 'good practice', not as a mandatory or 'necessary' practice."
+        }
+      ]
+    },
+    "thread": {
+      "sentences": 7,
+      "claims": 7,
+      "unsupported": 3,
+      "rate": 0.42857142857142855,
+      "unjudged": 0,
+      "verdicts": [
+        {
+          "n": 1,
+          "sentence": "When cheques become stale, they should be reversed, not cancelled.",
+          "verdict": "unsupported",
+          "why": "The source states that stale cheques 'would typically be reversed, not cancelled', which describes standard practice rather than claiming they 'should' be."
+        },
+        {
+          "n": 2,
+          "sentence": "Your bank statement and your internal accounting records are often not in sync.",
+          "verdict": "unsupported",
+          "why": "The source states that differences 'may arise', but does not state that the records are 'often' not in sync."
+        },
+        {
+          "n": 3,
+          "sentence": "Differences between internal books and bank records typically arise from timing differences, transactions recorded by the bank but not the account holder, or recording errors.",
+          "verdict": "supported",
+          "why": "The source states that differences between an entity's books and bank records arise mainly for three reasons: timing differences, transactions recorded by the bank but not the account holder, and recording errors."
+        },
+        {
+          "n": 4,
+          "sentence": "A bank reconciliation statement lists entries that cause differences between the two balances, such as outstanding cheques.",
+          "verdict": "supported",
+          "why": "The source states that a bank reconciliation statement sets out the entries causing the difference between the two balances, giving outstanding cheques as an example."
+        },
+        {
+          "n": 5,
+          "sentence": "Financial institutions often provide transaction data downloads in .csv format to assist with the reconciliation process.",
+          "verdict": "supported",
+          "why": "The source confirms that many financial institutions offer direct downloads of financial transaction information typically using the .csv file format to assist in reconciliations."
+        },
+        {
+          "n": 6,
+          "sentence": "Reconciling at frequent intervals is considered good practice to minimize the workload.",
+          "verdict": "supported",
+          "why": "The source states that reconciling at reasonably frequent intervals is good practice to minimise the amount of work involved."
+        },
+        {
+          "n": 7,
+          "sentence": "Regular bank reconciliation is a necessary accounting practice to identify and rectify discrepancies between an entity's internal records and the financial institution's statement.",
+          "verdict": "unsupported",
+          "why": "The source calls reconciling at frequent intervals a 'good practice', but does not claim that regular bank reconciliation is a 'necessary' accounting practice."
+        }
+      ]
+    }
+  },
+  "judged_claims": 16,
+  "judged_unsupported": 5,
+  "injections": {
+    "planted": 8,
+    "caught": 8,
+    "recall": 1.0,
+    "recall_by_rule": {
+      "number": 1.0,
+      "quote": 1.0,
+      "entity": 1.0,
+      "citation": 1.0
+    },
+    "missed": [],
+    "clean_bodies": 2,
+    "false_positive_bodies": 0,
+    "false_positives": []
+  },
+  "bodies": {
+    "linkedin": "Stale cheques should be reversed rather than cancelled.\n\nYour internal book balance and the balance reported by a financial institution are often not in sync. These differences typically arise from timing differences, transactions recorded by the bank but not the account holder, or recording errors.\n\nBank reconciliation is the process of matching these two figures. A bank reconciliation statement lists entries that cause these differences, such as outstanding cheques. Financial institutions often provide transaction data downloads in .csv format to assist with this process.\n\nAny difference between the two figures needs to be examined and, if appropriate, rectified. Reconciling at frequent intervals is considered good practice to minimize the workload.\n\nRegular reconciliation is a necessary accounting practice.",
+    "thread": "When cheques become stale, they should be reversed, not cancelled.\n\nYour bank statement and your internal accounting records are often not in sync.\n\nDifferences between internal books and bank records typically arise from timing differences, transactions recorded by the bank but not the account holder, or recording errors.\n\nA bank reconciliation statement lists entries that cause differences between the two balances, such as outstanding cheques.\n\nFinancial institutions often provide transaction data downloads in .csv format to assist with the reconciliation process.\n\nReconciling at frequent intervals is considered good practice to minimize the workload.\n\nRegular bank reconciliation is a necessary accounting practice to identify and rectify discrepancies between an entity's internal records and the financial institution's statement."
+  }
+}

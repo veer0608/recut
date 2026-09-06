@@ -1,0 +1,146 @@
+{
+  "id": "art-willison",
+  "kind": "article",
+  "ref": "https://simonwillison.net/2025/Sep/6/",
+  "title": "Simon Willison\u2019s Weblog",
+  "segments": 30,
+  "chars": 6007,
+  "extracted_claims": 8,
+  "dropped_unanchored": 0,
+  "targets": [
+    "linkedin",
+    "thread"
+  ],
+  "verifier_errors": {
+    "linkedin": [],
+    "thread": []
+  },
+  "format_violations": {},
+  "repaired": [],
+  "claim_utilisation": 0.625,
+  "judged": {
+    "linkedin": {
+      "sentences": 8,
+      "claims": 8,
+      "unsupported": 2,
+      "rate": 0.25,
+      "unjudged": 0,
+      "verdicts": [
+        {
+          "n": 1,
+          "sentence": "Anthropic has agreed to pay at least $1.5 billion to settle a class-action lawsuit regarding the use of pirated books in its AI training.",
+          "verdict": "supported",
+          "why": "The source explicitly states that Anthropic agreed to pay at least $1.5 billion plus interest to settle its class-action lawsuit over pirated books."
+        },
+        {
+          "n": 2,
+          "sentence": "It is wild that this settlement can feel like a win for the company.",
+          "verdict": "supported",
+          "why": "The author explicitly remarks in the text that it is wild to them that a $1.5 billion settlement can feel like a win for Anthropic."
+        },
+        {
+          "n": 3,
+          "sentence": "The maximum allowed penalty for copyright infringement in this case was $150,000 per book.",
+          "verdict": "supported",
+          "why": "The source explicitly notes that the maximum allowed penalty was $150,000 per book."
+        },
+        {
+          "n": 4,
+          "sentence": "At approximately $3,000 per book, this payout represents a significant discount.",
+          "verdict": "supported",
+          "why": "The source states that payouts are expected to be approximately $3,000 per book, which it calls a significant discount compared to the maximum allowed penalty."
+        },
+        {
+          "n": 5,
+          "sentence": "Simultaneously, the legal landscape is shifting toward a strange precedent.",
+          "verdict": "unsupported",
+          "why": "The source discusses a precedent being set, but does not state that the legal landscape is shifting toward a strange precedent."
+        },
+        {
+          "n": 6,
+          "sentence": "It appears to be legal in the USA to purchase a used physical book, scan it, and use the content for AI training, provided the original is destroyed.",
+          "verdict": "supported",
+          "why": "The source explicitly states that it appears legal in the USA to buy a used physical book, scan the pages, discard/destroy the paper copy, and train on the scanned content."
+        },
+        {
+          "n": 7,
+          "sentence": "Anthropic stated that the specific digital copies covered by the settlement were not used to train its commercially released AI models.",
+          "verdict": "supported",
+          "why": "The source confirms that Anthropic stated in the settlement that the specific digital copies covered were not used in training its commercially released AI models."
+        },
+        {
+          "n": 8,
+          "sentence": "The legal rules for AI training data are evolving rapidly.",
+          "verdict": "unsupported",
+          "why": "The source does not state or entail that the legal rules for AI training data are evolving rapidly."
+        }
+      ]
+    },
+    "thread": {
+      "sentences": 6,
+      "claims": 6,
+      "unsupported": 1,
+      "rate": 0.16666666666666666,
+      "unjudged": 0,
+      "verdicts": [
+        {
+          "n": 1,
+          "sentence": "Anthropic has agreed to pay at least $1.5 billion to settle a class-action lawsuit regarding the use of pirated books for AI training.",
+          "verdict": "supported",
+          "why": "The source states that Anthropic agreed to pay at least $1.5 billion to settle a class-action lawsuit involving its use of pirated ebooks for training."
+        },
+        {
+          "n": 2,
+          "sentence": "The settlement payout comes out to approximately $3,000 per book.",
+          "verdict": "supported",
+          "why": "The source states that the payout breaks down to expected payouts of approximately $3,000 per book or work."
+        },
+        {
+          "n": 3,
+          "sentence": "This is a massive discount considering the maximum allowed penalty for copyright infringement in this case was $150,000 per book.",
+          "verdict": "supported",
+          "why": "The source explicitly states that $3,000 per book is a significant discount given the maximum allowed penalty was $150,000 per book."
+        },
+        {
+          "n": 4,
+          "sentence": "Anthropic claims the specific digital copies covered by this settlement were not used to train its commercially released AI models.",
+          "verdict": "supported",
+          "why": "The source explicitly states that Anthropic said in the settlement that the specific digital copies covered by the agreement were not used in training its commercially released AI models."
+        },
+        {
+          "n": 5,
+          "sentence": "Meanwhile, it appears legal in the USA to buy a physical book, scan it, and use the content for AI training if the original is destroyed.",
+          "verdict": "supported",
+          "why": "The source states it appears legal in the USA to buy a physical book, scan it, discard/destroy the paper copy, and train on the scanned content under fair use."
+        },
+        {
+          "n": 6,
+          "sentence": "The legal landscape is shifting toward settlements for pirated content while establishing a fair use precedent for the destructive scanning of purchased physical books.",
+          "verdict": "unsupported",
+          "why": "The source speculates that this specific case sets a precedent, but does not claim that the overall 'legal landscape is shifting toward settlements for pirated content'."
+        }
+      ]
+    }
+  },
+  "judged_claims": 14,
+  "judged_unsupported": 3,
+  "injections": {
+    "planted": 8,
+    "caught": 8,
+    "recall": 1.0,
+    "recall_by_rule": {
+      "number": 1.0,
+      "quote": 1.0,
+      "entity": 1.0,
+      "citation": 1.0
+    },
+    "missed": [],
+    "clean_bodies": 2,
+    "false_positive_bodies": 0,
+    "false_positives": []
+  },
+  "bodies": {
+    "linkedin": "Anthropic has agreed to pay at least $1.5 billion to settle a class-action lawsuit regarding the use of pirated books in its AI training.\n\nIt is wild that this settlement can feel like a win for the company. The maximum allowed penalty for copyright infringement in this case was $150,000 per book. At approximately $3,000 per book, this payout represents a significant discount.\n\nSimultaneously, the legal landscape is shifting toward a strange precedent. It appears to be legal in the USA to purchase a used physical book, scan it, and use the content for AI training, provided the original is destroyed.\n\nAnthropic stated that the specific digital copies covered by the settlement were not used to train its commercially released AI models.\n\nThe legal rules for AI training data are evolving rapidly.",
+    "thread": "Anthropic has agreed to pay at least $1.5 billion to settle a class-action lawsuit regarding the use of pirated books for AI training.\n\nThe settlement payout comes out to approximately $3,000 per book.\n\nThis is a massive discount considering the maximum allowed penalty for copyright infringement in this case was $150,000 per book.\n\nAnthropic claims the specific digital copies covered by this settlement were not used to train its commercially released AI models.\n\nMeanwhile, it appears legal in the USA to buy a physical book, scan it, and use the content for AI training if the original is destroyed.\n\nThe legal landscape is shifting toward settlements for pirated content while establishing a fair use precedent for the destructive scanning of purchased physical books."
+  }
+}
