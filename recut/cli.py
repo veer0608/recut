@@ -14,6 +14,22 @@ from .pipeline import GENERATORS, applicable, repurpose, unsupported, write_out
 GREEN, RED, YELLOW, DIM, OFF = "\033[32m", "\033[31m", "\033[33m", "\033[2m", "\033[0m"
 
 
+def _utf8_stdout() -> None:
+    """Windows consoles default to cp1252 and a source title is arbitrary text.
+
+    A title carrying an arrow or an em dash otherwise takes the whole run down with
+    a UnicodeEncodeError, after every model call has already been paid for.
+    """
+    for stream in (sys.stdout, sys.stderr):
+        reconfigure = getattr(stream, "reconfigure", None)
+        if reconfigure is not None:
+            try:
+                reconfigure(encoding="utf-8", errors="replace")
+            except (ValueError, OSError):
+                # A stream that will not be reconfigured is not a reason to abort.
+                pass
+
+
 def main(argv: list[str] | None = None) -> int:
     parser = argparse.ArgumentParser(prog="recut", description=__doc__)
     sub = parser.add_subparsers(dest="command", required=True)

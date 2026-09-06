@@ -275,7 +275,8 @@ Both providers have traps that cost real runs, so the client works around them:
 python -m pytest -q
 ```
 
-118 tests, none of which touch the network. The pipeline tests drive a scripted model
+163 tests in about a second, none of which touch the network. The pipeline tests
+drive a scripted model
 so the whole loop, including the repair path, runs offline and for free, and the
 ingest tests feed fixture HTML and fixture caption cues rather than fetching.
 
