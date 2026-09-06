@@ -233,3 +233,50 @@ class TestVoiceSamples:
         claims = extract(document, ScriptedLLM([EXTRACT_REPLY]))
         assert claims.voice_samples == []
         assert "HOW THE SOURCE SOUNDS" not in render_claims(claims, document)
+
+
+class TestQuotaBranching:
+    """429 covers two different worlds. Getting them confused either abandons a run
+    over a one-minute blip or sleeps through a wall that lasts until tomorrow."""
+
+    def _response(self, status, body):
+        import httpx
+
+        return httpx.Response(
+            status_code=status, text=body, request=httpx.Request("POST", "https://x")
+        )
+
+    def test_a_per_day_gemini_wall_is_fatal(self):
+        from recut.llm import Fatal, _raise_for
+
+        body = '{"error":{"details":[{"quotaId":"GenerateRequestsPerDayPerProjectPerModel-FreeTier"}]}}'
+        with pytest.raises(Fatal):
+            _raise_for(self._response(429, body), "gemini")
+
+    def test_a_groq_per_minute_cap_is_retryable(self):
+        import httpx
+
+        from recut.llm import Fatal, _raise_for
+
+        body = "Rate limit reached for model on tokens per minute (TPM): Limit 8000"
+        with pytest.raises(httpx.HTTPStatusError):
+            _raise_for(self._response(429, body), "groq")
+        # And specifically not Fatal, which would skip the provider entirely.
+        try:
+            _raise_for(self._response(429, body), "groq")
+        except Fatal:  # pragma: no cover
+            pytest.fail("a per-minute cap was treated as a daily wall")
+        except httpx.HTTPStatusError:
+            pass
+
+    def test_an_unlabelled_429_is_treated_as_the_expensive_case(self):
+        from recut.llm import Fatal, _raise_for
+
+        with pytest.raises(Fatal):
+            _raise_for(self._response(429, "slow down"), "gemini")
+
+    def test_a_400_is_still_fatal(self):
+        from recut.llm import Fatal, _raise_for
+
+        with pytest.raises(Fatal):
+            _raise_for(self._response(400, "bad request"), "groq")

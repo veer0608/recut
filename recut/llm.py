@@ -93,11 +93,30 @@ def _extract_json(text: str) -> str:
 
 
 def _raise_for(response: httpx.Response, provider: str) -> None:
-    """Turn a bad status into either Fatal (move on) or a retryable error."""
+    """Turn a bad status into either Fatal (move on) or a retryable error.
+
+    429 is the one that needs care, because the same status covers two completely
+    different things: a per-minute burst cap that clears in seconds, and a per-day
+    ceiling that does not clear until tomorrow. Treating every 429 as fatal
+    abandons a run over a blip; treating every one as retryable sleeps through a
+    day-long wall. So branch on what the body actually says, never on the status
+    alone. Gemini names the quota in a `quotaId` like
+    `GenerateRequestsPerDayPerProjectPerModel-FreeTier`. Groq's tier limit is per
+    minute and it says so in prose.
+    """
     if response.status_code < 400:
         return
-    detail = response.text.strip().replace("\n", " ")[:220]
+    body = response.text
+    detail = body.strip().replace("\n", " ")[:220]
     message = f"{provider} {response.status_code}: {detail}"
+
+    if response.status_code == 429:
+        per_day = re.search(r"PerDay|per day|requests per day", body, re.IGNORECASE)
+        per_minute = re.search(r"PerMinute|PerSecond|per minute|TPM|RPM", body, re.IGNORECASE)
+        if per_minute and not per_day:
+            raise httpx.HTTPStatusError(message, request=response.request, response=response)
+        raise Fatal(message)
+
     if response.status_code in NO_RETRY:
         raise Fatal(message)
     raise httpx.HTTPStatusError(message, request=response.request, response=response)
