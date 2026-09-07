@@ -1,0 +1,153 @@
+{
+  "id": "art-bank-statement",
+  "kind": "article",
+  "ref": "https://en.wikipedia.org/wiki/Bank_statement",
+  "title": "Bank statement - Wikipedia",
+  "segments": 19,
+  "chars": 8061,
+  "extracted_claims": 17,
+  "dropped_unanchored": 0,
+  "targets": [
+    "linkedin",
+    "thread"
+  ],
+  "verifier_errors": {
+    "linkedin": [],
+    "thread": []
+  },
+  "format_violations": {},
+  "repaired": [],
+  "claim_utilisation": 0.5294117647058824,
+  "judged": {
+    "linkedin": {
+      "sentences": 8,
+      "claims": 8,
+      "unsupported": 1,
+      "rate": 0.125,
+      "unjudged": 0,
+      "verdicts": [
+        {
+          "n": 1,
+          "sentence": "In Japan, there is no tradition of mailing bank statements, as account holders typically track activity using passbooks at ATMs.",
+          "verdict": "supported",
+          "why": "The source states that Japan never had a tradition of mailing statements and that account holders keep track using their own passbooks at ATMs."
+        },
+        {
+          "n": 2,
+          "sentence": "Bank statements serve as an official summary of financial transactions over a specific period.",
+          "verdict": "supported",
+          "why": "The source explicitly defines a bank statement as an official summary of financial transactions occurring within a given period."
+        },
+        {
+          "n": 3,
+          "sentence": "Since the introduction of computers in banks in the 1960s, these statements have generally been produced monthly.",
+          "verdict": "supported",
+          "why": "The source directly states that since the introduction of computers in banks in the 1960s, bank statements have generally been produced monthly."
+        },
+        {
+          "n": 4,
+          "sentence": "Financial institutions may offer non-official transaction histories before the official statement is produced.",
+          "verdict": "supported",
+          "why": "The source states that many financial institutions offer a non-official transaction history before the official bank statement is produced."
+        },
+        {
+          "n": 5,
+          "sentence": "Electronic statements are commonly generated in PDF format to reduce the ability of the recipient to electronically alter the statement.",
+          "verdict": "supported",
+          "why": "The source confirms electronic statements are commonly generated in PDF format to reduce the recipient's ability to alter them electronically."
+        },
+        {
+          "n": 6,
+          "sentence": "However, digital statements may be easier to obtain than physical ones through computer fraud, data interception, or theft of storage media.",
+          "verdict": "supported",
+          "why": "The source states that electronic statements can be easier to obtain than physical ones through computer fraud, data interception, and/or theft of storage media."
+        },
+        {
+          "n": 7,
+          "sentence": "Some mortgage lenders have used bank statement deposits to evaluate borrower income for self-employed individuals or those with nontraditional income since the early 2010s.",
+          "verdict": "supported",
+          "why": "The source states that beginning in the early 2010s, some mortgage lenders introduced programs evaluating borrower income via bank statement deposits for self-employed individuals and those with nontraditional income sources."
+        },
+        {
+          "n": 8,
+          "sentence": "Bank statements have evolved from physical summaries into diverse digital formats.",
+          "verdict": "unsupported",
+          "why": "The source mentions a shift towards paperless electronic statements and lists PDF as a common format, but it does not state or entail that statements evolved into 'diverse digital formats'."
+        }
+      ]
+    },
+    "thread": {
+      "sentences": 7,
+      "claims": 7,
+      "unsupported": 2,
+      "rate": 0.2857142857142857,
+      "unjudged": 0,
+      "verdicts": [
+        {
+          "n": 1,
+          "sentence": "In Japan, there is no tradition of mailing bank statements, as account holders typically track activity using passbooks at ATMs.",
+          "verdict": "supported",
+          "why": "The source explicitly states that Japan never had a tradition of mailing statements and that account holders keep track of activity using passbooks at ATMs."
+        },
+        {
+          "n": 2,
+          "sentence": "A bank statement reflects the bank's view of an account, where credit entries increase the bank's debt and debit entries reduce it.",
+          "verdict": "unsupported",
+          "why": "The source states that credit entries increase the bank's 'debit', whereas the sentence changes this word to 'debt'."
+        },
+        {
+          "n": 3,
+          "sentence": "A customer tracking the same account as an asset would reverse the debits and credits from what appears on the statement.",
+          "verdict": "supported",
+          "why": "This is a direct paraphrase of sentence [s12], which states that a customer tracking the account as an asset would reverse the debits and credits from what appears on the statement."
+        },
+        {
+          "n": 4,
+          "sentence": "Since the introduction of computers in banks in the 1960s, bank statements have generally been produced monthly.",
+          "verdict": "supported",
+          "why": "The source explicitly confirms that bank statements have generally been produced monthly since computers were introduced in banks in the 1960s."
+        },
+        {
+          "n": 5,
+          "sentence": "Electronic statements are commonly generated in PDF format to reduce the ability of the recipient to electronically alter the statement.",
+          "verdict": "supported",
+          "why": "The source explicitly confirms that electronic statements are commonly generated in PDF format to reduce the ability of the recipient to electronically alter them."
+        },
+        {
+          "n": 6,
+          "sentence": "Digital bank statements are frequently distributed as PDFs, leading to increased focus on verification and consistency.",
+          "verdict": "supported",
+          "why": "This is supported by paragraph [s16], which states that digital bank statements are commonly distributed in formats such as PDF, leading to increased attention on document consistency and verification practices."
+        },
+        {
+          "n": 7,
+          "sentence": "Bank statements have evolved from physical, periodic paper summaries into diverse digital formats that require careful management to balance accessibility, security, and cost-efficiency.",
+          "verdict": "unsupported",
+          "why": "The claim that bank statements 'require careful management to balance accessibility, security, and cost-efficiency' is an unsubstantiated generalization not stated in the source."
+        }
+      ]
+    }
+  },
+  "judged_claims": 15,
+  "judged_unsupported": 3,
+  "injections": {
+    "planted": 10,
+    "caught": 10,
+    "recall": 1.0,
+    "recall_by_rule": {
+      "number": 1.0,
+      "quote": 1.0,
+      "entity": 1.0,
+      "intensity": 1.0,
+      "citation": 1.0
+    },
+    "missed": [],
+    "clean_bodies": 2,
+    "false_positive_bodies": 0,
+    "false_positives": []
+  },
+  "bodies": {
+    "linkedin": "In Japan, there is no tradition of mailing bank statements, as account holders typically track activity using passbooks at ATMs.\n\nBank statements serve as an official summary of financial transactions over a specific period. Since the introduction of computers in banks in the 1960s, these statements have generally been produced monthly.\n\nFinancial institutions may offer non-official transaction histories before the official statement is produced. Electronic statements are commonly generated in PDF format to reduce the ability of the recipient to electronically alter the statement. However, digital statements may be easier to obtain than physical ones through computer fraud, data interception, or theft of storage media.\n\nSome mortgage lenders have used bank statement deposits to evaluate borrower income for self-employed individuals or those with nontraditional income since the early 2010s.\n\nBank statements have evolved from physical summaries into diverse digital formats.",
+    "thread": "In Japan, there is no tradition of mailing bank statements, as account holders typically track activity using passbooks at ATMs.\n\nA bank statement reflects the bank's view of an account, where credit entries increase the bank's debt and debit entries reduce it.\n\nA customer tracking the same account as an asset would reverse the debits and credits from what appears on the statement.\n\nSince the introduction of computers in banks in the 1960s, bank statements have generally been produced monthly.\n\nElectronic statements are commonly generated in PDF format to reduce the ability of the recipient to electronically alter the statement.\n\nDigital bank statements are frequently distributed as PDFs, leading to increased focus on verification and consistency.\n\nBank statements have evolved from physical, periodic paper summaries into diverse digital formats that require careful management to balance accessibility, security, and cost-efficiency."
+  }
+}

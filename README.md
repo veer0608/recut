@@ -233,6 +233,34 @@ by the abandonment rule, that withholds the headline number rather than quietly
 scoring the eight that remain. Point `eval/golden/sources.yaml` at your own long-form
 writing to run it somewhere else.
 
+### A second run measured 10.0%, and the headline stays at 15.5%
+
+An anti-inflation pass landed after v1: a shared faithfulness block across every
+generator prompt, softened hook instructions, harder hedge capture at extraction, and
+the `intensity` rule. Re-running the same golden set gave **10.0%** over 259 judged
+claims, all 15 sources complete.
+
+That number is not published as an improvement, because one run does not support it:
+
+```
+overall    15.5% -> 10.0%   z=+1.86  p=0.063   not distinguishable from noise
+article    25.9% ->  5.6%   z=+4.10  p<0.001   distinguishable
+markdown    8.9% -> 15.0%   z=-1.52  p=0.129   not distinguishable from noise
+```
+
+What the run does support is narrower and more interesting: **the pass fixed articles
+decisively.** Articles were the worst cut in v1 at 25.9% and are now the best at 5.6%.
+Against that, **markdown got worse**, from 8.9% to 15.0%, and a single aggregate figure
+averaged a large win and a real regression into one comfortable-looking number.
+
+Quoting 10.0% off one run at temperature 0.4 would be a milder version of exactly the
+failure this project exists to stop, so 15.5% stands until repeated runs justify moving
+it. Both runs are in `eval/results/`.
+
+Note that `--seed` only controls where fabrications are planted for the verifier score.
+It does not make a run reproducible: generation varies between runs regardless, which
+is the whole reason repeats are needed.
+
 ### Known limits of this measurement
 
 - One video source. The 0.0% on it means nothing yet.

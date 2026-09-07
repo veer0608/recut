@@ -1,0 +1,195 @@
+{
+  "id": "md-vidsmith",
+  "kind": "markdown",
+  "ref": "C:\\Users\\veera\\claude\\vidsmith\\README.md",
+  "title": "vidsmith",
+  "segments": 141,
+  "chars": 29674,
+  "extracted_claims": 49,
+  "dropped_unanchored": 0,
+  "targets": [
+    "linkedin",
+    "thread"
+  ],
+  "verifier_errors": {
+    "linkedin": [],
+    "thread": []
+  },
+  "format_violations": {},
+  "repaired": [],
+  "claim_utilisation": 0.3673469387755102,
+  "judged": {
+    "linkedin": {
+      "sentences": 11,
+      "claims": 11,
+      "unsupported": 0,
+      "rate": 0.0,
+      "unjudged": 0,
+      "verdicts": [
+        {
+          "n": 1,
+          "sentence": "Nothing transcribed the audio to place those captions.",
+          "verdict": "supported",
+          "why": "The source directly states in [s3] that nothing transcribed the audio to place the captions."
+        },
+        {
+          "n": 2,
+          "sentence": "Most tools generate speech, then run Whisper over that speech to find out where the words landed. vidsmith never does that.",
+          "verdict": "supported",
+          "why": "The source directly states in [s10] that most tools generate speech and run Whisper over it, but vidsmith never does that."
+        },
+        {
+          "n": 3,
+          "sentence": "Instead, it uses the speech engine's native WordBoundary events to determine word timings and picture cuts.",
+          "verdict": "supported",
+          "why": "The source explains in [s3] and [s10] that timings from native WordBoundary events determine word timings and where picture cuts happen."
+        },
+        {
+          "n": 4,
+          "sentence": "Punctuation is stitched back onto the script before captions are grouped because speech engine events drop it.",
+          "verdict": "supported",
+          "why": "The source confirms in [s11] that punctuation is dropped by the events and is stitched back on from the source script before captions are grouped."
+        },
+        {
+          "n": 5,
+          "sentence": "Stock search results are ranked by popularity, not by whether the clip depicts the subject being narrated.",
+          "verdict": "supported",
+          "why": "The source confirms in [s45] that stock search ranks by popularity rather than depicting what is being said."
+        },
+        {
+          "n": 6,
+          "sentence": "When footage does not exist for a concept, vidsmith can generate diagrams using a JSON specification.",
+          "verdict": "supported",
+          "why": "The source states in [s58] and [s59] that when footage does not exist, Gemini writes a small JSON specification and vidsmith draws diagrams."
+        },
+        {
+          "n": 7,
+          "sentence": "Diagrams never use the Ken Burns effect because reading text should not drift under the viewer.",
+          "verdict": "supported",
+          "why": "The source confirms in [s65] that diagrams never get Ken Burns because a frame someone is reading must not drift under them."
+        },
+        {
+          "n": 8,
+          "sentence": "The demo build takes 62s to build and the output file is 6.5 MB.",
+          "verdict": "supported",
+          "why": "The source confirms in [s7] that the demo output is 6.5 MB and takes 62s to build."
+        },
+        {
+          "n": 9,
+          "sentence": "Each stage of the pipeline skips work already present on disk to avoid redundant processing.",
+          "verdict": "supported",
+          "why": "The source states in [s95] that every stage skips work it already has on disk."
+        },
+        {
+          "n": 10,
+          "sentence": "The synthesized music bed is measured at -34 dB, and ducks 8 dB during speech.",
+          "verdict": "supported",
+          "why": "The source states in [s55] that measured on the demo, the bed sits around -34 dB and ducks 8 dB whenever someone is speaking."
+        },
+        {
+          "n": 11,
+          "sentence": "AI image generation is not wired in on purpose.",
+          "verdict": "supported",
+          "why": "The source explicitly states in [s88] that AI image generation is not wired in on purpose."
+        }
+      ]
+    },
+    "thread": {
+      "sentences": 11,
+      "claims": 11,
+      "unsupported": 2,
+      "rate": 0.18181818181818182,
+      "unjudged": 0,
+      "verdicts": [
+        {
+          "n": 1,
+          "sentence": "Nothing transcribed the audio to place those captions.",
+          "verdict": "supported",
+          "why": "s3 states verbatim: 'Nothing transcribed the audio to place those captions'."
+        },
+        {
+          "n": 2,
+          "sentence": "Most tools generate speech, then run Whisper over that audio to find out where the words landed. vidsmith skips that entirely by using the speech engine's native word-boundary events.",
+          "verdict": "supported",
+          "why": "s10 states: 'Most tools generate speech, then run Whisper over that speech to find out where the words landed. vidsmith never does that. Edge's TTS returns a WordBoundary event for every word it speaks, so the timings come from the engine that made the audio.'"
+        },
+        {
+          "n": 3,
+          "sentence": "Using native events is the only way to keep cuts and captions accurate.",
+          "verdict": "unsupported",
+          "why": "The text explains how vidsmith uses native events to achieve exact timings, but does not state or entail that this is the 'only way' to keep cuts and captions accurate."
+        },
+        {
+          "n": 4,
+          "sentence": "The generative engine in Polly returns no speech marks, making it unsuitable for timing captions or cuts.",
+          "verdict": "supported",
+          "why": "s38 states: 'Its generative engine returns no speech marks at all, which is why it is not a selectable value: it cannot time captions or the cut, and that is the whole design.'"
+        },
+        {
+          "n": 5,
+          "sentence": "Stock search results are ranked by popularity, not by whether the clip depicts the subject being narrated.",
+          "verdict": "supported",
+          "why": "s45 states: 'Stock search ranks by popularity, not by whether a clip depicts what is being said'."
+        },
+        {
+          "n": 6,
+          "sentence": "Gemini can be used to rerank stock footage candidates by analyzing preview stills against the narration line.",
+          "verdict": "supported",
+          "why": "s45 states: 'With GEMINI_API_KEY set, the preview stills of the top candidates are shown to Gemini alongside the narration line, and the results are reordered by what is actually in frame.'"
+        },
+        {
+          "n": 7,
+          "sentence": "The reranker judges stills rather than video, costing \"one call per scene\".",
+          "verdict": "supported",
+          "why": "s50 states: 'It judges stills, not video, so it costs one call per scene and no extra downloads.'"
+        },
+        {
+          "n": 8,
+          "sentence": "If a provider cannot supply enough distinct clips, the shot plan collapses to fewer, longer shots rather than reusing footage.",
+          "verdict": "supported",
+          "why": "s42 states: 'if the provider cannot supply enough distinct clips, the plan collapses back to fewer, longer shots rather than cutting to the same footage twice.'"
+        },
+        {
+          "n": 9,
+          "sentence": "Unlicensed music tracks are avoided because they present a copyright risk.",
+          "verdict": "supported",
+          "why": "s53 states: 'an unlicensed track is a copyright strike waiting to happen - so the bed is synthesised.'"
+        },
+        {
+          "n": 10,
+          "sentence": "The synthesized music bed is measured at \"-34 dB, and ducks 8 dB\" during speech.",
+          "verdict": "supported",
+          "why": "s55 states: 'Measured on the demo: the bed sits around -34 dB, and ducks 8 dB whenever anyone is speaking.'"
+        },
+        {
+          "n": 11,
+          "sentence": "Caption timing accuracy is best achieved by using the speech engine's native word-boundary events rather than post-process transcription.",
+          "verdict": "unsupported",
+          "why": "The text explains how vidsmith achieves exact timings via native word boundaries, but does not make a claim that it is 'best achieved' this way in general (normative judgment)."
+        }
+      ]
+    }
+  },
+  "judged_claims": 22,
+  "judged_unsupported": 2,
+  "injections": {
+    "planted": 10,
+    "caught": 10,
+    "recall": 1.0,
+    "recall_by_rule": {
+      "number": 1.0,
+      "quote": 1.0,
+      "entity": 1.0,
+      "intensity": 1.0,
+      "citation": 1.0
+    },
+    "missed": [],
+    "clean_bodies": 2,
+    "false_positive_bodies": 0,
+    "false_positives": []
+  },
+  "bodies": {
+    "linkedin": "Nothing transcribed the audio to place those captions. Most tools generate speech, then run Whisper over that speech to find out where the words landed. vidsmith never does that.\n\nInstead, it uses the speech engine's native WordBoundary events to determine word timings and picture cuts. Punctuation is stitched back onto the script before captions are grouped because speech engine events drop it.\n\nStock search results are ranked by popularity, not by whether the clip depicts the subject being narrated. When footage does not exist for a concept, vidsmith can generate diagrams using a JSON specification. Diagrams never use the Ken Burns effect because reading text should not drift under the viewer.\n\nThe demo build takes 62s to build and the output file is 6.5 MB. Each stage of the pipeline skips work already present on disk to avoid redundant processing. The synthesized music bed is measured at -34 dB, and ducks 8 dB during speech.\n\nAI image generation is not wired in on purpose.",
+    "thread": "Nothing transcribed the audio to place those captions. Most tools generate speech, then run Whisper over that audio to find out where the words landed. vidsmith skips that entirely by using the speech engine's native word-boundary events.\n\nUsing native events is the only way to keep cuts and captions accurate. The generative engine in Polly returns no speech marks, making it unsuitable for timing captions or cuts.\n\nStock search results are ranked by popularity, not by whether the clip depicts the subject being narrated. Gemini can be used to rerank stock footage candidates by analyzing preview stills against the narration line.\n\nThe reranker judges stills rather than video, costing \"one call per scene\". If a provider cannot supply enough distinct clips, the shot plan collapses to fewer, longer shots rather than reusing footage.\n\nUnlicensed music tracks are avoided because they present a copyright risk. The synthesized music bed is measured at \"-34 dB, and ducks 8 dB\" during speech.\n\nCaption timing accuracy is best achieved by using the speech engine's native word-boundary events rather than post-process transcription."
+  }
+}

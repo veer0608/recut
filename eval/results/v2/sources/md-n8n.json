@@ -1,0 +1,150 @@
+{
+  "id": "md-n8n",
+  "kind": "markdown",
+  "ref": "C:\\Users\\veera\\claude\\n8n-statement-extractor\\README.md",
+  "title": "Statement & Invoice PDF \u2192 Reconciled Rows",
+  "segments": 46,
+  "chars": 11348,
+  "extracted_claims": 16,
+  "dropped_unanchored": 0,
+  "targets": [
+    "linkedin",
+    "thread"
+  ],
+  "verifier_errors": {
+    "linkedin": [],
+    "thread": []
+  },
+  "format_violations": {},
+  "repaired": [
+    "linkedin",
+    "thread"
+  ],
+  "claim_utilisation": 0.6875,
+  "judged": {
+    "linkedin": {
+      "sentences": 8,
+      "claims": 8,
+      "unsupported": 2,
+      "rate": 0.25,
+      "unjudged": 0,
+      "verdicts": [
+        {
+          "n": 1,
+          "sentence": "The Date object can silently corrupt dates where the day is 12 or less because it assumes an MM/DD/YYYY format.",
+          "verdict": "supported",
+          "why": "The source explicitly states that JS assumes MM/DD/YYYY, causing new Date() to silently corrupt dates where days are 12 or less."
+        },
+        {
+          "n": 2,
+          "sentence": "Automated document extraction pipelines should prioritize deterministic data handling and arithmetic verification over relying solely on LLMs to ensure accuracy.",
+          "verdict": "unsupported",
+          "why": "The source presents its own design rule and criticizes other approaches, but does not state this general normative rule."
+        },
+        {
+          "n": 3,
+          "sentence": "The design rule for this workflow is that the model never touches a number it could invent.",
+          "verdict": "supported",
+          "why": "The source explicitly states under 'The design rule' that 'The model never touches a number it could invent.'"
+        },
+        {
+          "n": 4,
+          "sentence": "Instead, the workflow extracts values deterministically, uses the model only to assign columns, and then uses arithmetic to check the result.",
+          "verdict": "supported",
+          "why": "The source states that extraction pulls values deterministically, the model only assigns columns, and arithmetic checks the result."
+        },
+        {
+          "n": 5,
+          "sentence": "In a synthetic demo, the system reconciled 15 of 16 rows, achieving a 93.8 percent success rate.",
+          "verdict": "supported",
+          "why": "The source shows that in the synthetic demo run with Gemini, 15 of 16 rows reconciled (reconciledPct = 93.8)."
+        },
+        {
+          "n": 6,
+          "sentence": "Overlapping columns in a PDF's text layer are a fault in the source document that cannot be recovered by parsing.",
+          "verdict": "unsupported",
+          "why": "The source states that no amount of parsing recovers them 'cleanly', whereas the sentence drops the qualifier 'cleanly'."
+        },
+        {
+          "n": 7,
+          "sentence": "While extraction has been proven on a real 86-row card statement, no real balance-column statement has been reconciled yet.",
+          "verdict": "supported",
+          "why": "The source explicitly states that extraction is proven on a real 86-row card statement, but no real balance-column statement has been reconciled yet."
+        },
+        {
+          "n": 8,
+          "sentence": "There are 17 paid listings against 177 free ones for document/PDF extraction in the n8n library.",
+          "verdict": "supported",
+          "why": "The source explicitly lists 17 paid listings against 177 free ones for document/PDF extraction on n8n's library."
+        }
+      ]
+    },
+    "thread": {
+      "sentences": 6,
+      "claims": 6,
+      "unsupported": 2,
+      "rate": 0.3333333333333333,
+      "unjudged": 0,
+      "verdicts": [
+        {
+          "n": 1,
+          "sentence": "The system reconciled 16/16 rows in a digital run, but a synthetic demo only reached a 93.8 percent success rate.",
+          "verdict": "unsupported",
+          "why": "The source states that the 16/16 digital run was performed on the synthetic demo, rather than contrasting the digital run against the synthetic demo."
+        },
+        {
+          "n": 2,
+          "sentence": "The design rule is that the model never touches a number it could invent.",
+          "verdict": "supported",
+          "why": "The source explicitly states under 'The design rule' that 'The model never touches a number it could invent.'"
+        },
+        {
+          "n": 3,
+          "sentence": "The workflow extracts values deterministically, uses the model only to assign columns, and then uses arithmetic to check the result.",
+          "verdict": "supported",
+          "why": "The source states that extraction pulls values deterministically, the model only says which column each one goes in, and arithmetic checks the result."
+        },
+        {
+          "n": 4,
+          "sentence": "A row is never counted as reconciled unless it was actually verified.",
+          "verdict": "supported",
+          "why": "The source explicitly states that 'A row is never counted as reconciled unless it was actually verified.'"
+        },
+        {
+          "n": 5,
+          "sentence": "Overlapping columns in a PDF's text layer are a fault in the source document that cannot be recovered by parsing.",
+          "verdict": "supported",
+          "why": "The source states that overlapping columns are a fault in the source document and that no amount of parsing recovers them cleanly."
+        },
+        {
+          "n": 6,
+          "sentence": "Automated document extraction pipelines should prioritize deterministic data handling and arithmetic verification over relying solely on LLMs to ensure accuracy.",
+          "verdict": "unsupported",
+          "why": "The source describes its own specific design rule and workflow, but does not state a general normative claim about what automated document extraction pipelines should prioritize."
+        }
+      ]
+    }
+  },
+  "judged_claims": 14,
+  "judged_unsupported": 4,
+  "injections": {
+    "planted": 10,
+    "caught": 10,
+    "recall": 1.0,
+    "recall_by_rule": {
+      "number": 1.0,
+      "quote": 1.0,
+      "entity": 1.0,
+      "intensity": 1.0,
+      "citation": 1.0
+    },
+    "missed": [],
+    "clean_bodies": 2,
+    "false_positive_bodies": 0,
+    "false_positives": []
+  },
+  "bodies": {
+    "linkedin": "The Date object can silently corrupt dates where the day is 12 or less because it assumes an MM/DD/YYYY format.\n\nAutomated document extraction pipelines should prioritize deterministic data handling and arithmetic verification over relying solely on LLMs to ensure accuracy. The design rule for this workflow is that the model never touches a number it could invent.\n\nInstead, the workflow extracts values deterministically, uses the model only to assign columns, and then uses arithmetic to check the result. In a synthetic demo, the system reconciled 15 of 16 rows, achieving a 93.8 percent success rate.\n\nOverlapping columns in a PDF's text layer are a fault in the source document that cannot be recovered by parsing. While extraction has been proven on a real 86-row card statement, no real balance-column statement has been reconciled yet.\n\nThere are 17 paid listings against 177 free ones for document/PDF extraction in the n8n library.",
+    "thread": "The system reconciled 16/16 rows in a digital run, but a synthetic demo only reached a 93.8 percent success rate.\n\nThe design rule is that the model never touches a number it could invent.\n\nThe workflow extracts values deterministically, uses the model only to assign columns, and then uses arithmetic to check the result.\n\nA row is never counted as reconciled unless it was actually verified.\n\nOverlapping columns in a PDF's text layer are a fault in the source document that cannot be recovered by parsing.\n\nAutomated document extraction pipelines should prioritize deterministic data handling and arithmetic verification over relying solely on LLMs to ensure accuracy."
+  }
+}

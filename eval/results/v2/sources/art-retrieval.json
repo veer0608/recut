@@ -1,0 +1,167 @@
+{
+  "id": "art-retrieval",
+  "kind": "article",
+  "ref": "https://en.wikipedia.org/wiki/Retrieval-augmented_generation",
+  "title": "Retrieval-augmented generation - Wikipedia",
+  "segments": 26,
+  "chars": 14498,
+  "extracted_claims": 29,
+  "dropped_unanchored": 0,
+  "targets": [
+    "linkedin",
+    "thread"
+  ],
+  "verifier_errors": {
+    "linkedin": [],
+    "thread": []
+  },
+  "format_violations": {},
+  "repaired": [
+    "thread"
+  ],
+  "claim_utilisation": 0.41379310344827586,
+  "judged": {
+    "linkedin": {
+      "sentences": 8,
+      "claims": 8,
+      "unsupported": 1,
+      "rate": 0.125,
+      "unjudged": 0,
+      "verdicts": [
+        {
+          "n": 1,
+          "sentence": "A single error by Google's LLM regarding the James Webb Space Telescope contributed to a $100 billion decline in the company's stock value.",
+          "verdict": "supported",
+          "why": "The source explicitly states in s4 that an error regarding the James Webb Space Telescope contributed to a $100 billion decline in Google's stock value."
+        },
+        {
+          "n": 2,
+          "sentence": "Large language models can generate misinformation even when using factually correct sources if they misinterpret the context.",
+          "verdict": "supported",
+          "why": "The source explicitly states in s4 that LLMs can generate misinformation even when pulling from factually correct sources if they misinterpret the context."
+        },
+        {
+          "n": 3,
+          "sentence": "Retrieval-augmented generation is a technique that enables large language models to retrieve and incorporate new information from external data sources.",
+          "verdict": "supported",
+          "why": "This directly matches the definition given in s0."
+        },
+        {
+          "n": 4,
+          "sentence": "\"RAG is a way of improving LLM performance, in essence by blending the LLM process with a web search or other document look-up process to help LLMs stick to the facts.\"",
+          "verdict": "supported",
+          "why": "This is a direct quotation from Ars Technica present in s1."
+        },
+        {
+          "n": 5,
+          "sentence": "This approach reduces the need to retrain models with new data, which saves on computational and financial costs.",
+          "verdict": "supported",
+          "why": "The source explicitly states in s2 that RAG reduces the need to retrain LLMs with new data, saving on computational and financial costs."
+        },
+        {
+          "n": 6,
+          "sentence": "However, it is not a direct solution because the LLM can still hallucinate around the source material in its response.",
+          "verdict": "supported",
+          "why": "The source explicitly states this quote from Ars Technica in s22."
+        },
+        {
+          "n": 7,
+          "sentence": "Redesigning a language model with a retriever in mind allows a 25-time smaller network to achieve comparable perplexity to larger models.",
+          "verdict": "supported",
+          "why": "The source explicitly states in s18 that redesigning the language model with the retriever in mind allows a 25-time smaller network to get comparable perplexity."
+        },
+        {
+          "n": 8,
+          "sentence": "Retrieval-augmented generation is applied to knowledge-intensive natural language processing tasks.",
+          "verdict": "unsupported",
+          "why": "The source does not assert this in the body text; the phrase only appears as part of the title of a cited 2020 research paper in reference [3]."
+        }
+      ]
+    },
+    "thread": {
+      "sentences": 9,
+      "claims": 9,
+      "unsupported": 1,
+      "rate": 0.1111111111111111,
+      "unjudged": 0,
+      "verdicts": [
+        {
+          "n": 1,
+          "sentence": "A single error by Google's LLM regarding the James Webb Space Telescope contributed to a $100 billion decline in Google's stock value.",
+          "verdict": "supported",
+          "why": "The source explicitly states in [s4] that an incorrect statement about the James Webb Space Telescope contributed to a $100 billion decline in Google's stock value."
+        },
+        {
+          "n": 2,
+          "sentence": "LLMs can generate misinformation even when using factually correct sources if they misinterpret the context.",
+          "verdict": "supported",
+          "why": "The source explicitly states in [s4] that LLMs can generate misinformation even when pulling from factually correct sources if they misinterpret the context."
+        },
+        {
+          "n": 3,
+          "sentence": "Retrieval-augmented generation enables models to incorporate new information from external data sources to help them stick to the facts.",
+          "verdict": "supported",
+          "why": "The source states in [s0] that RAG enables LLMs to incorporate new information from external data sources and in [s1] that it helps LLMs stick to the facts."
+        },
+        {
+          "n": 4,
+          "sentence": "\"RAG is a way of improving LLM performance, in essence by blending the LLM process with a web search or other document look-up process to help LLMs stick to the facts.\"",
+          "verdict": "supported",
+          "why": "The exact quote appears verbatim in [s1]."
+        },
+        {
+          "n": 5,
+          "sentence": "This technique reduces the need to retrain models with new data, which saves on computational and financial costs.",
+          "verdict": "supported",
+          "why": "The source explicitly states in [s2] that RAG reduces the need to retrain LLMs with new data, saving on computational and financial costs."
+        },
+        {
+          "n": 6,
+          "sentence": "Redesigning a language model with a retriever in mind allows a 25-time smaller network to achieve comparable perplexity to larger models.",
+          "verdict": "supported",
+          "why": "The source explicitly states in [s18] that redesigning the language model with the retriever in mind allows a 25-time smaller network to get comparable perplexity."
+        },
+        {
+          "n": 7,
+          "sentence": "\"It is not a direct solution because the LLM can still hallucinate around the source material in its response.\"",
+          "verdict": "supported",
+          "why": "The exact quote appears verbatim in [s22]."
+        },
+        {
+          "n": 8,
+          "sentence": "RAG systems may retrieve factually correct but misleading sources, or combine outdated and updated information in a misleading manner.",
+          "verdict": "supported",
+          "why": "The source states in [s24] that RAG systems may retrieve factually correct but misleading sources, and can produce responses that merge outdated and updated information in a misleading manner."
+        },
+        {
+          "n": 9,
+          "sentence": "Grounding outputs in external data helps mitigate hallucinations, yet RAG remains a technique that faces ongoing challenges regarding evaluation and reliability.",
+          "verdict": "unsupported",
+          "why": "The source specifies in [s12] that these continuing challenges around evaluation and clinical reliability were noted in healthcare contexts, whereas the sentence generalizes this claim to RAG as a whole."
+        }
+      ]
+    }
+  },
+  "judged_claims": 17,
+  "judged_unsupported": 2,
+  "injections": {
+    "planted": 10,
+    "caught": 10,
+    "recall": 1.0,
+    "recall_by_rule": {
+      "number": 1.0,
+      "quote": 1.0,
+      "entity": 1.0,
+      "intensity": 1.0,
+      "citation": 1.0
+    },
+    "missed": [],
+    "clean_bodies": 2,
+    "false_positive_bodies": 0,
+    "false_positives": []
+  },
+  "bodies": {
+    "linkedin": "A single error by Google's LLM regarding the James Webb Space Telescope contributed to a $100 billion decline in the company's stock value.\n\nLarge language models can generate misinformation even when using factually correct sources if they misinterpret the context. Retrieval-augmented generation is a technique that enables large language models to retrieve and incorporate new information from external data sources.\n\n\"RAG is a way of improving LLM performance, in essence by blending the LLM process with a web search or other document look-up process to help LLMs stick to the facts.\"\n\nThis approach reduces the need to retrain models with new data, which saves on computational and financial costs. However, it is not a direct solution because the LLM can still hallucinate around the source material in its response.\n\nRedesigning a language model with a retriever in mind allows a 25-time smaller network to achieve comparable perplexity to larger models.\n\nRetrieval-augmented generation is applied to knowledge-intensive natural language processing tasks.",
+    "thread": "A single error by Google's LLM regarding the James Webb Space Telescope contributed to a $100 billion decline in Google's stock value.\n\nLLMs can generate misinformation even when using factually correct sources if they misinterpret the context.\n\nRetrieval-augmented generation enables models to incorporate new information from external data sources to help them stick to the facts.\n\n\"RAG is a way of improving LLM performance, in essence by blending the LLM process with a web search or other document look-up process to help LLMs stick to the facts.\"\n\nThis technique reduces the need to retrain models with new data, which saves on computational and financial costs.\n\nRedesigning a language model with a retriever in mind allows a 25-time smaller network to achieve comparable perplexity to larger models.\n\n\"It is not a direct solution because the LLM can still hallucinate around the source material in its response.\"\n\nRAG systems may retrieve factually correct but misleading sources, or combine outdated and updated information in a misleading manner.\n\nGrounding outputs in external data helps mitigate hallucinations, yet RAG remains a technique that faces ongoing challenges regarding evaluation and reliability."
+  }
+}

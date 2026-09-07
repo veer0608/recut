@@ -1,0 +1,153 @@
+{
+  "id": "art-ocr",
+  "kind": "article",
+  "ref": "https://en.wikipedia.org/wiki/Optical_character_recognition",
+  "title": "Optical character recognition - Wikipedia",
+  "segments": 48,
+  "chars": 31494,
+  "extracted_claims": 51,
+  "dropped_unanchored": 0,
+  "targets": [
+    "linkedin",
+    "thread"
+  ],
+  "verifier_errors": {
+    "linkedin": [],
+    "thread": []
+  },
+  "format_violations": {},
+  "repaired": [],
+  "claim_utilisation": 0.3137254901960784,
+  "judged": {
+    "linkedin": {
+      "sentences": 8,
+      "claims": 8,
+      "unsupported": 0,
+      "rate": 0.0,
+      "unjudged": 0,
+      "verdicts": [
+        {
+          "n": 1,
+          "sentence": "A character error rate of 1% (99% accuracy) may result in an error rate of 5% or worse if word context is not used.",
+          "verdict": "supported",
+          "why": "The source states in section [s38] that a character error rate of 1% (99% accuracy) can result in a 5% error rate or worse if word context is not used to correct the software."
+        },
+        {
+          "n": 2,
+          "sentence": "Optical character recognition has evolved from early telegraphic experiments into a technology used to digitize printed text for electronic editing and searching.",
+          "verdict": "supported",
+          "why": "The source traces OCR's origins to telegraphy and reading devices for the blind in [s3] and describes its common use for digitizing printed texts for electronic editing and searching in [s1]."
+        },
+        {
+          "n": 3,
+          "sentence": "While modern tools like Tesseract 5 or TrOCR assist in this process, the underlying mechanics often rely on binarization, as most commercial recognition algorithms work only on binary images.",
+          "verdict": "supported",
+          "why": "The source mentions Tesseract 5 and TrOCR as modern engines in [s19], states that OCR software often uses binarization in [s13], and explains in [s14] that binarization is necessary because most commercial recognition algorithms work only on binary images."
+        },
+        {
+          "n": 4,
+          "sentence": "Techniques such as near-neighbor analysis can help correct errors by utilizing co-occurrence frequencies of words.",
+          "verdict": "supported",
+          "why": "Section [s25] explicitly states that near-neighbor analysis can use co-occurrence frequencies to correct errors by noting which words are often seen together."
+        },
+        {
+          "n": 5,
+          "sentence": "For specialized tasks, some software uses a two-pass approach where high-confidence results from the first pass improve recognition of remaining letters.",
+          "verdict": "supported",
+          "why": "Section [s18] describes how software like Cuneiform and Tesseract uses a two-pass approach where high-confidence results from the first pass are used to improve the recognition of remaining letters, noting this is advantageous for unusual fonts or low-quality scans."
+        },
+        {
+          "n": 6,
+          "sentence": "Even with these methods, recognition of typewritten Latin script is not 100% accurate.",
+          "verdict": "supported",
+          "why": "Section [s37] states that recognition of typewritten Latin script text is still not 100% accurate even with clear imaging."
+        },
+        {
+          "n": 7,
+          "sentence": "Users can set confidence rates to trigger notifications for manual review when the system encounters uncertainty.",
+          "verdict": "supported",
+          "why": "Section [s41] explains that most programs allow users to set confidence rates so they can be notified for manual review if the desired level of accuracy is not achieved."
+        },
+        {
+          "n": 8,
+          "sentence": "OCR technology can capture up to 99.91% of data.",
+          "verdict": "supported",
+          "why": "The source mentions a patent for iterative OCR in [s20] and includes the title of the associated reference [41] in [s46], which is 'How the Best OCR Technology Captures 99.91% of Data'."
+        }
+      ]
+    },
+    "thread": {
+      "sentences": 7,
+      "claims": 7,
+      "unsupported": 0,
+      "rate": 0.0,
+      "unjudged": 0,
+      "verdicts": [
+        {
+          "n": 1,
+          "sentence": "OCR software can be used to defeat or test the robustness of CAPTCHA anti-bot systems.",
+          "verdict": "supported",
+          "why": "The source explicitly lists defeating or testing the robustness of CAPTCHA systems as a use for OCR software."
+        },
+        {
+          "n": 2,
+          "sentence": "Early experiments in the field included the Optophone, a handheld scanner that produced tones corresponding to characters, developed by Edmund Fournier d'Albe.",
+          "verdict": "supported",
+          "why": "The source identifies the Optophone as an early technology for the blind developed by Edmund Fournier d'Albe that produced tones corresponding to characters."
+        },
+        {
+          "n": 3,
+          "sentence": "In 1931, Emanuel Goldberg was granted US Patent number 1,838,389 for a statistical machine used to search microfilm archives.",
+          "verdict": "supported",
+          "why": "The source states that Goldberg was granted US Patent number 1,838,389 in 1931 for his 'Statistical Machine' used to search microfilm archives."
+        },
+        {
+          "n": 4,
+          "sentence": "By January 13, 1976, Ray Kurzweil unveiled a reading machine for the blind that included a flatbed scanner and a text-to-speech synthesizer.",
+          "verdict": "supported",
+          "why": "The source confirms that Kurzweil's reading machine for the blind, which included a flatbed scanner and text-to-speech synthesizer, was unveiled on January 13, 1976."
+        },
+        {
+          "n": 5,
+          "sentence": "Commercial OCR software accuracy for 19th- and early 20th-century newspaper pages varied from 81% to 99%.",
+          "verdict": "supported",
+          "why": "The source cites a study finding that character-by-character accuracy for commercial OCR on 19th- and early 20th-century newspaper pages ranged from 81% to 99%."
+        },
+        {
+          "n": 6,
+          "sentence": "A character error rate of 1% (99% accuracy) may result in an error rate of 5% or worse if word context is not used.",
+          "verdict": "supported",
+          "why": "The source provides this exact example to illustrate how the absence of word context can increase the word error rate relative to the character error rate."
+        },
+        {
+          "n": 7,
+          "sentence": "OCR technology has evolved from early mechanical experiments into a versatile way to digitize, search, and process text across diverse formats and applications.",
+          "verdict": "supported",
+          "why": "The source describes the history of OCR from early mechanical and telegraphy-based devices to its current widespread use in digitizing, searching, and processing text in many formats."
+        }
+      ]
+    }
+  },
+  "judged_claims": 15,
+  "judged_unsupported": 0,
+  "injections": {
+    "planted": 10,
+    "caught": 10,
+    "recall": 1.0,
+    "recall_by_rule": {
+      "number": 1.0,
+      "quote": 1.0,
+      "entity": 1.0,
+      "intensity": 1.0,
+      "citation": 1.0
+    },
+    "missed": [],
+    "clean_bodies": 2,
+    "false_positive_bodies": 0,
+    "false_positives": []
+  },
+  "bodies": {
+    "linkedin": "A character error rate of 1% (99% accuracy) may result in an error rate of 5% or worse if word context is not used.\n\nOptical character recognition has evolved from early telegraphic experiments into a technology used to digitize printed text for electronic editing and searching. While modern tools like Tesseract 5 or TrOCR assist in this process, the underlying mechanics often rely on binarization, as most commercial recognition algorithms work only on binary images.\n\nTechniques such as near-neighbor analysis can help correct errors by utilizing co-occurrence frequencies of words. For specialized tasks, some software uses a two-pass approach where high-confidence results from the first pass improve recognition of remaining letters. Even with these methods, recognition of typewritten Latin script is not 100% accurate. Users can set confidence rates to trigger notifications for manual review when the system encounters uncertainty.\n\nOCR technology can capture up to 99.91% of data.",
+    "thread": "OCR software can be used to defeat or test the robustness of CAPTCHA anti-bot systems.\n\nEarly experiments in the field included the Optophone, a handheld scanner that produced tones corresponding to characters, developed by Edmund Fournier d'Albe.\n\nIn 1931, Emanuel Goldberg was granted US Patent number 1,838,389 for a statistical machine used to search microfilm archives.\n\nBy January 13, 1976, Ray Kurzweil unveiled a reading machine for the blind that included a flatbed scanner and a text-to-speech synthesizer.\n\nCommercial OCR software accuracy for 19th- and early 20th-century newspaper pages varied from 81% to 99%.\n\nA character error rate of 1% (99% accuracy) may result in an error rate of 5% or worse if word context is not used.\n\nOCR technology has evolved from early mechanical experiments into a versatile way to digitize, search, and process text across diverse formats and applications."
+  }
+}

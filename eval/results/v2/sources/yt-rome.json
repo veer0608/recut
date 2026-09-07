@@ -1,0 +1,180 @@
+{
+  "id": "yt-rome",
+  "kind": "youtube",
+  "ref": "https://www.youtube.com/watch?v=0PkBP0dk4Lw",
+  "title": "Why Rome Never Really Fell made with vidsmith",
+  "segments": 10,
+  "chars": 2174,
+  "extracted_claims": 8,
+  "dropped_unanchored": 0,
+  "targets": [
+    "linkedin",
+    "thread"
+  ],
+  "verifier_errors": {
+    "linkedin": [],
+    "thread": []
+  },
+  "format_violations": {},
+  "repaired": [
+    "linkedin",
+    "thread"
+  ],
+  "claim_utilisation": 1.0,
+  "judged": {
+    "linkedin": {
+      "sentences": 9,
+      "claims": 9,
+      "unsupported": 0,
+      "rate": 0.0,
+      "unjudged": 0,
+      "verdicts": [
+        {
+          "n": 1,
+          "sentence": "Farmers in 450 often abandoned their land to seek protection from local warlords, which deprived the empire of tax revenue.",
+          "verdict": "supported",
+          "why": "The source uses a hypothetical scenario about a farmer in 450 to illustrate the historical trend of people fleeing to warlords and depriving the empire of taxes."
+        },
+        {
+          "n": 2,
+          "sentence": "The popular belief that the Roman Empire ended in a sudden, violent collapse is inaccurate.",
+          "verdict": "supported",
+          "why": "The source explicitly states that the common story of a sudden catastrophic ending is wrong and that Rome did not vanish in a single dramatic afternoon."
+        },
+        {
+          "n": 3,
+          "sentence": "Before the events of 476, the Western Roman government faced internal instability, including an inability to pay its financial obligations.",
+          "verdict": "supported",
+          "why": "The source states that Rome was fracturing from internal rot long before outsiders breached the gates and that the government nearly stopped functioning because it could not pay its bills."
+        },
+        {
+          "n": 4,
+          "sentence": "Roman emperors devalued currency by mixing base metals into silver coins to cover rising military costs.",
+          "verdict": "supported",
+          "why": "The source mentions that emperors mixed base metals into silver coins to afford rising military costs."
+        },
+        {
+          "n": 5,
+          "sentence": "This runaway inflation led merchants to reject imperial money in favor of trading grain and olive oil.",
+          "verdict": "supported",
+          "why": "The source says runaway inflation caused merchants to stop accepting imperial money, forcing trade in grain and olive oil."
+        },
+        {
+          "n": 6,
+          "sentence": "The vast physical size of the Roman Empire made it impossible for central armies to defend against fast-moving raiders.",
+          "verdict": "supported",
+          "why": "The source states the physical size of the territory made defense impossible as armies could not move fast enough to block raiders."
+        },
+        {
+          "n": 7,
+          "sentence": "Local commanders often made private safety deals because central authority could not provide effective protection.",
+          "verdict": "supported",
+          "why": "The source explains that local commanders made private deals because central authority meant nothing compared to a local general who could provide better protection."
+        },
+        {
+          "n": 8,
+          "sentence": "The government suffered from internal rot as generals traded loyalty for bribes and engaged in frequent civil wars.",
+          "verdict": "supported",
+          "why": "The source describes the machinery of governance rotting as generals traded loyalty for bribes and staged civil wars."
+        },
+        {
+          "n": 9,
+          "sentence": "Rome did not vanish in a single dramatic afternoon.",
+          "verdict": "supported",
+          "why": "This is a direct quote from the source."
+        }
+      ]
+    },
+    "thread": {
+      "sentences": 10,
+      "claims": 10,
+      "unsupported": 0,
+      "rate": 0.0,
+      "unjudged": 0,
+      "verdicts": [
+        {
+          "n": 1,
+          "sentence": "The popular belief that the Roman Empire ended in a sudden, violent collapse is inaccurate.",
+          "verdict": "supported",
+          "why": "The source states that the belief in a sudden, violent end is a misconception that blinds people to how empires actually dissolve."
+        },
+        {
+          "n": 2,
+          "sentence": "Rome did not vanish in a single dramatic afternoon.",
+          "verdict": "supported",
+          "why": "This is a direct quote from the source."
+        },
+        {
+          "n": 3,
+          "sentence": "The Western Roman government faced internal instability, including an inability to pay its financial obligations, before the events of 476.",
+          "verdict": "supported",
+          "why": "The source mentions the government could no longer pay its bills and was fracturing from internal rot before outsiders breached the gates, specifically referencing the narrative of 476 as wrong."
+        },
+        {
+          "n": 4,
+          "sentence": "Roman emperors devalued currency by mixing base metals into silver coins to cover rising military costs.",
+          "verdict": "supported",
+          "why": "The source explicitly states that emperors mixed base metals into silver coins to afford rising military costs."
+        },
+        {
+          "n": 5,
+          "sentence": "Runaway inflation caused by currency devaluation led merchants to reject imperial money in favor of trading grain and olive oil.",
+          "verdict": "supported",
+          "why": "The source states that runaway inflation destroyed trust, leading merchants to stop accepting imperial money and forcing trade in grain and olive oil."
+        },
+        {
+          "n": 6,
+          "sentence": "The vast physical size of the Roman Empire made it impossible for central armies to defend against fast-moving raiders.",
+          "verdict": "supported",
+          "why": "The source states that the physical size made defense impossible because armies could not move fast enough to block raiders."
+        },
+        {
+          "n": 7,
+          "sentence": "Local commanders often made private safety deals because central authority could not provide effective protection.",
+          "verdict": "supported",
+          "why": "The source notes that local commanders made private deals because central authority/the distant emperor provided less protection than a local general."
+        },
+        {
+          "n": 8,
+          "sentence": "The Roman government suffered from internal rot as generals traded loyalty for bribes and engaged in frequent civil wars.",
+          "verdict": "supported",
+          "why": "The source describes the machinery of governance rotting as generals traded loyalty for bribes and staged civil wars."
+        },
+        {
+          "n": 9,
+          "sentence": "Farmers in 450 often abandoned their land to seek protection from local warlords, which deprived the empire of tax revenue.",
+          "verdict": "supported",
+          "why": "The source uses the example of a farmer in 450 fleeing to a warlord for protection, which starved the empire of taxes."
+        },
+        {
+          "n": 10,
+          "sentence": "The fall of the Roman Empire was not a sudden event caused by external invasion, but a long process of internal systemic collapse.",
+          "verdict": "supported",
+          "why": "The source argues that the narrative of a sudden ending by barbarian hordes is wrong and that systems rot from within long before the end."
+        }
+      ]
+    }
+  },
+  "judged_claims": 19,
+  "judged_unsupported": 0,
+  "injections": {
+    "planted": 10,
+    "caught": 10,
+    "recall": 1.0,
+    "recall_by_rule": {
+      "number": 1.0,
+      "quote": 1.0,
+      "entity": 1.0,
+      "intensity": 1.0,
+      "citation": 1.0
+    },
+    "missed": [],
+    "clean_bodies": 2,
+    "false_positive_bodies": 0,
+    "false_positives": []
+  },
+  "bodies": {
+    "linkedin": "Farmers in 450 often abandoned their land to seek protection from local warlords, which deprived the empire of tax revenue.\n\nThe popular belief that the Roman Empire ended in a sudden, violent collapse is inaccurate. Before the events of 476, the Western Roman government faced internal instability, including an inability to pay its financial obligations.\n\nRoman emperors devalued currency by mixing base metals into silver coins to cover rising military costs. This runaway inflation led merchants to reject imperial money in favor of trading grain and olive oil.\n\nThe vast physical size of the Roman Empire made it impossible for central armies to defend against fast-moving raiders. Local commanders often made private safety deals because central authority could not provide effective protection. The government suffered from internal rot as generals traded loyalty for bribes and engaged in frequent civil wars.\n\nRome did not vanish in a single dramatic afternoon.",
+    "thread": "The popular belief that the Roman Empire ended in a sudden, violent collapse is inaccurate. Rome did not vanish in a single dramatic afternoon.\n\nThe Western Roman government faced internal instability, including an inability to pay its financial obligations, before the events of 476.\n\nRoman emperors devalued currency by mixing base metals into silver coins to cover rising military costs.\n\nRunaway inflation caused by currency devaluation led merchants to reject imperial money in favor of trading grain and olive oil.\n\nThe vast physical size of the Roman Empire made it impossible for central armies to defend against fast-moving raiders.\n\nLocal commanders often made private safety deals because central authority could not provide effective protection.\n\nThe Roman government suffered from internal rot as generals traded loyalty for bribes and engaged in frequent civil wars.\n\nFarmers in 450 often abandoned their land to seek protection from local warlords, which deprived the empire of tax revenue.\n\nThe fall of the Roman Empire was not a sudden event caused by external invasion, but a long process of internal systemic collapse."
+  }
+}

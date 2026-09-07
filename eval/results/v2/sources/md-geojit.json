@@ -1,0 +1,165 @@
+{
+  "id": "md-geojit",
+  "kind": "markdown",
+  "ref": "C:\\Users\\veera\\claude\\geojit-report-app\\README.md",
+  "title": "Equity Research Report Generator (Geojit-style)",
+  "segments": 41,
+  "chars": 7397,
+  "extracted_claims": 14,
+  "dropped_unanchored": 0,
+  "targets": [
+    "linkedin",
+    "thread"
+  ],
+  "verifier_errors": {
+    "linkedin": [],
+    "thread": []
+  },
+  "format_violations": {},
+  "repaired": [],
+  "claim_utilisation": 0.8571428571428571,
+  "judged": {
+    "linkedin": {
+      "sentences": 9,
+      "claims": 9,
+      "unsupported": 1,
+      "rate": 0.1111111111111111,
+      "unjudged": 0,
+      "verdicts": [
+        {
+          "n": 1,
+          "sentence": "The quick start process for the application takes under 2 minutes.",
+          "verdict": "supported",
+          "why": "The source explicitly states 'Quick start (under 2 minutes)'."
+        },
+        {
+          "n": 2,
+          "sentence": "This web app converts financial context documents in PDF, CSV, or TXT format into auto-filled PDF research reports.",
+          "verdict": "supported",
+          "why": "The source explicitly states that the web app converts context documents (PDF / CSV / TXT) into auto-filled PDF research reports."
+        },
+        {
+          "n": 3,
+          "sentence": "It uses a hybrid extraction approach that orchestrates LLM processing with a deterministic fallback.",
+          "verdict": "supported",
+          "why": "The source describes an extraction process with an orchestrator combining LLM extraction and a deterministic fallback."
+        },
+        {
+          "n": 4,
+          "sentence": "If an error occurs during LLM extraction, the path degrades gracefully to the deterministic path.",
+          "verdict": "supported",
+          "why": "The source notes that the LLM path degrades gracefully to the deterministic path on any error."
+        },
+        {
+          "n": 5,
+          "sentence": "Missing fields are handled by rendering them as 'NA' and noting them on the report.",
+          "verdict": "supported",
+          "why": "The source states that missing fields render as 'NA' and are listed in an on-report note."
+        },
+        {
+          "n": 6,
+          "sentence": "The application uses ReportLab and matplotlib to render PDF content and charts.",
+          "verdict": "supported",
+          "why": "The source states that ReportLab is used for PDF generation and matplotlib for drawing charts."
+        },
+        {
+          "n": 7,
+          "sentence": "To match a specific Geojit PDF pixel-for-pixel, users can adjust colors, fonts, page settings, and the rating ladder in app/config.py without changing the data model or extraction logic.",
+          "verdict": "unsupported",
+          "why": "To match a specific PDF pixel-for-pixel, the source states you must also adjust section order/spacing in `app/report/pdf_builder.py`, not just `app/config.py`."
+        },
+        {
+          "n": 8,
+          "sentence": "This project is a reconstructed research template for a take-home exercise and is not affiliated with or produced by Geojit Financial Services Ltd.",
+          "verdict": "supported",
+          "why": "The source explicitly states this is a reconstructed research template for a take-home exercise and is not affiliated with or produced by Geojit Financial Services Ltd."
+        },
+        {
+          "n": 9,
+          "sentence": "Generated reports are not investment advice.",
+          "verdict": "supported",
+          "why": "The source explicitly states that generated reports are not investment advice."
+        }
+      ]
+    },
+    "thread": {
+      "sentences": 8,
+      "claims": 8,
+      "unsupported": 0,
+      "rate": 0.0,
+      "unjudged": 0,
+      "verdicts": [
+        {
+          "n": 1,
+          "sentence": "The LLM extraction path degrades gracefully to the deterministic path if an error occurs.",
+          "verdict": "supported",
+          "why": "The source explicitly states in [s14] that the LLM path degrades gracefully to the deterministic path on any error."
+        },
+        {
+          "n": 2,
+          "sentence": "The extractor operates in two modes: an LLM-based path using Claude if an API key is provided, and a deterministic rule-based path.",
+          "verdict": "supported",
+          "why": "The source states in [s12] that the extractor operates in two modes: Claude (LLM) when ANTHROPIC_API_KEY is set, and Deterministic rule-based parsing when no key is set or the call fails."
+        },
+        {
+          "n": 3,
+          "sentence": "The application uses a hybrid extraction approach that orchestrates LLM processing with a deterministic fallback.",
+          "verdict": "supported",
+          "why": "The source describes in [s36] an orchestrator for LLM with deterministic fallback, and [s11]-[s14] describe this fallback flow."
+        },
+        {
+          "n": 4,
+          "sentence": "Missing fields in the input data are handled by rendering them as 'NA' and noting them on the report.",
+          "verdict": "supported",
+          "why": "The source states in [s26] that anything not found renders as 'NA' and is listed in an on-report note."
+        },
+        {
+          "n": 5,
+          "sentence": "The quick start process for the application takes under 2 minutes.",
+          "verdict": "supported",
+          "why": "The source explicitly titles section ## Quick start as '(under 2 minutes)' in [s4]."
+        },
+        {
+          "n": 6,
+          "sentence": "To match a specific Geojit PDF pixel-for-pixel, users can adjust colors, fonts, page settings, and the rating ladder in app/config.py.",
+          "verdict": "supported",
+          "why": "The source states in [s2], [s21], and [s38] that fine-tuning/matching pixel-for-pixel to an exact sample is done by adjusting theme values (colors, fonts, page size/geometry, rating ladder) in app/config.py."
+        },
+        {
+          "n": 7,
+          "sentence": "The data model and extraction logic do not need to change when matching a specific Geojit PDF.",
+          "verdict": "supported",
+          "why": "The source states in [s38] that 'The data model and extraction don't need to change' when matching a specific Geojit PDF."
+        },
+        {
+          "n": 8,
+          "sentence": "Automating the generation of equity research reports is achievable by building a modular pipeline that extracts financial data from diverse document formats and renders it into a standardized, customizable PDF template.",
+          "verdict": "supported",
+          "why": "The source describes and demonstrates this exact capability across [s1], [s17], [s18], and [s21]."
+        }
+      ]
+    }
+  },
+  "judged_claims": 17,
+  "judged_unsupported": 1,
+  "injections": {
+    "planted": 10,
+    "caught": 10,
+    "recall": 1.0,
+    "recall_by_rule": {
+      "number": 1.0,
+      "quote": 1.0,
+      "entity": 1.0,
+      "intensity": 1.0,
+      "citation": 1.0
+    },
+    "missed": [],
+    "clean_bodies": 2,
+    "false_positive_bodies": 0,
+    "false_positives": []
+  },
+  "bodies": {
+    "linkedin": "The quick start process for the application takes under 2 minutes.\n\nThis web app converts financial context documents in PDF, CSV, or TXT format into auto-filled PDF research reports. It uses a hybrid extraction approach that orchestrates LLM processing with a deterministic fallback. If an error occurs during LLM extraction, the path degrades gracefully to the deterministic path.\n\nMissing fields are handled by rendering them as 'NA' and noting them on the report. The application uses ReportLab and matplotlib to render PDF content and charts. To match a specific Geojit PDF pixel-for-pixel, users can adjust colors, fonts, page settings, and the rating ladder in app/config.py without changing the data model or extraction logic.\n\nThis project is a reconstructed research template for a take-home exercise and is not affiliated with or produced by Geojit Financial Services Ltd. Generated reports are not investment advice.",
+    "thread": "The LLM extraction path degrades gracefully to the deterministic path if an error occurs.\n\nThe extractor operates in two modes: an LLM-based path using Claude if an API key is provided, and a deterministic rule-based path.\n\nThe application uses a hybrid extraction approach that orchestrates LLM processing with a deterministic fallback.\n\nMissing fields in the input data are handled by rendering them as 'NA' and noting them on the report.\n\nThe quick start process for the application takes under 2 minutes.\n\nTo match a specific Geojit PDF pixel-for-pixel, users can adjust colors, fonts, page settings, and the rating ladder in app/config.py.\n\nThe data model and extraction logic do not need to change when matching a specific Geojit PDF.\n\nAutomating the generation of equity research reports is achievable by building a modular pipeline that extracts financial data from diverse document formats and renders it into a standardized, customizable PDF template."
+  }
+}
