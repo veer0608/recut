@@ -6,6 +6,7 @@ from pathlib import Path
 
 from dotenv import load_dotenv
 
+from .build import build as build_video
 from .ingest import ingest, source_kind
 from .ingest.markdown import slug
 from .llm import LLM, LLMError
@@ -46,6 +47,13 @@ def main(argv: list[str] | None = None) -> int:
     )
     run.add_argument("--out", default="out", help="output directory (default: out)")
     run.add_argument("--env", default=".env", help="env file holding the API keys")
+    run.add_argument(
+        "--build",
+        action="store_true",
+        help="render the vidsmith target to an mp4. Needs a vidsmith checkout: see "
+        "VIDSMITH_PYTHON and VIDSMITH_HOME",
+    )
+    run.add_argument("--aspect", help="override the shape vidsmith renders, e.g. 16:9")
 
     args = parser.parse_args(argv)
     _utf8_stdout()
@@ -109,6 +117,29 @@ def main(argv: list[str] | None = None) -> int:
     out_dir = write_out(Path(args.out) / slug(document.title), document, claims, artifacts)
     calls = llm.budget.calls
     print(f"done     {out_dir}  ({calls} model call{'s' if calls != 1 else ''})")
+
+    if args.build:
+        # A failed render does not retract the text that was already written and
+        # verified, so it is reported and given its own exit code rather than
+        # turning the whole run into a failure.
+        if "vidsmith" not in [a.target for a in artifacts]:
+            print(
+                f"{YELLOW}--build had nothing to build: the vidsmith target did not "
+                f"run{OFF}",
+                file=sys.stderr,
+            )
+            return 2
+        print("build    handing the project to vidsmith")
+        video, problem = build_video(
+            out_dir / "vidsmith",
+            aspect=args.aspect,
+            echo=lambda line: print(f"         {DIM}{line}{OFF}"),
+        )
+        if problem:
+            print(f"{RED}build failed: {problem}{OFF}", file=sys.stderr)
+            return 4
+        size = video.stat().st_size / 1e6
+        print(f"video    {GREEN}{video}{OFF}  ({size:.1f} MB)")
 
     return 0 if all(a.clean for a in artifacts) else 3
 
