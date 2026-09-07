@@ -28,7 +28,7 @@ from recut.pipeline import applicable, repurpose
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 from inject import score as score_injections  # noqa: E402
-from judge import JUDGE_MODELS, judge  # noqa: E402
+from judge import JUDGE_MODELS, JUDGE_PROVIDER, judge, judge_client  # noqa: E402
 
 HERE = Path(__file__).resolve().parent
 GOLDEN = HERE / "golden" / "sources.yaml"
@@ -200,9 +200,11 @@ def main(argv: list[str] | None = None) -> int:
     targets = [t.strip() for t in args.targets.split(",") if t.strip()]
 
     try:
-        llm = LLM()
-        # A different ladder from the generators, so nothing grades its own work.
-        judge_llm = None if args.no_judge else LLM(gemini_models=JUDGE_MODELS, use_groq=False)
+        # Generators are pinned to Gemini and the judge to Groq. Neither can
+        # reach the other's provider, so "nothing grades its own work" holds by
+        # construction rather than by which ladder happened to answer first.
+        llm = LLM(use_groq=False)
+        judge_llm = None if args.no_judge else judge_client()
     except LLMError as exc:
         print(f"{RED}{exc}{OFF}", file=sys.stderr)
         return 1
@@ -249,7 +251,9 @@ def main(argv: list[str] | None = None) -> int:
         "at": datetime.now(timezone.utc).isoformat(timespec="seconds"),
         "seed": args.seed,
         "targets": targets,
+        "judge_provider": None if judge_llm is None else JUDGE_PROVIDER,
         "judge_models": [] if judge_llm is None else list(JUDGE_MODELS),
+        "generator_provider": "gemini",
         "model_calls": llm.budget.calls + (judge_llm.budget.calls if judge_llm else 0),
     }
     report = aggregate(results, failures, run)

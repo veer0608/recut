@@ -145,9 +145,13 @@ class LLM:
         # Eight attempts with capped backoff rides out a burst; five did not.
         max_retries: int = 8,
         # The eval's judge pins a different ladder than the generators use, so a
-        # model is never grading its own output.
+        # model is never grading its own output. use_gemini=False takes that
+        # further and puts the judge on another provider entirely, which is the
+        # only version of the claim that cannot fail by falling through.
         gemini_models: tuple[str, ...] = GEMINI_MODELS,
         use_groq: bool = True,
+        use_gemini: bool = True,
+        groq_model: str = GROQ_MODEL,
         allow_env: bool = True,
     ) -> None:
         # allow_env=False is what makes "bring your own key" true rather than a
@@ -165,6 +169,12 @@ class LLM:
         self.max_retries = max_retries
         self.gemini_models = gemini_models
         self.use_groq = use_groq
+        self.use_gemini = use_gemini
+        self.groq_model = groq_model
+        if not (self.use_gemini and self.gemini_key) and not (self.use_groq and self.groq_key):
+            # Refuse here rather than raising "every provider failed" after the
+            # first call, which reads like a quota wall and is not one.
+            raise LLMError("no provider is enabled and keyed for this client")
         self.budget = Budget()
 
     # ------------------------------------------------------------- transports
@@ -198,7 +208,7 @@ class LLM:
         # failed_generation that says nothing. Asking in the prompt and parsing the
         # object out ourselves fails softer and costs nothing.
         body: dict = {
-            "model": GROQ_MODEL,
+            "model": self.groq_model,
             "messages": [{"role": "user", "content": prompt}],
             "temperature": 0.4,
         }
@@ -220,10 +230,10 @@ class LLM:
     def text(self, prompt: str, as_json: bool = False) -> str:
         """One completion, retried across models and then across providers."""
         attempts: list[tuple[str, str]] = []
-        if self.gemini_key:
+        if self.gemini_key and self.use_gemini:
             attempts += [("gemini", model) for model in self.gemini_models]
         if self.groq_key and self.use_groq:
-            attempts.append(("groq", GROQ_MODEL))
+            attempts.append(("groq", self.groq_model))
 
         failures: list[str] = []
         with httpx.Client(timeout=self.timeout) as client:

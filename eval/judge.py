@@ -25,7 +25,27 @@ from recut.models import Document
 
 # Deliberately not the generation model. Sharing one would let a model ratify its
 # own habits, which is the failure this whole file exists to rule out.
-JUDGE_MODELS = ("gemini-3.7-flash", "gemini-3.6-flash", "gemini-3-flash-preview")
+#
+# The judge is on a different *provider* from the generators, not a different
+# ladder on the same one. The earlier arrangement pinned Gemini models the
+# generators did not start with, but the generators could still fall through to
+# them, so the guarantee held by luck rather than by construction. The README
+# said as much under known limits: no-overlap was designed for and not proven.
+# Separating by provider is the version that cannot fail that way, and it also
+# stops one exhausted quota taking out both halves of the eval at once, which it
+# did on two consecutive days.
+#
+# The cost is Groq's, and it is real: the binding limit is tokens per day and it
+# appears in no response header, so a judged run can stop without warning. It
+# checkpoints per source, so that costs the source it was on.
+JUDGE_PROVIDER = "groq"
+JUDGE_GROQ_MODEL = "openai/gpt-oss-120b"
+JUDGE_MODELS = (JUDGE_GROQ_MODEL,)
+
+
+def judge_client(**kwargs) -> LLM:
+    """A judge that cannot reach the generators' provider, by construction."""
+    return LLM(use_gemini=False, groq_model=JUDGE_GROQ_MODEL, **kwargs)
 
 PROMPT = """\
 You are checking whether a piece of writing is supported by its source.

@@ -251,6 +251,65 @@ class TestUnjudgedRun:
         assert report["unsupported_claim_rate"] == pytest.approx(0.1)
 
 
+class TestProviderSeparation:
+    """Nothing grades its own work, held by construction rather than by luck.
+
+    The old arrangement pinned the judge to Gemini models the generators did not
+    start with, but the generators could fall through to those same models when
+    their own ladder 429'd. These tests are about the guarantee, so they check
+    which provider is actually reached, not which flag was set.
+    """
+
+    def _recording(self, llm, monkeypatch):
+        reached = []
+        monkeypatch.setattr(
+            type(llm), "_gemini",
+            lambda self, c, model, prompt, as_json: reached.append(("gemini", model)) or "{}",
+        )
+        monkeypatch.setattr(
+            type(llm), "_groq",
+            lambda self, c, prompt, as_json: reached.append(("groq", self.groq_model)) or "{}",
+        )
+        return reached
+
+    def test_the_judge_never_reaches_gemini_even_holding_a_gemini_key(self, monkeypatch):
+        from judge import JUDGE_GROQ_MODEL, judge_client
+
+        llm = judge_client(gemini_key="g", groq_key="q")
+        reached = self._recording(llm, monkeypatch)
+        llm.text("anything")
+        assert reached == [("groq", JUDGE_GROQ_MODEL)]
+
+    def test_a_pinned_generator_never_falls_through_to_groq(self, monkeypatch):
+        from recut.llm import LLM
+
+        llm = LLM(gemini_key="g", groq_key="q", use_groq=False)
+        reached = self._recording(llm, monkeypatch)
+        llm.text("anything")
+        assert all(provider == "gemini" for provider, _ in reached)
+
+    def test_the_two_clients_share_no_provider(self, monkeypatch):
+        from judge import judge_client
+
+        from recut.llm import LLM
+
+        generator = LLM(gemini_key="g", groq_key="q", use_groq=False)
+        judge_llm = judge_client(gemini_key="g", groq_key="q")
+        gen_reached = self._recording(generator, monkeypatch)
+        generator.text("x")
+        judge_reached = self._recording(judge_llm, monkeypatch)
+        judge_llm.text("x")
+        assert {p for p, _ in gen_reached} & {p for p, _ in judge_reached} == set()
+
+    def test_a_client_with_no_enabled_provider_is_refused_at_construction(self):
+        from recut.llm import LLM, LLMError
+
+        # Otherwise this surfaces later as "every provider failed", which reads
+        # like a quota wall and is a configuration mistake.
+        with pytest.raises(LLMError):
+            LLM(gemini_key="g", use_gemini=False, allow_env=False)
+
+
 class TestGoldenSet:
     def test_every_source_has_an_id_kind_and_ref(self):
         for entry in load_sources():
