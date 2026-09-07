@@ -1,0 +1,33 @@
+{
+  "run": {
+    "at": "2026-09-07T13:30:04+00:00",
+    "seed": 0,
+    "targets": [
+      "linkedin",
+      "thread"
+    ],
+    "judge_models": [],
+    "model_calls": 89
+  },
+  "complete": true,
+  "judged_by_model": false,
+  "sources_attempted": 15,
+  "sources_completed": 15,
+  "failures": [],
+  "unsupported_claim_rate": null,
+  "unsupported_claim_rate_provisional": null,
+  "judged_claims": 0,
+  "judged_unsupported": 0,
+  "verifier_recall_on_injections": 1.0,
+  "verifier_recall_by_rule": {
+    "number": 1.0,
+    "quote": 1.0,
+    "entity": 1.0,
+    "intensity": 1.0,
+    "citation": 1.0
+  },
+  "verifier_false_positive_rate": 0.1,
+  "format_compliance": 1.0,
+  "claim_utilisation": 0.5011164233766104,
+  "artifacts": 30
+}

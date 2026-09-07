@@ -15,13 +15,36 @@ id in square brackets, for example `[s4]`. Timed sources also carry a timecode.
 
 Extract every claim a writer would plausibly want to reuse. For each one:
 
-- `text`: the claim restated in one clear sentence. Do not embellish.
+- `text`: the claim restated in one clear sentence, in your own words. Do not
+  embellish and do not copy.
+
   **Carry the hedge into the text.** If the source says "may", "can", "often",
   "sometimes", "in our tests", "good practice", those words go into the claim. A
   hedge dropped here cannot be recovered downstream, because the writers only ever
   see this inventory. Recording "reconciliation is necessary" when the source said
   "reconciling frequently is good practice" is the single most common way this
   pipeline ends up publishing something false.
+
+  **Do not reuse the source's sentence.** The writers downstream are never shown the
+  source, so any sentence they publish word for word arrived through a claim. If
+  eight or more words in a row are identical to the source, this field has smuggled
+  the source's own writing into something that will go out under someone else's
+  name. Roughly eight in ten outputs currently carry a run that long.
+
+  Restating is not weakening. Change the structure and keep the force: reorder the
+  subject and the object, split a compound sentence into a simple one, drop the
+  source's connectives, name the actor the source left implicit. Keep every hedge,
+  every number and every name exactly as the source has them.
+
+      source: "Pacioli is often called the father of accounting because he was the
+               first to publish a detailed description of the system."
+      copied: "Pacioli is often called the father of accounting because he was the
+               first to publish a detailed description."
+      better: "Pacioli published the first detailed description of the system, which
+               is often why he is called the father of accounting."
+
+  Exact wording has a home and it is not this field. `verbatim` carries the
+  characters that have to survive intact. `text` carries the meaning.
 - `kind`: one of `fact`, `stat`, `quote`, `opinion`, `narrative`.
   - `stat` for anything containing a number.
   - `quote` for words attributed to a named person.

@@ -1,0 +1,98 @@
+{
+  "id": "art-willison",
+  "judged_by_model": false,
+  "kind": "article",
+  "ref": "https://simonwillison.net/2025/Sep/6/",
+  "title": "Simon Willison\u2019s Weblog",
+  "segments": 30,
+  "chars": 6007,
+  "extracted_claims": 7,
+  "dropped_unanchored": 0,
+  "targets": [
+    "linkedin",
+    "thread"
+  ],
+  "verifier_errors": {
+    "linkedin": [],
+    "thread": []
+  },
+  "format_violations": {},
+  "repaired": [],
+  "claim_utilisation": 1.0,
+  "judged": {},
+  "judged_claims": 0,
+  "judged_unsupported": 0,
+  "injections": {
+    "planted": 10,
+    "caught": 10,
+    "recall": 1.0,
+    "recall_by_rule": {
+      "number": 1.0,
+      "quote": 1.0,
+      "entity": 1.0,
+      "intensity": 1.0,
+      "citation": 1.0
+    },
+    "missed": [],
+    "clean_bodies": 2,
+    "false_positive_bodies": 0,
+    "false_positives": []
+  },
+  "bodies": {
+    "linkedin": "Anthropic agreed to pay \"at least\" a staggering $1.5 billion, plus interest to settle a class-action lawsuit regarding the use of copyrighted books. The settlement payouts are expected to be \"approximately $3,000 per book or work\".\n\nThis agreement comes despite Anthropic stating that the specific digital book copies covered by the settlement were not utilized to train its commercial AI models. For context, the maximum penalty for copyright infringement in this case could have reached \"$150,000 per book\".\n\nIn other technical updates, Moonshot AI released the Kimi-K2-Instruct-0905 model. This update features a context window increased to \"256,000 tokens\".\n\nSeparately, using LLM-generated summaries for image retrieval can improve recall compared to using standard CLIP embeddings.\n\nThe legal landscape regarding AI training on copyrighted works remains complex.",
+    "thread": "Anthropic agreed to pay \"at least\" $1.5 billion, plus interest, to settle a class-action lawsuit regarding the use of copyrighted books.\n\nThis payout averages to \"approximately $3,000 per book or work\" covered by the settlement.\n\nThe potential cost could have been much higher, as the maximum penalty for copyright infringement in this case reached \"$150,000 per book.\"\n\nAnthropic stated that the specific digital book copies covered by this settlement were not used to train its commercial AI models.\n\nThese settlements and technical developments highlight the ongoing tension between fair use and intellectual property rights."
+  },
+  "inventory": {
+    "claims": [
+      {
+        "id": "c0",
+        "kind": "stat",
+        "text": "Anthropic agreed to pay a minimum of 1.5 billion dollars plus interest to settle a class-action lawsuit regarding the use of copyrighted books."
+      },
+      {
+        "id": "c1",
+        "kind": "stat",
+        "text": "The settlement payouts are expected to be approximately 3,000 dollars per work."
+      },
+      {
+        "id": "c2",
+        "kind": "stat",
+        "text": "The maximum penalty for copyright infringement in this case could have reached 150,000 dollars per book."
+      },
+      {
+        "id": "c3",
+        "kind": "fact",
+        "text": "Anthropic stated that the specific digital book copies covered by the settlement were not utilized to train its commercial AI models."
+      },
+      {
+        "id": "c4",
+        "kind": "fact",
+        "text": "Moonshot AI released a new model, Kimi-K2-Instruct-0905, which is an incremental update to the Kimi-K2 model."
+      },
+      {
+        "id": "c5",
+        "kind": "stat",
+        "text": "The Kimi-K2-Instruct-0905 model features a context window increased to 256,000 tokens."
+      },
+      {
+        "id": "c6",
+        "kind": "opinion",
+        "text": "Using LLM-generated summaries for image retrieval can significantly improve recall compared to using standard CLIP embeddings."
+      }
+    ],
+    "hook_candidates": [
+      "Anthropic has reached an agreement to pay at least 1.5 billion dollars to settle a class-action lawsuit over the use of pirated books.",
+      "It appears to be legal in the USA to buy a physical book, scan it, and train an AI on the content after destroying the original.",
+      "Using LLM-generated summaries for image search can boost recall from 28% to 75% compared to using CLIP embeddings.",
+      "The correct way to model data depends entirely on the specific questions you intend to answer.",
+      "A 1.5 billion dollar settlement for pirating 500,000 books may actually represent a discount for Anthropic."
+    ],
+    "voice_samples": [
+      "It's wild to me that a $1.5 billion settlement can feel like a win for Anthropic, but given that it's undisputed that they downloaded pirated books (as did Meta and likely many other research teams) the maximum allowed penalty was $150,000 per book, so $3,000 per book is actually a significant discount.",
+      "To be clear: it appears it is legal, at least in the USA, to buy a used copy of a physical book (used = the author gets nothing), chop the spine off, scan the pages, discard the paper copy and then train on the scanned content.",
+      "RDF has the same problems as the SQL schemas with information scattered.",
+      "I am once again shocked at how much better image retrieval performance you can get if you embed highly opinionated summaries of an image, a summary that came out of a visual language model, than using CLIP embeddings themselves."
+    ],
+    "thesis": "The legal landscape regarding AI training on copyrighted works remains complex, with recent settlements and technical developments highlighting the ongoing tension between fair use and intellectual property rights."
+  }
+}

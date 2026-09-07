@@ -1,0 +1,109 @@
+{
+  "id": "yt-rome",
+  "judged_by_model": false,
+  "kind": "youtube",
+  "ref": "https://www.youtube.com/watch?v=0PkBP0dk4Lw",
+  "title": "Why Rome Never Really Fell made with vidsmith",
+  "segments": 10,
+  "chars": 2174,
+  "extracted_claims": 9,
+  "dropped_unanchored": 0,
+  "targets": [
+    "linkedin",
+    "thread"
+  ],
+  "verifier_errors": {
+    "linkedin": [],
+    "thread": []
+  },
+  "format_violations": {},
+  "repaired": [],
+  "claim_utilisation": 1.0,
+  "judged": {},
+  "judged_claims": 0,
+  "judged_unsupported": 0,
+  "injections": {
+    "planted": 10,
+    "caught": 10,
+    "recall": 1.0,
+    "recall_by_rule": {
+      "number": 1.0,
+      "quote": 1.0,
+      "entity": 1.0,
+      "intensity": 1.0,
+      "citation": 1.0
+    },
+    "missed": [],
+    "clean_bodies": 2,
+    "false_positive_bodies": 0,
+    "false_positives": []
+  },
+  "bodies": {
+    "linkedin": "The Western Roman government lost its functionality because it could not pay its expenses. Emperors attempted to cover military costs by adding base metals to silver currency, which triggered runaway inflation.\n\nMerchants often refused to accept this imperial money. Citizens began bartering goods like grain and olive oil instead of using coins.\n\nBy 450, small farmers frequently left their land to find protection from local warlords. This migration reduced the tax base for the empire.\n\nInternal political decay worsened as generals traded their loyalty for bribes and started civil wars. Local commanders often focused on private security rather than following central imperial authority.\n\nThe year \"476\" is often cited as the date barbarian hordes breached the borders, but the collapse was a process of internal systemic decay rather than a sudden event.\n\nSystems rot from within long before the final banner falls.",
+    "thread": "The popular belief that Rome fell in a single day due to barbarian attacks is inaccurate.\n\nWhile 476 is frequently cited as the date barbarian hordes breached the borders of Rome, the empire did not vanish in a single dramatic afternoon.\n\nEmperors fueled runaway inflation by adding base metals to silver currency to cover military costs.\n\nMerchants often refused this imperial money, forcing citizens to rely on bartering goods like grain and olive oil.\n\nBy 450, small farmers often abandoned their land to seek protection from local warlords, which further reduced the empire's tax base.\n\nLocal commanders often prioritized private security arrangements over central imperial authority.\n\nThe collapse of the Roman Empire was not a singular, sudden event caused by external invasion, but a gradual process of internal systemic decay."
+  },
+  "inventory": {
+    "claims": [
+      {
+        "id": "c0",
+        "kind": "opinion",
+        "text": "The popular belief that Rome fell in a single day due to barbarian attacks is inaccurate."
+      },
+      {
+        "id": "c1",
+        "kind": "fact",
+        "text": "The Western Roman government experienced a near-total loss of functionality because it lacked the funds to pay its expenses."
+      },
+      {
+        "id": "c2",
+        "kind": "stat",
+        "text": "The year 476 is frequently cited as the date barbarian hordes breached the borders of Rome."
+      },
+      {
+        "id": "c3",
+        "kind": "fact",
+        "text": "Emperors contributed to runaway inflation by adding base metals to silver currency to cover military costs."
+      },
+      {
+        "id": "c4",
+        "kind": "fact",
+        "text": "Due to currency devaluation, merchants often refused imperial money, leading citizens to rely on bartering goods like grain and olive oil."
+      },
+      {
+        "id": "c5",
+        "kind": "fact",
+        "text": "The vast size of the Roman territory made effective defense against fast-moving raiders impossible."
+      },
+      {
+        "id": "c6",
+        "kind": "fact",
+        "text": "Local commanders often prioritized private security arrangements over central imperial authority."
+      },
+      {
+        "id": "c7",
+        "kind": "fact",
+        "text": "Internal political decay was characterized by generals trading loyalty for bribes and inciting frequent civil wars."
+      },
+      {
+        "id": "c8",
+        "kind": "narrative",
+        "text": "By 450, small farmers often abandoned their land to seek protection from local warlords, which further reduced the empire's tax base."
+      }
+    ],
+    "hook_candidates": [
+      "Rome did not vanish in a single dramatic afternoon.",
+      "The common story blames barbarian hordes crashing through the borders in 476.",
+      "Emperors mixed base metals into silver coins to afford rising military costs, sparking runaway inflation that destroyed trust in the marketplace.",
+      "Central authority meant nothing when a general three provinces away protected you better than the distant emperor.",
+      "Systems rot quietly from within long before the final banner falls."
+    ],
+    "voice_samples": [
+      "Rome did not vanish in a single dramatic afternoon.",
+      "That simple narrative is completely wrong.",
+      "First came the slow poison of currency devaluation.",
+      "Central authority meant nothing when a general three provinces away protected you better than the distant emperor.",
+      "Systems rot quietly from within long before the final banner falls, leaving behind pieces that slowly reassemble into something entirely new."
+    ],
+    "thesis": "The collapse of the Roman Empire was not a singular, sudden event caused by external invasion, but a gradual process of internal systemic decay."
+  }
+}

@@ -1,0 +1,202 @@
+{
+  "id": "md-reruns",
+  "judged_by_model": false,
+  "kind": "markdown",
+  "ref": "C:\\Users\\veera\\claude\\reruns\\README.md",
+  "title": "reruns",
+  "segments": 61,
+  "chars": 14231,
+  "extracted_claims": 27,
+  "dropped_unanchored": 0,
+  "targets": [
+    "linkedin",
+    "thread"
+  ],
+  "verifier_errors": {
+    "linkedin": [],
+    "thread": []
+  },
+  "format_violations": {},
+  "repaired": [],
+  "claim_utilisation": 0.4074074074074074,
+  "judged": {},
+  "judged_claims": 0,
+  "judged_unsupported": 0,
+  "injections": {
+    "planted": 10,
+    "caught": 10,
+    "recall": 1.0,
+    "recall_by_rule": {
+      "number": 1.0,
+      "quote": 1.0,
+      "entity": 1.0,
+      "intensity": 1.0,
+      "citation": 1.0
+    },
+    "missed": [],
+    "clean_bodies": 2,
+    "false_positive_bodies": 0,
+    "false_positives": []
+  },
+  "bodies": {
+    "linkedin": "In 24 trials every write did occur only after the simulated customer had already departed. Relying on single-turn accuracy for support agents often masks non-deterministic behavior that only appears during repeated testing.\n\nOur benchmark tool executes every task \"five times\" to determine if an agent is actually consistent. A task is graded as a pass only when the database state, tool usage, and policy compliance all meet the required criteria.\n\nWe intentionally allow the backend to permit policy violations to see if agents can correctly adhere to rules. The system does not mandate that the agent provide any verbal response to pass these tasks. In one instance, all five trials for the unknown_email task were successfully completed without the assistant speaking at all.\n\nWhen an agent finishes a turn by speaking without triggering a tool call, the customer may leave, causing the system to lose the opportunity for subsequent tool calls. We now provide a closing turn for the agent to ensure the episode ends immediately.\n\nReliability is measured by running tasks multiple times.",
+    "thread": "In 24 trials every write did occur only after the simulated customer had already left the conversation.\n\nThe benchmark tool executes every assigned task five times to determine the agent's consistency.\n\nAn agent with a 0.60 success rate on individual attempts would theoretically achieve a 0.08 success rate across five independent trials.\n\nThe evaluation process does not utilize an LLM judge, instead comparing the final database state and policy adherence against predefined expectations.\n\nA task is graded as a pass only when the database state, tool usage, and policy compliance all meet the required criteria.\n\nThe backend environment is intentionally designed to allow agents to commit policy violations to test if they can correctly adhere to rules.\n\nReliability in support agents should be measured by running tasks multiple times to account for non-deterministic behavior rather than relying on single-turn accuracy."
+  },
+  "inventory": {
+    "claims": [
+      {
+        "id": "c0",
+        "kind": "stat",
+        "text": "The benchmark tool executes every assigned task five times to determine the agent's consistency."
+      },
+      {
+        "id": "c1",
+        "kind": "stat",
+        "text": "An agent with a 0.60 success rate on individual attempts would theoretically achieve a 0.08 success rate across five independent trials."
+      },
+      {
+        "id": "c2",
+        "kind": "fact",
+        "text": "The evaluation process does not utilize an LLM judge, instead comparing the final database state and policy adherence against predefined expectations."
+      },
+      {
+        "id": "c3",
+        "kind": "fact",
+        "text": "A task is graded as a pass only when the database state, tool usage, and policy compliance all meet the required criteria."
+      },
+      {
+        "id": "c4",
+        "kind": "fact",
+        "text": "The grading system does not mandate the use of the escalate_to_human tool, which significantly impacts the pass rate of agents that otherwise follow policy."
+      },
+      {
+        "id": "c5",
+        "kind": "opinion",
+        "text": "The backend environment is intentionally designed to allow agents to commit policy violations to test if they can correctly adhere to rules."
+      },
+      {
+        "id": "c6",
+        "kind": "stat",
+        "text": "Pass@1 measures the proportion of all task-trials that were successful, while pass^k measures the proportion of tasks that succeeded across all k trials."
+      },
+      {
+        "id": "c7",
+        "kind": "narrative",
+        "text": "When an agent finishes a turn by speaking without triggering a tool call, the customer may leave, causing the system to lose the opportunity for subsequent tool calls."
+      },
+      {
+        "id": "c8",
+        "kind": "fact",
+        "text": "The system now provides a closing turn for the agent when a customer leaves, ensuring the episode ends immediately after the agent produces text without a tool call."
+      },
+      {
+        "id": "c9",
+        "kind": "stat",
+        "text": "An initial run was abandoned after completing 60 out of 75 trials because the daily token allowance was exhausted."
+      },
+      {
+        "id": "c10",
+        "kind": "narrative",
+        "text": "Policy violations were incorrectly logged in three trials because the regex-based scoring failed to match the simulator's specific phrasing regarding refund preferences."
+      },
+      {
+        "id": "c11",
+        "kind": "fact",
+        "text": "Refusal tasks now require a lookup instead of the previous requirement to trigger the escalate_to_human tool."
+      },
+      {
+        "id": "c12",
+        "kind": "fact",
+        "text": "The evaluation summary refuses to provide a percentage score for runs that hit a token cap, instead reporting the progress made."
+      },
+      {
+        "id": "c13",
+        "kind": "fact",
+        "text": "The --regrade function allows for re-scoring finished trials from saved transcripts without needing to re-run the model or incur additional costs."
+      },
+      {
+        "id": "c14",
+        "kind": "fact",
+        "text": "The --dry-run command estimates the execution and token cost of a run before it is actually performed."
+      },
+      {
+        "id": "c15",
+        "kind": "fact",
+        "text": "A domain is defined as a directory containing the three required files."
+      },
+      {
+        "id": "c16",
+        "kind": "fact",
+        "text": "The package does not contain hardcoded retail logic."
+      },
+      {
+        "id": "c17",
+        "kind": "stat",
+        "text": "In a recent set of trials, 29 out of 37 state-changing calls occurred after the simulated customer had already departed."
+      },
+      {
+        "id": "c18",
+        "kind": "stat",
+        "text": "In 24 specific trials, every single write operation occurred after the customer had left."
+      },
+      {
+        "id": "c19",
+        "kind": "opinion",
+        "text": "The simulator previously stopped upon hearing an announcement of intent, erroneously treating it as task completion."
+      },
+      {
+        "id": "c20",
+        "kind": "fact",
+        "text": "The current simulator version only halts when a final refusal or completed action occurs, ignoring stated intentions."
+      },
+      {
+        "id": "c21",
+        "kind": "fact",
+        "text": "The grader does not mandate that the agent provide any verbal response to pass tasks."
+      },
+      {
+        "id": "c22",
+        "kind": "stat",
+        "text": "All five trials for the unknown_email task were successfully completed without the assistant speaking at all."
+      },
+      {
+        "id": "c23",
+        "kind": "fact",
+        "text": "The twenty tasks in the suite are hand-written rather than derived from actual support logs."
+      },
+      {
+        "id": "c24",
+        "kind": "stat",
+        "text": "Before the suite was updated, 88 trials were conducted without a single failure across nine of the twelve measured tasks."
+      },
+      {
+        "id": "c25",
+        "kind": "fact",
+        "text": "The simulated customer is cooperative and does not represent an adversarial user attempting to force a refund."
+      },
+      {
+        "id": "c26",
+        "kind": "fact",
+        "text": "The software is licensed under the MIT license."
+      }
+    ],
+    "hook_candidates": [
+      "Run a support agent task once and you learn if it can do it; run it five times and you learn if it can be relied on.",
+      "The only way to find out whether an agent follows a policy is to let it break one.",
+      "A support agent benchmark that runs every task five times and reports what survives.",
+      "The backend permits every violation it is asked to commit, including refunding undelivered items or cancelling orders already in transit.",
+      "A simulated customer stops on what the agent says, which is a trap worth knowing about.",
+      "That abandoned run was not wasted.",
+      "A trial killed by the token cap was cached as a failure, so a resume would have counted a trial that never ran as one the agent got wrong.",
+      "An inverted comparison, a state diff that passes everything, an expectation written against a column that no longer exists: each of those produces a plausible percentage, and each moves one of these two numbers off its fixed point."
+    ],
+    "voice_samples": [
+      "Run that task once and you learn whether the agent can do it.",
+      "The backend permits every violation it is asked to commit.",
+      "That abandoned run was not wasted.",
+      "All five are fixed and held by tests.",
+      "Nothing in the grader requires the agent to speak."
+    ],
+    "thesis": "Reliability in support agents should be measured by running tasks multiple times to account for non-deterministic behavior rather than relying on single-turn accuracy."
+  }
+}

@@ -1,0 +1,171 @@
+{
+  "id": "art-bank-statement",
+  "judged_by_model": false,
+  "kind": "article",
+  "ref": "https://en.wikipedia.org/wiki/Bank_statement",
+  "title": "Bank statement - Wikipedia",
+  "segments": 19,
+  "chars": 8061,
+  "extracted_claims": 20,
+  "dropped_unanchored": 0,
+  "targets": [
+    "linkedin",
+    "thread"
+  ],
+  "verifier_errors": {
+    "linkedin": [],
+    "thread": []
+  },
+  "format_violations": {},
+  "repaired": [
+    "linkedin",
+    "thread"
+  ],
+  "claim_utilisation": 0.5,
+  "judged": {},
+  "judged_claims": 0,
+  "judged_unsupported": 0,
+  "injections": {
+    "planted": 10,
+    "caught": 10,
+    "recall": 1.0,
+    "recall_by_rule": {
+      "number": 1.0,
+      "quote": 1.0,
+      "entity": 1.0,
+      "intensity": 1.0,
+      "citation": 1.0
+    },
+    "missed": [],
+    "clean_bodies": 2,
+    "false_positive_bodies": 0,
+    "false_positives": []
+  },
+  "bodies": {
+    "linkedin": "Some mortgage lenders have begun evaluating borrower income using bank deposit history instead of traditional tax returns or pay stubs. This shift in underwriting practices started in the early 2010s.\n\nBank statements provide a formal summary of activity, but they often reflect the bank's perspective rather than the depositor's. This means credit and debit entries appear reversed compared to how a customer might record them as an asset.\n\nTransaction descriptions on these statements may not always match the consumer-facing name of a business. This discrepancy occurs because payment facilitators or marketplaces follow specific instructions for identifying the underlying seller.\n\nWhile electronic statements are frequently generated as PDFs to prevent unauthorized changes, they can be susceptible to data interception. Some banks now charge fees for paper versions to encourage a transition to digital formats.\n\nIn Japan, there is no tradition of mailing statements. Account holders typically track their own balances using passbooks at ATMs.",
+    "thread": "In Japan, there is no historical tradition of mailing bank statements. Account holders typically track their balances using passbooks at ATMs instead.\n\nBank statements reflect the bank's perspective on an account. This means credit and debit entries appear reversed compared to how a depositor records them as an asset.\n\nThe business name on your statement might not match the storefront name. Visa provides instructions on how merchant fields should identify the underlying seller.\n\nSince the \"early 2010s\", some mortgage lenders have offered programs that use bank deposit history to evaluate borrower income instead of traditional tax returns.\n\nThese income assessment programs are typically targeted at self-employed individuals or those with nontraditional income.\n\nElectronic statements are often generated in PDF format to make unauthorized alterations more difficult, though they can be susceptible to computer fraud.\n\nBanks are shifting from paper to electronic formats to improve efficiency and reduce costs. This transition reflects the changing nature of how we manage financial records."
+  },
+  "inventory": {
+    "claims": [
+      {
+        "id": "c0",
+        "kind": "fact",
+        "text": "A bank statement provides a formal summary of financial activity for a specific account over a defined timeframe."
+      },
+      {
+        "id": "c1",
+        "kind": "fact",
+        "text": "Financial institutions generally do not allow changes to be made to a statement once it has been issued to the client."
+      },
+      {
+        "id": "c2",
+        "kind": "fact",
+        "text": "Customers often use statements to track their spending, identify potential fraud, and reconcile their accounts."
+      },
+      {
+        "id": "c3",
+        "kind": "fact",
+        "text": "Many banks provide unofficial transaction history tools that allow customers to monitor their account activity between the issuance of official statements."
+      },
+      {
+        "id": "c4",
+        "kind": "fact",
+        "text": "Open banking allows account holders to authorize third-party financial institutions to view their account balances."
+      },
+      {
+        "id": "c5",
+        "kind": "stat",
+        "text": "Since banks began using computers in the 1960s, statements have typically been issued on a monthly basis."
+      },
+      {
+        "id": "c6",
+        "kind": "fact",
+        "text": "Some financial institutions use the mailing of statements as an opportunity to distribute promotional materials or notify customers of fee and interest rate adjustments."
+      },
+      {
+        "id": "c7",
+        "kind": "fact",
+        "text": "Some banks have begun charging fees for paper statements to encourage customers to switch to electronic alternatives."
+      },
+      {
+        "id": "c8",
+        "kind": "fact",
+        "text": "In Japan, there is no historical tradition of mailing bank statements, as customers typically track their own balances using passbooks at ATMs."
+      },
+      {
+        "id": "c9",
+        "kind": "fact",
+        "text": "Electronic statements are frequently generated in PDF format to make unauthorized alterations more difficult."
+      },
+      {
+        "id": "c10",
+        "kind": "fact",
+        "text": "While electronic statements eliminate the risk of physical theft, they can be more susceptible to computer fraud or data interception."
+      },
+      {
+        "id": "c11",
+        "kind": "fact",
+        "text": "A bank statement reflects the bank's perspective on an account, meaning that credit and debit entries appear reversed compared to how a depositor would record them as an asset."
+      },
+      {
+        "id": "c12",
+        "kind": "fact",
+        "text": "The transaction details appearing on a bank statement might differ from the actual consumer-facing name of a business."
+      },
+      {
+        "id": "c13",
+        "kind": "fact",
+        "text": "Visa provides specific instructions regarding how merchant name fields should identify the acceptance entity and the underlying seller when using payment facilitators or marketplaces."
+      },
+      {
+        "id": "c14",
+        "kind": "fact",
+        "text": "In the United Kingdom, banks and building societies are legally obligated to provide statements on paper or other durable media, with exceptions for passbook holders, online-only bank customers, and those who have opted out of paper statements."
+      },
+      {
+        "id": "c15",
+        "kind": "fact",
+        "text": "United States banks are only mandated to issue a checking account statement if the account has recorded at least one transaction during the month."
+      },
+      {
+        "id": "c16",
+        "kind": "fact",
+        "text": "Bank statements are frequently used to verify authenticity for purposes like auditing, lending, and financial checks."
+      },
+      {
+        "id": "c17",
+        "kind": "fact",
+        "text": "The prevalence of digital bank statements in formats like PDF has increased the focus on verification and document consistency."
+      },
+      {
+        "id": "c18",
+        "kind": "stat",
+        "text": "Since the early 2010s, some mortgage lenders have offered programs that utilize bank deposit history to evaluate borrower income instead of relying on traditional pay stubs or tax returns."
+      },
+      {
+        "id": "c19",
+        "kind": "fact",
+        "text": "Income assessment programs based on bank deposits are typically targeted at self-employed individuals or those with nontraditional income."
+      }
+    ],
+    "hook_candidates": [
+      "A bank deposit account is at the same time an asset of the depositor and debt of the bank.",
+      "Some countries such as Japan never had a tradition of mailing statements, with individual account holders being expected to keep track of deposits, withdrawals, and balances using their own passbooks at ATMs.",
+      "An aggregation service only lets the software view an account balance, not actual transactions.",
+      "Due to identity theft concerns, an electronic statement may not be seen as a dangerous alternative against physical theft as it does not contain tangible personal information and does not require extra safety measures of disposal such as shredding.",
+      "The name of the business on your bank statement may not match the name you see on their storefront.",
+      "Some mortgage lenders now approve loans based on your bank deposits rather than your tax returns.",
+      "In the United States, your bank is not required to send you a monthly statement if you do not make any transactions.",
+      "Digital bank statements, often distributed as PDFs, have created new challenges for verifying document authenticity."
+    ],
+    "voice_samples": [
+      "Once produced and delivered to the customer, details on the statement are not normally alterable; any error found would normally be corrected on a future statement, usually with some correspondence explaining the reason for the adjustment.",
+      "Some countries such as Japan never had a tradition of mailing statements, with individual account holders being expected to keep track of deposits, withdrawals, and balances using their own passbooks at ATMs.",
+      "A bank deposit account is at the same time an asset of the depositor and debt of the bank.",
+      "Due to identity theft concerns, an electronic statement may not be seen as a dangerous alternative against physical theft as it does not contain tangible personal information and does not require extra safety measures of disposal such as shredding.",
+      "For card transactions, the transaction description shown on a bank statement may not always be identical to a business's consumer-facing trading name.",
+      "Beginning in the early 2010s, some mortgage lenders introduced loan programs that evaluate borrower income using bank statement deposits rather than traditional documentation such as tax returns or employer-issued pay stubs."
+    ],
+    "thesis": "Bank statements serve as the primary official record of financial transactions, though they are increasingly shifting from physical paper documents to electronic formats to improve efficiency and reduce costs."
+  }
+}

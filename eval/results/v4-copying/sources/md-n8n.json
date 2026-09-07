@@ -1,0 +1,166 @@
+{
+  "id": "md-n8n",
+  "judged_by_model": false,
+  "kind": "markdown",
+  "ref": "C:\\Users\\veera\\claude\\n8n-statement-extractor\\README.md",
+  "title": "Statement & Invoice PDF \u2192 Reconciled Rows",
+  "segments": 46,
+  "chars": 11348,
+  "extracted_claims": 17,
+  "dropped_unanchored": 0,
+  "targets": [
+    "linkedin",
+    "thread"
+  ],
+  "verifier_errors": {
+    "linkedin": [
+      "[error/intensity] 'necessary': the source never says 'necess(?:ary|ity|itates)'; do not add force it did not use"
+    ],
+    "thread": [
+      "[error/intensity] 'necessary': the source never says 'necess(?:ary|ity|itates)'; do not add force it did not use"
+    ]
+  },
+  "format_violations": {},
+  "repaired": [],
+  "claim_utilisation": 0.23529411764705882,
+  "judged": {},
+  "judged_claims": 0,
+  "judged_unsupported": 0,
+  "injections": {
+    "planted": 10,
+    "caught": 10,
+    "recall": 1.0,
+    "recall_by_rule": {
+      "number": 1.0,
+      "quote": 1.0,
+      "entity": 1.0,
+      "intensity": 1.0,
+      "citation": 1.0
+    },
+    "missed": [],
+    "clean_bodies": 2,
+    "false_positive_bodies": 2,
+    "false_positives": [
+      {
+        "target": "linkedin",
+        "spans": [
+          "[error/intensity] 'necessary': the source never says 'necess(?:ary|ity|itates)'; do not add force it did not use"
+        ]
+      },
+      {
+        "target": "thread",
+        "spans": [
+          "[error/intensity] 'necessary': the source never says 'necess(?:ary|ity|itates)'; do not add force it did not use"
+        ]
+      }
+    ]
+  },
+  "bodies": {
+    "linkedin": "In a test of 16 rows, the LLM correctly structured \"15 of 16\" rows but mislabeled one salary disbursement as a credit. Relying solely on vision models for document extraction often leads to data drift because the system lacks arithmetic verification.\n\nThe design philosophy dictates that the model must not process any number it could potentially invent. Instead, the workflow performs arithmetic checks by verifying that the opening balance plus the sum of movements equals the closing balance.\n\nRow-by-row reconciliation is necessary because it can identify internal movement errors even when the opening and closing balances match. This approach ensures that the model slips are caught rather than shipped.\n\nAutomated document extraction should prioritize deterministic data handling over vision models.",
+    "thread": "In a test of 16 rows, the LLM correctly structured 15 rows but mislabeled one salary disbursement as a credit.\n\nThe design philosophy dictates that the model must not process any number it could potentially invent.\n\nThe workflow performs arithmetic checks by verifying that the opening balance plus the sum of movements equals the closing balance.\n\nRow-by-row reconciliation is necessary because it can identify internal movement errors even when the opening and closing balances match.\n\nAutomated document extraction should prioritize deterministic data handling and arithmetic verification over relying solely on vision models to prevent data drift."
+  },
+  "inventory": {
+    "claims": [
+      {
+        "id": "c0",
+        "kind": "fact",
+        "text": "The n8n workflow converts PDF bank statements or invoices into structured data while verifying the arithmetic of each row against the statement's balance."
+      },
+      {
+        "id": "c1",
+        "kind": "stat",
+        "text": "The author observed that the n8n library contains 17 paid PDF extraction listings compared to 177 free ones."
+      },
+      {
+        "id": "c2",
+        "kind": "stat",
+        "text": "Eleven of the seventeen paid PDF extraction listings in the n8n library are specifically resume screeners."
+      },
+      {
+        "id": "c3",
+        "kind": "opinion",
+        "text": "The design philosophy dictates that the model must not process any number it could potentially invent."
+      },
+      {
+        "id": "c4",
+        "kind": "fact",
+        "text": "The workflow performs arithmetic checks by verifying that the opening balance plus the sum of movements equals the closing balance."
+      },
+      {
+        "id": "c5",
+        "kind": "fact",
+        "text": "The demonstration PDF includes three specific challenges: descriptions that wrap to a second line, transactions split across page breaks, and negative values represented in accounting parentheses."
+      },
+      {
+        "id": "c6",
+        "kind": "stat",
+        "text": "In testing, the digital PDF parsing process achieved 100 percent reconciliation across 16 rows."
+      },
+      {
+        "id": "c7",
+        "kind": "opinion",
+        "text": "The author notes that overlapping columns in a PDF's text layer are a flaw in the source document rather than a bug in the parser."
+      },
+      {
+        "id": "c8",
+        "kind": "fact",
+        "text": "A test using an image-only PDF processed through a vision model and n8n nodes successfully demonstrated the end-to-end path of scanning, OCR, parsing, and reconciliation."
+      },
+      {
+        "id": "c9",
+        "kind": "stat",
+        "text": "In a test of 16 rows, the LLM correctly structured 15 rows but mislabeled one salary disbursement as a credit."
+      },
+      {
+        "id": "c10",
+        "kind": "opinion",
+        "text": "Row-by-row reconciliation is necessary because it can identify internal movement errors even when the opening and closing balances match."
+      },
+      {
+        "id": "c11",
+        "kind": "stat",
+        "text": "While extraction has been verified on an 86-row card statement, reconciliation against a real statement containing a balance column remains unproven."
+      },
+      {
+        "id": "c12",
+        "kind": "fact",
+        "text": "Google Gemini is a better choice than Groq for long-running workflows on free tiers because Groq's free tier imposes undocumented daily token limits that can cause batch failures."
+      },
+      {
+        "id": "c13",
+        "kind": "fact",
+        "text": "Local model runtimes, such as Ollama, may produce corrupted output or fail to signal completion, necessitating verification before production use."
+      },
+      {
+        "id": "c14",
+        "kind": "fact",
+        "text": "When running Node-on-Windows, services bound only to IPv4 require an explicit 127.0.0.1 base URL because fetch may resolve localhost to the IPv6 address ::1."
+      },
+      {
+        "id": "c15",
+        "kind": "fact",
+        "text": "The system now infers date order from the document by identifying components greater than 12, defaulting to DMY format if all components are 12 or less."
+      },
+      {
+        "id": "c16",
+        "kind": "fact",
+        "text": "Decimal separators are inferred by examining a token containing both a period and a comma, with the last character identified as the decimal."
+      }
+    ],
+    "hook_candidates": [
+      "The model never touches a number it could invent.",
+      "Almost nobody is selling accurate structured extraction.",
+      "Overlapping columns are a fault in the source document, and no amount of parsing recovers them cleanly.",
+      "The model mislabelled 1 row; node 7 caught it.",
+      "Everyone else pipes the PDF straight into a vision model and hopes \u2014 which is exactly why those drift.",
+      "The product's core promise \u2014 the model slips, the reconciliation catches it instead of shipping it \u2014 is demonstrated, not asserted.",
+      "The two below and #4 above share a trait: they produced wrong output with no error.",
+      "Node 24's fetch resolves localhost to IPv6 ::1 first, so a service bound to IPv4 only needs an explicit 127.0.0.1 in its base URL."
+    ],
+    "voice_samples": [
+      "The model never touches a number it could invent.",
+      "Nodes 5 and 7 are the product. Everything else is stock n8n."
+    ],
+    "thesis": "Automated document extraction should prioritize deterministic data handling and arithmetic verification over relying solely on vision models to prevent data drift."
+  }
+}

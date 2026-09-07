@@ -1,0 +1,202 @@
+{
+  "id": "md-schemablind",
+  "judged_by_model": false,
+  "kind": "markdown",
+  "ref": "C:\\Users\\veera\\claude\\schemablind\\README.md",
+  "title": "schemablind",
+  "segments": 77,
+  "chars": 13752,
+  "extracted_claims": 27,
+  "dropped_unanchored": 0,
+  "targets": [
+    "linkedin",
+    "thread"
+  ],
+  "verifier_errors": {
+    "linkedin": [],
+    "thread": []
+  },
+  "format_violations": {},
+  "repaired": [],
+  "claim_utilisation": 0.4444444444444444,
+  "judged": {},
+  "judged_claims": 0,
+  "judged_unsupported": 0,
+  "injections": {
+    "planted": 10,
+    "caught": 10,
+    "recall": 1.0,
+    "recall_by_rule": {
+      "number": 1.0,
+      "quote": 1.0,
+      "entity": 1.0,
+      "intensity": 1.0,
+      "citation": 1.0
+    },
+    "missed": [],
+    "clean_bodies": 2,
+    "false_positive_bodies": 0,
+    "false_positives": []
+  },
+  "bodies": {
+    "linkedin": "Most text-to-SQL benchmarks primarily measure the ability to write SQL against a provided schema, which is considered a simpler task than schema discovery.\n\nSchemablind operates without prior knowledge of a database's schema. It uses four specific verbs to interact with unknown databases. The sample_rows verb is used to identify correct data encodings, which prevents common errors where queries run successfully but return incorrect results.\n\nOn real BIRD databases, the agent uses \"9.2 turns and 13,600 tokens per question\". The daily token limit, rather than financial cost, is the primary factor preventing further requests. When a daily token limit is reached, the run is abandoned rather than scored to prevent inaccurate performance reporting.\n\nThe project will prioritize an accuracy versus cost curve over individual model scores to identify where performance flattens.\n\n#sql #database #llm",
+    "thread": "The oracle harness scores 100% on all 500 questions over 11 databases. It is the perfect baseline for measuring SQL agent performance.\n\nMost benchmarks measure the ability to write SQL against a provided schema. This is a simpler task than discovering the database structure independently.\n\nThe sample_rows verb is critical for identifying correct data encodings. It prevents common errors where queries run successfully but return incorrect results.\n\nOn real BIRD databases, the agent uses 9.2 turns and 13,600 tokens per question. It operates without prior knowledge of the database schema.\n\nThe daily token limit, rather than financial cost, is the primary factor preventing further requests. The free tier daily cap is 200k tokens per model.\n\nTuning a prompt based on failed questions and then testing it on those same questions results in a performance metric that is fitted to the answer key.\n\nSQL agents should be evaluated on their ability to discover and interpret database schemas independently rather than relying on pre-provided schema information."
+  },
+  "inventory": {
+    "claims": [
+      {
+        "id": "c0",
+        "kind": "fact",
+        "text": "Schemablind is a SQL agent designed to operate without prior knowledge of a database's schema."
+      },
+      {
+        "id": "c1",
+        "kind": "fact",
+        "text": "The agent utilizes four specific verbs to interact with and understand an unknown database."
+      },
+      {
+        "id": "c2",
+        "kind": "fact",
+        "text": "Execution accuracy is measured by comparing the rows returned by the agent's query against those returned by a reference query on the same database."
+      },
+      {
+        "id": "c3",
+        "kind": "opinion",
+        "text": "Most text-to-SQL benchmarks primarily measure the ability to write SQL against a provided schema, which is considered a simpler task than schema discovery."
+      },
+      {
+        "id": "c4",
+        "kind": "opinion",
+        "text": "The sample_rows verb is critical for identifying correct data encodings, which prevents common errors where queries run successfully but return incorrect results."
+      },
+      {
+        "id": "c5",
+        "kind": "fact",
+        "text": "The official BIRD metric ignores duplicate rows, though a stricter multiset comparison is also provided to highlight queries with duplicate-row bugs."
+      },
+      {
+        "id": "c6",
+        "kind": "fact",
+        "text": "The system implements four security layers to prevent the agent from executing write operations on the database."
+      },
+      {
+        "id": "c7",
+        "kind": "stat",
+        "text": "The BIRD Mini-Dev dataset consists of 500 questions distributed across 11 databases."
+      },
+      {
+        "id": "c8",
+        "kind": "fact",
+        "text": "Checkpointing allows long-running evaluations to be resumed after interruptions without losing progress or re-running completed questions."
+      },
+      {
+        "id": "c9",
+        "kind": "stat",
+        "text": "The oracle harness scores 100% on all 500 Mini-Dev questions."
+      },
+      {
+        "id": "c10",
+        "kind": "fact",
+        "text": "Incomplete model runs are abandoned rather than scored because questions not reached would be counted as incorrect."
+      },
+      {
+        "id": "c11",
+        "kind": "fact",
+        "text": "The --checkpoint feature allows capped runs to resume from the last answered question instead of restarting."
+      },
+      {
+        "id": "c12",
+        "kind": "stat",
+        "text": "On the openai/gpt-oss-120b model, the agent achieved 43% execution accuracy on the dev half and 50% on the held-out half."
+      },
+      {
+        "id": "c13",
+        "kind": "opinion",
+        "text": "The prompt rules generalized well, performing no worse on unseen questions than on dev failures."
+      },
+      {
+        "id": "c14",
+        "kind": "stat",
+        "text": "An API failure caused six of nineteen questions to be incorrectly scored as producing no query."
+      },
+      {
+        "id": "c15",
+        "kind": "stat",
+        "text": "Batching describe_table calls reduced turns from 9.0 to 5.6 and tokens from 13,024 to 8,576 per question."
+      },
+      {
+        "id": "c16",
+        "kind": "stat",
+        "text": "On real BIRD databases, the schema-blind agent uses 9.2 turns and 13,600 tokens per question."
+      },
+      {
+        "id": "c17",
+        "kind": "stat",
+        "text": "The agent costs 11,816 tokens over 6.6 turns on the held-out half, which is 41% more than the dev half cost."
+      },
+      {
+        "id": "c18",
+        "kind": "stat",
+        "text": "The free tier daily cap is 200,000 tokens per model."
+      },
+      {
+        "id": "c19",
+        "kind": "fact",
+        "text": "The daily token limit, rather than financial cost, is the primary factor preventing further requests."
+      },
+      {
+        "id": "c20",
+        "kind": "fact",
+        "text": "Response headers do not display the daily token limit, and the limit is only communicated within the body of a 429 error message."
+      },
+      {
+        "id": "c21",
+        "kind": "fact",
+        "text": "When a daily token limit is reached, the run is abandoned rather than scored to prevent inaccurate performance reporting."
+      },
+      {
+        "id": "c22",
+        "kind": "opinion",
+        "text": "Tuning a prompt based on failed questions and then testing it on those same questions results in a performance metric that is fitted to the answer key."
+      },
+      {
+        "id": "c23",
+        "kind": "stat",
+        "text": "Forty percent of the question set is reserved for testing, with the specific questions selected via a hash of the text to prevent manual interference."
+      },
+      {
+        "id": "c24",
+        "kind": "stat",
+        "text": "The current toy set consists of 12 questions, and the complete harness includes 119 tests."
+      },
+      {
+        "id": "c25",
+        "kind": "opinion",
+        "text": "The project will prioritize an accuracy versus cost curve over individual model scores to identify where performance flattens."
+      },
+      {
+        "id": "c26",
+        "kind": "fact",
+        "text": "The software is released under an MIT license."
+      }
+    ],
+    "hook_candidates": [
+      "A SQL agent that is given no schema.",
+      "Writing SQL against a schema you were handed is a different and much easier task than working out which schema you are looking at.",
+      "Guessing an encoding is the most common way to write a query that runs cleanly and returns the wrong answer.",
+      "Nobody decides whether the SQL 'looks right'.",
+      "A wrong query can be right by accident.",
+      "An API failure discarded queries the agent had already verified.",
+      "The oracle submits the reference query and must score 100%; the mute agent submits nothing and must score 0%.",
+      "A schema-blind agent is not a single prompt: on real BIRD databases it runs 9.2 turns and 13,600 tokens per question."
+    ],
+    "voice_samples": [
+      "A SQL agent that is **given no schema**.",
+      "Nobody decides whether the SQL \"looks right\".",
+      "The free tier's daily token cap is what blocks this, not the money.",
+      "There is deliberately no salt to turn.",
+      "Harness complete, unmeasured."
+    ],
+    "thesis": "SQL agents should be evaluated on their ability to discover and interpret database schemas independently rather than relying on pre-provided schema information."
+  }
+}
