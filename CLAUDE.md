@@ -1,0 +1,155 @@
+# CLAUDE.md
+
+This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+
+## Commands
+
+```bash
+.venv/Scripts/python -m pytest -q                          # whole suite, ~1s, no network
+.venv/Scripts/python -m pytest tests/test_verify.py -q      # one file
+.venv/Scripts/python -m pytest -k "intensity" -q            # one topic
+.venv/Scripts/python -m pytest --durations=6 -q             # find a test that started hitting the network
+```
+
+```bash
+.venv/Scripts/python -m recut run README.md --targets linkedin,thread
+.venv/Scripts/python -m recut run "https://www.youtube.com/watch?v=ID" --targets all
+.venv/Scripts/python -m uvicorn recut.api:app --port 8078   # API + page at /
+```
+
+```bash
+.venv/Scripts/python eval/run_eval.py --run v3 --fresh --targets linkedin,thread   # 20-30 min, ~120 calls
+.venv/Scripts/python eval/tune_intensity.py                # re-derives rule precision from checkpoints, no calls
+```
+
+Install: `python -m venv .venv && .venv/Scripts/python -m pip install -e ".[web,api,dev]"`, then copy
+`.env.example` to `.env` and add a Gemini or Groq key. Either alone is enough.
+
+## The one rule the whole design rests on
+
+**Outputs are never generated from the raw source.** `extract.py` turns a source into a
+`ClaimSet` where every claim cites the segment ids it came from, and every generator in
+`recut/generate/` receives only `render_claims(...)` output. A generator cannot quote what it
+was never shown. If you find yourself passing `document.text` into a generator prompt, the
+product's only guarantee is gone.
+
+Corollary in `extract.py`: a claim the model returns without a valid `segment_id` is
+**dropped**, not repaired. Unanchored claims are the exact failure this exists to prevent.
+
+## Architecture
+
+```
+ingest/ (markdown | article | youtube)  ->  Document
+extract.py            one LLM pass per ~6k-char window  ->  ClaimSet
+generate/<target>.py  one LLM call each, fed only the ClaimSet  ->  Artifact
+verify.py             five deterministic checks, no model call
+pipeline.py           one repair retry on errors, then surfaces what is left
+align.py              maps each output sentence back to a claim, for the UI
+review.py             a queue where a human approves before anything is published
+```
+
+**Every ingest adapter guarantees the same invariant:**
+`document.raw[segment.char_start:segment.char_end] == segment.text`. That is what lets the web
+UI highlight a span of the real source. Any new adapter must hold it, and
+`tests/test_ingest_adapters.py` asserts it across all three source types with one shared
+fixture. Timed sources additionally carry `t_start`/`t_end`, which is why a claim from a video
+can be shown as "14:32" for free.
+
+**Targets** are modules in `recut/generate/`, registered in `pipeline.GENERATORS`. A module
+sets `requires_timed = True` to be offered only for audio and video (`article` does, because
+rewriting an article as an article is not repurposing). A target may emit files instead of
+prose via `Artifact.files`; `vidsmith` emits a buildable project directory.
+
+**Prompts live in `recut/prompts/*.md`**, loaded at runtime, not as Python strings. They change
+more often than the code. `{{faithfulness}}` includes the shared `_faithfulness.md` block, which
+is shared rather than copied so one target cannot drift to a weaker standard.
+
+## The verifier's severity contract
+
+`error` triggers exactly one regeneration with the offending span named; a second failure is
+surfaced, never hidden. `notice` informs and costs nothing. Getting this wrong is expensive in
+both directions, so severities here were set by measurement, not taste:
+
+- **intensity** demotes `ensures?` and `critical` to notice. With them as errors the rule fired
+  on 55% of artifacts the judge passed clean and only 47% of the ones it failed, which is no
+  discrimination at all. Without them: 0% and 37%. See `eval/tune_intensity.py`.
+- **entity** is an error only when a *word* of the name is absent from the source. A phrase
+  that is absent but built from present words ("Western Roman") is a notice: a missing word is
+  strong evidence of invention, a missing phrase is not.
+- **copying** is a notice on purpose, for now. 80% of artifacts across v1 and v2 carried an 8+
+  word verbatim run. A gate at that rate would send four drafts in five back for repair before
+  the prompt fix had a chance to work. Promote it once a run measures the new rate.
+
+## The eval, and the abandonment rule
+
+`eval/run_eval.py` publishes one number or none. If any golden source fails,
+`unsupported_claim_rate` comes back `None` and only a labelled provisional figure is kept. This
+is enforced in `aggregate()`, not left to discipline, because a partial run tends to complete
+only the markdown sources, which score roughly three times better than articles. A partial rate
+is a rate over the easy half.
+
+Two metrics, deliberately separate. The judge (`eval/judge.py`) is pinned to a **different model
+ladder** than the generators so nothing grades its own work. `eval/inject.py` plants known
+fabrications so the deterministic layer gets a score whose truth is known by construction: an
+unvalidated judge is a number with nothing behind it.
+
+`claim_utilisation` is **not** recall. It is the share of extracted claims some output used.
+Recall would need a hand-labelled inventory the golden set does not have.
+
+`--seed` only places planted fabrications. It does **not** make a run reproducible, which is why
+repeats are the only way to settle a rate.
+
+Published: **15.5% unsupported** (v1, 258 claims, all 15 sources). A v2 measured 10.0% but is not
+published: z=+1.86, p=0.063 on one run. Articles improved decisively (25.9% to 5.6%, p<0.001)
+while markdown regressed (8.9% to 15.0%).
+
+## LLM access, where the traps are
+
+- **Never use Gemini's `-latest` aliases.** They repoint to the newest model, which carries the
+  smallest free-tier allowance: `gemini-flash-latest` resolved to `gemini-3.8-flash` at 20
+  requests per day. `llm.py` pins ids and walks a ladder because quota is **per model**, so a
+  429 on one says nothing about the next.
+- **Branch a 429 on the quota it names, not the status code.** Gemini's body carries a `quotaId`
+  like `...PerDayPerProjectPerModel...`; Groq's says tokens per minute. Per-minute is retried,
+  per-day moves on. Treating all 429s alike either abandons a run over a blip or sleeps through
+  a wall until tomorrow.
+- **Groq caps a request at 8000 tokens per minute**, which is one reason extraction is windowed
+  at ~6000 chars. The other is that long inputs make models quietly drop claims from the middle.
+- Groq rejects urllib's default User-Agent with a 403 that reads exactly like a bad key.
+- `LLM(allow_env=False)` is what makes bring-your-own-key true. Without it a caller supplying
+  only a Gemini key still falls through to the server's Groq key.
+
+## Tests
+
+No test touches the network, and it should stay that way: `ScriptedLLM` in
+`tests/test_pipeline.py` drives the whole pipeline including the repair path, the ingest tests
+feed fixture HTML and fixture caption cues, and `tests/conftest.py` gives every module a client
+against a throwaway database. If the suite jumps from ~1s to ~13s, a test is reaching the
+network; `--durations` finds it.
+
+`tests/test_cli.py` exists because `python -m recut run` once shipped with a `NameError` on the
+first line of `main()` while 155 tests were green. A module that imports cleanly is not a module
+that runs.
+
+## Deployment
+
+Runs on the EC2 box that also hosts vidsmith, at `vidsmith.duckdns.org/recut/` behind HTTP basic
+auth (port 8079; vidsmith owns 8077). Caddy strips the `/recut` prefix, which is why every URL in
+`web/` is relative. The password is protecting an API budget, not a secret: the server's keys are
+still the default when a visitor does not supply their own.
+
+```bash
+ssh -i ~/.ssh/vidsmith-key.pem ubuntu@vidsmith.duckdns.org "cd ~/recut && git pull --ff-only && sudo systemctl restart recut"
+```
+
+Validate any Caddyfile change with `caddy validate` **before** installing it; a bad one takes
+vidsmith down too. Rotating the API keys is `tools/rotate-llm-keys.py` in the private
+`veer0608/machine-tools` repo, which updates all six locations and probes before writing.
+
+## Conventions
+
+- Commit messages are written in the project's own voice. **No `Co-Authored-By: Claude` trailers
+  and no Claude attribution.**
+- Licensed PolyForm Noncommercial; `COMMERCIAL.md` deliberately states what the tool does *not*
+  do, including that it catches only about a third of inflation.
+- The README's headline number does not move without repeated runs to justify it.
