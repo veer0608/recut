@@ -1,0 +1,78 @@
+{
+  "run": {
+    "at": "2026-09-07T13:59:18+00:00",
+    "seed": 0,
+    "targets": [
+      "linkedin",
+      "thread"
+    ],
+    "judge_models": [
+      "gemini-3.7-flash",
+      "gemini-3.6-flash",
+      "gemini-3-flash-preview"
+    ],
+    "model_calls": 96
+  },
+  "complete": false,
+  "judged_by_model": true,
+  "sources_attempted": 15,
+  "sources_completed": 5,
+  "failures": [
+    {
+      "id": "md-n8n",
+      "error": "LLMError: every provider failed:\n  gemini 429: {   \"error\": {     \"code\": 429,     \"message\": \"You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://ai.google.dev/gemini-api/docs/rate-limits.\n  gemini 429: {   \"error\": {     \"code\": 429,     \"message\": \"You exceeded your current quota, please check your plan and billing de"
+    },
+    {
+      "id": "md-geojit",
+      "error": "LLMError: every provider failed:\n  gemini 429: {   \"error\": {     \"code\": 429,     \"message\": \"You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://ai.google.dev/gemini-api/docs/rate-limits.\n  gemini 429: {   \"error\": {     \"code\": 429,     \"message\": \"You exceeded your current quota, please check your plan and billing de"
+    },
+    {
+      "id": "art-bank-statement",
+      "error": "LLMError: every provider failed:\n  gemini 429: {   \"error\": {     \"code\": 429,     \"message\": \"You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://ai.google.dev/gemini-api/docs/rate-limits.\n  gemini 429: {   \"error\": {     \"code\": 429,     \"message\": \"You exceeded your current quota, please check your plan and billing de"
+    },
+    {
+      "id": "art-double-entry",
+      "error": "LLMError: every provider failed:\n  gemini 429: {   \"error\": {     \"code\": 429,     \"message\": \"You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://ai.google.dev/gemini-api/docs/rate-limits.\n  gemini 429: {   \"error\": {     \"code\": 429,     \"message\": \"You exceeded your current quota, please check your plan and billing de"
+    },
+    {
+      "id": "art-vector-db",
+      "error": "LLMError: every provider failed:\n  gemini 429: {   \"error\": {     \"code\": 429,     \"message\": \"You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://ai.google.dev/gemini-api/docs/rate-limits.\n  gemini 429: {   \"error\": {     \"code\": 429,     \"message\": \"You exceeded your current quota, please check your plan and billing de"
+    },
+    {
+      "id": "art-retrieval",
+      "error": "LLMError: every provider failed:\n  gemini 429: {   \"error\": {     \"code\": 429,     \"message\": \"You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://ai.google.dev/gemini-api/docs/rate-limits.\n  gemini 429: {   \"error\": {     \"code\": 429,     \"message\": \"You exceeded your current quota, please check your plan and billing de"
+    },
+    {
+      "id": "art-ocr",
+      "error": "LLMError: every provider failed:\n  gemini 429: {   \"error\": {     \"code\": 429,     \"message\": \"You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://ai.google.dev/gemini-api/docs/rate-limits.\n  gemini 429: {   \"error\": {     \"code\": 429,     \"message\": \"You exceeded your current quota, please check your plan and billing de"
+    },
+    {
+      "id": "art-reconciliation",
+      "error": "LLMError: every provider failed:\n  gemini 429: {   \"error\": {     \"code\": 429,     \"message\": \"You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://ai.google.dev/gemini-api/docs/rate-limits.\n  gemini 429: {   \"error\": {     \"code\": 429,     \"message\": \"You exceeded your current quota, please check your plan and billing de"
+    },
+    {
+      "id": "art-willison",
+      "error": "LLMError: every provider failed:\n  gemini 429: {   \"error\": {     \"code\": 429,     \"message\": \"You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://ai.google.dev/gemini-api/docs/rate-limits.\n  gemini 429: {   \"error\": {     \"code\": 429,     \"message\": \"You exceeded your current quota, please check your plan and billing de"
+    },
+    {
+      "id": "yt-rome",
+      "error": "LLMError: every provider failed:\n  gemini 429: {   \"error\": {     \"code\": 429,     \"message\": \"You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://ai.google.dev/gemini-api/docs/rate-limits.\n  gemini 429: {   \"error\": {     \"code\": 429,     \"message\": \"You exceeded your current quota, please check your plan and billing de"
+    }
+  ],
+  "unsupported_claim_rate": null,
+  "unsupported_claim_rate_provisional": 0.03260869565217391,
+  "judged_claims": 92,
+  "judged_unsupported": 3,
+  "verifier_recall_on_injections": 1.0,
+  "verifier_recall_by_rule": {
+    "number": 1.0,
+    "quote": 1.0,
+    "entity": 1.0,
+    "intensity": 1.0,
+    "citation": 1.0
+  },
+  "verifier_false_positive_rate": 0.0,
+  "format_compliance": 1.0,
+  "claim_utilisation": 0.26937441643323995,
+  "artifacts": 10
+}

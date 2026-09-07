@@ -72,6 +72,11 @@ Also return:
   what the source is. "Your bank statement is not a record of what you spent" is a
   hook. "This article explains bank statements" is not. No hook may assert anything
   the source does not.
+
+  **Write these, do not lift them.** A hook goes to the top of a published post, so
+  one copied from the source puts the source's own sentence under someone else's
+  name in the most visible position there is. The eight word rule from `text`
+  applies here too. Take the observation and phrase it yourself.
 - `voice_samples`: up to five sentences copied character for character from the
   source, chosen because they show how it sounds: its rhythm, its bluntness, the
   kind of detail it reaches for. Copy exactly. A paraphrase here is useless and

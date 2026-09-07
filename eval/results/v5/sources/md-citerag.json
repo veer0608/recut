@@ -1,0 +1,411 @@
+{
+  "id": "md-citerag",
+  "judged_by_model": true,
+  "kind": "markdown",
+  "ref": "C:\\Users\\veera\\claude\\citerag\\README.md",
+  "title": "CiteRAG",
+  "segments": 95,
+  "chars": 28402,
+  "extracted_claims": 48,
+  "dropped_unanchored": 0,
+  "targets": [
+    "linkedin",
+    "thread"
+  ],
+  "verifier_errors": {
+    "linkedin": [],
+    "thread": []
+  },
+  "format_violations": {},
+  "repaired": [],
+  "claim_utilisation": 0.125,
+  "judged": {
+    "linkedin": {
+      "sentences": 7,
+      "claims": 7,
+      "unsupported": 0,
+      "rate": 0.0,
+      "unjudged": 0,
+      "verdicts": [
+        {
+          "n": 1,
+          "sentence": "Increasing the re-ranker pool depth from 20 to 50 candidates actually decreased performance because the additional distractors outweighed the benefits of surfacing more potential answers.",
+          "verdict": "supported",
+          "why": "The source explicitly states in the results table that widening the pool surfaced more answers but the extra distractors cost more than they recovered, leading to the rejection of a deeper re-rank pool."
+        },
+        {
+          "n": 2,
+          "sentence": "Most RAG projects rely on subjective impressions, but a golden-question evaluation harness can provide numerical proof of retrieval quality.",
+          "verdict": "supported",
+          "why": "The source mentions that most tutorial RAG projects skip evaluation and that this project includes an evaluation harness to prove quality with numbers rather than 'vibes'."
+        },
+        {
+          "n": 3,
+          "sentence": "When testing, moving from 30 to 60 questions prevented candidate changes from being hidden by statistical noise.",
+          "verdict": "supported",
+          "why": "The source explains that at n=30, candidate changes sat 'inside the noise' and that doubling the set to 60 questions reduced the noise per question from \u00b10.033 to \u00b10.017."
+        },
+        {
+          "n": 4,
+          "sentence": "This shift in evaluation size revealed that small sets can lead to incorrect tuning decisions.",
+          "verdict": "supported",
+          "why": "The source states that the 30-question set 'pointed at the wrong lever' and that expanding the set before tuning was more valuable than the tuning itself because it changed which experiments were worth running."
+        },
+        {
+          "n": 5,
+          "sentence": "Hybrid retrieval combining dense embeddings with lexical search provided the largest single performance improvement, increasing recall@5 from 0.500 \u2192 0.733.",
+          "verdict": "supported",
+          "why": "The source identifies hybrid retrieval as the 'biggest single lever' and notes in Phase 5 that it moved recall@5 from 0.500 to 0.733."
+        },
+        {
+          "n": 6,
+          "sentence": "Meanwhile, table-aware ingestion was rejected because it introduced near-duplicate chunks that crowded the re-ranker and displaced narrative content.",
+          "verdict": "supported",
+          "why": "The source states that table-aware ingestion was rejected because near-duplicate chunks crowded the re-ranker and displaced the answer-bearing narrative chunks."
+        },
+        {
+          "n": 7,
+          "sentence": "Rigorous testing turns failed experiments into a roadmap for better retrieval.",
+          "verdict": "supported",
+          "why": "The source describes a process where diagnosing failures (such as the 'never-retrieved' bucket) directly decided which 'lever' or improvement was worth building next."
+        }
+      ]
+    },
+    "thread": {
+      "sentences": 7,
+      "claims": 7,
+      "unsupported": 2,
+      "rate": 0.2857142857142857,
+      "unjudged": 0,
+      "verdicts": [
+        {
+          "n": 1,
+          "sentence": "Hybrid retrieval, combining dense embeddings with lexical search, provided the largest single performance improvement, increasing recall@5 from 0.500 \u2192 0.733.",
+          "verdict": "supported",
+          "why": "The source states in Phase 5 that hybrid retrieval (dense + lexical) increased recall@5 from 0.500 to 0.733 and was the 'biggest single lever' (largest single performance improvement)."
+        },
+        {
+          "n": 2,
+          "sentence": "Most RAG projects rely on subjective impressions.",
+          "verdict": "unsupported",
+          "why": "The source specifically mentions 'most tutorial RAG projects' skip numerical proof (relying on 'vibes'), but the sentence generalizes this to 'most RAG projects,' which goes further than the source."
+        },
+        {
+          "n": 3,
+          "sentence": "You can instead verify retrieval quality with numerical proof using a golden-question evaluation harness.",
+          "verdict": "supported",
+          "why": "The source describes CiteRAG as a system that 'ships a golden-question eval harness that proves retrieval quality with numbers, not vibes,' supporting the claim that one can verify quality this way."
+        },
+        {
+          "n": 4,
+          "sentence": "Increasing the re-ranker pool depth from 20 to 50 candidates was rejected because the additional distractors outweighed the benefits of surfacing more potential answers.",
+          "verdict": "supported",
+          "why": "The source notes in the results table that widening the pool to 50 candidates surfaced more answers but was rejected because 'extra distractors cost more than they recover.'"
+        },
+        {
+          "n": 5,
+          "sentence": "Table-aware ingestion was rejected because it introduced near-duplicate chunks that crowded the re-ranker and displaced narrative content, resulting in a performance decrease.",
+          "verdict": "supported",
+          "why": "The source states table-aware ingestion was rejected because appending extracted table rows 'duplicates numbers the text extractor already caught' and these 'near-duplicate chunks crowd the re-ranker and displace the answer-bearing narrative chunk,' leading to a performance drop from 0.733 to 0.667."
+        },
+        {
+          "n": 6,
+          "sentence": "Small evaluation sets can lead to incorrect tuning decisions, as demonstrated by the shift in failure mode analysis when moving from 30 to 60 questions.",
+          "verdict": "supported",
+          "why": "The source explains that the 30-question set 'pointed at the wrong lever' and that expanding the set to 60 questions was necessary because the initial diagnosis was 'built on too few observations to be trustworthy.'"
+        },
+        {
+          "n": 7,
+          "sentence": "A RAG system must include a golden-question evaluation harness to objectively verify retrieval quality rather than relying on subjective impressions.",
+          "verdict": "unsupported",
+          "why": "While the source advocates for using an evaluation harness, it never states that a RAG system 'must' include one; it only notes that CiteRAG does so while most tutorial projects skip it."
+        }
+      ]
+    }
+  },
+  "judged_claims": 14,
+  "judged_unsupported": 2,
+  "injections": {
+    "planted": 10,
+    "caught": 10,
+    "recall": 1.0,
+    "recall_by_rule": {
+      "number": 1.0,
+      "quote": 1.0,
+      "entity": 1.0,
+      "intensity": 1.0,
+      "citation": 1.0
+    },
+    "missed": [],
+    "clean_bodies": 2,
+    "false_positive_bodies": 0,
+    "false_positives": []
+  },
+  "bodies": {
+    "linkedin": "Increasing the re-ranker pool depth from 20 to 50 candidates actually decreased performance because the additional distractors outweighed the benefits of surfacing more potential answers.\n\nMost RAG projects rely on subjective impressions, but a golden-question evaluation harness can provide numerical proof of retrieval quality. When testing, moving from 30 to 60 questions prevented candidate changes from being hidden by statistical noise. This shift in evaluation size revealed that small sets can lead to incorrect tuning decisions.\n\nHybrid retrieval combining dense embeddings with lexical search provided the largest single performance improvement, increasing recall@5 from 0.500 \u2192 0.733. Meanwhile, table-aware ingestion was rejected because it introduced near-duplicate chunks that crowded the re-ranker and displaced narrative content.\n\nRigorous testing turns failed experiments into a roadmap for better retrieval.",
+    "thread": "Hybrid retrieval, combining dense embeddings with lexical search, provided the largest single performance improvement, increasing recall@5 from 0.500 \u2192 0.733.\n\nMost RAG projects rely on subjective impressions. You can instead verify retrieval quality with numerical proof using a golden-question evaluation harness.\n\nIncreasing the re-ranker pool depth from 20 to 50 candidates was rejected because the additional distractors outweighed the benefits of surfacing more potential answers.\n\nTable-aware ingestion was rejected because it introduced near-duplicate chunks that crowded the re-ranker and displaced narrative content, resulting in a performance decrease.\n\nSmall evaluation sets can lead to incorrect tuning decisions, as demonstrated by the shift in failure mode analysis when moving from 30 to 60 questions.\n\nA RAG system must include a golden-question evaluation harness to objectively verify retrieval quality rather than relying on subjective impressions."
+  },
+  "inventory": {
+    "claims": [
+      {
+        "id": "c0",
+        "kind": "fact",
+        "text": "CiteRAG provides a retrieval-augmented generation system that cites specific source passages and page numbers for its answers."
+      },
+      {
+        "id": "c1",
+        "kind": "fact",
+        "text": "The system includes a golden-question evaluation harness designed to provide numerical proof of retrieval quality."
+      },
+      {
+        "id": "c2",
+        "kind": "stat",
+        "text": "The corpus consists of Berkshire Hathaway annual reports from 2021 through 2023."
+      },
+      {
+        "id": "c3",
+        "kind": "fact",
+        "text": "The system utilizes SQLite with the sqlite-vec extension for its vector store."
+      },
+      {
+        "id": "c4",
+        "kind": "stat",
+        "text": "The default embedding model used is bge-small-en-v1.5, which is a 384-dimensional local model."
+      },
+      {
+        "id": "c5",
+        "kind": "fact",
+        "text": "The system can use the local Qwen2.5-0.5B-Instruct model as an LLM answer step if no other keys are provided."
+      },
+      {
+        "id": "c6",
+        "kind": "fact",
+        "text": "The retrieval and evaluation harness functions without the use of any LLM."
+      },
+      {
+        "id": "c7",
+        "kind": "fact",
+        "text": "The decision to use SQLite was made because the target machine running Windows 11 Home could not support Docker Desktop due to Memory Integrity or VBS blocks."
+      },
+      {
+        "id": "c8",
+        "kind": "fact",
+        "text": "The system includes a security check to prevent directory traversal attacks by ensuring ingested files remain within the designated corpus directory."
+      },
+      {
+        "id": "c9",
+        "kind": "fact",
+        "text": "When the local LLM fails to generate citation markers, the system attempts to reconstruct provenance by matching unique figures from the answer to the retrieved passages."
+      },
+      {
+        "id": "c10",
+        "kind": "fact",
+        "text": "The system prevents inference from using manufacturing support by requiring figures to look like claims, such as decimals or percentages, while ignoring bare years."
+      },
+      {
+        "id": "c11",
+        "kind": "stat",
+        "text": "In the provided example, the model correctly attributed a 41.4% interest figure to specific source passages on pages K-58, K-85, and K-112."
+      },
+      {
+        "id": "c12",
+        "kind": "fact",
+        "text": "The ingestion process is designed to be idempotent, ensuring that deterministic IDs are used and that empty or scanned pages are surfaced rather than silently ignored."
+      },
+      {
+        "id": "c13",
+        "kind": "stat",
+        "text": "The initial baseline for the retrieval system achieved a recall@5 of 0.367."
+      },
+      {
+        "id": "c14",
+        "kind": "stat",
+        "text": "Hybrid retrieval, combining dense embeddings with lexical search, provided the largest single performance improvement, increasing recall@5 from 0.500 to 0.733."
+      },
+      {
+        "id": "c15",
+        "kind": "fact",
+        "text": "Table-aware ingestion was rejected because it introduced near-duplicate chunks that crowded the re-ranker and displaced narrative content, resulting in a performance decrease."
+      },
+      {
+        "id": "c16",
+        "kind": "fact",
+        "text": "Increasing the re-ranker pool depth from 20 to 50 candidates was rejected because the additional distractors outweighed the benefits of surfacing more potential answers."
+      },
+      {
+        "id": "c17",
+        "kind": "stat",
+        "text": "The evaluation set was increased from 30 to 60 questions to ensure that candidate changes were not hidden by statistical noise."
+      },
+      {
+        "id": "c18",
+        "kind": "fact",
+        "text": "The 60-question set was specifically weighted to address identified failure modes, including table lookups, time-sensitive facts, and non-literal phrasing."
+      },
+      {
+        "id": "c19",
+        "kind": "stat",
+        "text": "Using a larger re-ranker model like bge-reranker-large can achieve a recall of 0.850, though it incurs a latency cost of 45 seconds per query on a CPU."
+      },
+      {
+        "id": "c20",
+        "kind": "stat",
+        "text": "The re-spacing of welded PDF text improved recall by 0.033 when using a re-ranker and by 0.067 without one."
+      },
+      {
+        "id": "c21",
+        "kind": "fact",
+        "text": "Some potential test questions were discarded because their answers were too common across the corpus to serve as reliable ground truth."
+      },
+      {
+        "id": "c22",
+        "kind": "fact",
+        "text": "A citation defect was discovered where the system ingested physical PDF page indices rather than the page numbers printed on the documents."
+      },
+      {
+        "id": "c23",
+        "kind": "stat",
+        "text": "Hybrid dense and BM25 fusion provided the largest single performance gain of 0.133."
+      },
+      {
+        "id": "c24",
+        "kind": "stat",
+        "text": "The re-ranker is enabled by default because it provides the best configuration, though it requires a 1.1GB cross-encoder."
+      },
+      {
+        "id": "c25",
+        "kind": "fact",
+        "text": "Small evaluation sets can lead to incorrect tuning decisions, as demonstrated by the shift in failure mode analysis when moving from 30 to 60 questions."
+      },
+      {
+        "id": "c26",
+        "kind": "fact",
+        "text": "The pdfplumber tool sometimes merges words together in tables, which causes FTS5 to interpret these welded strings as single tokens."
+      },
+      {
+        "id": "c27",
+        "kind": "fact",
+        "text": "BM25 retrieval performance was structurally limited because it could not match company-name queries within holdings-table rows."
+      },
+      {
+        "id": "c28",
+        "kind": "fact",
+        "text": "Query rewriting techniques like HyDE cannot resolve issues where tokens do not match due to word welding."
+      },
+      {
+        "id": "c29",
+        "kind": "fact",
+        "text": "Splitting tokens at case boundaries can repair lexical and dense retrieval paths without incurring additional costs per query."
+      },
+      {
+        "id": "c30",
+        "kind": "fact",
+        "text": "Case-boundary splitting is only partially effective for all-lowercase welded tokens, as it requires surviving capital letters to identify split points."
+      },
+      {
+        "id": "c31",
+        "kind": "stat",
+        "text": "All-lowercase welds accounted for 1,971 out of 2,144 chunks containing long welded tokens, representing 10.2% of all alphabetic tokens."
+      },
+      {
+        "id": "c32",
+        "kind": "fact",
+        "text": "Dynamic programming using a corpus-derived vocabulary can re-space long welded tokens, provided that every segment of the run is a recognized word."
+      },
+      {
+        "id": "c33",
+        "kind": "stat",
+        "text": "After implementing vocabulary-based re-spacing, the proportion of welded tokens decreased from 10.2% to 5.4%, and recall at 5 improved from 0.683 to 0.767."
+      },
+      {
+        "id": "c34",
+        "kind": "fact",
+        "text": "A bug in the initial all-lowercase segmentation logic caused it to skip welds at the start of sentences or headings because it failed to account for leading capital letters."
+      },
+      {
+        "id": "c35",
+        "kind": "stat",
+        "text": "Refining the segmentation logic further reduced welded tokens to 3.7%, though it resulted in a slight decrease in MRR from 0.617 to 0.590."
+      },
+      {
+        "id": "c36",
+        "kind": "fact",
+        "text": "Measurement errors in ground truth evaluation can occur when whitespace stripping causes unrelated table cells to merge or when sentence commas are incorrectly interpreted as thousands separators."
+      },
+      {
+        "id": "c37",
+        "kind": "stat",
+        "text": "The default retrieval path maintains a performance metric of 0.683."
+      },
+      {
+        "id": "c38",
+        "kind": "stat",
+        "text": "Using bge-reranker-base provides a marginal gain of only one question, or +0.017, while consuming 1.1GB of model space."
+      },
+      {
+        "id": "c39",
+        "kind": "stat",
+        "text": "The bge-reranker-large model improves performance by five questions, or +0.083, compared to the base model."
+      },
+      {
+        "id": "c40",
+        "kind": "stat",
+        "text": "The large re-ranker model increases MRR from 0.590 to 0.674."
+      },
+      {
+        "id": "c41",
+        "kind": "fact",
+        "text": "The base re-ranker is retained as the default because the large model requires 45 seconds per query on a CPU, which is unsuitable for a functional product."
+      },
+      {
+        "id": "c42",
+        "kind": "fact",
+        "text": "Citations are generated by pairing the printed page label with the 1-based physical PDF index to ensure they match both paper reports and PDF viewer requirements."
+      },
+      {
+        "id": "c43",
+        "kind": "fact",
+        "text": "Because Berkshire Hathaway reports use inconsistent numbering schemes like plain integers and K- prefixes, printed page numbers cannot be calculated arithmetically from the physical index."
+      },
+      {
+        "id": "c44",
+        "kind": "stat",
+        "text": "Approximately 98% of document chunks are successfully assigned a printed label, while the remainder default to the physical index."
+      },
+      {
+        "id": "c45",
+        "kind": "fact",
+        "text": "The evaluation harness relies on the physical index for page matching because golden set page numbers are often off by one, likely due to manual entry."
+      },
+      {
+        "id": "c46",
+        "kind": "fact",
+        "text": "The repository is licensed under the MIT license."
+      },
+      {
+        "id": "c47",
+        "kind": "fact",
+        "text": "The corpus is not redistributed; scripts download Berkshire Hathaway annual reports directly from the company website during setup."
+      }
+    ],
+    "hook_candidates": [
+      "Most RAG projects rely on vibes, but you can prove retrieval quality with numbers.",
+      "Your RAG system might be hallucinating citations, but you can reconstruct them from the data.",
+      "Financial tables are the ultimate test for a RAG system's retrieval accuracy.",
+      "You can build a fully local RAG system without needing Docker or a database server.",
+      "A model that fails to cite its sources can still have its provenance reconstructed automatically.",
+      "Improving a RAG system often requires rejecting intuitive ideas like deeper re-ranking or table extraction after they fail rigorous performance testing.",
+      "The most significant performance boost in this retrieval pipeline came from combining dense embeddings with simple keyword-based search.",
+      "By measuring every change against a golden set, this project turned failed experiments into a roadmap for better retrieval."
+    ],
+    "voice_samples": [
+      "No Docker, no database server \u2014 it's all local.",
+      "Diagnosis: the corpus is full of exact tokens \u2014 dollar amounts, tickers, years \u2014 that dense embeddings blur; a keyword index nails them.",
+      "The 30-question set pointed at the wrong lever.",
+      "Nothing about the system changed between those two measurements.",
+      "Reading those 10 failures instead of trusting the bucket label found the real cause.",
+      "Query rewriting could not have fixed this."
+    ],
+    "thesis": "A RAG system must include a golden-question evaluation harness to objectively verify retrieval quality rather than relying on subjective impressions."
+  }
+}

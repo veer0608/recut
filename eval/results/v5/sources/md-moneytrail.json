@@ -1,0 +1,456 @@
+{
+  "id": "md-moneytrail",
+  "judged_by_model": true,
+  "kind": "markdown",
+  "ref": "C:\\Users\\veera\\claude\\moneytrail\\README.md",
+  "title": "moneytrail",
+  "segments": 153,
+  "chars": 35444,
+  "extracted_claims": 51,
+  "dropped_unanchored": 0,
+  "targets": [
+    "linkedin",
+    "thread"
+  ],
+  "verifier_errors": {
+    "linkedin": [],
+    "thread": []
+  },
+  "format_violations": {},
+  "repaired": [],
+  "claim_utilisation": 0.19607843137254902,
+  "judged": {
+    "linkedin": {
+      "sentences": 10,
+      "claims": 10,
+      "unsupported": 0,
+      "rate": 0.0,
+      "unjudged": 0,
+      "verdicts": [
+        {
+          "n": 1,
+          "sentence": "Counting both the bank debit for a card payment and the corresponding reduction in the credit card balance results in double-counting the same expenditure.",
+          "verdict": "supported",
+          "why": "The source states that counting both the bank debit and the card-side credit double-counts the money."
+        },
+        {
+          "n": 2,
+          "sentence": "Personal finance tools often fail because they prioritize categorization over mathematical reconciliation.",
+          "verdict": "supported",
+          "why": "The source claims that every personal-finance tool starts with categorization, which is the 'wrong first step' because it leads to results that are 'quietly wrong' if rows are dropped, unlike moneytrail which starts with a reconciliation gate."
+        },
+        {
+          "n": 3,
+          "sentence": "Most bank statements lack ruling lines, which causes standard conversion tools to fail.",
+          "verdict": "supported",
+          "why": "The source states that most real bank statements draw no ruling and that standard converters (like pdfplumber) return None on such files."
+        },
+        {
+          "n": 4,
+          "sentence": "Moneytrail rejects scanned PDF files rather than processing them with guesswork.",
+          "verdict": "supported",
+          "why": "The source explicitly says 'Scanned PDFs are rejected rather than guessed at'."
+        },
+        {
+          "n": 5,
+          "sentence": "The software treats all monetary values as integer counts of paise to maintain precision.",
+          "verdict": "supported",
+          "why": "The source states that money is an integer count of paise everywhere and that there are no floats in the codebase to ensure precision 'to the paisa'."
+        },
+        {
+          "n": 6,
+          "sentence": "It identifies recurring charges by measuring actual cadence rather than assuming a subscription based on transaction frequency.",
+          "verdict": "supported",
+          "why": "The source states that 'Cadence is measured, not assumed' and that irregular charges are not reported as subscriptions."
+        },
+        {
+          "n": 7,
+          "sentence": "The project includes \"499 tests, CI green on 3.11 and 3.12\" to ensure reliability.",
+          "verdict": "supported",
+          "why": "The source mentions '499 tests, CI green on 3.11 and 3.12' under the 'Status' section."
+        },
+        {
+          "n": 8,
+          "sentence": "When analyzing bank statements, the system dynamically calculates the threshold for column gaps per line, using values such as 1.8pt for word spaces and 12.7pt for column gaps on HDFC headers.",
+          "verdict": "supported",
+          "why": "The source explains that the threshold for column boundaries is derived per line and mentions the specific 1.8pt and 12.7pt measurements found on a real HDFC header."
+        },
+        {
+          "n": 9,
+          "sentence": "It provides a reconciliation certificate containing the SHA-256 hash of the source bytes and the results of arithmetic checks.",
+          "verdict": "supported",
+          "why": "The source describes a 'reconciliation certificate' that includes the arithmetic checked and the SHA-256 of the exact bytes."
+        },
+        {
+          "n": 10,
+          "sentence": "Financial data integrity requires verifying that opening balance plus credits minus debits equals the closing balance.",
+          "verdict": "supported",
+          "why": "The source defines the 'totals' check as 'opening + credits \u2212 debits == closing' and describes it as 'ground truth' for proving the statement's accuracy."
+        }
+      ]
+    },
+    "thread": {
+      "sentences": 9,
+      "claims": 9,
+      "unsupported": 0,
+      "rate": 0.0,
+      "unjudged": 0,
+      "verdicts": [
+        {
+          "n": 1,
+          "sentence": "Counting both the bank debit for a card payment and the corresponding reduction in the credit card balance results in double-counting the same expenditure.",
+          "verdict": "supported",
+          "why": "The source states that counting both the bank-side debit and the card-side credit for a bill payment double-counts the money."
+        },
+        {
+          "n": 2,
+          "sentence": "Most bank statements do not contain ruling lines.",
+          "verdict": "supported",
+          "why": "The source explicitly states that most real bank statements draw no ruling lines at all."
+        },
+        {
+          "n": 3,
+          "sentence": "This causes many standard conversion tools to fail when they try to parse the data.",
+          "verdict": "supported",
+          "why": "The source notes that most converters rely on ruling lines and that a standard extraction tool returns None on real statements without them."
+        },
+        {
+          "n": 4,
+          "sentence": "The software treats all monetary values as integer counts of paise.",
+          "verdict": "supported",
+          "why": "The source states that money is an integer count of paise everywhere in the codebase."
+        },
+        {
+          "n": 5,
+          "sentence": "This avoids floating-point math to maintain precision.",
+          "verdict": "supported",
+          "why": "The source explains that float pipelines cannot promise precision to the paisa, which is why there are no floats in the codebase."
+        },
+        {
+          "n": 6,
+          "sentence": "Bank statements are only reliable if they reconcile to the exact paisa.",
+          "verdict": "supported",
+          "why": "The source argues that if a statement does not reconcile to the paisa, every insight and answer built on top of it is quietly wrong and worthless."
+        },
+        {
+          "n": 7,
+          "sentence": "The tool validates this by checking the running balance column.",
+          "verdict": "supported",
+          "why": "The source describes the 'chain' check as walking the running-balance column to localize faults."
+        },
+        {
+          "n": 8,
+          "sentence": "The system identifies recurring charges by measuring actual cadence rather than assuming a subscription based on transaction frequency.",
+          "verdict": "supported",
+          "why": "The source states that cadence is measured rather than assumed, and that irregular gaps are identified as habits rather than subscriptions."
+        },
+        {
+          "n": 9,
+          "sentence": "Personal finance tools must prioritize mathematical reconciliation of bank statements over categorization to ensure data integrity.",
+          "verdict": "supported",
+          "why": "The source explicitly calls starting with categorization the 'wrong first step' and argues that reconciliation is necessary to prevent data from being quietly wrong."
+        }
+      ]
+    }
+  },
+  "judged_claims": 19,
+  "judged_unsupported": 0,
+  "injections": {
+    "planted": 10,
+    "caught": 10,
+    "recall": 1.0,
+    "recall_by_rule": {
+      "number": 1.0,
+      "quote": 1.0,
+      "entity": 1.0,
+      "intensity": 1.0,
+      "citation": 1.0
+    },
+    "missed": [],
+    "clean_bodies": 2,
+    "false_positive_bodies": 0,
+    "false_positives": []
+  },
+  "bodies": {
+    "linkedin": "Counting both the bank debit for a card payment and the corresponding reduction in the credit card balance results in double-counting the same expenditure.\n\nPersonal finance tools often fail because they prioritize categorization over mathematical reconciliation. Most bank statements lack ruling lines, which causes standard conversion tools to fail. Moneytrail rejects scanned PDF files rather than processing them with guesswork.\n\nThe software treats all monetary values as integer counts of paise to maintain precision. It identifies recurring charges by measuring actual cadence rather than assuming a subscription based on transaction frequency. The project includes \"499 tests, CI green on 3.11 and 3.12\" to ensure reliability.\n\nWhen analyzing bank statements, the system dynamically calculates the threshold for column gaps per line, using values such as 1.8pt for word spaces and 12.7pt for column gaps on HDFC headers. It provides a reconciliation certificate containing the SHA-256 hash of the source bytes and the results of arithmetic checks.\n\nFinancial data integrity requires verifying that opening balance plus credits minus debits equals the closing balance.",
+    "thread": "Counting both the bank debit for a card payment and the corresponding reduction in the credit card balance results in double-counting the same expenditure.\n\nMost bank statements do not contain ruling lines. This causes many standard conversion tools to fail when they try to parse the data.\n\nThe software treats all monetary values as integer counts of paise. This avoids floating-point math to maintain precision.\n\nBank statements are only reliable if they reconcile to the exact paisa. The tool validates this by checking the running balance column.\n\nThe system identifies recurring charges by measuring actual cadence rather than assuming a subscription based on transaction frequency.\n\nPersonal finance tools must prioritize mathematical reconciliation of bank statements over categorization to ensure data integrity."
+  },
+  "inventory": {
+    "claims": [
+      {
+        "id": "c0",
+        "kind": "fact",
+        "text": "Moneytrail processes bank statements locally, ensuring that data never exits the user's machine."
+      },
+      {
+        "id": "c1",
+        "kind": "fact",
+        "text": "The tool validates data by checking the running balance column and verifying that opening balance plus credits minus debits equals the closing balance."
+      },
+      {
+        "id": "c2",
+        "kind": "fact",
+        "text": "The software avoids floating-point math, treating all monetary values as integer counts of paise to maintain precision."
+      },
+      {
+        "id": "c3",
+        "kind": "stat",
+        "text": "The project includes 499 tests and maintains a passing status on Python versions 3.11 and 3.12."
+      },
+      {
+        "id": "c4",
+        "kind": "fact",
+        "text": "Credit card statements are verified using a summary box calculation and by ensuring the sum of recovered transaction rows matches the stated totals."
+      },
+      {
+        "id": "c5",
+        "kind": "fact",
+        "text": "Scanned PDF files are intentionally rejected by the software rather than being processed with guesswork."
+      },
+      {
+        "id": "c6",
+        "kind": "stat",
+        "text": "The software successfully reconciled 225 transactions from an HDFC bank statement over a three-month period against the bank's own summary balance."
+      },
+      {
+        "id": "c7",
+        "kind": "fact",
+        "text": "Initial testing with real-world data identified four specific formatting issues that synthetic test data failed to capture."
+      },
+      {
+        "id": "c8",
+        "kind": "fact",
+        "text": "The system uses minimum-cost segmentation over a vocabulary to separate combined merchant names."
+      },
+      {
+        "id": "c9",
+        "kind": "stat",
+        "text": "Only 18% of the transactions in the tested statement were identified as recognized merchants."
+      },
+      {
+        "id": "c10",
+        "kind": "stat",
+        "text": "The majority of transactions in the analyzed ledger consisted of person-to-person transfers (41%), credit-card bill repayments (18%), and bank charges or interest (5%)."
+      },
+      {
+        "id": "c11",
+        "kind": "fact",
+        "text": "Counting both the bank debit for a card payment and the corresponding reduction in the credit card balance results in double-counting the same expenditure."
+      },
+      {
+        "id": "c12",
+        "kind": "fact",
+        "text": "Card repayments lacking a corresponding card statement are still included in spending totals to avoid the risk of understating expenses."
+      },
+      {
+        "id": "c13",
+        "kind": "fact",
+        "text": "The software identifies recurring charges by measuring actual cadence rather than assuming a subscription based on transaction frequency."
+      },
+      {
+        "id": "c14",
+        "kind": "fact",
+        "text": "Transfers between a user's own accounts are matched and removed from both inflow and outflow reports to prevent artificial inflation of spending and income figures."
+      },
+      {
+        "id": "c15",
+        "kind": "fact",
+        "text": "Most bank statements do not contain ruling lines, which causes many standard conversion tools to fail."
+      },
+      {
+        "id": "c16",
+        "kind": "fact",
+        "text": "The moneytrail project previously relied on its own generated PDFs for testing, which led to a false sense of success."
+      },
+      {
+        "id": "c17",
+        "kind": "fact",
+        "text": "The tool determines column boundaries by analyzing the geometric gaps between header names."
+      },
+      {
+        "id": "c18",
+        "kind": "fact",
+        "text": "Bank rows often span multiple lines, requiring the software to group lines together based on the presence of a date."
+      },
+      {
+        "id": "c19",
+        "kind": "stat",
+        "text": "The system dynamically calculates the threshold for column gaps per line, using values such as 1.8pt for word spaces and 12.7pt for column gaps on HDFC headers."
+      },
+      {
+        "id": "c20",
+        "kind": "fact",
+        "text": "Files where the text layer lacks proper column information are rejected to prevent the creation of ledgers that reconcile against incorrect totals."
+      },
+      {
+        "id": "c21",
+        "kind": "fact",
+        "text": "Exported files include a reconciliation certificate containing the SHA-256 hash of the source bytes and the results of arithmetic checks."
+      },
+      {
+        "id": "c22",
+        "kind": "fact",
+        "text": "Statements that fail to reconcile are still exported, but they are marked with a reconciliation status of 'NO' and trigger a non-zero exit code."
+      },
+      {
+        "id": "c23",
+        "kind": "fact",
+        "text": "To ensure data accuracy, amounts are written as exact decimals rather than floats, and CSV files are saved with a BOM to maintain character encoding."
+      },
+      {
+        "id": "c24",
+        "kind": "fact",
+        "text": "The software provides a certificate, trust strip, and workbook as a single PDF file, which the browser saves directly from memory without using a download endpoint."
+      },
+      {
+        "id": "c25",
+        "kind": "fact",
+        "text": "The application's CLI guarantees that no data leaves the local machine."
+      },
+      {
+        "id": "c26",
+        "kind": "fact",
+        "text": "The server remains stateless because it does not store data between requests, ensuring no second request can access the uploaded information."
+      },
+      {
+        "id": "c27",
+        "kind": "fact",
+        "text": "The web interface is a single HTML file that avoids build steps, CDNs, and analytics to ensure it contains no external references."
+      },
+      {
+        "id": "c28",
+        "kind": "stat",
+        "text": "The demo version includes a sample file with one row of \u20b9649 removed to demonstrate how the tool catches missing data."
+      },
+      {
+        "id": "c29",
+        "kind": "fact",
+        "text": "The hosted service offers a free tier for single statements, while batch processing requires a license key."
+      },
+      {
+        "id": "c30",
+        "kind": "fact",
+        "text": "License keys function as bearer tokens stored in the user's browser, allowing the system to avoid using accounts or databases."
+      },
+      {
+        "id": "c31",
+        "kind": "fact",
+        "text": "The payment gate is only active on the hosted instance, meaning local runs and self-hosted versions remain entirely unlocked."
+      },
+      {
+        "id": "c32",
+        "kind": "stat",
+        "text": "To prevent service interruptions during payment processor outages, license keys are cached for one day after a successful verification."
+      },
+      {
+        "id": "c33",
+        "kind": "fact",
+        "text": "The generated report categorizes financial data by reconciliation status, open loops, recurring payments, and spending categories."
+      },
+      {
+        "id": "c34",
+        "kind": "opinion",
+        "text": "A language model can generate a confident but incorrect total when tasked with reading a ledger directly."
+      },
+      {
+        "id": "c35",
+        "kind": "fact",
+        "text": "The system prevents incorrect answers by requiring that every result is accompanied by the specific ledger rows used to calculate it."
+      },
+      {
+        "id": "c36",
+        "kind": "fact",
+        "text": "The moneytrail tool correctly identifies when a requested merchant does not exist in the provided statements rather than returning an incorrect aggregate."
+      },
+      {
+        "id": "c37",
+        "kind": "fact",
+        "text": "Relative date queries like 'last month' are resolved against the ledger's timeline to ensure consistent answers over time."
+      },
+      {
+        "id": "c38",
+        "kind": "fact",
+        "text": "The system explicitly informs users when a requested transaction, such as a refund, cannot be found in the ledger."
+      },
+      {
+        "id": "c39",
+        "kind": "stat",
+        "text": "The project uses a scorecard of 71 questions to evaluate performance, with 40 percent of the questions held back from the model to prevent overfitting."
+      },
+      {
+        "id": "c40",
+        "kind": "fact",
+        "text": "The system supports multiple LLM providers including Groq, OpenAI, Gemini, Together, OpenRouter, and Ollama through a single environment variable configuration."
+      },
+      {
+        "id": "c41",
+        "kind": "stat",
+        "text": "The built-in regex parser achieves 65.5% query accuracy and 55.2% answer accuracy."
+      },
+      {
+        "id": "c42",
+        "kind": "stat",
+        "text": "The openai/gpt-oss-120b model reaches 89.7% query accuracy and 93.1% answer accuracy at a cost of $0.000291 per question."
+      },
+      {
+        "id": "c43",
+        "kind": "stat",
+        "text": "The openai/gpt-oss-20b model achieves 89.7% query accuracy and 93.1% answer accuracy at a cost of $0.000151 per question."
+      },
+      {
+        "id": "c44",
+        "kind": "stat",
+        "text": "The llama-3.3-70b-versatile model reaches 89.7% query accuracy and 93.1% answer accuracy at a cost of $0.000657 per question."
+      },
+      {
+        "id": "c45",
+        "kind": "stat",
+        "text": "The llama-3.1-8b-instant model achieves 69.0% query accuracy and 79.3% answer accuracy at a cost of $0.000056 per question."
+      },
+      {
+        "id": "c46",
+        "kind": "fact",
+        "text": "The built-in regex parser scores 0% on questions that require model-only capabilities."
+      },
+      {
+        "id": "c47",
+        "kind": "opinion",
+        "text": "The openai/gpt-oss-20b model is identified as the most efficient choice because it provides identical accuracy to larger models at a quarter of the price of the 70B model while offering the fastest p50 speed."
+      },
+      {
+        "id": "c48",
+        "kind": "narrative",
+        "text": "Prompt tuning against a visible development set can lead to performance degradation on held-out data due to rule conflicts."
+      },
+      {
+        "id": "c49",
+        "kind": "fact",
+        "text": "Some user questions, such as comparing months or identifying subscription price changes, are fundamentally inexpressible within the current query schema."
+      },
+      {
+        "id": "c50",
+        "kind": "fact",
+        "text": "The project is licensed under the MIT license."
+      }
+    ],
+    "hook_candidates": [
+      "Your banking app cannot answer basic questions about your spending because it ignores silent data-loss bugs in your statements.",
+      "Categorizing transactions is the wrong first step for personal finance software.",
+      "A silent data-loss bug in your bank statement can be reduced to a specific line number.",
+      "Floating-point math is unsuitable for financial ledgers because it fails to represent currency accurately.",
+      "Bank statements are only reliable if they reconcile to the exact paisa.",
+      "Your bank statement is not a record of what you spent.",
+      "Counting your bank debit and your credit card payment separately is double-counting your money.",
+      "Most of your bank statement likely isn't merchant spending at all."
+    ],
+    "voice_samples": [
+      "Money is an integer count of paise, everywhere.",
+      "A silent data-loss bug becomes a line number.",
+      "Magic bytes decide the format, never the extension.",
+      "Counting both double-counts the money.",
+      "Cadence is measured, not assumed.",
+      "Most real bank statements draw no ruling at all."
+    ],
+    "thesis": "Personal finance tools must prioritize mathematical reconciliation of bank statements over categorization to ensure data integrity."
+  }
+}

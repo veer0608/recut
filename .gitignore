@@ -11,3 +11,7 @@ recut.db
 # Ingested source text, cached so a before and after measurement compares the
 # same input. Derived, third-party, and re-fetchable: not ours to check in.
 eval/.cache/
+
+# Tracebacks from a source that failed mid-run. Useful while diagnosing, and
+# superseded by the failure list the report already carries.
+eval/results/*/sources/*.error.txt

@@ -1,0 +1,318 @@
+{
+  "id": "md-schemablind",
+  "judged_by_model": true,
+  "kind": "markdown",
+  "ref": "C:\\Users\\veera\\claude\\schemablind\\README.md",
+  "title": "schemablind",
+  "segments": 77,
+  "chars": 13752,
+  "extracted_claims": 28,
+  "dropped_unanchored": 0,
+  "targets": [
+    "linkedin",
+    "thread"
+  ],
+  "verifier_errors": {
+    "linkedin": [],
+    "thread": []
+  },
+  "format_violations": {},
+  "repaired": [
+    "thread"
+  ],
+  "claim_utilisation": 0.42857142857142855,
+  "judged": {
+    "linkedin": {
+      "sentences": 9,
+      "claims": 9,
+      "unsupported": 0,
+      "rate": 0.0,
+      "unjudged": 0,
+      "verdicts": [
+        {
+          "n": 1,
+          "sentence": "A schema-blind agent requires an average of 9.2 turns and 13,600 tokens per question to navigate databases without prior information.",
+          "verdict": "supported",
+          "why": "The source explicitly states in section 59 that on real BIRD databases, the agent runs 9.2 turns and 13,600 tokens per question."
+        },
+        {
+          "n": 2,
+          "sentence": "Most benchmarks assume the agent knows the database structure beforehand.",
+          "verdict": "supported",
+          "why": "Section 9 notes that most text-to-SQL benchmarking measures the task of writing SQL against a schema that was handed to the agent."
+        },
+        {
+          "n": 3,
+          "sentence": "This agent instead uses four specific tools to discover the layout dynamically.",
+          "verdict": "supported",
+          "why": "Sections 10 and 11 describe the agent starting with nothing and using four verbs (tools) to discover the database layout."
+        },
+        {
+          "n": 4,
+          "sentence": "To verify results, the system compares returned rows against a reference query rather than relying on a judge model.",
+          "verdict": "supported",
+          "why": "Sections 6 and 14 state that scoring is based on execution accuracy (comparing rows) and that there is no judge model."
+        },
+        {
+          "n": 5,
+          "sentence": "Security is managed through four layers, including driver-level read-only modes.",
+          "verdict": "supported",
+          "why": "Section 19 mentions four layers of security, and section 20 specifies that the first layer is the driver being opened in read-only mode."
+        },
+        {
+          "n": 6,
+          "sentence": "When evaluating performance, the process uses checkpointing to resume after hitting token caps, which is often the primary factor preventing further operation.",
+          "verdict": "supported",
+          "why": "Sections 36, 47, and 65 explain the use of checkpointing to resume runs and identify the daily token cap as the primary blocker."
+        },
+        {
+          "n": 7,
+          "sentence": "The system reports a per-minute capacity of 12,000 tokens even when the daily budget has been exhausted.",
+          "verdict": "supported",
+          "why": "Section 65 states that the per-minute bucket reads a healthy 12,000 tokens even when the daily budget is already gone."
+        },
+        {
+          "n": 8,
+          "sentence": "To prevent overfitting, 40% of the question set is withheld from the model during evaluation.",
+          "verdict": "supported",
+          "why": "Section 68 states that 40% of the question set is held back to prevent the prompt from being tuned to its own answer key."
+        },
+        {
+          "n": 9,
+          "sentence": "The project is released under the MIT license.",
+          "verdict": "supported",
+          "why": "Section 76 explicitly states the license is MIT."
+        }
+      ]
+    },
+    "thread": {
+      "sentences": 6,
+      "claims": 6,
+      "unsupported": 1,
+      "rate": 0.16666666666666666,
+      "unjudged": 0,
+      "verdicts": [
+        {
+          "n": 1,
+          "sentence": "The daily token limit is the primary factor preventing further operation of the agent, rather than financial costs.",
+          "verdict": "supported",
+          "why": "The source explicitly states in multiple places that the daily token cap is the blocker for the project, rather than financial costs."
+        },
+        {
+          "n": 2,
+          "sentence": "The system reports a per-minute capacity of \"12,000\" tokens even when the daily budget has been exhausted.",
+          "verdict": "supported",
+          "why": "The source states that the per-minute bucket reads a healthy 12,000 even when the daily budget is already gone."
+        },
+        {
+          "n": 3,
+          "sentence": "When a daily token limit is reached, the process is abandoned rather than scored to prevent inaccurate performance metrics.",
+          "verdict": "supported",
+          "why": "The source explains that runs hitting the daily limit are abandoned rather than scored because unreached questions would otherwise be counted as failures."
+        },
+        {
+          "n": 4,
+          "sentence": "Checkpointing allows long-running evaluation tasks to resume from the last answered question rather than restarting from the beginning.",
+          "verdict": "supported",
+          "why": "The source describes the checkpoint feature as a way for a capped run to resume from the last answered question instead of restarting."
+        },
+        {
+          "n": 5,
+          "sentence": "Batching describe_table calls reduced average turns from 9.0 to 5.6 and tokens from 13,024 to 8,576 per question.",
+          "verdict": "supported",
+          "why": "The source provides these exact numerical reductions in turns and tokens resulting from batching the describe_table verb."
+        },
+        {
+          "n": 6,
+          "sentence": "SQL agents should be designed to discover database schemas dynamically rather than relying on pre-provided schema information to ensure more robust and accurate query generation.",
+          "verdict": "unsupported",
+          "why": "The source describes the project's approach and its advantages, but it does not make a general normative claim that all agents should be designed this way or that it 'ensures' robustness."
+        }
+      ]
+    }
+  },
+  "judged_claims": 15,
+  "judged_unsupported": 1,
+  "injections": {
+    "planted": 10,
+    "caught": 10,
+    "recall": 1.0,
+    "recall_by_rule": {
+      "number": 1.0,
+      "quote": 1.0,
+      "entity": 1.0,
+      "intensity": 1.0,
+      "citation": 1.0
+    },
+    "missed": [],
+    "clean_bodies": 2,
+    "false_positive_bodies": 0,
+    "false_positives": []
+  },
+  "bodies": {
+    "linkedin": "A schema-blind agent requires an average of 9.2 turns and 13,600 tokens per question to navigate databases without prior information.\n\nMost benchmarks assume the agent knows the database structure beforehand. This agent instead uses four specific tools to discover the layout dynamically. To verify results, the system compares returned rows against a reference query rather than relying on a judge model.\n\nSecurity is managed through four layers, including driver-level read-only modes. When evaluating performance, the process uses checkpointing to resume after hitting token caps, which is often the primary factor preventing further operation. The system reports a per-minute capacity of 12,000 tokens even when the daily budget has been exhausted.\n\nTo prevent overfitting, 40% of the question set is withheld from the model during evaluation. The project is released under the MIT license.\n\n#sql #ai #database",
+    "thread": "The daily token limit is the primary factor preventing further operation of the agent, rather than financial costs.\n\nThe system reports a per-minute capacity of \"12,000\" tokens even when the daily budget has been exhausted.\n\nWhen a daily token limit is reached, the process is abandoned rather than scored to prevent inaccurate performance metrics.\n\nCheckpointing allows long-running evaluation tasks to resume from the last answered question rather than restarting from the beginning.\n\nBatching describe_table calls reduced average turns from 9.0 to 5.6 and tokens from 13,024 to 8,576 per question.\n\nSQL agents should be designed to discover database schemas dynamically rather than relying on pre-provided schema information to ensure more robust and accurate query generation."
+  },
+  "inventory": {
+    "claims": [
+      {
+        "id": "c0",
+        "kind": "fact",
+        "text": "The schemablind agent operates without prior knowledge of the database schema, requiring it to discover the structure using four specific tools."
+      },
+      {
+        "id": "c1",
+        "kind": "fact",
+        "text": "The BIRD benchmark evaluates agents based on execution accuracy, which compares the rows returned by the agent's query against a reference query."
+      },
+      {
+        "id": "c2",
+        "kind": "fact",
+        "text": "Using sample_rows is crucial because it helps identify data encodings, preventing queries that execute successfully but return incorrect results."
+      },
+      {
+        "id": "c3",
+        "kind": "fact",
+        "text": "BIRD's official metric allows for duplicate rows, though a stricter multiset comparison is also provided to highlight potential bugs."
+      },
+      {
+        "id": "c4",
+        "kind": "fact",
+        "text": "The agent employs four security layers to prevent unauthorized write operations, including driver-level read-only modes and statement restrictions."
+      },
+      {
+        "id": "c5",
+        "kind": "stat",
+        "text": "The BIRD Mini-Dev dataset consists of 500 questions distributed across 11 databases, totaling 764MB in its zipped format."
+      },
+      {
+        "id": "c6",
+        "kind": "fact",
+        "text": "Checkpointing allows long-running evaluation tasks to resume from the last answered question rather than restarting from the beginning."
+      },
+      {
+        "id": "c7",
+        "kind": "fact",
+        "text": "The oracle harness is designed to return a 100% score for reference queries and a 0% score when no query is submitted."
+      },
+      {
+        "id": "c8",
+        "kind": "stat",
+        "text": "The oracle achieved 100% accuracy on all 500 Mini-Dev questions."
+      },
+      {
+        "id": "c9",
+        "kind": "fact",
+        "text": "Incomplete model runs are not assigned a score, as the system treats unreached questions as incorrect answers."
+      },
+      {
+        "id": "c10",
+        "kind": "fact",
+        "text": "The --checkpoint feature allows runs to resume after hitting token caps rather than restarting."
+      },
+      {
+        "id": "c11",
+        "kind": "stat",
+        "text": "On the held-out half of the dataset, the openai/gpt-oss-120b model achieved 50% execution accuracy across 12 questions."
+      },
+      {
+        "id": "c12",
+        "kind": "fact",
+        "text": "The agent's prompt rules demonstrated generalization by performing no worse on unseen questions than on dev failures."
+      },
+      {
+        "id": "c13",
+        "kind": "fact",
+        "text": "API failures, incorrect column selection in queries, and rounding differences were identified as factors that negatively impacted initial accuracy scores."
+      },
+      {
+        "id": "c14",
+        "kind": "stat",
+        "text": "Batching describe_table calls reduced average turns from 9.0 to 5.6 and tokens from 13,024 to 8,576 per question."
+      },
+      {
+        "id": "c15",
+        "kind": "stat",
+        "text": "On real BIRD databases, the schema-blind agent requires an average of 9.2 turns and 13,600 tokens per question."
+      },
+      {
+        "id": "c16",
+        "kind": "stat",
+        "text": "The held-out half of the project is estimated to cost approximately 11,816 tokens over 6.6 turns per question."
+      },
+      {
+        "id": "c17",
+        "kind": "fact",
+        "text": "The daily token cap is applied per model, allowing multiple solvers in a single invocation to draw from independent budgets."
+      },
+      {
+        "id": "c18",
+        "kind": "fact",
+        "text": "The daily token limit, rather than financial costs, is the primary factor preventing further operation of the agent."
+      },
+      {
+        "id": "c19",
+        "kind": "fact",
+        "text": "Response headers do not display the daily token budget status."
+      },
+      {
+        "id": "c20",
+        "kind": "stat",
+        "text": "The system reports a per-minute capacity of 12,000 tokens even when the daily budget has been exhausted."
+      },
+      {
+        "id": "c21",
+        "kind": "fact",
+        "text": "When a daily token limit is reached, the process is abandoned rather than scored to prevent inaccurate performance metrics."
+      },
+      {
+        "id": "c22",
+        "kind": "opinion",
+        "text": "Tuning a prompt based on failed questions and then testing it on those same questions results in biased performance metrics."
+      },
+      {
+        "id": "c23",
+        "kind": "stat",
+        "text": "To prevent overfitting, 40% of the question set is withheld from the model during evaluation."
+      },
+      {
+        "id": "c24",
+        "kind": "fact",
+        "text": "The selection of withheld questions is determined by a hash of the question text to ensure the process remains objective and uneditable."
+      },
+      {
+        "id": "c25",
+        "kind": "stat",
+        "text": "The current testing harness includes 119 individual tests."
+      },
+      {
+        "id": "c26",
+        "kind": "stat",
+        "text": "Future testing plans include using the BIRD Mini-Dev set, which consists of 500 curated pairs across 11 databases."
+      },
+      {
+        "id": "c27",
+        "kind": "fact",
+        "text": "The project is released under the MIT license."
+      }
+    ],
+    "hook_candidates": [
+      "Most text-to-SQL benchmarks measure how well an agent writes code for a known schema, but real-world tasks require discovering the schema first.",
+      "A SQL agent can be built to navigate an unknown database using only four basic commands.",
+      "You can evaluate SQL agents without a judge model by simply comparing the raw output rows against ground truth data.",
+      "Preventing SQL injection in autonomous agents requires multiple layers of security, including driver-level read-only constraints.",
+      "Long-running AI evaluations can be made resilient to daily usage limits through automated checkpointing.",
+      "A schema-blind agent requires significantly more turns and tokens than initial estimates suggested.",
+      "API bugs were initially misidentified as failures of agent reasoning.",
+      "The daily token cap is per model, not per project, which changes the economics of running multiple solvers."
+    ],
+    "voice_samples": [
+      "A SQL agent that is **given no schema**.",
+      "Nobody decides whether the SQL \"looks right\".",
+      "Those two rows are not competitors \u2014 they are the harness proving itself.",
+      "The free tier's daily token cap is what blocks this, not the money.",
+      "There is deliberately no salt to turn."
+    ],
+    "thesis": "SQL agents should be designed to discover database schemas dynamically rather than relying on pre-provided schema information to ensure more robust and accurate query generation."
+  }
+}

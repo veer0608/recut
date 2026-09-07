@@ -1,0 +1,495 @@
+{
+  "id": "md-vidsmith",
+  "judged_by_model": true,
+  "kind": "markdown",
+  "ref": "C:\\Users\\veera\\claude\\vidsmith\\README.md",
+  "title": "vidsmith",
+  "segments": 141,
+  "chars": 29674,
+  "extracted_claims": 54,
+  "dropped_unanchored": 0,
+  "targets": [
+    "linkedin",
+    "thread"
+  ],
+  "verifier_errors": {
+    "linkedin": [],
+    "thread": []
+  },
+  "format_violations": {},
+  "repaired": [],
+  "claim_utilisation": 0.2222222222222222,
+  "judged": {
+    "linkedin": {
+      "sentences": 11,
+      "claims": 11,
+      "unsupported": 0,
+      "rate": 0.0,
+      "unjudged": 0,
+      "verdicts": [
+        {
+          "n": 1,
+          "sentence": "Most video tools transcribe audio to guess where words land, but vidsmith uses the engine's own internal timing data.",
+          "verdict": "supported",
+          "why": "The source states that most tools run Whisper to find word timings after generating speech, whereas vidsmith uses Edge's TTS WordBoundary events directly from the engine."
+        },
+        {
+          "n": 2,
+          "sentence": "Captions and visuals are timed using data directly from the speech engine's word-boundary reporting.",
+          "verdict": "supported",
+          "why": "The source states that the speech engine reports when each word starts and stops, which determines caption placements and where picture cuts occur."
+        },
+        {
+          "n": 3,
+          "sentence": "This prevents the drift common in post-generation transcription.",
+          "verdict": "supported",
+          "why": "The source explicitly states that getting timings directly from the engine means 'there is nothing to drift' and 'no transcription step to be wrong'."
+        },
+        {
+          "n": 4,
+          "sentence": "Scenes are divided into shots at sentence boundaries to avoid the unnatural look of long, unbroken takes.",
+          "verdict": "supported",
+          "why": "The source notes that unbroken takes of 6-8 seconds make generated video look generated, so scenes are split into shots at sentence boundaries reported by the TTS."
+        },
+        {
+          "n": 5,
+          "sentence": "If a sentence exceeds the maximum shot duration, it is split at the final comma.",
+          "verdict": "supported",
+          "why": "The source confirms that a sentence longer than max_shot_seconds is broken at its last comma."
+        },
+        {
+          "n": 6,
+          "sentence": "When footage is unavailable for a concept, the system generates a JSON specification for a diagram to be drawn in the project's theme.",
+          "verdict": "supported",
+          "why": "The source states that for scenes with no footage available, Gemini writes a small JSON spec and vidsmith draws it in the project's theme."
+        },
+        {
+          "n": 7,
+          "sentence": "These diagrams are static and never use Ken Burns effects to prevent motion distraction.",
+          "verdict": "supported",
+          "why": "The source states that diagrams never get Ken Burns motion because a frame someone is reading must not drift under them."
+        },
+        {
+          "n": 8,
+          "sentence": "FFmpeg is the only non-Python software dependency required to run the tool.",
+          "verdict": "supported",
+          "why": "The source explicitly states that ffmpeg is the only non-Python dependency."
+        },
+        {
+          "n": 9,
+          "sentence": "A demonstration build of a video takes \"32.7s of picture, mixing and encoding",
+          "verdict": "supported",
+          "why": "The source build output explicitly lists 'render 32.7s of picture, mixing and encoding'."
+        },
+        {
+          "n": 10,
+          "sentence": "done     out/why-your-bank-statement-lies.mp4  (32.7s, 6.5 MB, 62s to build)\" to produce.",
+          "verdict": "supported",
+          "why": "The source build output explicitly includes 'done out/why-your-bank-statement-lies.mp4 (32.7s, 6.5 MB, 62s to build)'."
+        },
+        {
+          "n": 11,
+          "sentence": "Commercial licenses are available for \"$49 once\" for individuals.",
+          "verdict": "supported",
+          "why": "The source states that a commercial licence is '$49 once for one person'."
+        }
+      ]
+    },
+    "thread": {
+      "sentences": 12,
+      "claims": 12,
+      "unsupported": 0,
+      "rate": 0.0,
+      "unjudged": 0,
+      "verdicts": [
+        {
+          "n": 1,
+          "sentence": "Nothing transcribed the audio to place those captions.",
+          "verdict": "supported",
+          "why": "The source explicitly states that nothing transcribed the audio to place the captions."
+        },
+        {
+          "n": 2,
+          "sentence": "Instead, the software uses word-boundary reporting directly from the speech engine to ensure timing is precise.",
+          "verdict": "supported",
+          "why": "The source explains that the speech engine reports word boundaries (starts and stops) and these numbers are used for timing."
+        },
+        {
+          "n": 3,
+          "sentence": "Most video tools guess where words land by transcribing audio.",
+          "verdict": "supported",
+          "why": "The source states that most tools run transcription (Whisper) to find where words landed, and contrasts this with its own 'exact' method, implying transcription is an estimation or 'guess'."
+        },
+        {
+          "n": 4,
+          "sentence": "This creates drift, but using internal timing data keeps captions perfectly synced to the narration.",
+          "verdict": "supported",
+          "why": "The source states that using engine timings means there is 'nothing to drift' unlike transcription methods."
+        },
+        {
+          "n": 5,
+          "sentence": "Stock footage libraries often rank by popularity, which leads to irrelevant results.",
+          "verdict": "supported",
+          "why": "The source says stock search ranks by popularity rather than relevance to the text, giving the example of 'calendar pages' returning a book."
+        },
+        {
+          "n": 6,
+          "sentence": "The system instead reranks candidates by evaluating static preview stills.",
+          "verdict": "supported",
+          "why": "The source describes showing preview stills to Gemini to reorder results based on what is actually in frame."
+        },
+        {
+          "n": 7,
+          "sentence": "It judges stills, not video, so it costs one call per scene to ensure the footage actually matches the subject matter.",
+          "verdict": "supported",
+          "why": "The source states it judges stills rather than video to save on calls/downloads while ensuring the footage matches the narration."
+        },
+        {
+          "n": 8,
+          "sentence": "When no footage exists, the system generates a JSON specification for a diagram.",
+          "verdict": "supported",
+          "why": "The source states that when footage doesn't exist, Gemini writes a small JSON spec for a diagram."
+        },
+        {
+          "n": 9,
+          "sentence": "These are static to prevent motion distraction while viewers are reading.",
+          "verdict": "supported",
+          "why": "The source says diagrams never get Ken Burns (motion) because a frame someone is reading must not drift under them."
+        },
+        {
+          "n": 10,
+          "sentence": "Thumbnail candidates must be spaced at least 2.5s apart to ensure variety.",
+          "verdict": "supported",
+          "why": "The source states candidates are spaced at least 2.5s apart so they are not frames of the same shot."
+        },
+        {
+          "n": 11,
+          "sentence": "The system samples these from the picture track to avoid watermarks or captions.",
+          "verdict": "supported",
+          "why": "The source states frames are sampled from the picture track rather than the delivery file to avoid captions, watermarks, or progress bars."
+        },
+        {
+          "n": 12,
+          "sentence": "Video captioning and scene cuts should be driven by the speech engine's internal word-timing events rather than by post-generation transcription.",
+          "verdict": "supported",
+          "why": "The source argues that this method is superior because it avoids the drift and errors inherent in the transcription-based approach used by other tools."
+        }
+      ]
+    }
+  },
+  "judged_claims": 23,
+  "judged_unsupported": 0,
+  "injections": {
+    "planted": 10,
+    "caught": 10,
+    "recall": 1.0,
+    "recall_by_rule": {
+      "number": 1.0,
+      "quote": 1.0,
+      "entity": 1.0,
+      "intensity": 1.0,
+      "citation": 1.0
+    },
+    "missed": [],
+    "clean_bodies": 2,
+    "false_positive_bodies": 0,
+    "false_positives": []
+  },
+  "bodies": {
+    "linkedin": "Most video tools transcribe audio to guess where words land, but vidsmith uses the engine's own internal timing data.\n\nCaptions and visuals are timed using data directly from the speech engine's word-boundary reporting. This prevents the drift common in post-generation transcription.\n\nScenes are divided into shots at sentence boundaries to avoid the unnatural look of long, unbroken takes. If a sentence exceeds the maximum shot duration, it is split at the final comma. \n\nWhen footage is unavailable for a concept, the system generates a JSON specification for a diagram to be drawn in the project's theme. These diagrams are static and never use Ken Burns effects to prevent motion distraction.\n\nFFmpeg is the only non-Python software dependency required to run the tool. A demonstration build of a video takes \"32.7s of picture, mixing and encoding\ndone     out/why-your-bank-statement-lies.mp4  (32.7s, 6.5 MB, 62s to build)\" to produce.\n\nCommercial licenses are available for \"$49 once\" for individuals.",
+    "thread": "Nothing transcribed the audio to place those captions. Instead, the software uses word-boundary reporting directly from the speech engine to ensure timing is precise.\n\nMost video tools guess where words land by transcribing audio. This creates drift, but using internal timing data keeps captions perfectly synced to the narration.\n\nStock footage libraries often rank by popularity, which leads to irrelevant results. The system instead reranks candidates by evaluating static preview stills.\n\nIt judges stills, not video, so it costs one call per scene to ensure the footage actually matches the subject matter.\n\nWhen no footage exists, the system generates a JSON specification for a diagram. These are static to prevent motion distraction while viewers are reading.\n\nThumbnail candidates must be spaced at least 2.5s apart to ensure variety. The system samples these from the picture track to avoid watermarks or captions.\n\nVideo captioning and scene cuts should be driven by the speech engine's internal word-timing events rather than by post-generation transcription."
+  },
+  "inventory": {
+    "claims": [
+      {
+        "id": "c0",
+        "kind": "fact",
+        "text": "The vidsmith tool converts markdown scripts into narrated videos with synchronized captions and visuals."
+      },
+      {
+        "id": "c1",
+        "kind": "fact",
+        "text": "Captions and visuals in vidsmith are timed using data directly from the speech engine's word-boundary reporting."
+      },
+      {
+        "id": "c2",
+        "kind": "stat",
+        "text": "A demonstration build of a video takes approximately sixty-two seconds to produce a thirty-two point seven second file."
+      },
+      {
+        "id": "c3",
+        "kind": "fact",
+        "text": "The software does not require API keys or user accounts for basic operation."
+      },
+      {
+        "id": "c4",
+        "kind": "fact",
+        "text": "FFmpeg is the only non-Python software dependency required to run the tool."
+      },
+      {
+        "id": "c5",
+        "kind": "fact",
+        "text": "Punctuation marks are re-inserted into the caption stream from the original script because the speech engine omits them."
+      },
+      {
+        "id": "c6",
+        "kind": "fact",
+        "text": "Users can optionally use Amazon Polly for narration by providing AWS credentials, primarily for licensing considerations."
+      },
+      {
+        "id": "c7",
+        "kind": "fact",
+        "text": "The Polly service provides word-level timing data, allowing cuts to align precisely with spoken sentence boundaries."
+      },
+      {
+        "id": "c8",
+        "kind": "stat",
+        "text": "Polly bills for audio and speech marks as two separate requests, effectively doubling the cost per script."
+      },
+      {
+        "id": "c9",
+        "kind": "fact",
+        "text": "The generative engine from Polly does not support speech marks, making it unsuitable for timing captions or cuts."
+      },
+      {
+        "id": "c10",
+        "kind": "fact",
+        "text": "Scenes are divided into shots at sentence boundaries to avoid the unnatural look of long, unbroken takes."
+      },
+      {
+        "id": "c11",
+        "kind": "fact",
+        "text": "If a sentence exceeds the maximum shot duration, it is split at the final comma, or the plan reverts to fewer, longer shots if insufficient clips are available."
+      },
+      {
+        "id": "c12",
+        "kind": "fact",
+        "text": "Gemini can be used to rerank stock footage candidates based on their visual content rather than just popularity."
+      },
+      {
+        "id": "c13",
+        "kind": "fact",
+        "text": "The system rejects footage candidates that do not match the subject matter, ensuring only relevant clips are used."
+      },
+      {
+        "id": "c14",
+        "kind": "stat",
+        "text": "Reranking costs one API call per scene because the model evaluates static preview stills rather than video files."
+      },
+      {
+        "id": "c15",
+        "kind": "fact",
+        "text": "Background music is synthesized using detuned sine waves to create an atmospheric chord pad rather than distinct notes."
+      },
+      {
+        "id": "c16",
+        "kind": "stat",
+        "text": "The generated music bed is automatically ducked by 8 dB when narration is present."
+      },
+      {
+        "id": "c17",
+        "kind": "fact",
+        "text": "When footage is unavailable for a concept, the system generates a JSON specification for a diagram to be drawn in the project's theme."
+      },
+      {
+        "id": "c18",
+        "kind": "fact",
+        "text": "Diagrams are designed to be static and never use Ken Burns effects to prevent motion distraction while viewers are reading."
+      },
+      {
+        "id": "c19",
+        "kind": "fact",
+        "text": "The decision on which scenes to illustrate is made once to ensure consistency across different aspect ratios."
+      },
+      {
+        "id": "c20",
+        "kind": "fact",
+        "text": "The system prefers using stock photography for thumbnails because these images are specifically composed for standalone viewing, unlike video frames or diagrams."
+      },
+      {
+        "id": "c21",
+        "kind": "fact",
+        "text": "Thumbnail candidates are sampled from the picture track rather than the final delivery file to avoid including unwanted elements like captions or watermarks."
+      },
+      {
+        "id": "c22",
+        "kind": "stat",
+        "text": "Thumbnail candidates must be spaced at least 2.5 seconds apart to ensure variety in the selected frames."
+      },
+      {
+        "id": "c23",
+        "kind": "fact",
+        "text": "The check utility verifies that delivered files are consistent with each other and will exit with a non-zero status if discrepancies are found."
+      },
+      {
+        "id": "c24",
+        "kind": "fact",
+        "text": "YouTube will reject an entire chapter list if any chapter does not begin at the 0:00 timestamp."
+      },
+      {
+        "id": "c25",
+        "kind": "fact",
+        "text": "The system uses a unified theme configuration to ensure that all on-screen elements maintain a consistent design aesthetic."
+      },
+      {
+        "id": "c26",
+        "kind": "fact",
+        "text": "AI image generation is intentionally excluded because free-tier image models typically exhaust their quotas immediately."
+      },
+      {
+        "id": "c27",
+        "kind": "fact",
+        "text": "Configuration keys can be loaded from the environment or from .env files located in the project directory, its parent, or the repository root."
+      },
+      {
+        "id": "c28",
+        "kind": "fact",
+        "text": "The pipeline skips processing stages that have already been completed on disk to save time."
+      },
+      {
+        "id": "c29",
+        "kind": "stat",
+        "text": "The system runs 200 fast tests in a matter of seconds."
+      },
+      {
+        "id": "c30",
+        "kind": "stat",
+        "text": "The suite includes 12 tests marked as slow that perform actual video encoding using ffmpeg."
+      },
+      {
+        "id": "c31",
+        "kind": "fact",
+        "text": "The testing suite prevents common bugs by verifying that shot plans align with narration slots and that caption lines do not overlap."
+      },
+      {
+        "id": "c32",
+        "kind": "stat",
+        "text": "The web service limits the render queue to three concurrent submissions to avoid system saturation."
+      },
+      {
+        "id": "c33",
+        "kind": "fact",
+        "text": "The system returns a 429 status code when the queue is full to provide a clear explanation to the user."
+      },
+      {
+        "id": "c34",
+        "kind": "fact",
+        "text": "Users can expose their local server to the internet using a Cloudflare quick tunnel without needing an account or a domain."
+      },
+      {
+        "id": "c35",
+        "kind": "fact",
+        "text": "Using the -NoToken flag allows the tunnel to function without a gate, which is intended for temporary demonstrations rather than permanent setups."
+      },
+      {
+        "id": "c36",
+        "kind": "fact",
+        "text": "The script automatically comments out existing tokens in the .env file when the -NoToken flag is active."
+      },
+      {
+        "id": "c37",
+        "kind": "fact",
+        "text": "Exposed instances consume Pexels and Gemini quotas if they are not protected by a VIDSMITH_TOKEN."
+      },
+      {
+        "id": "c38",
+        "kind": "fact",
+        "text": "The /healthz endpoint remains accessible without a token to facilitate uptime monitoring."
+      },
+      {
+        "id": "c39",
+        "kind": "fact",
+        "text": "The keys field in the health check response is only provided to callers who supply a valid token."
+      },
+      {
+        "id": "c40",
+        "kind": "stat",
+        "text": "Hugging Face Spaces provides 2 vCPU and 16 GB of memory, which is sufficient for 1080p video encoding."
+      },
+      {
+        "id": "c41",
+        "kind": "stat",
+        "text": "Free Render instances are limited to 0.1 vCPU and 512 MB of memory."
+      },
+      {
+        "id": "c42",
+        "kind": "stat",
+        "text": "Since August 25, 2026, Docker-based Spaces on the free cpu-basic tier are no longer supported and require a PRO subscription."
+      },
+      {
+        "id": "c43",
+        "kind": "stat",
+        "text": "A 2 vCPU instance typically encodes video at approximately 2.2 times the speed of real-time playback."
+      },
+      {
+        "id": "c44",
+        "kind": "stat",
+        "text": "AWS instances require at least 2 vCPUs and 2 GB of memory to successfully encode 1080p video."
+      },
+      {
+        "id": "c45",
+        "kind": "fact",
+        "text": "Passing the VIDSMITH_TOKEN as a query parameter over plain HTTP is insecure, making the use of certificates via services like DuckDNS important."
+      },
+      {
+        "id": "c46",
+        "kind": "fact",
+        "text": "Render deployments use a native Python runtime and fetch ffmpeg and DejaVu fonts during the build process."
+      },
+      {
+        "id": "c47",
+        "kind": "fact",
+        "text": "The software is available under the PolyForm Noncommercial 1.0.0 license, which permits personal, hobby, and non-profit use."
+      },
+      {
+        "id": "c48",
+        "kind": "stat",
+        "text": "Commercial licenses are available for $49 for individuals and $299 for companies."
+      },
+      {
+        "id": "c49",
+        "kind": "opinion",
+        "text": "The edge-tts narration path is not cleared for commercial use, and users should utilize Amazon Polly for commercial projects."
+      },
+      {
+        "id": "c50",
+        "kind": "fact",
+        "text": "Polly maintains the original caption and cut timing because it provides word-level timing information."
+      },
+      {
+        "id": "c51",
+        "kind": "fact",
+        "text": "Polly charges for both audio and speech marks as separate requests, effectively doubling the cost based on script length."
+      },
+      {
+        "id": "c52",
+        "kind": "fact",
+        "text": "The generative engine in Polly does not provide speech marks, which is why that option cannot be selected."
+      },
+      {
+        "id": "c53",
+        "kind": "fact",
+        "text": "The vidsmith doctor tool identifies which keys are valid for use."
+      }
+    ],
+    "hook_candidates": [
+      "Your bank statement is not a record of what you spent, but rather what your bank found convenient to store.",
+      "Most video tools transcribe audio to guess where words land, but vidsmith uses the engine's own internal timing data.",
+      "You can generate a fully narrated, captioned video from a markdown script without installing any special software.",
+      "The merchant name on your bank statement is typed by a payment processor, which is why your coffee purchase might show up under an unfamiliar company name.",
+      "By using word-boundary events from the speech engine, captions can be perfectly synced without the risk of transcription drift.",
+      "Stock footage libraries often return irrelevant results because they rank by popularity rather than visual accuracy.",
+      "A video that uses a single, unbroken take for narration will almost always look like it was generated by a machine.",
+      "You can force an automated video generator to create custom diagrams when no suitable stock footage exists."
+    ],
+    "voice_samples": [
+      "Script in, narrated and captioned YouTube video out.",
+      "vidsmith never does that.",
+      "ffmpeg is the only non-Python dependency.",
+      "A scene is not a shot.",
+      "Every check is a fault that reached a finished build here.",
+      "Without a stock key the build does not fail."
+    ],
+    "thesis": "Video captioning and scene cuts should be driven by the speech engine's internal word-timing events rather than by post-generation transcription."
+  }
+}

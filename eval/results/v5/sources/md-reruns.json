@@ -1,0 +1,331 @@
+{
+  "id": "md-reruns",
+  "judged_by_model": true,
+  "kind": "markdown",
+  "ref": "C:\\Users\\veera\\claude\\reruns\\README.md",
+  "title": "reruns",
+  "segments": 61,
+  "chars": 14231,
+  "extracted_claims": 24,
+  "dropped_unanchored": 0,
+  "targets": [
+    "linkedin",
+    "thread"
+  ],
+  "verifier_errors": {
+    "linkedin": [],
+    "thread": []
+  },
+  "format_violations": {},
+  "repaired": [],
+  "claim_utilisation": 0.375,
+  "judged": {
+    "linkedin": {
+      "sentences": 11,
+      "claims": 11,
+      "unsupported": 0,
+      "rate": 0.0,
+      "unjudged": 0,
+      "verdicts": [
+        {
+          "n": 1,
+          "sentence": "In 24 trials every write did occur after the simulated customer had already exited the interaction.",
+          "verdict": "supported",
+          "why": "The source states that in 24 trials, every write happened after the simulated customer had left."
+        },
+        {
+          "n": 2,
+          "sentence": "Relying on single-turn success rates often masks non-deterministic behavior in support agents.",
+          "verdict": "supported",
+          "why": "The source explains that pass@1 cannot distinguish between reliable tasks and non-deterministic 'coin flips,' and that agents are not deterministic."
+        },
+        {
+          "n": 3,
+          "sentence": "To account for this, the benchmark executes every support task \"five times\" to determine which outcomes persist.",
+          "verdict": "supported",
+          "why": "The source describes the benchmark as running every task five times to report 'what survives.'"
+        },
+        {
+          "n": 4,
+          "sentence": "This approach uses the \"pass^k\" metric to calculate the percentage of tasks that succeeded across all trials.",
+          "verdict": "supported",
+          "why": "The source defines pass^k as the share of tasks that passed on all k trials."
+        },
+        {
+          "n": 5,
+          "sentence": "Grading systems can evaluate performance by checking the final database state and adherence to policy using \"eleven\" specific functions.",
+          "verdict": "supported",
+          "why": "The source states that the final state is diffed and the policy is checked using eleven functions."
+        },
+        {
+          "n": 6,
+          "sentence": "This method avoids the use of an LLM judge entirely.",
+          "verdict": "supported",
+          "why": "The source explicitly states: 'There is no LLM judge.'"
+        },
+        {
+          "n": 7,
+          "sentence": "When a run is terminated by a token cap, the system marks it as incomplete rather than assigning a score.",
+          "verdict": "supported",
+          "why": "The source states that a run hitting a token cap is abandoned and gets no score, refusing to print a percentage."
+        },
+        {
+          "n": 8,
+          "sentence": "Unfinished trials cannot be distinguished from failures, so the system avoids guessing.",
+          "verdict": "supported",
+          "why": "The source notes that trials that never ran cannot be told apart from trials that failed, so the system refuses to print a percentage."
+        },
+        {
+          "n": 9,
+          "sentence": "Testing backends should be designed to allow agents to attempt policy violations.",
+          "verdict": "supported",
+          "why": "The source argues that the backend should permit violations so the agent's adherence to policy can be measured."
+        },
+        {
+          "n": 10,
+          "sentence": "This is the only way to observe whether the agent actually follows the rules.",
+          "verdict": "supported",
+          "why": "The source states that the only way to find out whether an agent follows a policy is to let it break one."
+        },
+        {
+          "n": 11,
+          "sentence": "Reliability in support agents is measured by running tasks multiple times.",
+          "verdict": "supported",
+          "why": "The source states that running a task five times allows you to learn whether an agent can be relied on."
+        }
+      ]
+    },
+    "thread": {
+      "sentences": 10,
+      "claims": 10,
+      "unsupported": 0,
+      "rate": 0.0,
+      "unjudged": 0,
+      "verdicts": [
+        {
+          "n": 1,
+          "sentence": "An agent with a 0.60 success rate on individual attempts would theoretically achieve a 0.08 success rate across five independent trials.",
+          "verdict": "supported",
+          "why": "The source explicitly states that an agent scoring 0.60 on single attempts would sit near 0.08 on five independent trials."
+        },
+        {
+          "n": 2,
+          "sentence": "Running tasks five times reveals outcomes that persist.",
+          "verdict": "supported",
+          "why": "The source describes the benchmark as running tasks five times to report 'what survives', which refers to outcomes that persist across all trials."
+        },
+        {
+          "n": 3,
+          "sentence": "Single attempts often hide non-deterministic behavior.",
+          "verdict": "supported",
+          "why": "The source notes that agents are not deterministic and that a single-attempt metric (pass@1) cannot distinguish between a reliable task and a 'coin flip' result."
+        },
+        {
+          "n": 4,
+          "sentence": "The evaluation suite tests policy adherence by letting agents attempt violations.",
+          "verdict": "supported",
+          "why": "The source explains that the backend permits every violation it is asked to commit so that the agent's adherence to policy can be measured."
+        },
+        {
+          "n": 5,
+          "sentence": "You cannot see if rules work unless you let them be broken.",
+          "verdict": "supported",
+          "why": "The source explicitly states that the only way to find out whether an agent follows a policy is to let it break one."
+        },
+        {
+          "n": 6,
+          "sentence": "In 24 trials every write did occur after the simulated customer had already departed the conversation.",
+          "verdict": "supported",
+          "why": "The source states that in 24 trials, every write occurred after the simulated customer had left."
+        },
+        {
+          "n": 7,
+          "sentence": "The system marks runs cut off by token limits as incomplete.",
+          "verdict": "supported",
+          "why": "The source says runs that hit a token cap are abandoned, get no score, and the summary refuses to print a percentage, effectively marking them as incomplete."
+        },
+        {
+          "n": 8,
+          "sentence": "Unfinished trials cannot be distinguished from failures.",
+          "verdict": "supported",
+          "why": "The source states that trials that never ran cannot be told apart from trials that failed."
+        },
+        {
+          "n": 9,
+          "sentence": "Using the --regrade function allows for re-scoring finished trials from saved transcripts without extra model costs.",
+          "verdict": "supported",
+          "why": "The source explains that --regrade replays saved calls to score them again without touching a model, meaning no additional token costs are incurred."
+        },
+        {
+          "n": 10,
+          "sentence": "Reliability in support agents should be measured by running tasks multiple times to account for non-deterministic behavior rather than relying on single-turn success rates.",
+          "verdict": "supported",
+          "why": "The source argues that running tasks multiple times (pass^k) is necessary to measure reliability and account for non-deterministic behavior, unlike single-turn success rates (pass@1)."
+        }
+      ]
+    }
+  },
+  "judged_claims": 21,
+  "judged_unsupported": 0,
+  "injections": {
+    "planted": 10,
+    "caught": 10,
+    "recall": 1.0,
+    "recall_by_rule": {
+      "number": 1.0,
+      "quote": 1.0,
+      "entity": 1.0,
+      "intensity": 1.0,
+      "citation": 1.0
+    },
+    "missed": [],
+    "clean_bodies": 2,
+    "false_positive_bodies": 0,
+    "false_positives": []
+  },
+  "bodies": {
+    "linkedin": "In 24 trials every write did occur after the simulated customer had already exited the interaction. Relying on single-turn success rates often masks non-deterministic behavior in support agents. \n\nTo account for this, the benchmark executes every support task \"five times\" to determine which outcomes persist. This approach uses the \"pass^k\" metric to calculate the percentage of tasks that succeeded across all trials.\n\nGrading systems can evaluate performance by checking the final database state and adherence to policy using \"eleven\" specific functions. This method avoids the use of an LLM judge entirely. \n\nWhen a run is terminated by a token cap, the system marks it as incomplete rather than assigning a score. Unfinished trials cannot be distinguished from failures, so the system avoids guessing. \n\nTesting backends should be designed to allow agents to attempt policy violations. This is the only way to observe whether the agent actually follows the rules. \n\nReliability in support agents is measured by running tasks multiple times.",
+    "thread": "An agent with a 0.60 success rate on individual attempts would theoretically achieve a 0.08 success rate across five independent trials.\n\nRunning tasks five times reveals outcomes that persist. Single attempts often hide non-deterministic behavior.\n\nThe evaluation suite tests policy adherence by letting agents attempt violations. You cannot see if rules work unless you let them be broken.\n\nIn 24 trials every write did occur after the simulated customer had already departed the conversation.\n\nThe system marks runs cut off by token limits as incomplete. Unfinished trials cannot be distinguished from failures.\n\nUsing the --regrade function allows for re-scoring finished trials from saved transcripts without extra model costs.\n\nReliability in support agents should be measured by running tasks multiple times to account for non-deterministic behavior rather than relying on single-turn success rates."
+  },
+  "inventory": {
+    "claims": [
+      {
+        "id": "c0",
+        "kind": "stat",
+        "text": "The benchmark executes every support task five times to determine which outcomes persist."
+      },
+      {
+        "id": "c1",
+        "kind": "stat",
+        "text": "An agent with a 0.60 success rate on individual attempts would theoretically achieve a 0.08 success rate across five independent trials."
+      },
+      {
+        "id": "c2",
+        "kind": "fact",
+        "text": "The grading system evaluates performance based on final database state, adherence to policy, and the agent's actions, without using an LLM judge."
+      },
+      {
+        "id": "c3",
+        "kind": "stat",
+        "text": "The policy evaluation consists of eleven specific functions that analyze the conversation trace."
+      },
+      {
+        "id": "c4",
+        "kind": "opinion",
+        "text": "The grading system does not mandate the use of an 'escalate_to_human' tool, even though the policy suggests it."
+      },
+      {
+        "id": "c5",
+        "kind": "fact",
+        "text": "The testing backend is intentionally designed to allow the agent to attempt policy violations so that the system can observe whether the agent follows rules."
+      },
+      {
+        "id": "c6",
+        "kind": "stat",
+        "text": "The 'pass^k' metric calculates the percentage of tasks that succeeded across all k trials."
+      },
+      {
+        "id": "c7",
+        "kind": "fact",
+        "text": "When a simulated customer ends a conversation, the agent must receive a closing turn to prevent incomplete tool calls."
+      },
+      {
+        "id": "c8",
+        "kind": "stat",
+        "text": "The initial run was abandoned after completing 60 of 75 trials because the daily token allowance was exhausted."
+      },
+      {
+        "id": "c9",
+        "kind": "fact",
+        "text": "Policy violations were incorrectly logged because regex patterns failed to match specific customer phrasing regarding store credit and card refunds."
+      },
+      {
+        "id": "c10",
+        "kind": "fact",
+        "text": "The system now requires a lookup for refusal tasks rather than mandating the use of an escalate_to_human tool."
+      },
+      {
+        "id": "c11",
+        "kind": "fact",
+        "text": "If a run is terminated by a token cap, the system marks it as incomplete rather than assigning a score, as unfinished trials cannot be distinguished from failures."
+      },
+      {
+        "id": "c12",
+        "kind": "fact",
+        "text": "The --regrade function allows for re-scoring finished trials from saved transcripts without incurring additional model costs."
+      },
+      {
+        "id": "c13",
+        "kind": "stat",
+        "text": "The --dry-run command provides an estimate of the tokens required to complete remaining trials before execution."
+      },
+      {
+        "id": "c14",
+        "kind": "fact",
+        "text": "A domain is defined as a directory containing three specific files."
+      },
+      {
+        "id": "c15",
+        "kind": "fact",
+        "text": "The software package does not contain any hardcoded retail logic."
+      },
+      {
+        "id": "c16",
+        "kind": "stat",
+        "text": "In a recent set of trials, 29 out of 37 state-changing operations occurred after the simulated customer had already exited the interaction."
+      },
+      {
+        "id": "c17",
+        "kind": "stat",
+        "text": "Across 24 specific trials, every write operation took place after the simulated customer had departed."
+      },
+      {
+        "id": "c18",
+        "kind": "fact",
+        "text": "The agent evaluation suite does not require the agent to generate any spoken output to successfully complete tasks."
+      },
+      {
+        "id": "c19",
+        "kind": "stat",
+        "text": "All five trials for the unknown_email task were passed without the assistant speaking at all."
+      },
+      {
+        "id": "c20",
+        "kind": "fact",
+        "text": "The twenty tasks included in the suite are manually created rather than being derived from actual support logs."
+      },
+      {
+        "id": "c21",
+        "kind": "stat",
+        "text": "Five tasks were introduced to the suite after earlier testing revealed that nine out of twelve tasks had never experienced a failure across 88 trials."
+      },
+      {
+        "id": "c22",
+        "kind": "fact",
+        "text": "The current suite does not evaluate how an agent handles an adversarial user attempting to force a refund."
+      },
+      {
+        "id": "c23",
+        "kind": "fact",
+        "text": "The software is licensed under the MIT license."
+      }
+    ],
+    "hook_candidates": [
+      "A support agent that succeeds on its first attempt might fail consistently when tested five times.",
+      "The only way to verify if an AI follows a policy is to provide it with the opportunity to break it.",
+      "Most AI agent benchmarks fail to capture the complexity of real-world support because they do not account for changing database states.",
+      "Grading an AI agent without an LLM judge is possible by comparing final database states against expected outcomes.",
+      "Requiring an agent to call a specific tool can drastically change its success score, even if the agent otherwise behaves correctly.",
+      "A single poorly timed agent response can invalidate an entire trial, leading to inaccurate performance metrics.",
+      "Re-running AI evaluations to fix grading logic is a waste of resources when you can re-score existing transcripts instead.",
+      "If your evaluation harness doesn't distinguish between a failed trial and one cut off by a token limit, your final score is fundamentally dishonest."
+    ],
+    "voice_samples": [
+      "Run that task once and you learn whether the agent can do it.",
+      "The backend permits every violation it is asked to commit.",
+      "Retrieval, SQL, extraction: ask, answer, compare.",
+      "That abandoned run was not wasted."
+    ],
+    "thesis": "Reliability in support agents should be measured by running tasks multiple times to account for non-deterministic behavior rather than relying on single-turn success rates."
+  }
+}
