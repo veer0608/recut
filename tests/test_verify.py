@@ -1,5 +1,6 @@
 from recut.models import Artifact, Claim, ClaimSet, Document, Segment
 from recut.verify import (
+    _prose_words,
     check_citations,
     check_copying,
     check_entities,
@@ -265,3 +266,49 @@ class TestCopying:
 
     def test_a_short_source_cannot_trigger_it(self):
         assert check_copying("a b c", "a b c") == []
+
+
+class TestCopyingProseFloor:
+    """A recited figure is not a copied sentence.
+
+    The generator prompts require a number to match its `stat` claim exactly, so
+    flagging a run of them asks the writer to paraphrase a number. Measured over
+    84 copied runs, a floor of four prose words drops only figure recitals.
+    """
+
+    SOURCE = (
+        "The agent improved from 9.0 to 5.6 and tokens from 13,024 to 8,576 overall. "
+        "Most tools generate speech, then run Whisper over that speech to find out "
+        "where the words landed, which is a guess dressed up as a measurement."
+    )
+
+    def test_a_recited_figure_sequence_is_not_copying(self):
+        # Only the figures are shared, which is the real shape: a copied run that
+        # starts mid-sentence and carries one word of meaning.
+        body = "Turns dropped from 9.0 to 5.6 and tokens from 13,024 to 8,576 in testing."
+        assert check_copying(body, self.SOURCE) == []
+
+    def test_a_copied_sentence_is_still_copying(self):
+        body = (
+            "Most tools generate speech, then run Whisper over that speech to find "
+            "out where the words landed."
+        )
+        warnings = check_copying(body, self.SOURCE)
+        assert len(warnings) == 1
+        assert warnings[0].rule == "copying"
+
+    def test_a_figure_recital_cannot_hide_a_copied_sentence(self):
+        # The scan must continue past a disqualified run. Returning the longest
+        # run and then rejecting it would let the numbers mask the prose.
+        body = (
+            "Turns fell from 9.0 to 5.6 and tokens from 13,024 to 8,576 across the set. "
+            "Most tools generate speech, then run Whisper over that speech to find "
+            "out where the words landed."
+        )
+        warnings = check_copying(body, self.SOURCE)
+        assert len(warnings) == 1
+        assert "Whisper" in warnings[0].span
+
+    def test_the_floor_counts_meaning_not_length(self):
+        assert _prose_words(["from", "9.0", "to", "5.6", "and", "tokens"]) == 1
+        assert _prose_words(["most", "tools", "generate", "speech"]) == 3

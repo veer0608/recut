@@ -341,10 +341,32 @@ def check_intensity(body: str, source: str) -> list[Warning]:
     return warnings
 
 
-# A run of this many consecutive content words, identical to the source and not
-# in quotation marks, is copying rather than repurposing. Shorter runs are just
+# A run of this many consecutive words, identical to the source and not in
+# quotation marks, is copying rather than repurposing. Shorter runs are just
 # English: any two sentences about bank statements share four words in a row.
 MIN_COPIED_RUN = 8
+
+# ...but only if enough of the run is prose. A figure has to be reproduced
+# exactly, the generator prompts require it, and a sequence of them drags its
+# connecting words along: "from 9.0 to 5.6 and tokens from 13,024 to 8,576" is
+# fourteen words and one of them carries meaning. Flagging that asks the writer
+# to paraphrase a number.
+#
+# Measured over 84 copied runs across four eval runs, a floor of four prose
+# words drops 5% of them and every one it drops is a figure recital. A floor of
+# five starts taking real sentences ("that is the wrong first step. If the
+# parse"), so it sits here and not there.
+MIN_COPIED_PROSE = 4
+
+# Words that carry no content on their own. Deliberately small: this exists to
+# tell a recited number from a sentence, not to do linguistics.
+_FUNCTION_WORDS = frozenset(
+    """a an the and or but if then than that this these those of to in on at by for
+    with from as is are was were be been being it its not no nor so such only just
+    also very can may might will would should could per over under into out up down
+    about after before while when where which who whom whose what how why all any
+    both each few more most other some own same too""".split()
+)
 
 _QUOTED_SPAN = re.compile("[“\"]([^“”\"]{0,400})[”\"]")
 
@@ -356,6 +378,19 @@ def _content_words(text):
 
 def _quoted_ranges(text):
     return [(m.start(1), m.end(1)) for m in _QUOTED_SPAN.finditer(text)]
+
+
+def _prose_words(words) -> int:
+    """How many words in a run carry meaning of their own.
+
+    A number is not prose no matter how many of them there are, and neither is
+    the scaffolding between them.
+    """
+    return sum(
+        1
+        for word in words
+        if word not in _FUNCTION_WORDS and any(ch.isalpha() for ch in word)
+    )
 
 
 def longest_copied_run(body: str, source: str) -> tuple[int, str]:
@@ -388,7 +423,11 @@ def longest_copied_run(body: str, source: str) -> tuple[int, str]:
         # Words inside quotation marks are attribution, which is the correct way
         # to reuse a source and is already checked by the quote rule.
         inside = any(a <= start_at and stop_at <= b for a, b in quoted)
-        if not inside and end - i > best_len:
+        # A run that fails the prose floor is skipped rather than returned, and
+        # the scan continues, so a figure recital cannot hide a real copied
+        # sentence further along the same body.
+        prose = _prose_words([w for w, _ in out[i:end]]) >= MIN_COPIED_PROSE
+        if not inside and prose and end - i > best_len:
             best_len, best_span = end - i, body[start_at:stop_at]
         i = end
     return best_len, best_span
