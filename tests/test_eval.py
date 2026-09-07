@@ -251,6 +251,94 @@ class TestUnjudgedRun:
         assert report["unsupported_claim_rate"] == pytest.approx(0.1)
 
 
+class TestJudgeWindowing:
+    """A source too large for one request, judged without changing the metric.
+
+    Support is existential over the source, so a sentence backed by material in
+    the last window must come out supported. Getting that wrong would not throw:
+    it would quietly report supported sentences as unsupported and inflate the
+    headline rate, which is the number the product is sold on.
+    """
+
+    @pytest.fixture
+    def wide(self, monkeypatch):
+        import judge as judge_mod
+
+        from recut.ingest.markdown import ingest_text
+
+        monkeypatch.setattr(judge_mod, "JUDGE_WINDOW_CHARS", 60)
+        return ingest_text(
+            "# Wide" + "\n\n" + ("\n\n").join(
+                f"Paragraph {i} says something about topic {i}." * 2 for i in range(6)
+            ),
+            source_ref="wide",
+        )
+
+    def _reply(self, verdicts):
+        return json.dumps({"verdicts": verdicts})
+
+    def test_the_source_is_actually_split(self, wide):
+        import judge as judge_mod
+
+        from recut.extract import windows
+
+        assert len(windows(wide, judge_mod.JUDGE_WINDOW_CHARS)) > 1
+
+    def test_a_sentence_supported_only_by_a_later_window_is_supported(self, wide):
+        body = "Something here is asserted about the sixth topic plainly."
+        llm = ScriptedLLM(
+            [
+                self._reply([{"n": 1, "verdict": "unsupported", "why": "not in this part"}]),
+                self._reply([{"n": 1, "verdict": "supported", "why": "found it here"}]),
+            ]
+        )
+        result = judge(body, wide, llm)
+        assert result["unsupported"] == 0
+        assert result["claims"] == 1
+
+    def test_a_supported_verdict_is_never_downgraded(self, wide):
+        body = "Something here is asserted about the second topic plainly."
+        llm = ScriptedLLM(
+            [
+                self._reply([{"n": 1, "verdict": "supported", "why": "found"}]),
+                self._reply([{"n": 1, "verdict": "unsupported", "why": "not in this part"}]),
+            ]
+        )
+        assert judge(body, wide, llm)["unsupported"] == 0
+
+    def test_a_settled_sentence_is_not_asked_about_again(self, wide):
+        # The second window has nothing left to resolve, so no call is made and
+        # the scripted reply goes unused.
+        body = "Something here is asserted about the third topic plainly."
+        llm = ScriptedLLM([self._reply([{"n": 1, "verdict": "supported", "why": "found"}])])
+        result = judge(body, wide, llm)
+        assert result["claims"] == 1
+        assert result["unsupported"] == 0
+
+    def test_not_a_claim_is_settled_once_and_not_revisited(self, wide):
+        body = "Would anyone here disagree with that at all?"
+        llm = ScriptedLLM([self._reply([{"n": 1, "verdict": "not_a_claim", "why": "a question"}])])
+        result = judge(body, wide, llm)
+        # Excluded from the denominator, and never re-asked against later windows
+        # where a different answer would make the denominator depend on where the
+        # boundaries fell.
+        assert result["claims"] == 0
+        assert result["sentences"] == 1
+
+    def test_a_sentence_no_window_supports_stays_unsupported(self, wide):
+        body = "Revenue tripled in the final quarter of the year."
+        llm = ScriptedLLM(
+            [self._reply([{"n": 1, "verdict": "unsupported", "why": "no"}]) for _ in range(8)]
+        )
+        assert judge(body, wide, llm)["unsupported"] == 1
+
+    def test_the_window_count_is_reported(self, wide):
+        llm = ScriptedLLM(
+            [self._reply([{"n": 1, "verdict": "supported", "why": "y"}]) for _ in range(8)]
+        )
+        assert judge("Something about the first topic is asserted.", wide, llm)["windows"] > 1
+
+
 class TestJudgeSeparation:
     """Nothing grades its own work, and the eval can still run when a quota goes.
 

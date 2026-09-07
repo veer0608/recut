@@ -19,7 +19,7 @@ import re
 
 from pydantic import BaseModel, Field
 
-from recut.extract import render_source
+from recut.extract import render_source, windows
 from recut.llm import LLM
 from recut.models import Document
 
@@ -87,6 +87,12 @@ Reply with a single JSON object and nothing else:
 
 _SENTENCE_SPLIT = re.compile(r"(?<=[.!?])\s+(?=[A-Z\"'“])")
 
+# Gemini took a 35k character source in one request. Groq returns 413 above
+# roughly 20k, which is how a judge that had never been windowed came to fail
+# the four largest sources in the golden set and nothing else. Sources are
+# capped near 40k, so no source needs more than four passes at this size.
+JUDGE_WINDOW_CHARS = 12000
+
 
 class _Verdict(BaseModel):
     n: int
@@ -126,11 +132,43 @@ def judge(body: str, document: Document, llm: LLM) -> dict:
     if not sentences:
         return {"sentences": 0, "claims": 0, "unsupported": 0, "rate": None, "verdicts": []}
 
-    numbered = "\n".join(f"{i + 1}. {s}" for i, s in enumerate(sentences))
-    prompt = PROMPT.format(source=render_source(document.segments), sentences=numbered)
-    response = llm.structured(prompt, _Response)
+    # Support is existential over the source: a sentence is supported if any
+    # part of the source supports it. Each window is therefore asked only about
+    # the sentences nothing has supported yet, and a `supported` verdict is
+    # final. Asking every window about every sentence gives the same answer and
+    # costs more.
+    #
+    # `not_a_claim` is a property of the sentence rather than of the source, so
+    # the first window to see a sentence settles it and no later window revisits
+    # it. Without that rule the same sentence could be a claim against one
+    # window and not against the next, and the denominator would depend on where
+    # the boundaries happened to fall.
+    panes = windows(document, JUDGE_WINDOW_CHARS)
+    by_index: dict[int, _Verdict] = {}
+    open_indexes = list(range(1, len(sentences) + 1))
 
-    by_index = {v.n: v for v in response.verdicts}
+    for pane in panes:
+        if not open_indexes:
+            break
+        numbered = "\n".join(f"{i}. {sentences[i - 1]}" for i in open_indexes)
+        prompt = PROMPT.format(source=render_source(pane), sentences=numbered)
+        response = llm.structured(prompt, _Response)
+
+        for verdict in response.verdicts:
+            if verdict.n not in open_indexes:
+                continue
+            previous = by_index.get(verdict.n)
+            # Never downgrade. One window saying "supported" outranks another
+            # saying it could not find it, which is the point of windowing.
+            if previous is None or previous.verdict.strip().lower() != "supported":
+                by_index[verdict.n] = verdict
+
+        open_indexes = [
+            index
+            for index in open_indexes
+            if (by_index[index].verdict.strip().lower() if index in by_index else "")
+            not in ("supported", "not_a_claim")
+        ]
     verdicts = []
     claims = 0
     unsupported = 0
@@ -153,6 +191,7 @@ def judge(body: str, document: Document, llm: LLM) -> dict:
 
     return {
         "sentences": len(sentences),
+        "windows": len(panes),
         "claims": claims,
         "unsupported": unsupported,
         "rate": (unsupported / claims) if claims else None,
