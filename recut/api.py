@@ -18,12 +18,19 @@ from .jobs import JobStore, run_in_thread
 from .llm import LLM
 from .models import Document
 from .pipeline import GENERATORS, applicable, repurpose, unsupported
+from .review import ReviewQueue, TransitionError
 
 WEB = Path(__file__).resolve().parent.parent / "web"
 
 load_dotenv(".env", override=False)
 app = FastAPI(title="recut", version="0.1.0")
 store = JobStore(os.getenv("RECUT_DB", "recut.db"))
+queue = ReviewQueue(os.getenv("RECUT_DB", "recut.db"))
+
+
+class StateRequest(BaseModel):
+    state: str
+    note: str | None = Field(default=None, max_length=2000)
 
 
 class JobRequest(BaseModel):
@@ -115,6 +122,42 @@ def create_job(request: JobRequest) -> dict:
 
     run_in_thread(store, job_id, work)
     return {"id": job_id, "state": "pending"}
+
+
+@app.post("/api/jobs/{job_id}/queue")
+def queue_job(job_id: str) -> dict:
+    """Move a finished job's artifacts into the review queue."""
+    job = store.get(job_id)
+    if job is None:
+        raise HTTPException(404, "no such job")
+    if job["state"] != "done" or not job["result"]:
+        raise HTTPException(409, f"job is {job['state']}, nothing to queue")
+    result = job["result"]
+    ids = [queue.add(job_id, result["source"], a) for a in result["artifacts"]]
+    return {"queued": ids}
+
+
+@app.get("/api/queue")
+def list_queue(state: str | None = None) -> dict:
+    return {"drafts": queue.list(state), "counts": queue.counts()}
+
+
+@app.get("/api/queue/{draft_id}")
+def get_draft(draft_id: str) -> dict:
+    draft = queue.get(draft_id)
+    if draft is None:
+        raise HTTPException(404, "no such draft")
+    return draft
+
+
+@app.post("/api/queue/{draft_id}/state")
+def set_draft_state(draft_id: str, request: StateRequest) -> dict:
+    try:
+        return queue.set_state(draft_id, request.state, request.note)
+    except KeyError:
+        raise HTTPException(404, "no such draft") from None
+    except TransitionError as exc:
+        raise HTTPException(409, str(exc)) from None
 
 
 @app.get("/api/jobs/{job_id}")

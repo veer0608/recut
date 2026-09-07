@@ -18,6 +18,9 @@
     }
   }
   * { box-sizing: border-box; }
+  /* A class with display:flex beats the UA stylesheet's [hidden], so the
+     hidden attribute silently stops working on .acts and .cols. */
+  [hidden] { display: none !important; }
   body {
     margin: 0; background: var(--bg); color: var(--ink);
     font: 15px/1.6 ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
@@ -83,6 +86,32 @@
   button.dl:hover { background: var(--accent-soft); }
   button.dl .sz { color: var(--muted); font-size: 12px; }
   footer { color: var(--muted); font-size: 13px; padding: 0 0 50px; }
+  nav.tabs { display: flex; gap: 18px; padding: 16px 0 0; border-bottom: 1px solid var(--line); }
+  nav.tabs a {
+    color: var(--muted); text-decoration: none; padding-bottom: 10px;
+    border-bottom: 2px solid transparent; cursor: pointer; font-size: 14px;
+  }
+  nav.tabs a.on { color: var(--ink); border-bottom-color: var(--accent); }
+  nav.tabs .pill {
+    background: var(--accent-soft); color: var(--accent); border-radius: 20px;
+    padding: 1px 7px; font-size: 12px; margin-left: 5px;
+  }
+  .draft { margin-bottom: 16px; }
+  .draft h2 .when { color: var(--muted); font-size: 11px; text-transform: none; letter-spacing: 0; }
+  .acts { padding: 0 18px 16px; display: flex; gap: 8px; flex-wrap: wrap; align-items: center; }
+  .acts button {
+    font-weight: 400; font-size: 13px; padding: 7px 12px;
+    background: transparent; color: var(--ink); border: 1px solid var(--line);
+  }
+  .acts button.primary { background: var(--ink); color: var(--bg); border-color: var(--ink); }
+  .acts input { flex: 1 1 200px; padding: 7px 10px; border: 1px solid var(--line);
+    border-radius: 8px; background: var(--panel); color: var(--ink); font: inherit; font-size: 13px; }
+  .state { font-size: 11px; letter-spacing: .04em; text-transform: uppercase; }
+  .state.pending { color: var(--accent); }
+  .state.approved { color: var(--ok); }
+  .state.rejected { color: var(--bad); }
+  .state.posted { color: var(--muted); }
+  .empty { color: var(--muted); padding: 30px 0 60px; }
 </style>
 </head>
 <body>
@@ -91,6 +120,13 @@
 </div></header>
 
 <div class="wrap">
+  <nav class="tabs">
+    <a id="tab-make" class="on">Make</a>
+    <a id="tab-queue">Review queue<span class="pill" id="qcount">0</span></a>
+  </nav>
+</div>
+
+<div class="wrap" id="view-make">
   <form id="go">
     <input id="src" type="text" placeholder="A file path, an article URL, or a YouTube link" required>
     <button id="run" type="submit">Repurpose</button>
@@ -116,6 +152,10 @@
 
   <div id="status"></div>
   <div class="whose" id="whose"></div>
+  <div class="acts" id="queueit" hidden>
+    <button class="primary" id="sendqueue">Send these to the review queue</button>
+    <span class="fhint" style="flex:0 1 auto;padding:0">Nothing is published. They wait for you to approve them.</span>
+  </div>
 
   <div class="cols">
     <div id="outputs"></div>
@@ -132,6 +172,17 @@
     A sentence with a solid underline can be traced to a span of the source. A greyed,
     dotted one could not be matched to any claim the writer cited, and nothing is shown
     for it rather than guessing.
+  </footer>
+</div>
+
+<div class="wrap" id="view-queue" hidden>
+  <div id="qfilters" class="targets"></div>
+  <div id="queue"></div>
+  <footer>
+    Nothing here posts anything. "Mark posted" is you saying you did it, and it is
+    only offered once a draft has been approved: recut measures its own unsupported
+    claim rate and the number is not zero, so the review is the control that number
+    sits behind.
   </footer>
 </div>
 

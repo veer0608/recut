@@ -4,7 +4,6 @@ import json
 import time
 
 import pytest
-from fastapi.testclient import TestClient
 
 from recut.align import MIN_SCORE, align, coverage, score, sentences_of, tokens
 from recut.ingest.markdown import ingest_text
@@ -160,19 +159,6 @@ class TestJobStore:
         time.sleep(1.05)  # created_at has second resolution
         second = store.create("b", [])
         assert [j["id"] for j in store.recent()][:2] == [second, first]
-
-
-@pytest.fixture
-def client(tmp_path, monkeypatch):
-    """A fresh app against a throwaway database, reloaded so the module-level
-    store picks up RECUT_DB rather than writing into the repo."""
-    monkeypatch.setenv("RECUT_DB", str(tmp_path / "api.db"))
-    import importlib
-
-    from recut import api
-
-    importlib.reload(api)
-    return TestClient(api.app)
 
 
 class TestHttp:

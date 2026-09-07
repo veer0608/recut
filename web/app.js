@@ -4,6 +4,7 @@
 const $ = (id) => document.getElementById(id);
 const DEFAULT_TARGETS = ["linkedin", "thread"];
 let sourceRaw = "";
+let lastJobId = null;
 
 // ---------------------------------------------------------------- helpers
 
@@ -253,7 +254,8 @@ $("go").addEventListener("submit", async (event) => {
       }),
     });
     if (!response.ok) throw new Error((await response.json()).detail);
-    const result = await poll((await response.json()).id);
+    const jobId = (await response.json()).id;
+    const result = await poll(jobId);
     render(result);
     // Say whose quota paid for this. A page that quietly bills the host while
     // the user believes otherwise is the same class of dishonesty this whole
@@ -262,6 +264,8 @@ $("go").addEventListener("submit", async (event) => {
       ? "Ran on your key."
       : "Ran on this server's key.";
     $("whose").className = "whose" + (result.byo_key ? " mine" : "");
+    lastJobId = jobId;
+    $("queueit").hidden = false;
     const skipped = Object.entries(result.skipped || {});
     setStatus(
       `${result.claims.count} claims anchored, ${result.model_calls} model calls` +
@@ -278,3 +282,117 @@ $("go").addEventListener("submit", async (event) => {
 
 loadTargets();
 restoreKeys();
+
+// ---------------------------------------------------------------- the queue
+
+const STATE_ACTIONS = {
+  pending: [["approved", "Approve", true], ["rejected", "Reject", false]],
+  approved: [["posted", "Mark posted", true], ["rejected", "Reject", false]],
+  rejected: [["approved", "Approve after all", false]],
+  posted: [],
+};
+
+let queueFilter = "pending";
+
+function draftCard(d) {
+  const acts = (STATE_ACTIONS[d.state] || [])
+    .map(([to, label, primary]) =>
+      `<button data-id="${esc(d.id)}" data-to="${esc(to)}"${primary ? ' class="primary"' : ""}>${esc(label)}</button>`)
+    .join("");
+  const note = d.note ? `<div class="fhint">note: ${esc(d.note)}</div>` : "";
+  return `<div class="card draft">
+    <h2>${esc(d.target)}
+      <span><span class="state ${esc(d.state)}">${esc(d.state)}</span>
+      <span class="when"> ${esc(d.source_title || d.source_ref || "")}</span></span>
+    </h2>
+    ${note}
+    <div class="acts">
+      ${acts}
+      ${d.state === "pending" || d.state === "approved"
+        ? `<input placeholder="why (optional, saved with the decision)" data-note="${esc(d.id)}">`
+        : ""}
+      <button data-open="${esc(d.id)}">Show provenance</button>
+    </div>
+    <div class="body">${esc(d.body)}</div>
+    <div class="prov" id="prov-${esc(d.id)}"></div>
+  </div>`;
+}
+
+async function loadQueue() {
+  const data = await (await fetch("api/queue")).json();
+  const counts = data.counts || {};
+  $("qcount").textContent = counts.pending || 0;
+
+  $("qfilters").innerHTML = ["pending", "approved", "rejected", "posted"]
+    .map((s) => `<label><input type="radio" name="qf" value="${s}"${
+      s === queueFilter ? " checked" : ""
+    }> ${s} (${counts[s] || 0})</label>`)
+    .join("");
+  $("qfilters").querySelectorAll("input").forEach((el) =>
+    el.addEventListener("change", () => { queueFilter = el.value; loadQueue(); })
+  );
+
+  const shown = (data.drafts || []).filter((d) => d.state === queueFilter);
+  $("queue").innerHTML = shown.length
+    ? shown.map(draftCard).join("")
+    : `<div class="empty">Nothing ${esc(queueFilter)}.</div>`;
+  wireQueue();
+}
+
+function wireQueue() {
+  document.querySelectorAll("#queue button[data-to]").forEach((el) =>
+    el.addEventListener("click", async () => {
+      const id = el.dataset.id;
+      const noteEl = document.querySelector(`input[data-note="${id}"]`);
+      const response = await fetch(`api/queue/${id}/state`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ state: el.dataset.to, note: (noteEl && noteEl.value.trim()) || null }),
+      });
+      if (!response.ok) return setStatus((await response.json()).detail, true);
+      loadQueue();
+    })
+  );
+
+  // Provenance is fetched per draft rather than with the list, because the
+  // sentence map and the stored source are by far the largest columns.
+  document.querySelectorAll("#queue button[data-open]").forEach((el) =>
+    el.addEventListener("click", async () => {
+      const id = el.dataset.open;
+      const box = $(`prov-${id}`);
+      if (box.innerHTML) return void (box.innerHTML = "");
+      const d = await (await fetch(`api/queue/${id}`)).json();
+      const rows = d.sentences.map((s) =>
+        s.claim_id
+          ? `<div class="fhint"><b>${esc(s.text.slice(0, 90))}</b><br>&nbsp;&nbsp;from: ${
+              esc((s.segments[0] || {}).text || "")
+            }</div>`
+          : `<div class="fhint">${esc(s.text.slice(0, 90))}<br>&nbsp;&nbsp;<i>no cited claim matched this sentence</i></div>`
+      ).join("");
+      box.innerHTML = `<div class="files">${rows}</div>`;
+    })
+  );
+}
+
+$("sendqueue").addEventListener("click", async () => {
+  if (!lastJobId) return;
+  const response = await fetch(`api/jobs/${lastJobId}/queue`, { method: "POST" });
+  if (!response.ok) return setStatus((await response.json()).detail, true);
+  const { queued } = await response.json();
+  $("queueit").hidden = true;
+  setStatus(`${queued.length} draft(s) sent to the review queue`);
+  loadQueue();
+});
+
+$("tab-make").addEventListener("click", () => showTab("make"));
+$("tab-queue").addEventListener("click", () => showTab("queue"));
+
+function showTab(name) {
+  $("view-make").hidden = name !== "make";
+  $("view-queue").hidden = name !== "queue";
+  $("tab-make").className = name === "make" ? "on" : "";
+  $("tab-queue").className = name === "queue" ? "on" : "";
+  if (name === "queue") loadQueue();
+}
+
+loadQueue();
