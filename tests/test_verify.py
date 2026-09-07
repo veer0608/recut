@@ -1,10 +1,12 @@
 from recut.models import Artifact, Claim, ClaimSet, Document, Segment
 from recut.verify import (
     check_citations,
+    check_copying,
     check_entities,
     check_intensity,
     check_numbers,
     check_quotes,
+    longest_copied_run,
     verify,
 )
 
@@ -224,3 +226,42 @@ def test_no_term_is_both_an_error_and_a_notice():
     from recut.verify import _INTENSITY_ERROR_TERMS, _INTENSITY_NOTICE_TERMS
 
     assert not set(_INTENSITY_ERROR_TERMS) & set(_INTENSITY_NOTICE_TERMS)
+
+
+class TestCopying:
+    """Repurposing means rewriting. Measured across the v1 and v2 corpora, 80% of
+    artifacts carried an 8+ word verbatim run and the worst was 33 words."""
+
+    SRC = "Reconcile against receipts, not memory. If the two disagree, the receipt is almost always right."
+
+    def test_a_verbatim_sentence_is_caught(self):
+        found = check_copying(self.SRC, self.SRC)
+        assert found and found[0].rule == "copying"
+        assert "consecutive words copied" in found[0].detail
+
+    def test_a_genuine_rewrite_passes(self):
+        body = "When reconciling, receipts beat memory, and the receipt usually wins a disagreement."
+        assert check_copying(body, self.SRC) == []
+
+    def test_quoting_is_the_correct_way_to_reuse_and_is_allowed(self):
+        body = 'He put it plainly: "Reconcile against receipts, not memory. If the two disagree, the receipt is almost always right."'
+        assert check_copying(body, self.SRC) == []
+
+    def test_a_short_shared_phrase_is_not_copying(self):
+        # Any two sentences on a subject share a few words in a row.
+        body = "Reconcile against receipts, but trust your own judgement afterwards."
+        assert check_copying(body, self.SRC) == []
+
+    def test_the_reported_run_length_is_the_full_run(self):
+        length, span = longest_copied_run(self.SRC, self.SRC)
+        assert length == 15
+        assert span.startswith("Reconcile against receipts")
+
+    def test_it_is_a_notice_until_the_prompt_fix_is_measured(self):
+        # Deliberately not an error yet: at an 80% hit rate a gate would send
+        # four drafts in five back for repair before the prompt has had a chance
+        # to change the behaviour it is punishing.
+        assert check_copying(self.SRC, self.SRC)[0].severity == "notice"
+
+    def test_a_short_source_cannot_trigger_it(self):
+        assert check_copying("a b c", "a b c") == []

@@ -35,3 +35,14 @@ So:
   because the number itself is correct.
 - A weaker sentence that is true beats a stronger one that is not. If the source is
   mild, be mild. Being boring is allowed. Being wrong is not.
+
+**Write the sentence yourself.** Faithful does not mean copied. If more than about
+seven words in a row are identical to the source, you have reproduced it rather than
+repurposed it, and the reader is publishing someone else's sentence under their own
+name. Measured on a golden set, 80 percent of outputs contained a run like this and
+the worst was 33 words long, so this is the common failure, not a rare one.
+
+The exception is a `quote` claim, where copying is the point: put those words in
+quotation marks so they read as a quotation. Everywhere else, take the fact and build
+a new sentence around it. Changing "not" to "rather than" is not building a new
+sentence.

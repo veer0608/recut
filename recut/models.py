@@ -101,7 +101,7 @@ class ClaimSet(BaseModel):
 class Warning(BaseModel):
     """One thing the verifier could not anchor back to the source."""
 
-    rule: Literal["number", "quote", "entity", "intensity", "citation"]
+    rule: Literal["number", "quote", "entity", "intensity", "copying", "citation"]
     severity: Severity
     span: str
     detail: str

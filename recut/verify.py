@@ -341,6 +341,80 @@ def check_intensity(body: str, source: str) -> list[Warning]:
     return warnings
 
 
+# A run of this many consecutive content words, identical to the source and not
+# in quotation marks, is copying rather than repurposing. Shorter runs are just
+# English: any two sentences about bank statements share four words in a row.
+MIN_COPIED_RUN = 8
+
+_QUOTED_SPAN = re.compile("[“\"]([^“”\"]{0,400})[”\"]")
+
+
+def _content_words(text):
+    """Words with their offsets, folded, so runs can be reported as real spans."""
+    return [(m.group(0).casefold(), m.start()) for m in re.finditer(r"[A-Za-z0-9']+", text)]
+
+
+def _quoted_ranges(text):
+    return [(m.start(1), m.end(1)) for m in _QUOTED_SPAN.finditer(text)]
+
+
+def longest_copied_run(body: str, source: str) -> tuple[int, str]:
+    """The longest run of consecutive words the output shares with the source.
+
+    Every window of the source is hashed once and the same window slid over the
+    output, so a 30k character source costs one pass rather than the quadratic
+    comparison the obvious version would do.
+    """
+    src = [w for w, _ in _content_words(source)]
+    out = _content_words(body)
+    n = MIN_COPIED_RUN
+    if len(src) < n or len(out) < n:
+        return 0, ""
+
+    windows = {tuple(src[i : i + n]) for i in range(len(src) - n + 1)}
+    quoted = _quoted_ranges(body)
+
+    best_len, best_span = 0, ""
+    i = 0
+    while i <= len(out) - n:
+        if tuple(w for w, _ in out[i : i + n]) not in windows:
+            i += 1
+            continue
+        end = i + n
+        while end < len(out) and tuple(w for w, _ in out[end - n + 1 : end + 1]) in windows:
+            end += 1
+        start_at = out[i][1]
+        stop_at = out[end - 1][1] + len(out[end - 1][0])
+        # Words inside quotation marks are attribution, which is the correct way
+        # to reuse a source and is already checked by the quote rule.
+        inside = any(a <= start_at and stop_at <= b for a, b in quoted)
+        if not inside and end - i > best_len:
+            best_len, best_span = end - i, body[start_at:stop_at]
+        i = end
+    return best_len, best_span
+
+
+def check_copying(body: str, source: str, severity: str = "notice") -> list[Warning]:
+    """Is the output reproducing the source rather than repurposing it?
+
+    Not a factual error, which is why it sits apart from the other rules: every
+    word is supported, and that is exactly the problem. Publishing someone else's
+    sentence unchanged under your own name is a different kind of wrong, and a
+    tool that rewrites for a living should notice when it did not rewrite.
+    """
+    length, span = longest_copied_run(body, source)
+    if length < MIN_COPIED_RUN:
+        return []
+    return [
+        Warning(
+            rule="copying",
+            severity=severity,
+            span=span[:200],
+            detail=f"{length} consecutive words copied from the source without quoting",
+        )
+    ]
+
+
 def check_citations(claim_ids: list[str], claims: ClaimSet) -> list[Warning]:
     known = claims.ids
     return [
@@ -363,6 +437,7 @@ def verify(artifact: Artifact, document: Document, claims: ClaimSet) -> Artifact
         + check_quotes(artifact.body, source)
         + check_entities(artifact.body, source)
         + check_intensity(artifact.body, source)
+        + check_copying(artifact.body, source)
         + check_citations(artifact.claim_ids, claims)
     )
     return artifact
