@@ -1,0 +1,100 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>recut</title>
+<style>
+  :root {
+    --bg: #fbfaf8; --panel: #fff; --ink: #17150f; --muted: #6b6558;
+    --line: #e4e0d6; --accent: #8a6d1f; --accent-soft: #f6efd7;
+    --bad: #a3341f; --ok: #2f6b45;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #14130f; --panel: #1c1a15; --ink: #f0ece2; --muted: #9a9384;
+      --line: #2e2b23; --accent: #d9b95c; --accent-soft: #3a3218;
+      --bad: #e08a72; --ok: #7bc79a;
+    }
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0; background: var(--bg); color: var(--ink);
+    font: 15px/1.6 ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+  }
+  header { padding: 28px 24px 18px; border-bottom: 1px solid var(--line); }
+  h1 { margin: 0; font-size: 20px; letter-spacing: -0.01em; }
+  h1 span { color: var(--muted); font-weight: 400; }
+  .wrap { max-width: 1180px; margin: 0 auto; padding: 0 24px; }
+  form { display: flex; gap: 10px; flex-wrap: wrap; padding: 20px 0; }
+  input[type=text] {
+    flex: 1 1 380px; padding: 11px 13px; border: 1px solid var(--line);
+    border-radius: 8px; background: var(--panel); color: var(--ink); font: inherit;
+  }
+  button {
+    padding: 11px 18px; border: 0; border-radius: 8px; background: var(--ink);
+    color: var(--bg); font: inherit; font-weight: 600; cursor: pointer;
+  }
+  button:disabled { opacity: .45; cursor: default; }
+  .targets { display: flex; gap: 14px; flex-wrap: wrap; padding-bottom: 16px; color: var(--muted); }
+  .targets label { display: flex; gap: 6px; align-items: center; cursor: pointer; }
+  #status { padding: 10px 0 18px; color: var(--muted); min-height: 24px; }
+  #status.bad { color: var(--bad); }
+  .cols { display: grid; grid-template-columns: 1fr 1fr; gap: 22px; padding-bottom: 60px; }
+  @media (max-width: 860px) { .cols { grid-template-columns: 1fr; } }
+  .card { background: var(--panel); border: 1px solid var(--line); border-radius: 12px; }
+  .card h2 {
+    margin: 0; padding: 14px 18px; font-size: 13px; text-transform: uppercase;
+    letter-spacing: .08em; color: var(--muted); border-bottom: 1px solid var(--line);
+    display: flex; justify-content: space-between; gap: 10px; align-items: baseline;
+  }
+  .card .body { padding: 18px; white-space: pre-wrap; }
+  .tag { font-size: 11px; letter-spacing: .04em; }
+  .tag.ok { color: var(--ok); } .tag.bad { color: var(--bad); }
+  s-line { display: inline; border-radius: 3px; padding: 1px 0; }
+  s-line[data-claim] { cursor: pointer; box-shadow: inset 0 -1px 0 var(--accent); }
+  s-line[data-claim]:hover, s-line.on { background: var(--accent-soft); }
+  s-line:not([data-claim]) { color: var(--muted); text-decoration: underline dotted var(--line); }
+  #sourcepane { position: sticky; top: 18px; max-height: 82vh; overflow: auto; }
+  #sourcepane .body { white-space: pre-wrap; font-size: 14px; }
+  mark { background: var(--accent-soft); box-shadow: 0 0 0 3px var(--accent-soft); border-radius: 2px; }
+  .hint { color: var(--muted); font-size: 13px; padding: 0 18px 18px; }
+  .warn { color: var(--bad); font-size: 13px; padding: 0 18px 14px; }
+  .warn.notice { color: var(--muted); }
+  footer { color: var(--muted); font-size: 13px; padding: 0 0 50px; }
+</style>
+</head>
+<body>
+<header><div class="wrap">
+  <h1>recut <span>— one source in, many pieces out, every claim anchored</span></h1>
+</div></header>
+
+<div class="wrap">
+  <form id="go">
+    <input id="src" type="text" placeholder="A file path, an article URL, or a YouTube link" required>
+    <button id="run" type="submit">Repurpose</button>
+  </form>
+  <div class="targets" id="targets"></div>
+  <div id="status"></div>
+
+  <div class="cols">
+    <div id="outputs"></div>
+    <div>
+      <div class="card" id="sourcepane">
+        <h2>The source <span class="tag" id="cov"></span></h2>
+        <div class="hint">Hover any underlined sentence on the left. Its source lights up here.</div>
+        <div class="body" id="sourcebody"></div>
+      </div>
+    </div>
+  </div>
+
+  <footer>
+    A sentence with a solid underline can be traced to a span of the source. A greyed,
+    dotted one could not be matched to any claim the writer cited, and nothing is shown
+    for it rather than guessing.
+  </footer>
+</div>
+
+<script src="/static/app.js"></script>
+</body>
+</html>
