@@ -5,7 +5,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 ## Commands
 
 ```bash
-.venv/Scripts/python -m pytest -q                          # whole suite, ~1s, no network
+.venv/Scripts/python -m pytest -q                          # whole suite, ~5s, no network
 .venv/Scripts/python -m pytest tests/test_verify.py -q      # one file
 .venv/Scripts/python -m pytest -k "intensity" -q            # one topic
 .venv/Scripts/python -m pytest --durations=6 -q             # find a test that started hitting the network
@@ -42,11 +42,21 @@ Corollary in `extract.py`: a claim the model returns without a valid `segment_id
 ingest/ (markdown | article | youtube)  ->  Document
 extract.py            one LLM pass per ~6k-char window  ->  ClaimSet
 generate/<target>.py  one LLM call each, fed only the ClaimSet  ->  Artifact
-verify.py             five deterministic checks, no model call
+verify.py             six deterministic checks, no model call
 pipeline.py           one repair retry on errors, then surfaces what is left
 align.py              maps each output sentence back to a claim, for the UI
 review.py             a queue where a human approves before anything is published
+jobs.py               a run is a job id and a poll, not a held-open request
+api.py + web/         FastAPI over jobs.py and review.py, static page served at /
 ```
+
+A run takes 20 to 60 seconds, which is longer than a browser will hold a request, so
+`POST /api/jobs` returns an id and a background thread does the work. **SQLite is the
+entire persistence layer** and one file, `recut.db` (override with `RECUT_DB`), backs both
+`JobStore` and `ReviewQueue`. Each write opens its own connection, which is what makes it
+safe across threads without a pool. There is no Celery, no Redis, and no Docker: Docker
+cannot run on the dev machine, and a queue needing three services to repurpose a blog post
+is a worse product than one needing none.
 
 **Every ingest adapter guarantees the same invariant:**
 `document.raw[segment.char_start:segment.char_end] == segment.text`. That is what lets the web
@@ -61,11 +71,14 @@ rewriting an article as an article is not repurposing). A target may emit files 
 prose via `Artifact.files`; `vidsmith` emits a buildable project directory.
 
 **Prompts live in `recut/prompts/*.md`**, loaded at runtime, not as Python strings. They change
-more often than the code. `{{faithfulness}}` includes the shared `_faithfulness.md` block, which
-is shared rather than copied so one target cannot drift to a weaker standard.
+more often than the code. The file name is the `load_prompt` argument, not the module name, and
+the two are not always the same word: the `vidsmith` target loads `prompts/video.md`.
+`{{faithfulness}}` includes the shared `_faithfulness.md` block, which is shared rather than
+copied so one target cannot drift to a weaker standard.
 
 ## The verifier's severity contract
 
+The six checks are `numbers`, `quotes`, `entities`, `intensity`, `copying` and `citations`.
 `error` triggers exactly one regeneration with the offending span named; a second failure is
 surfaced, never hidden. `notice` informs and costs nothing. Getting this wrong is expensive in
 both directions, so severities here were set by measurement, not taste:
@@ -124,8 +137,8 @@ while markdown regressed (8.9% to 15.0%).
 No test touches the network, and it should stay that way: `ScriptedLLM` in
 `tests/test_pipeline.py` drives the whole pipeline including the repair path, the ingest tests
 feed fixture HTML and fixture caption cues, and `tests/conftest.py` gives every module a client
-against a throwaway database. If the suite jumps from ~1s to ~13s, a test is reaching the
-network; `--durations` finds it.
+against a throwaway database. **236 tests, ~5s.** If the suite jumps to ~17s, a test is
+reaching the network; `--durations` finds it.
 
 `tests/test_cli.py` exists because `python -m recut run` once shipped with a `NameError` on the
 first line of `main()` while 155 tests were green. A module that imports cleanly is not a module
