@@ -251,13 +251,14 @@ class TestUnjudgedRun:
         assert report["unsupported_claim_rate"] == pytest.approx(0.1)
 
 
-class TestProviderSeparation:
-    """Nothing grades its own work, held by construction rather than by luck.
+class TestJudgeSeparation:
+    """Nothing grades its own work, and the eval can still run when a quota goes.
 
-    The old arrangement pinned the judge to Gemini models the generators did not
-    start with, but the generators could fall through to those same models when
-    their own ladder 429'd. These tests are about the guarantee, so they check
-    which provider is actually reached, not which flag was set.
+    Full provider separation was tried and reverted: pinning generators to
+    Gemini alone cost them their fallback and a fresh run failed 15 of 15
+    sources at extraction when Gemini's daily budget went. What is guaranteed
+    now is that the two never share a model, both sides pinned by name. These
+    tests check which model is actually reached, not which flag was set.
     """
 
     def _recording(self, llm, monkeypatch):
@@ -272,6 +273,36 @@ class TestProviderSeparation:
         )
         return reached
 
+    def _reachable(self, llm, monkeypatch):
+        """Every model this client would try, by exhausting each in turn."""
+        import httpx
+
+        seen = []
+
+        def dead_gemini(self, c, model, prompt, as_json):
+            seen.append(("gemini", model))
+            raise httpx.HTTPStatusError(
+                "429", request=httpx.Request("POST", "https://x"),
+                response=httpx.Response(429, text="quota", request=httpx.Request("POST", "https://x")),
+            )
+
+        def dead_groq(self, c, prompt, as_json):
+            seen.append(("groq", self.groq_model))
+            raise httpx.HTTPStatusError(
+                "429", request=httpx.Request("POST", "https://x"),
+                response=httpx.Response(429, text="quota", request=httpx.Request("POST", "https://x")),
+            )
+
+        monkeypatch.setattr(type(llm), "_gemini", dead_gemini)
+        monkeypatch.setattr(type(llm), "_groq", dead_groq)
+        monkeypatch.setattr("recut.llm.time.sleep", lambda *_: None)
+        monkeypatch.setattr(llm, "max_retries", 1)
+        from recut.llm import LLMError
+
+        with pytest.raises(LLMError):
+            llm.text("x")
+        return set(seen)
+
     def test_the_judge_never_reaches_gemini_even_holding_a_gemini_key(self, monkeypatch):
         from judge import JUDGE_GROQ_MODEL, judge_client
 
@@ -280,26 +311,35 @@ class TestProviderSeparation:
         llm.text("anything")
         assert reached == [("groq", JUDGE_GROQ_MODEL)]
 
-    def test_a_pinned_generator_never_falls_through_to_groq(self, monkeypatch):
-        from recut.llm import LLM
-
-        llm = LLM(gemini_key="g", groq_key="q", use_groq=False)
-        reached = self._recording(llm, monkeypatch)
-        llm.text("anything")
-        assert all(provider == "gemini" for provider, _ in reached)
-
-    def test_the_two_clients_share_no_provider(self, monkeypatch):
-        from judge import judge_client
+    def test_the_generators_keep_a_fallback_when_gemini_is_gone(self, monkeypatch):
+        # The regression this exists for: without it, one exhausted Gemini
+        # budget takes out every source at extraction before the judge runs.
+        from run_eval import GENERATOR_GROQ_MODEL
 
         from recut.llm import LLM
 
-        generator = LLM(gemini_key="g", groq_key="q", use_groq=False)
+        llm = LLM(gemini_key="g", groq_key="q", groq_model=GENERATOR_GROQ_MODEL)
+        assert ("groq", GENERATOR_GROQ_MODEL) in self._reachable(llm, monkeypatch)
+
+    def test_the_generators_and_the_judge_share_no_model(self, monkeypatch):
+        from judge import JUDGE_GROQ_MODEL, judge_client
+        from run_eval import GENERATOR_GROQ_MODEL
+
+        from recut.llm import LLM
+
+        generator = LLM(gemini_key="g", groq_key="q", groq_model=GENERATOR_GROQ_MODEL)
         judge_llm = judge_client(gemini_key="g", groq_key="q")
-        gen_reached = self._recording(generator, monkeypatch)
-        generator.text("x")
-        judge_reached = self._recording(judge_llm, monkeypatch)
-        judge_llm.text("x")
-        assert {p for p, _ in gen_reached} & {p for p, _ in judge_reached} == set()
+        assert self._reachable(generator, monkeypatch) & self._reachable(
+            judge_llm, monkeypatch
+        ) == set()
+
+    def test_the_two_pins_are_not_the_same_string(self):
+        # run_eval refuses to start if these ever converge. Asserting it here
+        # means a rename cannot make that check vacuously true.
+        from judge import JUDGE_GROQ_MODEL
+        from run_eval import GENERATOR_GROQ_MODEL
+
+        assert GENERATOR_GROQ_MODEL != JUDGE_GROQ_MODEL
 
     def test_a_client_with_no_enabled_provider_is_refused_at_construction(self):
         from recut.llm import LLM, LLMError

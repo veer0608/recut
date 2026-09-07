@@ -26,14 +26,20 @@ from recut.models import Document
 # Deliberately not the generation model. Sharing one would let a model ratify its
 # own habits, which is the failure this whole file exists to rule out.
 #
-# The judge is on a different *provider* from the generators, not a different
-# ladder on the same one. The earlier arrangement pinned Gemini models the
-# generators did not start with, but the generators could still fall through to
-# them, so the guarantee held by luck rather than by construction. The README
-# said as much under known limits: no-overlap was designed for and not proven.
-# Separating by provider is the version that cannot fail that way, and it also
-# stops one exhausted quota taking out both halves of the eval at once, which it
-# did on two consecutive days.
+# What is guaranteed here is that the judge and the generators never share a
+# *model*, and both sides are pinned by name so that holds by construction.
+#
+# Full provider separation was tried and reverted the same day. Putting the
+# judge on Groq and pinning generators to Gemini alone was a stronger claim, and
+# it cost the generators their fallback: when Gemini's daily budget went, a
+# fresh run failed 15 of 15 sources at extraction and the judge never ran. With
+# two providers, both halves cannot be single-provider and independently
+# fault-tolerant at the same time. The guarantee that matters for the number is
+# that nothing grades its own output, and an explicit model pin gives that
+# without making one quota fatal.
+#
+# So the generators walk Gemini first and fall back to a different Groq model,
+# and run_eval refuses to start if the two are ever configured the same.
 #
 # The cost is Groq's, and it is real: the binding limit is tokens per day and it
 # appears in no response header, so a judged run can stop without warning. It
@@ -44,7 +50,7 @@ JUDGE_MODELS = (JUDGE_GROQ_MODEL,)
 
 
 def judge_client(**kwargs) -> LLM:
-    """A judge that cannot reach the generators' provider, by construction."""
+    """A judge pinned to one model the generators are never given."""
     return LLM(use_gemini=False, groq_model=JUDGE_GROQ_MODEL, **kwargs)
 
 PROMPT = """\

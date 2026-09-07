@@ -22,13 +22,24 @@ from dotenv import load_dotenv
 
 from recut.extract import extract
 from recut.ingest import ingest
-from recut.llm import LLM, LLMError
+from recut.llm import GEMINI_MODELS, LLM, LLMError
 from recut.models import Artifact, ClaimSet, Document
 from recut.pipeline import applicable, repurpose
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 from inject import score as score_injections  # noqa: E402
-from judge import JUDGE_MODELS, JUDGE_PROVIDER, judge, judge_client  # noqa: E402
+from judge import (  # noqa: E402
+    JUDGE_GROQ_MODEL,
+    JUDGE_MODELS,
+    JUDGE_PROVIDER,
+    judge,
+    judge_client,
+)
+
+# The generators' fallback, deliberately not the judge's model. They walk Gemini
+# first and reach this only when Gemini's daily budget is gone, which is exactly
+# the case that wiped a whole run when the fallback was taken away.
+GENERATOR_GROQ_MODEL = "openai/gpt-oss-20b"
 
 HERE = Path(__file__).resolve().parent
 GOLDEN = HERE / "golden" / "sources.yaml"
@@ -200,10 +211,17 @@ def main(argv: list[str] | None = None) -> int:
     targets = [t.strip() for t in args.targets.split(",") if t.strip()]
 
     try:
-        # Generators are pinned to Gemini and the judge to Groq. Neither can
-        # reach the other's provider, so "nothing grades its own work" holds by
-        # construction rather than by which ladder happened to answer first.
-        llm = LLM(use_groq=False)
+        # Generators walk Gemini and fall back to a Groq model the judge is
+        # never given. Checked rather than trusted: the eval means nothing if
+        # these two are ever the same string.
+        if GENERATOR_GROQ_MODEL == JUDGE_GROQ_MODEL:
+            print(
+                f"{RED}generators and judge are both pinned to "
+                f"{JUDGE_GROQ_MODEL}; a model would be grading its own work{OFF}",
+                file=sys.stderr,
+            )
+            return 1
+        llm = LLM(groq_model=GENERATOR_GROQ_MODEL)
         judge_llm = None if args.no_judge else judge_client()
     except LLMError as exc:
         print(f"{RED}{exc}{OFF}", file=sys.stderr)
@@ -253,7 +271,7 @@ def main(argv: list[str] | None = None) -> int:
         "targets": targets,
         "judge_provider": None if judge_llm is None else JUDGE_PROVIDER,
         "judge_models": [] if judge_llm is None else list(JUDGE_MODELS),
-        "generator_provider": "gemini",
+        "generator_models": [*GEMINI_MODELS, GENERATOR_GROQ_MODEL],
         "model_calls": llm.budget.calls + (judge_llm.budget.calls if judge_llm else 0),
     }
     report = aggregate(results, failures, run)
