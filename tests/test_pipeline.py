@@ -385,6 +385,52 @@ class TestQuotaBranching:
         assert _is_rate_limit(overloaded) is False
         assert _is_rate_limit(httpx.RequestError("boom")) is False
 
+    def test_the_quota_kind_is_named_before_the_body(self):
+        """A truncated failure list must still say wait or stop.
+
+        Groq names the day around character 200 of its 429 and every layer above
+        truncates. "tokens per day (TPD)" fell off the end of a report's failure
+        list, a wall was read as a burst, and the fix built for it could not
+        have helped.
+        """
+        from recut.llm import Fatal, _raise_for
+
+        groq_tpd = (
+            '{"error":{"message":"Rate limit reached for model `openai/gpt-oss-120b` in '
+            'organization `org_01kyw` service tier `on_demand` on tokens per day (TPD): '
+            'Limit 200000, Used 200000, Requested 3000."}}'
+        )
+        with pytest.raises(Fatal) as caught:
+            _raise_for(self._response(429, groq_tpd), "groq")
+        assert "[per-day quota]" in str(caught.value)[:40]
+
+    def test_a_per_minute_429_is_labelled_too(self):
+        import httpx
+
+        from recut.llm import _raise_for
+
+        body = "Rate limit reached for model on tokens per minute (TPM): Limit 8000"
+        with pytest.raises(httpx.HTTPStatusError) as caught:
+            _raise_for(self._response(429, body), "groq")
+        assert "[per-minute quota]" in str(caught.value)[:40]
+
+    def test_an_unnamed_429_says_so_rather_than_guessing(self):
+        import httpx
+
+        from recut.llm import _raise_for
+
+        bare = '{"error":{"code":429,"message":"You exceeded your current quota"}}'
+        with pytest.raises(httpx.HTTPStatusError) as caught:
+            _raise_for(self._response(429, bare), "gemini")
+        assert "[unnamed quota]" in str(caught.value)[:40]
+
+    def test_a_daily_limit_named_only_as_TPD_is_still_a_wall(self):
+        # The prose form is not guaranteed; the acronym alone must classify.
+        from recut.llm import Fatal, _raise_for
+
+        with pytest.raises(Fatal):
+            _raise_for(self._response(429, "limit reached: TPD 200000"), "groq")
+
     def test_a_400_is_still_fatal(self):
         from recut.llm import Fatal, _raise_for
 

@@ -247,7 +247,7 @@ def main(argv: list[str] | None = None) -> int:
             result = run_source(entry, targets, llm, judge_llm, args.seed)
         except Exception as exc:  # noqa: BLE001 - a failure here is data, not a crash
             failures.append(
-                {"id": entry["id"], "error": f"{type(exc).__name__}: {exc}"[:400]}
+                {"id": entry["id"], "error": f"{type(exc).__name__}: {exc}"[:900]}
             )
             print(f"{RED}{entry['id']:<20} failed  {type(exc).__name__}: {exc}{OFF}"[:200])
             (out_dir / "sources" / f"{entry['id']}.error.txt").write_text(

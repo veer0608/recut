@@ -115,15 +115,24 @@ def _raise_for(response: httpx.Response, provider: str) -> None:
     if response.status_code < 400:
         return
     body = response.text
-    detail = body.strip().replace("\n", " ")[:220]
+    detail = body.strip().replace(chr(10), " ")[:300]
     message = f"{provider} {response.status_code}: {detail}"
 
     if response.status_code == 429:
-        per_day = re.search(r"PerDay|per day|requests per day", body, re.IGNORECASE)
+        per_day = re.search(r"PerDay|per day|requests per day|TPD|RPD", body, re.IGNORECASE)
         per_minute = re.search(r"PerMinute|PerSecond|per minute|TPM|RPM", body, re.IGNORECASE)
-        if per_day and not per_minute:
+        wall = bool(per_day and not per_minute)
+        # The classification goes at the FRONT of the message rather than
+        # being left to be read out of the body. Groq names the day around
+        # character 200 of its 429 and every layer above truncates, so
+        # "tokens per day (TPD)" fell off the end of a failure list and a
+        # wall was diagnosed as a burst. Wait or stop is the only thing a
+        # reader needs first.
+        quota = "per-day" if wall else ("per-minute" if per_minute else "unnamed")
+        message = f"{provider} {response.status_code} [{quota} quota]: {detail}"
+        if wall:
             raise Fatal(message)
-        # Per-minute, or a 429 that will not say which. Both are worth waiting on.
+        # Per-minute, or one that will not say which. Both are worth waiting on.
         raise httpx.HTTPStatusError(message, request=response.request, response=response)
 
     if response.status_code in NO_RETRY:

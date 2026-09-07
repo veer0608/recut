@@ -98,7 +98,7 @@ def main(argv: list[str] | None = None) -> int:
             try:
                 result = rejudge_source(checkpoint, judge_llm)
             except Exception as exc:  # noqa: BLE001 - a failure is data
-                failures.append({"id": checkpoint.stem, "error": f"{type(exc).__name__}: {exc}"[:400]})
+                failures.append({"id": checkpoint.stem, "error": f"{type(exc).__name__}: {exc}"[:900]})
                 print(f"{RED}  {checkpoint.stem:<20} failed  {type(exc).__name__}{OFF}")
                 continue
             target.write_text(json.dumps(result, indent=2), encoding="utf-8")
