@@ -49,8 +49,17 @@ JUDGE_GROQ_MODEL = "openai/gpt-oss-120b"
 JUDGE_MODELS = (JUDGE_GROQ_MODEL,)
 
 
+# Groq's documented ceiling for this tier. Held to deliberately rather than
+# discovered by 429: windowing turned one large source into three ~3000 token
+# requests, which spends a minute's budget in seconds and then pays for it in
+# retries. Set below the real limit so an estimate that runs slightly low still
+# lands inside it.
+JUDGE_TOKENS_PER_MINUTE = 6500
+
+
 def judge_client(**kwargs) -> LLM:
-    """A judge pinned to one model the generators are never given."""
+    """A judge pinned to one model the generators are never given, and paced."""
+    kwargs.setdefault("tokens_per_minute", JUDGE_TOKENS_PER_MINUTE)
     return LLM(use_gemini=False, groq_model=JUDGE_GROQ_MODEL, **kwargs)
 
 PROMPT = """\

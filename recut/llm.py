@@ -13,6 +13,7 @@ import os
 import random
 import re
 import time
+from collections import deque
 from pathlib import Path
 from typing import TypeVar
 
@@ -130,6 +131,38 @@ def _raise_for(response: httpx.Response, provider: str) -> None:
     raise httpx.HTTPStatusError(message, request=response.request, response=response)
 
 
+class _TokenPace:
+    """Keep a client under a tokens-per-minute ceiling by waiting, not by failing.
+
+    Groq's binding limit is tokens per minute and a 429 that names it is
+    retryable, so a burst is survivable but wasteful: every call that trips it
+    is paid for in latency and retries. Windowing the judge made this acute,
+    because one large source became three ~3000 token requests back to back and
+    an 8000 token minute is gone in seconds.
+
+    Tokens are estimated from prompt length rather than counted. Four characters
+    per token is wrong in the third significant figure and right enough to keep
+    a burst under a ceiling, which is all this is for.
+    """
+
+    def __init__(self, tokens_per_minute: int) -> None:
+        self.limit = tokens_per_minute
+        self.spent: deque[tuple[float, int]] = deque()
+
+    def wait_for(self, prompt: str) -> None:
+        cost = max(1, len(prompt) // 4)
+        while True:
+            now = time.monotonic()
+            while self.spent and now - self.spent[0][0] > 60:
+                self.spent.popleft()
+            used = sum(tokens for _, tokens in self.spent)
+            if used + cost <= self.limit or not self.spent:
+                self.spent.append((now, cost))
+                return
+            # Sleep until the oldest call falls out of the trailing minute.
+            time.sleep(max(0.2, 60 - (now - self.spent[0][0])))
+
+
 def _is_rate_limit(exc: Exception) -> bool:
     response = getattr(exc, "response", None)
     return getattr(response, "status_code", None) == 429
@@ -152,6 +185,10 @@ class LLM:
         use_groq: bool = True,
         use_gemini: bool = True,
         groq_model: str = GROQ_MODEL,
+        # Off by default: the server answers one request at a time and pacing it
+        # would make a visitor wait for a limit they are not near. The eval runs
+        # calls back to back and is the caller that needs it.
+        tokens_per_minute: int | None = None,
         allow_env: bool = True,
     ) -> None:
         # allow_env=False is what makes "bring your own key" true rather than a
@@ -171,6 +208,7 @@ class LLM:
         self.use_groq = use_groq
         self.use_gemini = use_gemini
         self.groq_model = groq_model
+        self.pace = _TokenPace(tokens_per_minute) if tokens_per_minute else None
         if not (self.use_gemini and self.gemini_key) and not (self.use_groq and self.groq_key):
             # Refuse here rather than raising "every provider failed" after the
             # first call, which reads like a quota wall and is not one.
@@ -240,6 +278,8 @@ class LLM:
             for provider, model in attempts:
                 for attempt in range(self.max_retries):
                     try:
+                        if self.pace is not None:
+                            self.pace.wait_for(prompt)
                         if provider == "gemini":
                             out = self._gemini(client, model, prompt, as_json)
                         else:

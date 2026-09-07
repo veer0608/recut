@@ -235,6 +235,71 @@ class TestVoiceSamples:
         assert "HOW THE SOURCE SOUNDS" not in render_claims(claims, document)
 
 
+class TestTokenPace:
+    """Staying under a tokens-per-minute ceiling by waiting rather than by 429.
+
+    The clock is fake and sleeping advances it, so the waiting is asserted
+    rather than performed. A test that actually slept would be the thing the
+    suite's own tripwire is meant to catch.
+    """
+
+    def _paced(self, limit, monkeypatch):
+        import recut.llm as llm_mod
+        from recut.llm import _TokenPace
+
+        clock = [1000.0]
+        slept = []
+
+        def fake_sleep(seconds):
+            slept.append(seconds)
+            clock[0] += seconds
+
+        monkeypatch.setattr(llm_mod.time, "monotonic", lambda: clock[0])
+        monkeypatch.setattr(llm_mod.time, "sleep", fake_sleep)
+        return _TokenPace(limit), slept, clock
+
+    def test_calls_inside_the_budget_do_not_wait(self, monkeypatch):
+        pace, slept, _ = self._paced(1000, monkeypatch)
+        pace.wait_for("x" * 400)   # ~100 tokens
+        pace.wait_for("x" * 400)
+        assert slept == []
+
+    def test_a_burst_over_the_budget_waits(self, monkeypatch):
+        pace, slept, _ = self._paced(200, monkeypatch)
+        pace.wait_for("x" * 400)   # ~100 tokens
+        pace.wait_for("x" * 400)   # ~100, at the ceiling
+        pace.wait_for("x" * 400)   # over it, so this one waits
+        assert slept and all(s > 0 for s in slept)
+
+    def test_waiting_clears_the_window_rather_than_looping(self, monkeypatch):
+        pace, slept, clock = self._paced(200, monkeypatch)
+        start = clock[0]
+        for _ in range(3):
+            pace.wait_for("x" * 400)
+        # It waits out the trailing minute once, not repeatedly.
+        assert clock[0] - start <= 61
+        assert len(slept) <= 2
+
+    def test_a_request_bigger_than_the_whole_budget_is_let_through(self, monkeypatch):
+        # Otherwise nothing ever fits and a run hangs instead of failing, which
+        # is strictly worse: a 413 at least says what is wrong.
+        pace, slept, _ = self._paced(50, monkeypatch)
+        pace.wait_for("x" * 40000)
+        assert slept == []
+
+    def test_spend_older_than_a_minute_stops_counting(self, monkeypatch):
+        pace, slept, clock = self._paced(200, monkeypatch)
+        pace.wait_for("x" * 800)   # ~200 tokens, fills the minute
+        clock[0] += 61
+        pace.wait_for("x" * 800)
+        assert slept == []
+
+    def test_a_client_without_a_limit_has_no_pacing(self):
+        from recut.llm import LLM
+
+        assert LLM(gemini_key="g", allow_env=False).pace is None
+
+
 class TestQuotaBranching:
     """429 covers two different worlds. Getting them confused either abandons a run
     over a one-minute blip or sleeps through a wall that lasts until tomorrow."""
