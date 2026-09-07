@@ -99,6 +99,7 @@ def inventory_rows(run: str) -> list[dict]:
                     "source": d["id"],
                     "kind": d["kind"],
                     "claim": claim["id"],
+                    "claim_words": len(claim["text"].split()),
                     "claim_kind": claim["kind"],
                     "longest": length,
                     "words": len(claim["text"].split()),
@@ -128,6 +129,19 @@ def report_inventory(rows: list[dict]) -> None:
         sub = [r for r in rows if r["claim_kind"] == kind]
         k = sum(r["trips"] for r in sub)
         print(f"  {kind:10} {k}/{len(sub)} = {k / len(sub):.0%}")
+    # Split by the kind of source too. Restating a README and restating an
+    # encyclopedia entry turned out not to be the same task, and an average over
+    # both hides which one the prompt is failing.
+    print("by source kind")
+    for kind in sorted({r["kind"] for r in rows}):
+        sub = [r for r in rows if r["kind"] == kind]
+        k = sum(r["trips"] for r in sub)
+        worst = max(r["longest"] for r in sub)
+        words = sum(r["claim_words"] for r in sub) / len(sub)
+        print(
+            f"  {kind:10} {k}/{len(sub)} = {k / len(sub):4.0%}   worst {worst:2}w   "
+            f"mean claim {words:.1f}w"
+        )
 
 
 def report(rows: list[dict], show_spans: int) -> None:
