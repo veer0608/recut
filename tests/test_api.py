@@ -162,17 +162,20 @@ class TestJobStore:
         assert [j["id"] for j in store.recent()][:2] == [second, first]
 
 
+@pytest.fixture
+def client(tmp_path, monkeypatch):
+    """A fresh app against a throwaway database, reloaded so the module-level
+    store picks up RECUT_DB rather than writing into the repo."""
+    monkeypatch.setenv("RECUT_DB", str(tmp_path / "api.db"))
+    import importlib
+
+    from recut import api
+
+    importlib.reload(api)
+    return TestClient(api.app)
+
+
 class TestHttp:
-    @pytest.fixture
-    def client(self, tmp_path, monkeypatch):
-        monkeypatch.setenv("RECUT_DB", str(tmp_path / "api.db"))
-        import importlib
-
-        from recut import api
-
-        importlib.reload(api)
-        return TestClient(api.app)
-
     def test_targets_are_listed(self, client):
         assert "linkedin" in client.get("/api/targets").json()["targets"]
 
@@ -210,3 +213,46 @@ class TestHttp:
         response = client.get("/")
         assert response.status_code == 200
         assert "recut" in response.text.lower()
+
+
+class TestBringYourOwnKey:
+    """Supplying a key must mean the server stops using its own. Falling through
+    would spend the host's quota while the page said otherwise."""
+
+    def test_a_supplied_key_disables_the_environment(self, monkeypatch):
+        from recut.llm import LLM
+
+        monkeypatch.setenv("GEMINI_API_KEY", "SERVER-GEMINI")
+        monkeypatch.setenv("GROQ_API_KEY", "SERVER-GROQ")
+        llm = LLM(gemini_key="USER-GEMINI", allow_env=False)
+        assert llm.gemini_key == "USER-GEMINI"
+        assert llm.groq_key is None
+
+    def test_without_a_supplied_key_the_environment_still_works(self, monkeypatch):
+        from recut.llm import LLM
+
+        monkeypatch.setenv("GEMINI_API_KEY", "SERVER-GEMINI")
+        monkeypatch.delenv("GROQ_API_KEY", raising=False)
+        assert LLM().gemini_key == "SERVER-GEMINI"
+
+    def test_no_key_at_all_says_so(self, monkeypatch):
+        from recut.llm import LLM, LLMError
+
+        monkeypatch.delenv("GEMINI_API_KEY", raising=False)
+        monkeypatch.delenv("GROQ_API_KEY", raising=False)
+        with pytest.raises(LLMError, match="no key supplied"):
+            LLM(allow_env=False)
+
+    def test_the_page_offers_a_field_for_each_provider(self, client):
+        page = client.get("/").text
+        assert 'id="gemini"' in page and 'id="groq"' in page
+        # Not a text input: a key on screen is a key over a shoulder.
+        assert page.count('type="password"') >= 2
+
+    def test_the_page_uses_session_storage_not_local_storage(self, client):
+        # A key that outlives the tab is a key the user forgot they left on a
+        # shared machine. Checked as a call, not as a word: the file mentions
+        # localStorage in a comment explaining why it is not used.
+        js = client.get("/static/app.js").text
+        assert "sessionStorage." in js
+        assert "localStorage." not in js

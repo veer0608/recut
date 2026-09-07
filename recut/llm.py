@@ -135,11 +135,19 @@ class LLM:
         # model is never grading its own output.
         gemini_models: tuple[str, ...] = GEMINI_MODELS,
         use_groq: bool = True,
+        allow_env: bool = True,
     ) -> None:
-        self.gemini_key = gemini_key or os.getenv("GEMINI_API_KEY") or None
-        self.groq_key = groq_key or os.getenv("GROQ_API_KEY") or None
+        # allow_env=False is what makes "bring your own key" true rather than a
+        # label. Without it, a caller who supplies only a Gemini key still falls
+        # through to the server's Groq key on the first 429, and spends someone
+        # else's quota believing they are spending their own.
+        self.gemini_key = gemini_key or (os.getenv("GEMINI_API_KEY") if allow_env else None) or None
+        self.groq_key = groq_key or (os.getenv("GROQ_API_KEY") if allow_env else None) or None
         if not (self.gemini_key or self.groq_key):
-            raise LLMError("no GEMINI_API_KEY or GROQ_API_KEY found")
+            raise LLMError(
+                "no key supplied" if not allow_env
+                else "no GEMINI_API_KEY or GROQ_API_KEY found"
+            )
         self.timeout = timeout
         self.max_retries = max_retries
         self.gemini_models = gemini_models

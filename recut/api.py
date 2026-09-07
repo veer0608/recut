@@ -92,7 +92,15 @@ def create_job(request: JobRequest) -> dict:
         if not runnable:
             raise ValueError("no target can run on this source")
 
-        llm = LLM(gemini_key=request.gemini_key, groq_key=request.groq_key)
+        # If the caller brought a key, the server's own keys are off the table
+        # entirely. Falling back to them would spend the host's quota while the
+        # page told the user they were spending their own.
+        byo = bool(request.gemini_key or request.groq_key)
+        llm = LLM(
+            gemini_key=request.gemini_key,
+            groq_key=request.groq_key,
+            allow_env=not byo,
+        )
         report(f"extracting claims from {len(document.segments)} segments")
         claims = extract(document, llm)
 
@@ -102,6 +110,7 @@ def create_job(request: JobRequest) -> dict:
         payload = _serialise(document, claims, artifacts)
         payload["skipped"] = skipped
         payload["model_calls"] = llm.budget.calls
+        payload["byo_key"] = byo
         return payload
 
     run_in_thread(store, job_id, work)

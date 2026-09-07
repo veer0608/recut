@@ -37,6 +37,18 @@
   }
   button:disabled { opacity: .45; cursor: default; }
   .targets { display: flex; gap: 14px; flex-wrap: wrap; padding-bottom: 16px; color: var(--muted); }
+  details.keys { padding-bottom: 18px; }
+  details.keys summary { cursor: pointer; color: var(--muted); font-size: 14px; }
+  .keyrow { display: flex; gap: 10px; flex-wrap: wrap; padding: 12px 0 6px; }
+  .keyrow input {
+    flex: 1 1 300px; padding: 9px 12px; border: 1px solid var(--line);
+    border-radius: 8px; background: var(--panel); color: var(--ink);
+    font: inherit; font-size: 14px;
+  }
+  .keyrow button { background: transparent; color: var(--muted); border: 1px solid var(--line); font-weight: 400; }
+  .keynote { color: var(--muted); font-size: 13px; }
+  .whose { font-size: 13px; }
+  .whose.mine { color: var(--ok); }
   .targets label { display: flex; gap: 6px; align-items: center; cursor: pointer; }
   #status { padding: 10px 0 18px; color: var(--muted); min-height: 24px; }
   #status.bad { color: var(--bad); }
@@ -75,7 +87,26 @@
     <button id="run" type="submit">Repurpose</button>
   </form>
   <div class="targets" id="targets"></div>
+
+  <details class="keys">
+    <summary>Use your own API key</summary>
+    <div class="keyrow">
+      <input id="gemini" type="password" autocomplete="off" spellcheck="false"
+             placeholder="GEMINI_API_KEY (optional)">
+      <input id="groq" type="password" autocomplete="off" spellcheck="false"
+             placeholder="GROQ_API_KEY (optional)">
+      <button id="forget" type="button">Forget</button>
+    </div>
+    <div class="keynote">
+      Kept in this browser tab only, and sent with each job so it can call the model.
+      It is never written to the server's database and is gone when you close the tab.
+      Supply either one and the server stops using its own keys entirely, so a job
+      runs on your quota or it does not run.
+    </div>
+  </details>
+
   <div id="status"></div>
+  <div class="whose" id="whose"></div>
 
   <div class="cols">
     <div id="outputs"></div>

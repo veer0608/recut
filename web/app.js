@@ -36,6 +36,47 @@ async function loadTargets() {
 const chosen = () =>
   [...document.querySelectorAll("#targets input:checked")].map((i) => i.value);
 
+// ---------------------------------------------------------------- keys
+
+// sessionStorage, not localStorage: a key that outlives the tab is a key the
+// user has forgotten they left on a shared machine. Wrapped because a browser
+// with site data blocked throws on access rather than returning nothing.
+const KEYS = ["gemini", "groq"];
+
+function readStored(name) {
+  try {
+    return sessionStorage.getItem(`recut.${name}`) || "";
+  } catch {
+    return "";
+  }
+}
+
+function storeKey(name, value) {
+  try {
+    if (value) sessionStorage.setItem(`recut.${name}`, value);
+    else sessionStorage.removeItem(`recut.${name}`);
+  } catch {
+    /* a tab that will not store is still a tab that can run a job */
+  }
+}
+
+function restoreKeys() {
+  KEYS.forEach((name) => {
+    const el = $(name);
+    el.value = readStored(name);
+    el.addEventListener("change", () => storeKey(name, el.value.trim()));
+  });
+  if (KEYS.some((n) => $(n).value)) document.querySelector("details.keys").open = true;
+}
+
+$("forget").addEventListener("click", () => {
+  KEYS.forEach((name) => {
+    $(name).value = "";
+    storeKey(name, "");
+  });
+  setStatus("keys cleared from this tab");
+});
+
 // ---------------------------------------------------------------- rendering
 
 // The body is rebuilt from sentence spans rather than marked up in place, because
@@ -161,11 +202,23 @@ $("go").addEventListener("submit", async (event) => {
     const response = await fetch("api/jobs", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ source: $("src").value.trim(), targets }),
+      body: JSON.stringify({
+        source: $("src").value.trim(),
+        targets,
+        gemini_key: $("gemini").value.trim() || null,
+        groq_key: $("groq").value.trim() || null,
+      }),
     });
     if (!response.ok) throw new Error((await response.json()).detail);
     const result = await poll((await response.json()).id);
     render(result);
+    // Say whose quota paid for this. A page that quietly bills the host while
+    // the user believes otherwise is the same class of dishonesty this whole
+    // project is about.
+    $("whose").textContent = result.byo_key
+      ? "Ran on your key."
+      : "Ran on this server's key.";
+    $("whose").className = "whose" + (result.byo_key ? " mine" : "");
     const skipped = Object.entries(result.skipped || {});
     setStatus(
       `${result.claims.count} claims anchored, ${result.model_calls} model calls` +
@@ -181,3 +234,4 @@ $("go").addEventListener("submit", async (event) => {
 });
 
 loadTargets();
+restoreKeys();
