@@ -1,3 +1,6 @@
+// URLs here are deliberately relative: the app is served at / locally and
+// behind a /recut/ path prefix on the box, and relative paths work in both
+// without the server being told which.
 const $ = (id) => document.getElementById(id);
 const DEFAULT_TARGETS = ["linkedin", "thread"];
 let sourceRaw = "";
@@ -19,7 +22,7 @@ function setStatus(message, bad) {
 // ---------------------------------------------------------------- targets
 
 async function loadTargets() {
-  const { targets } = await (await fetch("/api/targets")).json();
+  const { targets } = await (await fetch("api/targets")).json();
   $("targets").innerHTML = targets
     .map(
       (t) =>
@@ -138,7 +141,7 @@ function highlight(segments) {
 
 async function poll(jobId) {
   for (;;) {
-    const job = await (await fetch(`/api/jobs/${jobId}`)).json();
+    const job = await (await fetch(`api/jobs/${jobId}`)).json();
     if (job.state === "done") return job.result;
     if (job.state === "failed") throw new Error(job.error.split("\n")[0]);
     setStatus(job.progress || "queued");
@@ -155,7 +158,7 @@ $("go").addEventListener("submit", async (event) => {
   $("outputs").innerHTML = "";
   setStatus("starting");
   try {
-    const response = await fetch("/api/jobs", {
+    const response = await fetch("api/jobs", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ source: $("src").value.trim(), targets }),
