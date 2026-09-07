@@ -14,8 +14,14 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 ```bash
 .venv/Scripts/python -m recut run README.md --targets linkedin,thread
 .venv/Scripts/python -m recut run "https://www.youtube.com/watch?v=ID" --targets all
+.venv/Scripts/python -m recut run post.md --targets vidsmith --build   # straight to mp4
 .venv/Scripts/python -m uvicorn recut.api:app --port 8078   # API + page at /
 ```
+
+`--build` shells out to vidsmith's interpreter, found from `VIDSMITH_PYTHON`, then
+`VIDSMITH_HOME`, then a sibling checkout. It is never imported: rendering drags in
+ffmpeg and a speech engine, and the two repos are licensed separately. Exit 4 means
+the text was written and verified and only the render failed.
 
 ```bash
 .venv/Scripts/python eval/run_eval.py --run v3 --fresh --targets linkedin,thread   # 20-30 min, ~120 calls

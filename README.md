@@ -84,9 +84,25 @@ claims.json                  the full inventory
 
 ## One article in, one narrated short out
 
-The `vidsmith` target emits a project directory rather than a paragraph. vidsmith's
-own `_project_dir` accepts a path, so it builds where it lands with nothing copied
-and nothing edited:
+The `vidsmith` target emits a project directory rather than a paragraph, and
+`--build` renders it in the same command that wrote it:
+
+```bash
+python -m recut run article.md --targets vidsmith --build
+```
+
+recut shells out to vidsmith's own interpreter rather than importing it. Rendering
+needs ffmpeg, a speech engine and a video library, and a text tool that cannot start
+without them is a worse text tool. It also keeps the two licences apart: emitting a
+script is not rendering a video, and the video half needs its own permission. The
+interpreter is found from `VIDSMITH_PYTHON`, then `VIDSMITH_HOME`, then a checkout
+sitting beside recut.
+
+A failed render exits 4 and says why. It does not retract the text that was already
+written and verified, so the posts survive a build that did not.
+
+The project is still buildable by hand, because vidsmith's own `_project_dir` accepts
+a path and nothing needs copying or editing first:
 
 ```bash
 python -m vidsmith build /path/to/recut/out/<slug>/vidsmith
