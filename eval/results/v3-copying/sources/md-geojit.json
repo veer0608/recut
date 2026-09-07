@@ -1,0 +1,45 @@
+{
+  "id": "md-geojit",
+  "judged_by_model": false,
+  "kind": "markdown",
+  "ref": "C:\\Users\\veera\\claude\\geojit-report-app\\README.md",
+  "title": "Equity Research Report Generator (Geojit-style)",
+  "segments": 41,
+  "chars": 7397,
+  "extracted_claims": 15,
+  "dropped_unanchored": 0,
+  "targets": [
+    "linkedin",
+    "thread"
+  ],
+  "verifier_errors": {
+    "linkedin": [],
+    "thread": []
+  },
+  "format_violations": {},
+  "repaired": [],
+  "claim_utilisation": 0.8666666666666667,
+  "judged": {},
+  "judged_claims": 0,
+  "judged_unsupported": 0,
+  "injections": {
+    "planted": 10,
+    "caught": 10,
+    "recall": 1.0,
+    "recall_by_rule": {
+      "number": 1.0,
+      "quote": 1.0,
+      "entity": 1.0,
+      "intensity": 1.0,
+      "citation": 1.0
+    },
+    "missed": [],
+    "clean_bodies": 2,
+    "false_positive_bodies": 0,
+    "false_positives": []
+  },
+  "bodies": {
+    "linkedin": "The LLM extraction path degrades gracefully to a deterministic rule-based parser if an API key is missing or a call fails. This ensures that the report generation process does not break during document processing.\n\nThis web application converts financial context documents into downloadable PDFs that mirror Geojit-style research notes. It supports CSV, TXT, and PDF inputs while using ReportLab and matplotlib to handle the rendering of charts and documents.\n\nIf the system cannot locate specific information, it renders the missing field as \"NA\" and includes a note in both the report and the API output. The quick start process for this setup takes under 2 minutes.\n\nUsers can adjust color and geometry settings in the configuration files to match a specific PDF layout pixel-for-pixel without modifying the underlying data model or extraction logic. This project is a reconstructed template for a take-home exercise and is not affiliated with Geojit Financial Services Ltd. Generated reports are not investment advice.",
+    "thread": "The extraction system uses either Claude via an API key or a deterministic rule-based parser if no key is provided or the LLM call fails.\n\nThis orchestrator ensures that the LLM extraction path degrades gracefully to the deterministic path on any error.\n\nMissing fields in the report are rendered as \"NA\" and noted in the report and API output.\n\nThe quick start process for the application takes under 2 minutes.\n\nUsers can adjust color and geometry settings in app/config.py to match a specific Geojit PDF pixel-for-pixel.\n\nThe data model and extraction logic do not need to change when matching a specific PDF layout.\n\nAutomating the generation of equity research reports is achievable by using a modular, template-driven pipeline that supports both deterministic rule-based parsing and LLM-based extraction."
+  }
+}

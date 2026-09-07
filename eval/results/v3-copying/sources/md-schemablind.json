@@ -1,0 +1,45 @@
+{
+  "id": "md-schemablind",
+  "judged_by_model": false,
+  "kind": "markdown",
+  "ref": "C:\\Users\\veera\\claude\\schemablind\\README.md",
+  "title": "schemablind",
+  "segments": 77,
+  "chars": 13752,
+  "extracted_claims": 30,
+  "dropped_unanchored": 0,
+  "targets": [
+    "linkedin",
+    "thread"
+  ],
+  "verifier_errors": {
+    "linkedin": [],
+    "thread": []
+  },
+  "format_violations": {},
+  "repaired": [],
+  "claim_utilisation": 0.3,
+  "judged": {},
+  "judged_claims": 0,
+  "judged_unsupported": 0,
+  "injections": {
+    "planted": 10,
+    "caught": 10,
+    "recall": 1.0,
+    "recall_by_rule": {
+      "number": 1.0,
+      "quote": 1.0,
+      "entity": 1.0,
+      "intensity": 1.0,
+      "citation": 1.0
+    },
+    "missed": [],
+    "clean_bodies": 2,
+    "false_positive_bodies": 0,
+    "false_positives": []
+  },
+  "bodies": {
+    "linkedin": "SQL agents should be evaluated on their ability to discover schemas independently rather than relying on provided schema information.\n\nSchemablind is a SQL agent that operates without being given a schema. It explores databases using four verbs: list_tables, describe_table, sample_rows, and run_sql_readonly.\n\nPerformance is measured by execution accuracy, which compares rows returned by the agent against a reference query. While BIRD's official metric ignores duplicates, a stricter multiset comparison is also reported.\n\nBatching describe_table into one call reduced \"Turns fell from 9.0 to 5.6 and tokens from 13,024 to 8,576\".\n\nRuns that hit the daily token cap are abandoned rather than scored to prevent incomplete results from being misinterpreted as model failures. The free tier's daily token cap, rather than monetary costs, is the primary factor preventing full execution of the test suite.\n\nThe primary evaluation metric should be an accuracy-by-cost curve to identify where performance flattens, rather than a single score.",
+    "thread": "An API failure caused six of nineteen questions to be incorrectly scored as producing no query.\n\nSQL agents should be evaluated on their ability to discover schemas independently rather than relying on provided schema information.\n\nThe agent uses four verbs to explore a database: list_tables, describe_table, sample_rows, and run_sql_readonly.\n\nBatching describe_table into one call reduced turns from 9.0 to 5.6 and tokens from 13,024 to 8,576.\n\nThe free tier's daily token cap, rather than monetary costs, is the primary factor preventing full execution of the test suite.\n\nRuns that hit a daily token limit are abandoned rather than scored to prevent incomplete results from being misinterpreted as model failures.\n\nThe primary evaluation metric should be an accuracy-by-cost curve to identify where performance flattens, rather than a single score."
+  }
+}

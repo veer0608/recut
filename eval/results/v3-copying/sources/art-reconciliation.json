@@ -1,0 +1,47 @@
+{
+  "id": "art-reconciliation",
+  "judged_by_model": false,
+  "kind": "article",
+  "ref": "https://en.wikipedia.org/wiki/Bank_reconciliation",
+  "title": "Bank reconciliation - Wikipedia",
+  "segments": 10,
+  "chars": 2637,
+  "extracted_claims": 8,
+  "dropped_unanchored": 0,
+  "targets": [
+    "linkedin",
+    "thread"
+  ],
+  "verifier_errors": {
+    "linkedin": [],
+    "thread": []
+  },
+  "format_violations": {},
+  "repaired": [
+    "thread"
+  ],
+  "claim_utilisation": 1.0,
+  "judged": {},
+  "judged_claims": 0,
+  "judged_unsupported": 0,
+  "injections": {
+    "planted": 10,
+    "caught": 10,
+    "recall": 1.0,
+    "recall_by_rule": {
+      "number": 1.0,
+      "quote": 1.0,
+      "entity": 1.0,
+      "intensity": 1.0,
+      "citation": 1.0
+    },
+    "missed": [],
+    "clean_bodies": 2,
+    "false_positive_bodies": 0,
+    "false_positives": []
+  },
+  "bodies": {
+    "linkedin": "Stale cheques are typically reversed rather than cancelled. This is one of the specific entries documented when an entity creates a bank reconciliation statement to explain why two balances do not match.\n\nDifferences between internal books and bank records arise mainly for three reasons: timing, unrecorded transactions, or errors. When these discrepancies appear, they should be examined and rectified if appropriate.\n\nFinancial institutions often provide transaction data for download, typically in .csv format, to help with the matching process. It is considered good practice to perform these reconciliations at reasonably frequent intervals to minimize the workload involved.\n\nRectification entries are usually made in a subsequent period and are not backdated.",
+    "thread": "Stale cheques are typically reversed rather than cancelled.\n\nDifferences between your internal books and bank records usually stem from three specific causes: timing, unrecorded transactions, or errors.\n\nFinancial institutions often provide transaction data in .csv format to help you match your records with their balances.\n\nCreating a bank reconciliation statement allows you to list the specific entries that caused a difference between the two figures.\n\nRectifying these discrepancies is usually handled in a subsequent period rather than by backdating entries.\n\nPerforming these checks at frequent intervals is good practice to minimize your workload.\n\nBank reconciliation is a necessary process to identify and rectify discrepancies between internal records and financial institution statements."
+  }
+}

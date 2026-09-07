@@ -1,0 +1,45 @@
+{
+  "id": "art-bank-statement",
+  "judged_by_model": false,
+  "kind": "article",
+  "ref": "https://en.wikipedia.org/wiki/Bank_statement",
+  "title": "Bank statement - Wikipedia",
+  "segments": 19,
+  "chars": 8061,
+  "extracted_claims": 18,
+  "dropped_unanchored": 0,
+  "targets": [
+    "linkedin",
+    "thread"
+  ],
+  "verifier_errors": {
+    "linkedin": [],
+    "thread": []
+  },
+  "format_violations": {},
+  "repaired": [],
+  "claim_utilisation": 0.6111111111111112,
+  "judged": {},
+  "judged_claims": 0,
+  "judged_unsupported": 0,
+  "injections": {
+    "planted": 10,
+    "caught": 10,
+    "recall": 1.0,
+    "recall_by_rule": {
+      "number": 1.0,
+      "quote": 1.0,
+      "entity": 1.0,
+      "intensity": 1.0,
+      "citation": 1.0
+    },
+    "missed": [],
+    "clean_bodies": 2,
+    "false_positive_bodies": 0,
+    "false_positives": []
+  },
+  "bodies": {
+    "linkedin": "Some mortgage lenders have used bank statement deposits to evaluate borrower income since the early 2010s. This practice serves as an alternative to traditional documentation like pay stubs or tax returns for self-employed individuals.\n\nBank statements function as the bank's perspective on an account, where credit entries represent the bank's debt. These documents are often generated monthly, a practice that became common following the introduction of computers in the 1960s.\n\nWhile electronic versions are frequently distributed as PDFs, they can be easier to obtain than physical copies through data interception or computer fraud. Furthermore, the transaction description on your statement may not always match the consumer-facing name of the business where you made a purchase.\n\nTax authorities often require these records for audit purposes, yet institutions may charge fees for paper copies to encourage digital adoption. In some regions, such as Japan, there is no tradition of mailing these summaries at all.\n\nAccount holders often use these documents to monitor cash flow and perform reconciliations.",
+    "thread": "In Japan, there is no tradition of mailing bank statements. Account holders typically track their financial activity using passbooks at ATMs instead.\n\nSince the 1960s, most banks have moved toward producing these summaries on a monthly basis.\n\nThese documents represent the bank's perspective on your account. Credit entries increase the bank's debt to you, while debit entries reduce it.\n\nThe name you see on your statement might not match the trading name of the business where you actually spent your money.\n\nSome mortgage lenders now evaluate borrower income using bank statement deposits rather than traditional documentation like tax returns.\n\nElectronic statements are often generated as PDFs to limit the ability of the recipient to alter the document.\n\nWhile digital access is common, these records require careful management for audit, tax, and security purposes."
+  }
+}

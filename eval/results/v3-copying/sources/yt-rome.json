@@ -1,0 +1,48 @@
+{
+  "id": "yt-rome",
+  "judged_by_model": false,
+  "kind": "youtube",
+  "ref": "https://www.youtube.com/watch?v=0PkBP0dk4Lw",
+  "title": "Why Rome Never Really Fell made with vidsmith",
+  "segments": 10,
+  "chars": 2174,
+  "extracted_claims": 8,
+  "dropped_unanchored": 0,
+  "targets": [
+    "linkedin",
+    "thread"
+  ],
+  "verifier_errors": {
+    "linkedin": [],
+    "thread": []
+  },
+  "format_violations": {},
+  "repaired": [
+    "linkedin",
+    "thread"
+  ],
+  "claim_utilisation": 1.0,
+  "judged": {},
+  "judged_claims": 0,
+  "judged_unsupported": 0,
+  "injections": {
+    "planted": 10,
+    "caught": 10,
+    "recall": 1.0,
+    "recall_by_rule": {
+      "number": 1.0,
+      "quote": 1.0,
+      "entity": 1.0,
+      "intensity": 1.0,
+      "citation": 1.0
+    },
+    "missed": [],
+    "clean_bodies": 2,
+    "false_positive_bodies": 0,
+    "false_positives": []
+  },
+  "bodies": {
+    "linkedin": "The popular belief that the Roman Empire ended in a sudden, violent collapse is inaccurate.\n\nMany attribute the fall to barbarian invasions in 476. However, the Western Roman government struggled to function because it could no longer pay its financial obligations.\n\nTo cover military expenses, emperors mixed base metals into silver coins. This devaluation of currency created inflation. The sheer size of the empire made it impossible to defend against fast-moving raiders.\n\nInternal corruption further weakened the state. Generals often traded loyalty for bribes, and civil wars occurred frequently. By 450, small farmers frequently left their land to seek protection from local warlords, which reduced tax revenue for the empire.\n\nLocal commanders often made private deals for safety because central authority was ineffective.\n\nSystems rot quietly from within long before the final banner falls.",
+    "thread": "The popular idea that Rome ended in a sudden, violent collapse is inaccurate.\n\nMany people blame the fall of the empire on barbarian invasions in 476.\n\nIn reality, the government struggled to function because it could no longer meet its financial obligations.\n\nEmperors devalued currency by mixing base metals into silver coins to pay for the military, which caused inflation.\n\nThe empire was so physically large that defending against fast-moving raiders became impossible.\n\nCentral authority weakened, leading local commanders to make private deals for safety.\n\nBy 450, small farmers often abandoned their land to seek protection from local warlords, depriving the state of tax revenue.\n\nInternal corruption, including generals trading loyalty for bribes and frequent civil wars, hollowed out the governance structure.\n\nThe end of the Roman Empire was not a single event caused by external forces but a gradual process of internal decay and systemic collapse."
+  }
+}

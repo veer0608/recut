@@ -1,0 +1,45 @@
+{
+  "id": "art-ocr",
+  "judged_by_model": false,
+  "kind": "article",
+  "ref": "https://en.wikipedia.org/wiki/Optical_character_recognition",
+  "title": "Optical character recognition - Wikipedia",
+  "segments": 48,
+  "chars": 31494,
+  "extracted_claims": 55,
+  "dropped_unanchored": 0,
+  "targets": [
+    "linkedin",
+    "thread"
+  ],
+  "verifier_errors": {
+    "linkedin": [],
+    "thread": []
+  },
+  "format_violations": {},
+  "repaired": [],
+  "claim_utilisation": 0.2727272727272727,
+  "judged": {},
+  "judged_claims": 0,
+  "judged_unsupported": 0,
+  "injections": {
+    "planted": 10,
+    "caught": 10,
+    "recall": 1.0,
+    "recall_by_rule": {
+      "number": 1.0,
+      "quote": 1.0,
+      "entity": 1.0,
+      "intensity": 1.0,
+      "citation": 1.0
+    },
+    "missed": [],
+    "clean_bodies": 2,
+    "false_positive_bodies": 0,
+    "false_positives": []
+  },
+  "bodies": {
+    "linkedin": "A character error rate of 1% (99% accuracy) may result in an error rate of 5% or worse if word context is not utilized. \n\nOptical character recognition is a field of research in pattern recognition, artificial intelligence, and computer vision. Systems often pre-process images to improve recognition chances, but commercial recognition algorithms generally require binarization to function.\n\nTechniques vary by input. Segmentation of fixed-pitch fonts involves aligning images to a uniform grid. Proportional fonts require more sophisticated methods because whitespace between letters can sometimes exceed whitespace between words. \n\nAccuracy can be increased by constraining output with a lexicon of allowed words or by using near-neighbor analysis to correct errors. In some cases, software uses a two-pass approach where adaptive recognition uses high-confidence results from the first pass to improve the recognition of remaining letters. \n\nRecognition of hand printing, cursive handwriting, and printed text in other scripts remains a subject of active research.",
+    "thread": "The New York Times uses a proprietary tool called Document Helper that can process 5,400 pages per hour.\n\nEarly experiments date back to 1914, when Emanuel Goldberg built a machine that converted characters into telegraph code.\n\nIn 1931, he was granted US Patent number 1,838,389 for a statistical machine designed to search through microfilm archives.\n\nOCR software often pre-processes images to improve recognition, as binarization is necessary because most commercial algorithms work only on binary images.\n\nFor proportional fonts, segmentation is more complex because whitespace between letters can sometimes exceed the space between words.\n\nRecognition of 19th- and early 20th-century newspaper pages has shown accuracy ranging from 81% to 99%.\n\nEven with clear imaging, recognition of typewritten Latin script is not 100% accurate.\n\nOCR technology has evolved from early mechanical experiments into a versatile method that enables the digitization and machine-processing of text across diverse formats."
+  }
+}

@@ -197,6 +197,60 @@ class TestAbandonmentRule:
         assert report["format_compliance"] == 1.0
 
 
+class TestUnjudgedRun:
+    """--no-judge measures the deterministic layer and must claim nothing more.
+
+    The danger is not that the number is wrong, it is that a run which never asked
+    a judge anything still writes a report shaped exactly like one that did.
+    """
+
+    def _result(self, source_id, judged_by_model, judged=10, unsupported=1):
+        return {
+            "id": source_id,
+            "judged_by_model": judged_by_model,
+            "targets": ["linkedin"],
+            "format_violations": {},
+            "claim_utilisation": 0.5,
+            "judged_claims": judged,
+            "judged_unsupported": unsupported,
+            "injections": {
+                "planted": 5,
+                "caught": 5,
+                "clean_bodies": 1,
+                "false_positive_bodies": 0,
+                "recall_by_rule": {"number": 1.0},
+            },
+        }
+
+    def test_a_run_without_the_judge_publishes_no_rate(self):
+        report = aggregate([self._result("a", False, judged=0, unsupported=0)], [], {})
+        assert report["judged_by_model"] is False
+        assert report["unsupported_claim_rate"] is None
+        assert report["unsupported_claim_rate_provisional"] is None
+
+    def test_stale_judged_numbers_cannot_leak_into_an_unjudged_run(self):
+        # A checkpoint carrying judged counts from an earlier run must not give an
+        # unjudged run a headline it did not measure.
+        report = aggregate([self._result("a", False, judged=10, unsupported=1)], [], {})
+        assert report["unsupported_claim_rate"] is None
+        assert report["unsupported_claim_rate_provisional"] is None
+
+    def test_one_unjudged_source_withholds_the_whole_rate(self):
+        results = [self._result("a", True), self._result("b", False)]
+        assert aggregate(results, [], {})["unsupported_claim_rate"] is None
+
+    def test_the_deterministic_scores_survive(self):
+        report = aggregate([self._result("a", False, judged=0, unsupported=0)], [], {})
+        assert report["verifier_recall_on_injections"] == 1.0
+        assert report["format_compliance"] == 1.0
+        assert report["claim_utilisation"] == 0.5
+
+    def test_an_ordinary_run_is_still_marked_judged(self):
+        report = aggregate([self._result("a", True)], [], {})
+        assert report["judged_by_model"] is True
+        assert report["unsupported_claim_rate"] == pytest.approx(0.1)
+
+
 class TestGoldenSet:
     def test_every_source_has_an_id_kind_and_ref(self):
         for entry in load_sources():

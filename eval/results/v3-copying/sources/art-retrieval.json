@@ -1,0 +1,47 @@
+{
+  "id": "art-retrieval",
+  "judged_by_model": false,
+  "kind": "article",
+  "ref": "https://en.wikipedia.org/wiki/Retrieval-augmented_generation",
+  "title": "Retrieval-augmented generation - Wikipedia",
+  "segments": 26,
+  "chars": 14498,
+  "extracted_claims": 31,
+  "dropped_unanchored": 0,
+  "targets": [
+    "linkedin",
+    "thread"
+  ],
+  "verifier_errors": {
+    "linkedin": [],
+    "thread": []
+  },
+  "format_violations": {},
+  "repaired": [
+    "thread"
+  ],
+  "claim_utilisation": 0.3225806451612903,
+  "judged": {},
+  "judged_claims": 0,
+  "judged_unsupported": 0,
+  "injections": {
+    "planted": 10,
+    "caught": 10,
+    "recall": 1.0,
+    "recall_by_rule": {
+      "number": 1.0,
+      "quote": 1.0,
+      "entity": 1.0,
+      "intensity": 1.0,
+      "citation": 1.0
+    },
+    "missed": [],
+    "clean_bodies": 2,
+    "false_positive_bodies": 0,
+    "false_positives": []
+  },
+  "bodies": {
+    "linkedin": "A single error by an AI tool contributed to a $100 billion decline in Google's stock value. This highlights the risks when models generate misinformation, even when pulling from factually correct sources, if they misinterpret the context.\n\nRetrieval-augmented generation is a technique that enables large language models to retrieve and incorporate new information from external data sources. This approach reduces the need to retrain models with new data, which saves on computational and financial costs.\n\nHowever, it is not a perfect fix. As noted in Ars Technica, \"RAG is a way of improving LLM performance, in essence by blending the LLM process with a web search or other document look-up process to help LLMs stick to the facts.\" Yet, \"It is not a direct solution because the LLM can still hallucinate around the source material in its response.\"\n\nSystems may retrieve misleading sources or struggle with clinical reliability in fields like healthcare. By redesigning a language model with a retriever in mind, a 25-time smaller network can achieve comparable perplexity to much larger models.\n\n#ai #rag #machinelearning",
+    "thread": "A single error by an AI tool contributed to a $100 billion decline in Google's stock value.\n\nLarge language models can generate misinformation even when pulling from factually correct sources if they misinterpret the context.\n\nRetrieval-augmented generation enables models to retrieve new information from external data sources to help avoid making up information.\n\n\"RAG is a way of improving LLM performance, in essence by blending the LLM process with a web search or other document look-up process to help LLMs stick to the facts.\"\n\nThis approach reduces the need to retrain models with new data, which saves on computational and financial costs.\n\nRedesigning a language model with a retriever in mind allows a 25-time smaller network to achieve comparable perplexity to much larger models.\n\n\"It is not a direct solution because the LLM can still hallucinate around the source material in its response.\"\n\nRAG systems may retrieve factually correct but misleading sources, or misinterpret data, leading to incorrect conclusions."
+  }
+}

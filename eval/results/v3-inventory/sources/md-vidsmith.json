@@ -1,0 +1,315 @@
+{
+  "id": "md-vidsmith",
+  "judged_by_model": false,
+  "kind": "markdown",
+  "ref": "C:\\Users\\veera\\claude\\vidsmith\\README.md",
+  "title": "vidsmith",
+  "segments": 141,
+  "chars": 29674,
+  "extracted_claims": 50,
+  "dropped_unanchored": 0,
+  "targets": [
+    "linkedin"
+  ],
+  "verifier_errors": {
+    "linkedin": []
+  },
+  "format_violations": {},
+  "repaired": [],
+  "claim_utilisation": 0.14,
+  "judged": {},
+  "judged_claims": 0,
+  "judged_unsupported": 0,
+  "injections": {
+    "planted": 5,
+    "caught": 5,
+    "recall": 1.0,
+    "recall_by_rule": {
+      "number": 1.0,
+      "quote": 1.0,
+      "entity": 1.0,
+      "intensity": 1.0,
+      "citation": 1.0
+    },
+    "missed": [],
+    "clean_bodies": 1,
+    "false_positive_bodies": 0,
+    "false_positives": []
+  },
+  "bodies": {
+    "linkedin": "Nothing transcribed the audio to place those captions: the speech engine reports when each word starts and stops.\n\nMost tools generate speech, then run Whisper over that audio to find out where the words landed. vidsmith skips this step entirely. It derives timing directly from the speech engine's word-boundary events, which avoids the need to transcribe generated audio.\n\nThis approach has trade-offs. Punctuation must be stitched back onto the script from the source text because speech engine events drop it. When using Amazon Polly, the service bills audio and speech marks as separate requests, effectively doubling the cost of a script.\n\nEfficiency remains a priority in the pipeline. Every stage skips work already present on disk to avoid redundant processing. A 2 vCPU box builds at roughly 2.2x realtime.\n\nAI image generation is intentionally not wired in because the free tier of Gemini's image models has no image quota.\n\nvidsmith is a tool for creating narrated and captioned YouTube videos from markdown scripts."
+  },
+  "inventory": {
+    "claims": [
+      {
+        "id": "c0",
+        "kind": "fact",
+        "text": "vidsmith creates narrated and captioned YouTube videos from markdown scripts."
+      },
+      {
+        "id": "c1",
+        "kind": "fact",
+        "text": "vidsmith uses speech engine data to determine word timing and picture cuts instead of transcribing audio."
+      },
+      {
+        "id": "c2",
+        "kind": "fact",
+        "text": "vidsmith can run in a browser without installation."
+      },
+      {
+        "id": "c3",
+        "kind": "fact",
+        "text": "vidsmith generates an mp4 file, an .srt file, a .vtt file, and draft title/description/chapters."
+      },
+      {
+        "id": "c4",
+        "kind": "stat",
+        "text": "A demo build takes approximately 62 seconds to render 32.7 seconds of video."
+      },
+      {
+        "id": "c5",
+        "kind": "fact",
+        "text": "The default narration voice is a free Microsoft endpoint that requires no API keys."
+      },
+      {
+        "id": "c6",
+        "kind": "fact",
+        "text": "ffmpeg is the only non-Python dependency required for vidsmith."
+      },
+      {
+        "id": "c7",
+        "kind": "fact",
+        "text": "Punctuation is stitched back onto the script from the source text because speech engine events drop it."
+      },
+      {
+        "id": "c8",
+        "kind": "fact",
+        "text": "Amazon Polly is an alternative voice provider available for licensing reasons."
+      },
+      {
+        "id": "c9",
+        "kind": "fact",
+        "text": "Polly is one of the few services that reports word timings, allowing cuts to land on sentence boundaries."
+      },
+      {
+        "id": "c10",
+        "kind": "fact",
+        "text": "Polly bills audio and speech marks as separate requests, effectively doubling the cost of a script."
+      },
+      {
+        "id": "c11",
+        "kind": "fact",
+        "text": "The generative engine for Polly returns no speech marks, making it unable to time captions or cuts."
+      },
+      {
+        "id": "c12",
+        "kind": "fact",
+        "text": "Scenes are split into shots at sentence boundaries to avoid the look of generated video."
+      },
+      {
+        "id": "c13",
+        "kind": "fact",
+        "text": "If a sentence exceeds max_shot_seconds, it is broken at its last comma."
+      },
+      {
+        "id": "c14",
+        "kind": "fact",
+        "text": "Gemini can be used to reorder stock footage candidates based on what is actually in the frame."
+      },
+      {
+        "id": "c15",
+        "kind": "fact",
+        "text": "Only judged candidates are eligible for use, as unjudged clips could reinstate rejected content."
+      },
+      {
+        "id": "c16",
+        "kind": "fact",
+        "text": "The reranker judges stills rather than video, costing one call per scene without extra downloads."
+      },
+      {
+        "id": "c17",
+        "kind": "stat",
+        "text": "Generated music beds are loudness-normalised to sit approximately 8 dB under the voice when speaking."
+      },
+      {
+        "id": "c18",
+        "kind": "fact",
+        "text": "Diagrams are drawn for scenes where no footage exists, using one of four layouts: flow, tree, stack, or compare."
+      },
+      {
+        "id": "c19",
+        "kind": "fact",
+        "text": "Diagrams never use Ken Burns effects to prevent drifting frames."
+      },
+      {
+        "id": "c20",
+        "kind": "fact",
+        "text": "The model's filmability verdict is not stable between runs."
+      },
+      {
+        "id": "c21",
+        "kind": "fact",
+        "text": "A build prefers a stock photograph over anything cut from the video for thumbnails."
+      },
+      {
+        "id": "c22",
+        "kind": "stat",
+        "text": "Thumbnail candidates are spaced at least 2.5s apart to ensure variety."
+      },
+      {
+        "id": "c23",
+        "kind": "fact",
+        "text": "The check command exits non-zero if delivered files disagree with each other."
+      },
+      {
+        "id": "c24",
+        "kind": "fact",
+        "text": "YouTube drops the whole list of chapters if any chapter does not start at 0:00."
+      },
+      {
+        "id": "c25",
+        "kind": "fact",
+        "text": "AI image generation is intentionally not wired in because the free tier of Gemini's image models has no image quota."
+      },
+      {
+        "id": "c26",
+        "kind": "fact",
+        "text": "Everything key-dependent in the build process is optional."
+      },
+      {
+        "id": "c27",
+        "kind": "fact",
+        "text": "The vidsmith pipeline processes scripts through specific stages including scene splitting, b-roll search, audio generation, visual normalization, captioning, and ffmpeg rendering."
+      },
+      {
+        "id": "c28",
+        "kind": "fact",
+        "text": "Every stage in the pipeline skips work already present on disk to avoid redundant processing."
+      },
+      {
+        "id": "c29",
+        "kind": "stat",
+        "text": "The test suite includes 200 fast tests that run in seconds and 12 tests marked as slow that encode real video with ffmpeg."
+      },
+      {
+        "id": "c30",
+        "kind": "fact",
+        "text": "The test suite pins timing invariants such as ensuring shot plans sum to narration slots and caption lines do not overlap."
+      },
+      {
+        "id": "c31",
+        "kind": "stat",
+        "text": "The web service limits concurrent renders to one at a time, with a maximum queue depth of three before returning a 429 error."
+      },
+      {
+        "id": "c32",
+        "kind": "fact",
+        "text": "Cancelling a render is cooperative and occurs at the next stage boundary rather than mid-encode."
+      },
+      {
+        "id": "c33",
+        "kind": "fact",
+        "text": "Cloudflare quick tunnels allow local servers to be accessed via the internet without requiring a Cloudflare account or domain."
+      },
+      {
+        "id": "c34",
+        "kind": "fact",
+        "text": "Passing the -NoToken flag opens a tunnel without a gate, which comments out any existing token in .env."
+      },
+      {
+        "id": "c35",
+        "kind": "opinion",
+        "text": "The script refuses to open an ungated tunnel by default because it is usually a mistake."
+      },
+      {
+        "id": "c36",
+        "kind": "fact",
+        "text": "Exposed instances without a VIDSMITH_TOKEN will consume Pexels and Gemini quotas."
+      },
+      {
+        "id": "c37",
+        "kind": "fact",
+        "text": "The /healthz endpoint remains open regardless of token status, but the keys field is only returned to callers with a valid token."
+      },
+      {
+        "id": "c38",
+        "kind": "stat",
+        "text": "Hugging Face Spaces provides 2 vCPU and 16 GB of memory, while free Render instances provide 0.1 vCPU and 512 MB."
+      },
+      {
+        "id": "c39",
+        "kind": "stat",
+        "text": "Since 2026-08-25, Docker Spaces on free cpu-basic tiers are refused with a 402 Payment Required error."
+      },
+      {
+        "id": "c40",
+        "kind": "stat",
+        "text": "A 2 vCPU instance builds video at approximately 2.2x realtime."
+      },
+      {
+        "id": "c41",
+        "kind": "stat",
+        "text": "AWS deployments require a minimum of two vCPUs and 2 GB of memory to encode 1080p video."
+      },
+      {
+        "id": "c42",
+        "kind": "fact",
+        "text": "Render deployments use a native Python runtime rather than a container."
+      },
+      {
+        "id": "c43",
+        "kind": "fact",
+        "text": "Edge voices are an undocumented Microsoft endpoint and may experience occasional connection failures."
+      },
+      {
+        "id": "c44",
+        "kind": "fact",
+        "text": "The narration path using edge-tts is not cleared for commercial use."
+      },
+      {
+        "id": "c45",
+        "kind": "fact",
+        "text": "Polly reports word timings, which keeps cuts and captions unchanged."
+      },
+      {
+        "id": "c46",
+        "kind": "fact",
+        "text": "Polly bills audio and speech marks as separate requests, causing a video to spend its script length twice."
+      },
+      {
+        "id": "c47",
+        "kind": "fact",
+        "text": "The generative engine in Polly returns no speech marks."
+      },
+      {
+        "id": "c48",
+        "kind": "fact",
+        "text": "The generative engine is not a selectable value in Polly because it returns no speech marks."
+      },
+      {
+        "id": "c49",
+        "kind": "fact",
+        "text": "vidsmith doctor identifies which keys resolve."
+      }
+    ],
+    "hook_candidates": [
+      "Your bank statement is not a record of what you spent. It is a record of what your bank found convenient to store.",
+      "The merchant name on a transaction is typed by the payment processor, not the shop.",
+      "Most tools generate speech, then run Whisper over that speech to find out where the words landed. vidsmith never does that.",
+      "Nothing transcribed the audio to place those captions: the speech engine reports when each word starts and stops.",
+      "Stock search ranks by popularity, not by whether a clip depicts what is being said.",
+      "Polly bills the audio and the speech marks as separate requests, so a video costs its script length twice.",
+      "Holding one correct shot for 6.8s beats cutting to a book halfway through a line about calendars.",
+      "Some ideas have no footage anywhere."
+    ],
+    "voice_samples": [
+      "vidsmith never does that.",
+      "ffmpeg is the only non-Python dependency.",
+      "A scene is not a shot.",
+      "Every check is a fault that reached a finished build here.",
+      "AI image generation is not wired in on purpose.",
+      "Nothing went red, because the only tests touching it were testing the fallback."
+    ],
+    "thesis": "Caption timing should be derived directly from the speech engine's word-boundary events rather than by transcribing generated audio."
+  }
+}

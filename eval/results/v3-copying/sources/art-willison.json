@@ -1,0 +1,56 @@
+{
+  "id": "art-willison",
+  "judged_by_model": false,
+  "kind": "article",
+  "ref": "https://simonwillison.net/2025/Sep/6/",
+  "title": "Simon Willison\u2019s Weblog",
+  "segments": 30,
+  "chars": 6007,
+  "extracted_claims": 9,
+  "dropped_unanchored": 0,
+  "targets": [
+    "linkedin",
+    "thread"
+  ],
+  "verifier_errors": {
+    "linkedin": [
+      "[error/quote] 'The correct modeling of data depends on the specific questions one wants to answer.': not a verbatim span of the source"
+    ],
+    "thread": []
+  },
+  "format_violations": {},
+  "repaired": [
+    "thread"
+  ],
+  "claim_utilisation": 1.0,
+  "judged": {},
+  "judged_claims": 0,
+  "judged_unsupported": 0,
+  "injections": {
+    "planted": 10,
+    "caught": 10,
+    "recall": 1.0,
+    "recall_by_rule": {
+      "number": 1.0,
+      "quote": 1.0,
+      "entity": 1.0,
+      "intensity": 1.0,
+      "citation": 1.0
+    },
+    "missed": [],
+    "clean_bodies": 2,
+    "false_positive_bodies": 1,
+    "false_positives": [
+      {
+        "target": "linkedin",
+        "spans": [
+          "[error/quote] 'The correct modeling of data depends on the specific questions one wants to answer.': not a verbatim span of the source"
+        ]
+      }
+    ]
+  },
+  "bodies": {
+    "linkedin": "Anthropic has agreed to pay \"at least\" a staggering $1.5 billion, plus interest, to settle a class-action lawsuit regarding the use of pirated books in AI training.\n\nThe settlement payout is approximately $3,000 per book or work. This is notable because the maximum allowed penalty for copyright infringement in this case reached $150,000 per book.\n\nDespite this settlement, it appears legal in the USA to purchase physical books, scan them, and train AI on that content under the doctrine of fair use. Anthropic noted that the specific digital copies involved in the settlement were not used to train its commercially released models.\n\n\"The correct modeling of data depends on the specific questions one wants to answer.\"\n\nTechnical approaches continue to evolve, such as using highly opinionated summaries of images to improve retrieval performance over standard CLIP embeddings.",
+    "thread": "Anthropic agreed to pay at least $1.5 billion plus interest to settle a class-action lawsuit over using pirated books for AI training.\n\nThe settlement payout works out to approximately $3,000 per book or work.\n\nThis is a notable discount compared to the maximum allowed penalty of $150,000 per book for copyright infringement.\n\nAnthropic stated that the specific digital copies involved in this settlement were not used to train its commercially released AI models.\n\nIt appears legal in the USA to buy physical books, scan them, and train AI on that content under fair use.\n\nBeyond legal battles, technical progress continues as the Kimi-K2-Instruct-0905 model now features 256,000 tokens.\n\nThis model uses 1 trillion parameters in a mixture-of-experts configuration with 384 experts, 32B activated parameters and 8 selected experts per token.\n\nBetter image retrieval performance can come from embedding highly opinionated summaries of images rather than using CLIP embeddings.\n\nThe legal landscape for AI training is shifting through settlements and court interpretations while technical challenges in data modeling remain."
+  }
+}

@@ -1,0 +1,45 @@
+{
+  "id": "md-n8n",
+  "judged_by_model": false,
+  "kind": "markdown",
+  "ref": "C:\\Users\\veera\\claude\\n8n-statement-extractor\\README.md",
+  "title": "Statement & Invoice PDF \u2192 Reconciled Rows",
+  "segments": 46,
+  "chars": 11348,
+  "extracted_claims": 17,
+  "dropped_unanchored": 0,
+  "targets": [
+    "linkedin",
+    "thread"
+  ],
+  "verifier_errors": {
+    "linkedin": [],
+    "thread": []
+  },
+  "format_violations": {},
+  "repaired": [],
+  "claim_utilisation": 0.47058823529411764,
+  "judged": {},
+  "judged_claims": 0,
+  "judged_unsupported": 0,
+  "injections": {
+    "planted": 10,
+    "caught": 10,
+    "recall": 1.0,
+    "recall_by_rule": {
+      "number": 1.0,
+      "quote": 1.0,
+      "entity": 1.0,
+      "intensity": 1.0,
+      "citation": 1.0
+    },
+    "missed": [],
+    "clean_bodies": 2,
+    "false_positive_bodies": 0,
+    "false_positives": []
+  },
+  "bodies": {
+    "linkedin": "JavaScript's new Date constructor assumes MM/DD/YYYY format, causing silent corruption for dates where days are 12 or less.\n\nAutomated document extraction workflows often fail because they rely on vision models to handle arithmetic. To prevent data drift, logic should prioritize deterministic extraction over model-based guessing.\n\n\"The model never touches a number it could invent.\" Instead, the workflow extracts values deterministically, assigns columns via the model, and uses arithmetic to verify the result.\n\nIn a digital PDF test, the system achieved 16/16 rows, 100% reconciled. During a separate reconciliation test, the workflow reached a 93.8 percent success rate, defined as reconciledPct = 93.8.\n\n\"A row is never counted as reconciled unless it was actually verified.\" This approach acknowledges that overlapping columns in a PDF are a fault in the source document, meaning no amount of parsing can recover them cleanly.\n\nReconciliation against a real statement with a balance column remains unproven.",
+    "thread": "JavaScript's new Date constructor assumes MM/DD/YYYY format, causing silent corruption for dates where days are 12 or less.\n\nWhen building document extraction workflows, the design rule is that \"The model never touches a number it could invent.\"\n\nInstead of relying on vision models for everything, use them only to assign columns and then perform arithmetic to verify the results.\n\nIn a digital PDF test, the workflow achieved \"16/16 rows, 100% reconciled\" by ensuring a row is never counted as reconciled unless it was actually verified.\n\nEven with these checks, reconciliation against a real statement with a balance column remains unproven.\n\nAutomated document extraction workflows should prioritize deterministic data extraction and arithmetic verification over relying solely on vision models to prevent data drift."
+  }
+}

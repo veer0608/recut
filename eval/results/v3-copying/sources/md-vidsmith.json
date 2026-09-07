@@ -1,0 +1,45 @@
+{
+  "id": "md-vidsmith",
+  "judged_by_model": false,
+  "kind": "markdown",
+  "ref": "C:\\Users\\veera\\claude\\vidsmith\\README.md",
+  "title": "vidsmith",
+  "segments": 141,
+  "chars": 29674,
+  "extracted_claims": 50,
+  "dropped_unanchored": 0,
+  "targets": [
+    "linkedin",
+    "thread"
+  ],
+  "verifier_errors": {
+    "linkedin": [],
+    "thread": []
+  },
+  "format_violations": {},
+  "repaired": [],
+  "claim_utilisation": 0.24,
+  "judged": {},
+  "judged_claims": 0,
+  "judged_unsupported": 0,
+  "injections": {
+    "planted": 10,
+    "caught": 10,
+    "recall": 1.0,
+    "recall_by_rule": {
+      "number": 1.0,
+      "quote": 1.0,
+      "entity": 1.0,
+      "intensity": 1.0,
+      "citation": 1.0
+    },
+    "missed": [],
+    "clean_bodies": 2,
+    "false_positive_bodies": 0,
+    "false_positives": []
+  },
+  "bodies": {
+    "linkedin": "Nothing transcribed the audio to place those captions: the speech engine reports when each word starts and stops.\n\nMost tools generate speech, then run Whisper over that speech to find out where the words landed. vidsmith avoids transcription drift by using Edge's TTS WordBoundary events. Punctuation is stitched back onto captions from the source script because TTS events drop it.\n\nWhen using Amazon Polly as an alternative, the engine reports word timings, allowing cuts to land on sentence boundaries. However, Polly bills for audio and speech marks as separate requests, doubling the cost of a script's length. The generative engine for Polly cannot time captions or cuts because it returns no speech marks.\n\nEach stage in the pipeline skips work already present on disk to prevent redundant processing. A demo build takes \"62s to build\".\n\nEverything key-dependent is optional, including narration, captions, cards, music, and the encode.",
+    "thread": "Nothing transcribed the audio to place those captions: the speech engine reports when each word starts and stops.\n\nMost tools generate speech, then run Whisper over that speech to find out where the words landed. vidsmith never does that.\n\nvidsmith avoids transcription drift by using Edge's TTS WordBoundary events to determine caption and cut timings.\n\nPunctuation is stitched back onto captions from the source script because TTS events drop it.\n\nStock search results are ranked by popularity rather than visual relevance to the narration.\n\nGemini can reorder stock footage candidates based on the actual content in the frame.\n\nCaption timing accuracy is best achieved by using word-boundary events from the speech synthesis engine rather than post-process transcription."
+  }
+}

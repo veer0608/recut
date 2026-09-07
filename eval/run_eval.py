@@ -48,7 +48,13 @@ def load_sources() -> list[dict]:
     return out
 
 
-def run_source(entry: dict, targets: list[str], llm: LLM, judge_llm: LLM, seed: int) -> dict:
+def run_source(
+    entry: dict,
+    targets: list[str],
+    llm: LLM,
+    judge_llm: LLM | None,
+    seed: int,
+) -> dict:
     """Everything measured for one source. Raises if the source cannot complete."""
     document = ingest(entry["ref"])
     wanted = [t for t in targets if t in applicable(document)] or applicable(document)
@@ -56,14 +62,18 @@ def run_source(entry: dict, targets: list[str], llm: LLM, judge_llm: LLM, seed: 
     _, artifacts = repurpose(document, wanted, llm, claims=claims)
 
     judged = {}
-    for artifact in artifacts:
-        judged[artifact.target] = judge(artifact.body, document, judge_llm)
+    if judge_llm is not None:
+        for artifact in artifacts:
+            judged[artifact.target] = judge(artifact.body, document, judge_llm)
 
     supported_claims = sum(v["claims"] for v in judged.values())
     unsupported = sum(v["unsupported"] for v in judged.values())
 
     return {
         "id": entry["id"],
+        # Stamped on every checkpoint so an unjudged one can never be silently
+        # aggregated into a headline rate later. See the resume guard in main().
+        "judged_by_model": judge_llm is not None,
         "kind": entry["kind"],
         "ref": entry["ref"],
         "title": document.title,
@@ -85,6 +95,18 @@ def run_source(entry: dict, targets: list[str], llm: LLM, judge_llm: LLM, seed: 
         "judged_unsupported": unsupported,
         "injections": score_injections(artifacts, document, claims, seed=seed),
         "bodies": {a.target: a.body for a in artifacts},
+        # The inventory is stored so questions about it can be answered later
+        # without paying for extraction again. The copying rate turned out to be
+        # a question about claim text, not about generator willpower, and the
+        # runs that would have answered it had thrown the inventory away.
+        "inventory": {
+            "claims": [
+                {"id": c.id, "kind": c.kind, "text": c.text} for c in repurpose_claims.claims
+            ],
+            "hook_candidates": list(repurpose_claims.hook_candidates),
+            "voice_samples": list(repurpose_claims.voice_samples),
+            "thesis": repurpose_claims.thesis,
+        },
     }
 
 
@@ -103,6 +125,9 @@ def _utilisation(artifacts: list[Artifact], claims: ClaimSet) -> float | None:
 
 def aggregate(results: list[dict], failures: list[dict], run: dict) -> dict:
     complete = len(failures) == 0
+    # A run that skipped the judge measured the deterministic layer only. It has
+    # no opinion on entailment, so it must not produce a rate that looks like one.
+    judged_run = all(r.get("judged_by_model", True) for r in results) and bool(results)
 
     judged_claims = sum(r["judged_claims"] for r in results)
     judged_unsupported = sum(r["judged_unsupported"] for r in results)
@@ -120,10 +145,13 @@ def aggregate(results: list[dict], failures: list[dict], run: dict) -> dict:
             by_rule.setdefault(rule, []).append(value)
 
     headline = (judged_unsupported / judged_claims) if judged_claims else None
+    if not judged_run:
+        headline = None
 
     return {
         "run": run,
         "complete": complete,
+        "judged_by_model": judged_run,
         "sources_attempted": len(results) + len(failures),
         "sources_completed": len(results),
         "failures": failures,
@@ -152,6 +180,12 @@ def main(argv: list[str] | None = None) -> int:
     parser.add_argument("--seed", type=int, default=0)
     parser.add_argument("--env", default=".env")
     parser.add_argument("--fresh", action="store_true", help="ignore existing checkpoints")
+    parser.add_argument(
+        "--no-judge",
+        action="store_true",
+        help="generate and score deterministically, skip the judge. Cheap, and "
+        "produces no unsupported-claim rate at all.",
+    )
     args = parser.parse_args(argv)
 
     load_dotenv(args.env, override=False)
@@ -168,7 +202,7 @@ def main(argv: list[str] | None = None) -> int:
     try:
         llm = LLM()
         # A different ladder from the generators, so nothing grades its own work.
-        judge_llm = LLM(gemini_models=JUDGE_MODELS, use_groq=False)
+        judge_llm = None if args.no_judge else LLM(gemini_models=JUDGE_MODELS, use_groq=False)
     except LLMError as exc:
         print(f"{RED}{exc}{OFF}", file=sys.stderr)
         return 1
@@ -179,9 +213,15 @@ def main(argv: list[str] | None = None) -> int:
     for entry in sources:
         checkpoint = out_dir / "sources" / f"{entry['id']}.json"
         if checkpoint.exists() and not args.fresh:
-            results.append(json.loads(checkpoint.read_text(encoding="utf-8")))
-            print(f"{DIM}{entry['id']:<20} cached{OFF}")
-            continue
+            cached = json.loads(checkpoint.read_text(encoding="utf-8"))
+            # Resuming a judged run on top of --no-judge checkpoints would build a
+            # headline out of sources nothing ever judged. Regenerate instead.
+            if judge_llm is not None and not cached.get("judged_by_model", True):
+                print(f"{DIM}{entry['id']:<20} cached but unjudged, regenerating{OFF}")
+            else:
+                results.append(cached)
+                print(f"{DIM}{entry['id']:<20} cached{OFF}")
+                continue
 
         try:
             result = run_source(entry, targets, llm, judge_llm, args.seed)
@@ -209,8 +249,8 @@ def main(argv: list[str] | None = None) -> int:
         "at": datetime.now(timezone.utc).isoformat(timespec="seconds"),
         "seed": args.seed,
         "targets": targets,
-        "judge_models": list(JUDGE_MODELS),
-        "model_calls": llm.budget.calls + judge_llm.budget.calls,
+        "judge_models": [] if judge_llm is None else list(JUDGE_MODELS),
+        "model_calls": llm.budget.calls + (judge_llm.budget.calls if judge_llm else 0),
     }
     report = aggregate(results, failures, run)
     (out_dir / "report.json").write_text(json.dumps(report, indent=2), encoding="utf-8")
@@ -228,7 +268,13 @@ def main(argv: list[str] | None = None) -> int:
     print(f"format      {_pct(report['format_compliance'])} compliant")
     print(f"utilisation {_pct(report['claim_utilisation'])} of extracted claims used")
 
-    if report["complete"]:
+    if not report["judged_by_model"]:
+        print(f"{YELLOW}no unsupported-claim rate: this run skipped the judge{OFF}")
+        print(
+            f"{DIM}            the deterministic scores above stand; entailment "
+            f"was never measured{OFF}"
+        )
+    elif report["complete"]:
         print(f"{GREEN}UNSUPPORTED CLAIM RATE  {_pct(report['unsupported_claim_rate'])}{OFF}")
         print(f"            over {report['judged_claims']} judged claims")
     else:

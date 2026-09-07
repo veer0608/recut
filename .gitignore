@@ -7,3 +7,7 @@ out/
 *.egg-info/
 recut.db
 *.db
+
+# Ingested source text, cached so a before and after measurement compares the
+# same input. Derived, third-party, and re-fetchable: not ours to check in.
+eval/.cache/

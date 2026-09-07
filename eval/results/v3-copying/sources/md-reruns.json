@@ -1,0 +1,45 @@
+{
+  "id": "md-reruns",
+  "judged_by_model": false,
+  "kind": "markdown",
+  "ref": "C:\\Users\\veera\\claude\\reruns\\README.md",
+  "title": "reruns",
+  "segments": 61,
+  "chars": 14231,
+  "extracted_claims": 29,
+  "dropped_unanchored": 0,
+  "targets": [
+    "linkedin",
+    "thread"
+  ],
+  "verifier_errors": {
+    "linkedin": [],
+    "thread": []
+  },
+  "format_violations": {},
+  "repaired": [],
+  "claim_utilisation": 0.3448275862068966,
+  "judged": {},
+  "judged_claims": 0,
+  "judged_unsupported": 0,
+  "injections": {
+    "planted": 10,
+    "caught": 10,
+    "recall": 1.0,
+    "recall_by_rule": {
+      "number": 1.0,
+      "quote": 1.0,
+      "entity": 1.0,
+      "intensity": 1.0,
+      "citation": 1.0
+    },
+    "missed": [],
+    "clean_bodies": 2,
+    "false_positive_bodies": 0,
+    "false_positives": []
+  },
+  "bodies": {
+    "linkedin": "In 24 trials every write did. All 24 passed after the simulated customer had left the conversation.\n\nReliability in support agents is often measured by running tasks five times to see if they consistently follow policy. A single attempt can be misleading. If an agent scores 0.60 on single attempts, it would sit near 0.08 on five independent trials.\n\nGrading does not use an LLM judge. Instead, the process diffs the final state against the seed and compares it to a declared expectation. A task passes only when the final database state matches the declaration, required tools are used correctly, and the policy is followed.\n\nSome tasks can be passed in total silence because the grader does not require the agent to speak. The evaluation harness now grants the agent a closing turn when the customer leaves, ending the episode immediately if the agent produces text without a tool call. This compensates for an over-eager stop condition in the simulator.\n\nRunning a task once shows if an agent can do it, but running it multiple times shows if it can be relied on.",
+    "thread": "If an agent scores 0.60 on single attempts, it would sit near 0.08 on five independent trials.\n\nSingle-turn success rates hide inconsistency. Running tasks five times reveals if an agent actually follows policy.\n\nThe grading process avoids LLM judges. It diffs the final database state against the seed to see if rules were followed.\n\nThe backend is designed to permit policy violations. It tests if an agent can correctly follow rules when given the opportunity to break them.\n\nSome trials passed with zero assistant turns. The grader does not require the agent to speak.\n\nReliability should be measured by running tasks multiple times to see if they consistently follow policy, rather than relying on single-turn success rates."
+  }
+}

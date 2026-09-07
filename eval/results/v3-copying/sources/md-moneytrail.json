@@ -1,0 +1,45 @@
+{
+  "id": "md-moneytrail",
+  "judged_by_model": false,
+  "kind": "markdown",
+  "ref": "C:\\Users\\veera\\claude\\moneytrail\\README.md",
+  "title": "moneytrail",
+  "segments": 153,
+  "chars": 35444,
+  "extracted_claims": 53,
+  "dropped_unanchored": 0,
+  "targets": [
+    "linkedin",
+    "thread"
+  ],
+  "verifier_errors": {
+    "linkedin": [],
+    "thread": []
+  },
+  "format_violations": {},
+  "repaired": [],
+  "claim_utilisation": 0.32075471698113206,
+  "judged": {},
+  "judged_claims": 0,
+  "judged_unsupported": 0,
+  "injections": {
+    "planted": 10,
+    "caught": 10,
+    "recall": 1.0,
+    "recall_by_rule": {
+      "number": 1.0,
+      "quote": 1.0,
+      "entity": 1.0,
+      "intensity": 1.0,
+      "citation": 1.0
+    },
+    "missed": [],
+    "clean_bodies": 2,
+    "false_positive_bodies": 0,
+    "false_positives": []
+  },
+  "bodies": {
+    "linkedin": "A statement that prints no totals is reported as UNVERIFIED rather than passing quietly.\n\nMost personal finance tools prioritize categorization, but that is the wrong first step. Moneytrail rejects scanned PDFs instead of guessing at them. It uses magic bytes, rather than file extensions, to decide the format of spreadsheets.\n\nThere are no floats in the codebase because money is an integer count of paise, everywhere. The tool measures cadence rather than assuming it, which disqualifies irregular gaps or wildly swinging amounts from being reported as subscriptions.\n\nWhen processing HDFC statements, the word spaces measure 1.8pt and the narrowest column gap measures 12.7pt. The project uses word positioning to recover column structures when geometric ruling is absent.\n\nExported files include a reconciliation certificate containing the arithmetic checked, the SHA-256 of the source bytes, and the verification result. This certificate is embedded as a second sheet in .xlsx exports to prevent it from becoming detached from the data.\n\nStatements that fail to reconcile are still exported, but are stamped with a 'reconciled = NO' status and trigger a non-zero exit code.",
+    "thread": "Most personal-finance tools start by categorizing transactions, and that is the wrong first step. Data integrity requires a reconciliation gate before any classification happens.\n\nMoney is an integer count of paise, everywhere. The codebase contains no floats, as amounts are only rendered as rupees at the edge to ensure sum accuracy.\n\nScanned PDFs are rejected rather than guessed at. Magic bytes, rather than file extensions, decide the format of spreadsheets.\n\nA statement that prints no totals is reported as UNVERIFIED rather than passing quietly. Unparseable input raises an error rather than defaulting to zero to prevent reconciliation against a wrong total.\n\nA test of 225 transactions across three months of an HDFC statement reconciled to the paisa against the bank's summary block.\n\nCounting both bank outflows and card repayments as spending results in double-counting the money. Repayments with no matching card statement are counted as spending to avoid the dangerous error of understating expenses.\n\nPersonal finance tools must prioritize a reconciliation gate over categorization to ensure data integrity, as parsing errors are common and silent."
+  }
+}

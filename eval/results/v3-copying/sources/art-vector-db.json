@@ -1,0 +1,45 @@
+{
+  "id": "art-vector-db",
+  "judged_by_model": false,
+  "kind": "article",
+  "ref": "https://en.wikipedia.org/wiki/Vector_database",
+  "title": "Vector database - Wikipedia",
+  "segments": 14,
+  "chars": 13607,
+  "extracted_claims": 16,
+  "dropped_unanchored": 0,
+  "targets": [
+    "linkedin",
+    "thread"
+  ],
+  "verifier_errors": {
+    "linkedin": [],
+    "thread": []
+  },
+  "format_violations": {},
+  "repaired": [],
+  "claim_utilisation": 0.75,
+  "judged": {},
+  "judged_claims": 0,
+  "judged_unsupported": 0,
+  "injections": {
+    "planted": 10,
+    "caught": 10,
+    "recall": 1.0,
+    "recall_by_rule": {
+      "number": 1.0,
+      "quote": 1.0,
+      "entity": 1.0,
+      "intensity": 1.0,
+      "citation": 1.0
+    },
+    "missed": [],
+    "clean_bodies": 2,
+    "false_positive_bodies": 0,
+    "false_positives": []
+  },
+  "bodies": {
+    "linkedin": "HNSW-based implementations have been among the best performers in recent benchmarks for vector databases.\n\nThese systems manage high-dimensional data embeddings, which can range from \"a few hundred to tens of thousands\" of dimensions. Users typically rely on approximate nearest neighbor algorithms to locate semantically similar records, rather than performing exact matches.\n\nCompanies are actively raising capital to support these platforms. For instance, \"Aerospike raises $109M for its real-time database platform\" and \"Zilliz raises $60M\" to build out their offerings. Meanwhile, \"SurrealDB raises $6M for its database-as-a-service offering\" and \"Chroma scored $18 million in seed funding at a $75 million valuation.\"\n\nThese databases are often used for retrieval-augmented generation to improve the responses of large language models. Some options, such as Weaviate, allow for the integration of vector search with structured filtering.\n\nVector databases are experiencing a surge in popularity as the AI hype cycle reaches its peak.",
+    "thread": "Vector databases are currently experiencing a surge in popularity as the AI hype cycle reaches its peak.\n\nThese systems store data as high-dimensional vectors, which are mathematical representations of features or attributes.\n\nThe number of dimensions in these embeddings ranges from \"a few hundred to tens of thousands\".\n\nTo find semantically similar records, these databases typically implement approximate nearest neighbor algorithms.\n\nDevelopers can also combine vector retrieval with metadata filtering or lexical search to support hybrid workflows.\n\nIn recent benchmarks, HNSW-based implementations have been among the best performers.\n\nRetrieval-augmented generation is a common use-case for these systems to improve domain-specific responses of large language models.\n\nFunding activity reflects this interest, with companies like Zilliz raising $60M and Chroma scoring $18 million in seed funding at a $75 million valuation."
+  }
+}

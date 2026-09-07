@@ -1,0 +1,47 @@
+{
+  "id": "art-double-entry",
+  "judged_by_model": false,
+  "kind": "article",
+  "ref": "https://en.wikipedia.org/wiki/Double-entry_bookkeeping",
+  "title": "Double-entry bookkeeping - Wikipedia",
+  "segments": 34,
+  "chars": 18479,
+  "extracted_claims": 39,
+  "dropped_unanchored": 0,
+  "targets": [
+    "linkedin",
+    "thread"
+  ],
+  "verifier_errors": {
+    "linkedin": [],
+    "thread": []
+  },
+  "format_violations": {},
+  "repaired": [
+    "linkedin"
+  ],
+  "claim_utilisation": 0.2564102564102564,
+  "judged": {},
+  "judged_claims": 0,
+  "judged_unsupported": 0,
+  "injections": {
+    "planted": 10,
+    "caught": 10,
+    "recall": 1.0,
+    "recall_by_rule": {
+      "number": 1.0,
+      "quote": 1.0,
+      "entity": 1.0,
+      "intensity": 1.0,
+      "citation": 1.0
+    },
+    "missed": [],
+    "clean_bodies": 2,
+    "false_positive_bodies": 0,
+    "false_positives": []
+  },
+  "bodies": {
+    "linkedin": "In early modern Europe, double-entry bookkeeping carried theological connotations of the scales of justice and the symmetry of God's world.\n\nThis method requires every financial transaction to be recorded with equal and opposite debits and credits. The Farolfi firm's ledger of 1299\u20131300 provides evidence of full double-entry bookkeeping.\n\nLuca Pacioli first codified the double-entry system in his 1494 mathematics textbook. He is often called the father of accounting because he published the first detailed description of the system.\n\nToday, this accounting model remains the foundational system required to produce financial statements that comply with US GAAP and SEC reporting mandates for public companies.\n\nAccounting systems have a long history.",
+    "thread": "In early modern Europe, double-entry bookkeeping carried theological connotations of the scales of justice and the symmetry of God's world.\n\nThis method requires every financial transaction to be recorded with equal and opposite debits and credits.\n\nEvery transaction is entered into at least two nominal ledger accounts to maintain accuracy and detect errors or fraud.\n\nA debit entry represents a transfer of value to an account, while a credit entry represents a transfer from an account.\n\nThe earliest extant European accounting records following this system come from Amatino Manucci in the late 13th century.\n\nLuca Pacioli first codified the system in his 1494 mathematics textbook, leading many to call him the father of accounting.\n\nDouble-entry accounting is the foundational system required to produce financial statements that comply with US GAAP and SEC reporting mandates for public companies."
+  }
+}

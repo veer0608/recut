@@ -1,0 +1,47 @@
+{
+  "id": "md-citerag",
+  "judged_by_model": false,
+  "kind": "markdown",
+  "ref": "C:\\Users\\veera\\claude\\citerag\\README.md",
+  "title": "CiteRAG",
+  "segments": 95,
+  "chars": 28402,
+  "extracted_claims": 47,
+  "dropped_unanchored": 0,
+  "targets": [
+    "linkedin",
+    "thread"
+  ],
+  "verifier_errors": {
+    "linkedin": [],
+    "thread": []
+  },
+  "format_violations": {},
+  "repaired": [
+    "thread"
+  ],
+  "claim_utilisation": 0.3191489361702128,
+  "judged": {},
+  "judged_claims": 0,
+  "judged_unsupported": 0,
+  "injections": {
+    "planted": 10,
+    "caught": 10,
+    "recall": 1.0,
+    "recall_by_rule": {
+      "number": 1.0,
+      "quote": 1.0,
+      "entity": 1.0,
+      "intensity": 1.0,
+      "citation": 1.0
+    },
+    "missed": [],
+    "clean_bodies": 2,
+    "false_positive_bodies": 0,
+    "false_positives": []
+  },
+  "bodies": {
+    "linkedin": "Table-aware ingestion decreased retrieval performance because near-duplicate chunks crowded the re-ranker and displaced answer-bearing narrative chunks.\n\nMost RAG projects skip the golden-question evaluation harness that proves retrieval quality with numbers rather than vibes. When testing CiteRAG on Berkshire Hathaway annual reports, the initial naive retrieval pipeline achieved a recall@5 of 0.367. Adding a re-ranker improved this to 0.500, but increasing the re-rank pool from 20 to 50 candidates was rejected because it decreased recall@5 from 0.733 to 0.700.\n\nEvaluation sets matter. A 30-question set incorrectly suggested that re-ranker quality was the binding constraint, whereas a 60-question set identified query rewriting as the primary need. Even small technical details like re-spacing welded text: +0.033 with the re-ranker, +0.067 without it can shift results. Measuring the mechanism itself is more reliable than trusting proxies.\n\n#rag #llm #dataengineering",
+    "thread": "Table-aware ingestion actually hurt retrieval performance. It decreased recall@5 from 0.733 to 0.667 because near-duplicate chunks crowded the re-ranker and displaced answer-bearing narrative chunks.\n\nThe system uses SQLite and sqlite-vec for a zero-infrastructure, local implementation. It avoids LLM dependencies for both retrieval and the evaluation harness.\n\nEmbedding models often blur dense financial data like dollar amounts or tickers. A keyword index is needed to nail those exact tokens.\n\nThe project uses Berkshire Hathaway annual reports from 2021 to 2023. This corpus contains dense, complex financial data that serves as a difficult retrieval target.\n\nA bug in the segmentation logic caused the system to skip all-lowercase welds at sentence starts. Fixing this reduced welds to 3.7% of tokens.\n\nDoubling the evaluation set from 30 to 60 questions changed the project's priorities. The smaller set incorrectly pointed to re-ranker quality, while the larger set identified query rewriting as the primary need.\n\nRelying on qualitative impressions is a mistake. A system must include a golden-question evaluation harness to objectively prove retrieval quality."
+  }
+}
