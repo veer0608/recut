@@ -96,6 +96,47 @@ function renderBody(artifact) {
   return html + esc(artifact.body.slice(cursor));
 }
 
+// A target can emit files rather than prose. vidsmith emits a whole project
+// directory, and until now the page showed the narration and quietly dropped
+// the two files you actually need to build it.
+function fileLines(artifact) {
+  const files = Object.entries(artifact.files || {});
+  if (!files.length) return "";
+  const rows = files
+    .map(([path, content]) => {
+      const bytes = new Blob([content]).size;
+      return `<button class="dl" data-target="${esc(artifact.target)}" data-path="${esc(path)}">
+        ${esc(path)} <span class="sz">${bytes.toLocaleString()} bytes</span>
+      </button>`;
+    })
+    .join("");
+  return `<div class="files">
+    <div class="fhint">Save these into one folder, keeping their names, then build it:
+      <code>python -m vidsmith build &lt;that folder&gt;</code></div>
+    ${rows}
+  </div>`;
+}
+
+function wireDownloads(result) {
+  const byTarget = Object.fromEntries(result.artifacts.map((a) => [a.target, a.files || {}]));
+  document.querySelectorAll("button.dl").forEach((el) => {
+    el.addEventListener("click", () => {
+      const content = byTarget[el.dataset.target][el.dataset.path];
+      // Basename on purpose: vidsmith expects script.md and config.yaml by those
+      // exact names, so a flattened "vidsmith-script.md" would not build.
+      const name = el.dataset.path.split("/").pop();
+      const url = URL.createObjectURL(new Blob([content], { type: "text/plain" }));
+      const a = document.createElement("a");
+      a.href = url;
+      a.download = name;
+      document.body.appendChild(a);
+      a.click();
+      a.remove();
+      setTimeout(() => URL.revokeObjectURL(url), 1000);
+    });
+  });
+}
+
 function warnLines(artifact) {
   return artifact.warnings
     .map(
@@ -128,12 +169,14 @@ function render(result) {
         </h2>
         ${warnLines(a)}
         ${violation ? `<div class="warn notice">${esc(violation)}</div>` : ""}
+        ${fileLines(a)}
         <div class="body">${renderBody(a)}</div>
       </div>`;
     })
     .join("");
 
   wireHover(result);
+  wireDownloads(result);
 }
 
 function wireHover(result) {
