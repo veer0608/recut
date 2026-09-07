@@ -103,6 +103,13 @@ def _raise_for(response: httpx.Response, provider: str) -> None:
     alone. Gemini names the quota in a `quotaId` like
     `GenerateRequestsPerDayPerProjectPerModel-FreeTier`. Groq's tier limit is per
     minute and it says so in prose.
+
+    Sometimes the body names nothing at all: a bare "You exceeded your current
+    quota" with no quotaId, no retryDelay and no metric. That case used to fall
+    through to Fatal, which cost a judged run ten of fifteen sources in seconds
+    while every model in the ladder was still answering minutes later. An
+    unnamed 429 is therefore retried rather than believed. Waiting a few seconds
+    to find out costs a few seconds; guessing wrong costs the run.
     """
     if response.status_code < 400:
         return
@@ -113,13 +120,19 @@ def _raise_for(response: httpx.Response, provider: str) -> None:
     if response.status_code == 429:
         per_day = re.search(r"PerDay|per day|requests per day", body, re.IGNORECASE)
         per_minute = re.search(r"PerMinute|PerSecond|per minute|TPM|RPM", body, re.IGNORECASE)
-        if per_minute and not per_day:
-            raise httpx.HTTPStatusError(message, request=response.request, response=response)
-        raise Fatal(message)
+        if per_day and not per_minute:
+            raise Fatal(message)
+        # Per-minute, or a 429 that will not say which. Both are worth waiting on.
+        raise httpx.HTTPStatusError(message, request=response.request, response=response)
 
     if response.status_code in NO_RETRY:
         raise Fatal(message)
     raise httpx.HTTPStatusError(message, request=response.request, response=response)
+
+
+def _is_rate_limit(exc: Exception) -> bool:
+    response = getattr(exc, "response", None)
+    return getattr(response, "status_code", None) == 429
 
 
 class LLM:
@@ -232,7 +245,12 @@ class LLM:
                         # clears in seconds. This retry is not optional.
                         if attempt == self.max_retries - 1:
                             failures.append(f"{model}: {exc}")
-                        time.sleep(min(2**attempt, 8) + random.random())
+                        # A rate limit window is a minute, so backing off for
+                        # eight seconds and declaring the model spent just moves
+                        # the same mistake later. Everything else clears fast and
+                        # should not be waited on for half a minute.
+                        ceiling = 24 if _is_rate_limit(exc) else 8
+                        time.sleep(min(2**attempt, ceiling) + random.random())
         raise LLMError("every provider failed:\n  " + "\n  ".join(failures))
 
     def structured(self, prompt: str, model_type: type[T]) -> T:

@@ -269,11 +269,56 @@ class TestQuotaBranching:
         except httpx.HTTPStatusError:
             pass
 
-    def test_an_unlabelled_429_is_treated_as_the_expensive_case(self):
+    def test_an_unlabelled_429_is_waited_on_rather_than_believed(self):
+        """This used to assume the expensive case, and the assumption was wrong.
+
+        Gemini can return a bare "You exceeded your current quota" with no
+        quotaId, no retryDelay and no metric. Treating that as a daily wall cost
+        a judged run ten of its fifteen sources in seconds, while all three
+        models in the ladder answered normally minutes later. Waiting to find
+        out costs seconds. Guessing wrong costs the run.
+        """
+        import httpx
+
         from recut.llm import Fatal, _raise_for
 
+        bare = '{"error":{"code":429,"message":"You exceeded your current quota"}}'
+        with pytest.raises(httpx.HTTPStatusError):
+            _raise_for(self._response(429, bare), "gemini")
+        try:
+            _raise_for(self._response(429, bare), "gemini")
+        except Fatal:  # pragma: no cover
+            pytest.fail("an unnamed 429 was treated as a daily wall")
+        except httpx.HTTPStatusError:
+            pass
+
+    def test_a_named_daily_wall_is_still_fatal_even_beside_a_minute_word(self):
+        # The day is what decides. A body mentioning both must not become
+        # retryable just because "per minute" appears somewhere in it.
+        from recut.llm import Fatal, _raise_for
+
+        body = '{"error":{"details":[{"quotaId":"GenerateRequestsPerDayPerProjectPerModel"}]}}'
         with pytest.raises(Fatal):
-            _raise_for(self._response(429, "slow down"), "gemini")
+            _raise_for(self._response(429, body), "gemini")
+
+    def test_a_rate_limit_waits_longer_than_an_overload(self):
+        # A rate-limit window is a minute. Backing off eight seconds and calling
+        # the model spent just moves the same mistake later.
+        import httpx
+
+        from recut.llm import _is_rate_limit
+
+        limited = httpx.HTTPStatusError(
+            "429", request=httpx.Request("POST", "https://x"),
+            response=self._response(429, "slow down"),
+        )
+        overloaded = httpx.HTTPStatusError(
+            "503", request=httpx.Request("POST", "https://x"),
+            response=self._response(503, "overloaded"),
+        )
+        assert _is_rate_limit(limited) is True
+        assert _is_rate_limit(overloaded) is False
+        assert _is_rate_limit(httpx.RequestError("boom")) is False
 
     def test_a_400_is_still_fatal(self):
         from recut.llm import Fatal, _raise_for
