@@ -17,6 +17,7 @@ Two rules keep this honest:
 
 from __future__ import annotations
 
+import math
 import re
 
 from .models import Artifact, Claim, ClaimSet, Document
@@ -36,15 +37,48 @@ _STOP = {
 # A sentence sharing fewer than this many distinctive words with a claim is not
 # being supported by it, whatever the arithmetic says.
 MIN_SHARED = 2
-MIN_SCORE = 0.18
+# A claim has to explain a real share of what the sentence says, not just overlap
+# with it. At 0.18 a sentence about merchant names still anchored to a claim about
+# dates on the strength of "bank", "statement" and "payment" alone. This is
+# calibrated on few examples and errs high on purpose: for a tool whose claim is
+# provenance, showing no anchor is a smaller failure than showing a wrong one.
+MIN_SCORE = 0.35
+# The winner must beat the runner-up by this much. Two claims that score alike
+# means we cannot tell which one a sentence came from, and saying "this line came
+# from that paragraph" when it is a coin flip is worse than saying nothing.
+MIN_MARGIN = 1.35
 
 _SENTENCE_SPLIT = re.compile(r"(?<=[.!?])\s+(?=[A-Z\"'“])")
 _WORD = re.compile(r"[A-Za-z0-9][A-Za-z0-9'’.%-]*")
 
 
+def _singular(word: str) -> str:
+    """Crude plural folding, which turns out to be the whole ball game.
+
+    A generator paraphrases, and paraphrasing pluralises: the claim said
+    "merchant names are typed by payment processors" and the output said
+    "the merchant name is typed by a payment processor". With exact tokens those
+    share almost nothing, and the sentence anchored to a claim about dates purely
+    on "bank", "statement" and "payment". No stemmer, because a real one drags in
+    a dependency and its own surprises for two rules that fix the actual problem.
+    """
+    if len(word) <= 3 or word.endswith("ss"):
+        return word
+    if len(word) > 4 and word.endswith("ies"):
+        return word[:-3] + "y"
+    # "-es" is a distinct plural only after s, x, z, ch or sh. Everywhere else it
+    # is plain "-s" on a word that already ended in "e", and stripping two
+    # characters turns "names" into "nam", which matches nothing.
+    if len(word) > 4 and word.endswith(("ses", "xes", "zes", "ches", "shes")):
+        return word[:-2]
+    if word.endswith("s"):
+        return word[:-1]
+    return word
+
+
 def tokens(text: str) -> set[str]:
     words = {w.lower().strip(".'’") for w in _WORD.findall(text)}
-    return {w for w in words if w and w not in _STOP and len(w) > 1}
+    return {_singular(w) for w in words if w and w not in _STOP and len(w) > 1}
 
 
 def sentences_of(body: str) -> list[tuple[int, int, str]]:
@@ -70,15 +104,45 @@ def sentences_of(body: str) -> list[tuple[int, int, str]]:
     return out
 
 
-def score(sentence: str, claim: Claim) -> float:
-    """Overlap of distinctive words, with a nudge for a shared exact figure."""
+def weights(claims: list[Claim]) -> dict[str, float]:
+    """How much each word distinguishes one claim from another.
+
+    A word in most of the claims tells you nothing about which one a sentence
+    came from. "bank", "statement" and "payment" are in nearly every claim about
+    bank statements, and counting them equally with "merchant" is what made a
+    sentence about merchant names match a claim about dates.
+    """
+    total = len(claims) or 1
+    frequency: dict[str, int] = {}
+    for claim in claims:
+        for token in tokens(claim.text):
+            frequency[token] = frequency.get(token, 0) + 1
+    return {token: math.log(1 + total / count) for token, count in frequency.items()}
+
+
+def score(sentence: str, claim: Claim, weight: dict[str, float] | None = None) -> float:
+    """Weighted overlap, with a nudge for a shared figure or an exact quote."""
     a, b = tokens(sentence), tokens(claim.text)
     if not a or not b:
         return 0.0
     shared = a & b
     if len(shared) < MIN_SHARED:
         return 0.0
-    base = len(shared) / min(len(a), len(b))
+
+    if weight:
+        # A word in the sentence that appears in no claim at all is the rarest
+        # case there is, so it gets the weight of a word seen once. It has to be
+        # counted in the denominator: those words are the evidence that this
+        # sentence is about something the claim does not cover. Leaving them out
+        # let a sentence about merchant names score a perfect 1.0 against a claim
+        # about dates, purely because every word they did share was generic.
+        default = max(weight.values())
+        got = sum(weight.get(w, default) for w in shared)
+        want = sum(weight.get(w, default) for w in a)
+        base = got / want if want else 0.0
+    else:
+        base = len(shared) / min(len(a), len(b))
+
     # A number both sides agree on is far stronger evidence than a shared noun.
     if any(re.search(r"\d", w) for w in shared):
         base += 0.15
@@ -90,15 +154,22 @@ def score(sentence: str, claim: Claim) -> float:
 def align(artifact: Artifact, claims: ClaimSet, document: Document) -> list[dict]:
     """One entry per sentence, carrying its claim and source spans, or nothing."""
     cited = [c for cid in artifact.claim_ids if (c := claims.claim(cid))]
+    weight = weights(cited)
     out: list[dict] = []
 
     for start, end, sentence in sentences_of(artifact.body):
-        best: Claim | None = None
-        best_score = 0.0
-        for claim in cited:
-            value = score(sentence, claim)
-            if value > best_score:
-                best, best_score = claim, value
+        ranked = sorted(
+            ((score(sentence, c, weight), c) for c in cited), key=lambda p: -p[0]
+        )
+        best_score, best = ranked[0] if ranked else (0.0, None)
+        runner_up = ranked[1][0] if len(ranked) > 1 else 0.0
+        # Ambiguity is not a match. If the second-best claim is nearly as good,
+        # we do not know which paragraph this line came from.
+        if runner_up and best_score < runner_up * MIN_MARGIN:
+            best, best_score = None, best_score
+            ambiguous = True
+        else:
+            ambiguous = False
 
         entry: dict = {
             "start": start,
@@ -109,6 +180,7 @@ def align(artifact: Artifact, claims: ClaimSet, document: Document) -> list[dict
             "confidence": round(best_score, 3),
             "segments": [],
         }
+        entry["ambiguous"] = ambiguous
         if best is not None and best_score >= MIN_SCORE:
             entry["claim_id"] = best.id
             entry["claim"] = best.text

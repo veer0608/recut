@@ -242,3 +242,100 @@ class TestBringYourOwnKey:
         js = client.get("/static/app.js").text
         assert "sessionStorage." in js
         assert "localStorage." not in js
+
+
+class TestMatcherTightening:
+    """Reproduces a real miss seen in the review queue: a sentence about merchant
+    names anchored to the paragraph about dates, because both claims share the
+    generic topic words that appear in every claim on the subject."""
+
+    CLAIMS = ClaimSet(
+        document_id="d",
+        claims=[
+            Claim(id="c0", text="The merchant name on a bank statement is typed by the payment processor, not the shop.", segment_ids=["s1"]),
+            Claim(id="c1", text="A bank statement is a record of what the bank found convenient to store.", segment_ids=["s0"]),
+            Claim(id="c2", text="The date displayed on a bank statement is usually the settlement date rather than the day the payment was made.", segment_ids=["s2"]),
+        ],
+    )
+    SENTENCE = "The merchant name on your bank statement is typed by a payment processor, not the shop where you made the purchase."
+
+    def _doc(self):
+        from recut.models import Document, Segment
+
+        texts = [
+            "Your bank statement is a record of what your bank found convenient to store.",
+            "The merchant name on a transaction is typed by the payment processor, not the shop.",
+            "The date you see is usually the settlement date, not the day you paid.",
+        ]
+        at, segments = 0, []
+        for i, t in enumerate(texts):
+            segments.append(Segment(id=f"s{i}", text=t, char_start=at, char_end=at + len(t)))
+            at += len(t) + 2
+        return Document(id="d", title="t", source_type="markdown", source_ref="x",
+                        segments=segments, raw="\n\n".join(texts))
+
+    def test_generic_topic_words_no_longer_win(self):
+        from recut.align import weights
+
+        w = weights(self.CLAIMS.claims)
+        # "statement" is in all three claims, "merchant" in one.
+        assert w["merchant"] > w["statement"]
+
+    def test_the_sentence_now_anchors_to_the_right_paragraph(self):
+        artifact = Artifact(target="linkedin", body=self.SENTENCE, claim_ids=["c0", "c1", "c2"])
+        entry = align(artifact, self.CLAIMS, self._doc())[0]
+        assert entry["claim_id"] == "c0"
+        assert "merchant name" in entry["segments"][0]["text"]
+
+    def test_a_sentence_with_no_cited_owner_shows_nothing(self):
+        # The right claim was never cited, so the dates claim must not stand in.
+        artifact = Artifact(target="linkedin", body=self.SENTENCE, claim_ids=["c1", "c2"])
+        entry = align(artifact, self.CLAIMS, self._doc())[0]
+        assert entry["claim_id"] is None
+
+    def test_two_equally_plausible_claims_produce_no_anchor(self):
+        twins = ClaimSet(document_id="d", claims=[
+            Claim(id="a", text="Refunds are slow at every bank we tested.", segment_ids=["s0"]),
+            Claim(id="b", text="Refunds are slow at every bank we measured.", segment_ids=["s1"]),
+        ])
+        artifact = Artifact(target="linkedin", body="Refunds are slow at every bank.", claim_ids=["a", "b"])
+        entry = align(artifact, twins, self._doc())[0]
+        assert entry["claim_id"] is None
+        assert entry["ambiguous"] is True
+
+
+class TestPluralFolding:
+    """The fix that actually mattered. A generator paraphrases, and paraphrasing
+    pluralises, so exact tokens miss the claim the sentence really came from."""
+
+    def test_singular_and_plural_are_the_same_token(self):
+        from recut.align import tokens
+
+        assert tokens("merchant names") == tokens("merchant name")
+        assert tokens("payment processors") == tokens("payment processor")
+
+    def test_ies_folds_to_y(self):
+        from recut.align import tokens
+
+        assert tokens("companies") == tokens("company")
+
+    def test_double_s_is_not_stripped(self):
+        from recut.align import _singular
+
+        assert _singular("business") == "business"
+        assert _singular("process") == "process"
+
+    def test_short_words_are_left_alone(self):
+        from recut.align import _singular
+
+        assert _singular("is") == "is"
+        assert _singular("gas") == "gas"
+
+    def test_the_plural_claim_now_outscores_the_generic_one(self):
+        from recut.align import score, weights
+
+        right = Claim(id="c1", text="Merchant names on transactions are typed by payment processors rather than the shop.", segment_ids=["s1"])
+        dates = Claim(id="c2", text="The date displayed on a bank statement is usually the settlement date rather than the day the payment was made.", segment_ids=["s2"])
+        sentence = "The merchant name on your bank statement is typed by a payment processor, not the shop."
+        w = weights([right, dates])
+        assert score(sentence, right, w) > score(sentence, dates, w)
