@@ -111,9 +111,46 @@ minute video will not honestly fill 800 words, and asking for them invites paddi
 which is the failure mode next door to fabrication. The prompt and the check are
 computed from the same number so they cannot disagree.
 
+## In the browser
+
+The CLI is not the whole product. `recut.api` serves a page that runs the same
+pipeline and then shows the thing a file cannot: hover a sentence of the output and
+the span of the source behind it lights up.
+
+```bash
+python -m uvicorn recut.api:app --port 8078
+```
+
+A run takes 20 to 60 seconds, which is longer than a browser will hold a request
+open, so `POST /api/jobs` hands back an id and the page polls it. The job store is
+SQLite and nothing else. No Celery, no Redis, no Docker: a queue that needs three
+services to repurpose a blog post is a worse product than one that needs none.
+
+**Bring your own key.** Paste a Gemini or Groq key into the page and the run spends
+your quota instead of the host's. When you supply one, the server's own keys are
+taken off the table entirely rather than kept as a fallback, because falling back
+would spend the host's quota while the page told you it was spending yours.
+
+### The review queue
+
+recut measures its own unsupported claim rate and that number is not zero. That is
+survivable only because a person reads the output before it goes out, so the path
+from generated to published runs through a queue rather than around it.
+
+A draft moves `pending` to `approved` or `rejected`, and `approved` to `posted`.
+Changing your mind and approving something you rejected is allowed. Marking something
+`posted` that nobody approved is refused, because that would skip the review step
+while leaving a record that says it happened. **Nothing here posts anything to
+anywhere.** `posted` is a human saying they did it.
+
+Each draft carries its provenance, so a reviewer sees which span of the source stands
+behind each sentence instead of judging prose on its own. Each draft also carries the
+source as it was when the draft was written, because a URL can change under you and a
+review against today's version of a page is not a review of what was generated.
+
 ## The verifier
 
-After each output is written, five deterministic checks run. No model call, no
+After each output is written, six deterministic checks run. No model call, no
 network, no cost.
 
 | rule | what it catches |
@@ -122,6 +159,7 @@ network, no cost.
 | quote | quotation marks around words that are not a verbatim span of the source |
 | entity | a person, company or product named in the output but not in the source |
 | intensity | force the output reached for that the source never did: "necessary", "always", "ensures", "relies on", "the ultimate" |
+| copying | eight or more consecutive words reproduced from the source without quoting |
 | citation | a claim id that does not exist |
 
 The intensity rule exists because of a measurement rather than a hunch. The first
@@ -132,6 +170,15 @@ and instead asks one that a token check can: **did the output reach for a word o
 force that the source never reached for?** A source that says "critical" itself
 vouches for an output that says "critical", and inflections count, so "necessity" in
 the source excuses "necessary" in the output.
+
+The copying rule asks a different question from the others. Every word it flags is
+supported by the source, and that is the problem: reproducing someone else's sentence
+unchanged under your own name is a different kind of wrong, and a tool that rewrites
+for a living should notice when it did not rewrite. It is a notice rather than an
+error on purpose. **80% of artifacts across both eval runs carried an eight word
+verbatim run**, so gating on it would send four drafts in five back for repair before
+the prompt work that should fix it has had a chance to. It gets promoted when a run
+measures the rate down, not before.
 
 A failure triggers exactly one regeneration with the offending span named. A second
 failure is surfaced to the user, not hidden. Silently shipping an unanchored figure
@@ -277,7 +324,7 @@ cd recut
 python -m venv .venv
 .venv/Scripts/activate       # Windows
 # source .venv/bin/activate  # macOS and Linux
-python -m pip install -e ".[web,dev]"
+python -m pip install -e ".[web,api,dev]"
 ```
 
 Then copy `.env.example` to `.env` and fill in a Gemini or Groq key. Either alone is
@@ -303,7 +350,7 @@ Both providers have traps that cost real runs, so the client works around them:
 python -m pytest -q
 ```
 
-163 tests in about a second, none of which touch the network. The pipeline tests
+236 tests in about five seconds, none of which touch the network. The pipeline tests
 drive a scripted model
 so the whole loop, including the repair path, runs offline and for free, and the
 ingest tests feed fixture HTML and fixture caption cues rather than fetching.
