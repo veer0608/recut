@@ -157,9 +157,24 @@ auth (port 8079; vidsmith owns 8077). Caddy strips the `/recut` prefix, which is
 `web/` is relative. The password is protecting an API budget, not a secret: the server's keys are
 still the default when a visitor does not supply their own.
 
+**Restart only when `recut/` changed.** The service imports `recut/` and `web/` and
+nothing else, so a commit touching only `eval/` or `tests/` needs the pull and not the
+restart. Bouncing a live service to deploy a test file is risk for no benefit.
+
 ```bash
+# code the service runs
 ssh -i ~/.ssh/vidsmith-key.pem ubuntu@vidsmith.duckdns.org "cd ~/recut && git pull --ff-only && sudo systemctl restart recut"
 ```
+
+```bash
+# eval or tests only
+ssh -i ~/.ssh/vidsmith-key.pem ubuntu@vidsmith.duckdns.org "cd ~/recut && git pull --ff-only"
+```
+
+Either way, check it afterwards rather than assuming: `systemctl is-active recut vidsmith
+caddy`, and `curl -s -o /dev/null -w '%{http_code}' http://127.0.0.1:8079/api/queue` from
+the box. The eval harness lives in this repo but only ever runs locally; the box has no
+API keys budget of its own and runs no evals.
 
 Validate any Caddyfile change with `caddy validate` **before** installing it; a bad one takes
 vidsmith down too. Rotating the API keys is `tools/rotate-llm-keys.py` in the private
