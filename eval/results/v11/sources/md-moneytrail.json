@@ -1,0 +1,366 @@
+{
+  "id": "md-moneytrail",
+  "judged_by_model": false,
+  "kind": "markdown",
+  "ref": "C:\\Users\\veera\\claude\\moneytrail\\README.md",
+  "title": "moneytrail",
+  "segments": 153,
+  "chars": 35444,
+  "extracted_claims": 49,
+  "dropped_unanchored": 0,
+  "demoted_quotes": 0,
+  "targets": [
+    "linkedin",
+    "thread"
+  ],
+  "verifier_errors": {
+    "linkedin": [],
+    "thread": []
+  },
+  "format_violations": {},
+  "repaired": [],
+  "repair_attempted": [],
+  "repair_detail": {},
+  "claim_utilisation": 0.16326530612244897,
+  "judged": {},
+  "judged_claims": 0,
+  "judged_unsupported": 0,
+  "injections": {
+    "planted": 10,
+    "caught": 10,
+    "recall": 1.0,
+    "recall_by_rule": {
+      "number": 1.0,
+      "quote": 1.0,
+      "entity": 1.0,
+      "intensity": 1.0,
+      "citation": 1.0
+    },
+    "missed": [],
+    "clean_bodies": 2,
+    "unplanted_error_bodies": 0,
+    "unplanted_errors_by_rule": {},
+    "unplanted_errors": []
+  },
+  "bodies": {
+    "linkedin": "Counting both bank debits for card payments and the corresponding credit card charges results in double-counting expenses. Most personal finance tools ignore the bank's own arithmetic, leading to data that does not reconcile.\n\nMoneytrail processes bank statements locally, ensuring that data never leaves the user's machine. The codebase avoids floating-point numbers entirely to prevent precision errors, treating money as an integer count of paise. It uses \"0.1 + 0.2 != 0.3\" as a baseline for why standard math fails in financial tracking.\n\nWhen reconciling, the software rejects scanned PDF files rather than subjecting them to estimation. If a statement fails to reconcile, it is exported with a stamped status of 'reconciled = NO'. The system identifies recurring charges by measuring actual cadence rather than assuming subscriptions based on fixed intervals.\n\nThis project is licensed under the MIT license.\n\n#finance #accounting #data",
+    "thread": "Counting both your credit card bill payment and your individual card purchases will double-count your actual spending.\n\nMost bank statement analysis tools fail because they treat transfers to friends as unresolved merchant transactions.\n\nThe codebase avoids floating-point numbers entirely to prevent precision errors, treating money as an integer count of paise. \"0.1 + 0.2 != 0.3\"\n\nStatements that fail to reconcile are still exported with a stamped status of 'reconciled = NO' and a process exit code of 1.\n\nThe system identifies recurring charges by measuring actual cadence rather than assuming subscriptions based on fixed intervals.\n\nPersonal finance tools must prioritize mathematical reconciliation of bank statements over categorization to ensure data integrity."
+  },
+  "inventory": {
+    "claims": [
+      {
+        "id": "c0",
+        "kind": "fact",
+        "text": "Moneytrail processes bank statements locally, ensuring that data never leaves the user's machine.",
+        "verbatim": null
+      },
+      {
+        "id": "c1",
+        "kind": "fact",
+        "text": "The tool validates transaction data by checking the running balance against the bank's own arithmetic.",
+        "verbatim": null
+      },
+      {
+        "id": "c2",
+        "kind": "fact",
+        "text": "The codebase avoids floating-point numbers entirely to prevent precision errors, treating money as an integer count of paise.",
+        "verbatim": "0.1 + 0.2 != 0.3"
+      },
+      {
+        "id": "c3",
+        "kind": "stat",
+        "text": "The software is verified by 499 tests and maintains green CI status on Python versions 3.11 and 3.12.",
+        "verbatim": "499 tests, CI green on 3.11 and 3.12"
+      },
+      {
+        "id": "c4",
+        "kind": "fact",
+        "text": "Credit card statements are reconciled using the issuer's summary box arithmetic rather than a running balance chain.",
+        "verbatim": null
+      },
+      {
+        "id": "c5",
+        "kind": "fact",
+        "text": "Scanned PDF files are intentionally rejected by the software rather than being subjected to estimation.",
+        "verbatim": null
+      },
+      {
+        "id": "c6",
+        "kind": "stat",
+        "text": "The tool successfully reconciled 225 transactions from an HDFC bank statement against the bank's own summary balance.",
+        "verbatim": "225 transactions"
+      },
+      {
+        "id": "c7",
+        "kind": "fact",
+        "text": "Initial testing with real data revealed four specific formatting defects that synthetic data failed to identify.",
+        "verbatim": null
+      },
+      {
+        "id": "c8",
+        "kind": "fact",
+        "text": "The software uses minimum-cost segmentation to separate concatenated merchant names based on a vocabulary.",
+        "verbatim": null
+      },
+      {
+        "id": "c9",
+        "kind": "stat",
+        "text": "Only 18% of transactions on the tested statement were classified as recognized merchants.",
+        "verbatim": "18%"
+      },
+      {
+        "id": "c10",
+        "kind": "stat",
+        "text": "The largest portion of the tested statement, at 41%, consisted of person-to-person transfers.",
+        "verbatim": "41%"
+      },
+      {
+        "id": "c11",
+        "kind": "fact",
+        "text": "Counting both bank debits for card payments and the corresponding credit card charges results in double-counting expenses.",
+        "verbatim": null
+      },
+      {
+        "id": "c12",
+        "kind": "fact",
+        "text": "Repayments without a corresponding card statement are still included in spending totals to avoid the risk of understating expenses.",
+        "verbatim": null
+      },
+      {
+        "id": "c13",
+        "kind": "fact",
+        "text": "The system identifies recurring charges by measuring actual cadence rather than assuming subscriptions based on fixed intervals.",
+        "verbatim": null
+      },
+      {
+        "id": "c14",
+        "kind": "fact",
+        "text": "Transfers between a user's own accounts are identified and removed from both inflow and outflow totals to prevent artificial inflation of spending or income.",
+        "verbatim": null
+      },
+      {
+        "id": "c15",
+        "kind": "fact",
+        "text": "Most bank statements lack ruling lines, causing standard PDF conversion tools to fail by returning no data.",
+        "verbatim": null
+      },
+      {
+        "id": "c16",
+        "kind": "fact",
+        "text": "The tool determines column boundaries by analyzing the geometric center of words relative to headings.",
+        "verbatim": null
+      },
+      {
+        "id": "c17",
+        "kind": "fact",
+        "text": "Row identification is complex because bank statements often wrap narrations across multiple lines, requiring the system to group lines based on the presence of a date.",
+        "verbatim": null
+      },
+      {
+        "id": "c18",
+        "kind": "stat",
+        "text": "The threshold for identifying column boundaries is calculated dynamically per line, using values like 1.8pt for word spaces and 12.7pt for narrow column gaps.",
+        "verbatim": null
+      },
+      {
+        "id": "c19",
+        "kind": "fact",
+        "text": "The software rejects PDFs where the text layer lacks valid geometric column information to avoid generating misleading ledger totals.",
+        "verbatim": null
+      },
+      {
+        "id": "c20",
+        "kind": "fact",
+        "text": "Exported files include a reconciliation certificate that contains the SHA-256 hash of the source bytes and the results of arithmetic checks.",
+        "verbatim": null
+      },
+      {
+        "id": "c21",
+        "kind": "stat",
+        "text": "Statements that fail to reconcile are still exported with a stamped status of 'reconciled = NO' and a process exit code of 1.",
+        "verbatim": "reconciled = NO"
+      },
+      {
+        "id": "c22",
+        "kind": "fact",
+        "text": "To ensure data accuracy, the software writes amounts as exact decimals rather than floats and uses a Byte Order Mark (BOM) in CSV files to maintain character encoding compatibility with Excel.",
+        "verbatim": null
+      },
+      {
+        "id": "c23",
+        "kind": "fact",
+        "text": "The application provides a certificate, workbook, and trust strip as a single PDF file delivered in one response.",
+        "verbatim": null
+      },
+      {
+        "id": "c24",
+        "kind": "fact",
+        "text": "The server does not include a download endpoint because it does not maintain files after the initial request.",
+        "verbatim": null
+      },
+      {
+        "id": "c25",
+        "kind": "fact",
+        "text": "Uploaded data is stored in a temporary directory that is deleted before the server response is fully written.",
+        "verbatim": null
+      },
+      {
+        "id": "c26",
+        "kind": "fact",
+        "text": "The system logs only the request method and path, with no database usage.",
+        "verbatim": null
+      },
+      {
+        "id": "c27",
+        "kind": "fact",
+        "text": "The web interface is a single HTML file that excludes build steps, CDNs, and analytics tools.",
+        "verbatim": null
+      },
+      {
+        "id": "c28",
+        "kind": "narrative",
+        "text": "The demo version includes a sample file with a row removed to demonstrate the tool's ability to identify missing data.",
+        "verbatim": null
+      },
+      {
+        "id": "c29",
+        "kind": "fact",
+        "text": "The hosted service charges for batch processing using license keys, while single statement reconciliation remains free.",
+        "verbatim": null
+      },
+      {
+        "id": "c30",
+        "kind": "fact",
+        "text": "License keys act as bearer tokens stored in the browser rather than account credentials stored in a database.",
+        "verbatim": null
+      },
+      {
+        "id": "c31",
+        "kind": "fact",
+        "text": "The payment gate is only active on the hosted instance and is disabled when no product ID is configured.",
+        "verbatim": null
+      },
+      {
+        "id": "c32",
+        "kind": "fact",
+        "text": "Verified license keys are cached for one day to ensure functionality during payment processor outages.",
+        "verbatim": null
+      },
+      {
+        "id": "c33",
+        "kind": "fact",
+        "text": "Generated reports are self-contained HTML files that do not require network connectivity or servers to view.",
+        "verbatim": null
+      },
+      {
+        "id": "c34",
+        "kind": "opinion",
+        "text": "A language model tasked with calculating totals from a ledger might provide a plausible but incorrect figure without any indication of error.",
+        "verbatim": null
+      },
+      {
+        "id": "c35",
+        "kind": "fact",
+        "text": "The system architecture separates tasks by using language models to translate natural language into queries, while the engine performs the actual arithmetic.",
+        "verbatim": null
+      },
+      {
+        "id": "c36",
+        "kind": "fact",
+        "text": "When asked about a merchant not present in the ledger, the system correctly refuses to answer rather than providing an incorrect total.",
+        "verbatim": null
+      },
+      {
+        "id": "c37",
+        "kind": "fact",
+        "text": "Relative date references like 'last month' are resolved against the ledger's contents to prevent answers from changing over time.",
+        "verbatim": null
+      },
+      {
+        "id": "c38",
+        "kind": "fact",
+        "text": "The moneytrail tool supports multiple LLM providers including Groq, OpenAI, Gemini, Together, OpenRouter, and Ollama through a unified request format.",
+        "verbatim": null
+      },
+      {
+        "id": "c39",
+        "kind": "stat",
+        "text": "The evaluation dataset consists of 71 questions paired with their expected queries rather than numerical answers.",
+        "verbatim": "71 questions"
+      },
+      {
+        "id": "c40",
+        "kind": "stat",
+        "text": "To prevent prompt tuning bias, 40 percent of the question set is withheld from the model during the evaluation process.",
+        "verbatim": "40% of the set is held back"
+      },
+      {
+        "id": "c41",
+        "kind": "stat",
+        "text": "The built-in regex parser achieves 65.5% query accuracy and 55.2% answer accuracy.",
+        "verbatim": "65.5% | 65.5% | 55.2%"
+      },
+      {
+        "id": "c42",
+        "kind": "stat",
+        "text": "The openai/gpt-oss-120b model achieves 89.7% query accuracy and 93.1% answer accuracy at a cost of $0.000291 per question.",
+        "verbatim": "89.7% | 93.1% | 20.7% | $0.000291"
+      },
+      {
+        "id": "c43",
+        "kind": "stat",
+        "text": "Three models provide identical query and answer accuracy scores despite a 4.4x price difference.",
+        "verbatim": "4.4\u00d7 spread in price"
+      },
+      {
+        "id": "c44",
+        "kind": "opinion",
+        "text": "The openai/gpt-oss-20b model is recommended for use because it offers the same accuracy as larger models, is the fastest at the p50, and costs a quarter of the 70B model.",
+        "verbatim": null
+      },
+      {
+        "id": "c45",
+        "kind": "stat",
+        "text": "Prompt tuning against a development set can lead to regressions on held-out data, as seen when accuracy dropped from 27/29 to 26/29.",
+        "verbatim": "27/29 to 26/29"
+      },
+      {
+        "id": "c46",
+        "kind": "fact",
+        "text": "The built-in parser correctly identifies when a question cannot be answered by the tool's schema, whereas models may attempt to answer incorrectly.",
+        "verbatim": null
+      },
+      {
+        "id": "c47",
+        "kind": "fact",
+        "text": "The project is licensed under the MIT license.",
+        "verbatim": null
+      },
+      {
+        "id": "c48",
+        "kind": "fact",
+        "text": "The tool rejects half-recovered PDF tables if no header is found to prevent reconciling against incorrect totals.",
+        "verbatim": null
+      }
+    ],
+    "hook_candidates": [
+      "Your banking app might be hiding silent data-loss bugs in your transaction history.",
+      "Categorizing your spending is a useless exercise if your underlying transaction data is mathematically incorrect.",
+      "Bank statements contain free ground truth that most finance tools completely ignore.",
+      "A missing Netflix charge can be identified as a specific line number error using arithmetic reconciliation.",
+      "Floating-point math is fundamentally unsuitable for tracking money down to the last paisa.",
+      "Your bank statement is not a record of what you spent, but a collection of events that often require manual interpretation.",
+      "Counting both your credit card bill payment and your individual card purchases will double-count your actual spending.",
+      "Most bank statement analysis tools fail because they treat transfers to friends as unresolved merchant transactions."
+    ],
+    "voice_samples": [
+      "A silent data-loss bug becomes a line number.",
+      "Magic bytes decide the format, never the extension.",
+      "Everything below is shipped.",
+      "Counting both double-counts the money.",
+      "Cadence is measured, not assumed.",
+      "Refunds that never arrived cannot be found."
+    ],
+    "thesis": "Personal finance tools must prioritize mathematical reconciliation of bank statements over categorization to ensure data integrity."
+  }
+}

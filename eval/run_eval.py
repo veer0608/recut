@@ -289,6 +289,13 @@ def aggregate(results: list[dict], failures: list[dict], run: dict) -> dict:
     violations = sum(len(r["format_violations"]) for r in results)
     utilisations = [r["claim_utilisation"] for r in results if r["claim_utilisation"] is not None]
     repair = _repair_stats(results)
+    # Both are per-source counters that nothing has ever aggregated. dropped is the
+    # corollary the whole design rests on and it has fired zero times in four runs
+    # over 1,586 claims, which is worth knowing: it is insurance, not a working
+    # part. demoted is new and its rate is the signal for whether extraction has
+    # started filling verbatim on quote claims.
+    dropped_claims = sum(r.get("dropped_unanchored", 0) for r in results)
+    demoted_quotes = sum(r.get("demoted_quotes", 0) for r in results)
 
     by_rule: dict[str, list[float]] = {}
     for result in results:
@@ -338,6 +345,8 @@ def aggregate(results: list[dict], failures: list[dict], run: dict) -> dict:
         "format_compliance": (1 - violations / artifacts) if artifacts else None,
         "claim_utilisation": (sum(utilisations) / len(utilisations)) if utilisations else None,
         "repair": repair,
+        "dropped_unanchored": dropped_claims,
+        "demoted_quotes": demoted_quotes,
         "artifacts": artifacts,
     }
 
@@ -477,6 +486,10 @@ def main(argv: list[str] | None = None) -> int:
                 f"{DIM}            {rule:<10} repair cleared {stat['cleared']}/{stat['seen']}"
                 f" ({stat['rate']:.0%}){OFF}"
             )
+    print(
+        f"inventory   {report['dropped_unanchored']} claim(s) dropped unanchored, "
+        f"{report['demoted_quotes']} quote claim(s) demoted for want of verbatim"
+    )
     print(f"format      {_pct(report['format_compliance'])} compliant")
     print(f"utilisation {_pct(report['claim_utilisation'])} of extracted claims used")
 

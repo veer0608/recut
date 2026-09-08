@@ -1,0 +1,421 @@
+{
+  "id": "md-vidsmith",
+  "judged_by_model": false,
+  "kind": "markdown",
+  "ref": "C:\\Users\\veera\\claude\\vidsmith\\README.md",
+  "title": "vidsmith",
+  "segments": 141,
+  "chars": 29674,
+  "extracted_claims": 53,
+  "dropped_unanchored": 0,
+  "demoted_quotes": 0,
+  "targets": [
+    "linkedin",
+    "thread"
+  ],
+  "verifier_errors": {
+    "linkedin": [
+      "[error/copying] 'A 2 vCPU box builds at roughly 2.2x realtime': 10 consecutive words copied from the source without quoting"
+    ],
+    "thread": []
+  },
+  "format_violations": {},
+  "repaired": [
+    "linkedin",
+    "thread"
+  ],
+  "repair_attempted": [
+    "linkedin",
+    "thread"
+  ],
+  "repair_detail": {
+    "linkedin": {
+      "kept": true,
+      "first_pass_errors": [
+        "[error/copying] 'Nothing transcribed the audio to place those captions': 8 consecutive words copied from the source without quoting"
+      ],
+      "repair_errors": [
+        "[error/copying] 'A 2 vCPU box builds at roughly 2.2x realtime': 10 consecutive words copied from the source without quoting"
+      ],
+      "spans_changed": [
+        "[copying] Nothing transcribed the audio to place those captions"
+      ]
+    },
+    "thread": {
+      "kept": true,
+      "first_pass_errors": [
+        "[error/copying] 'Nothing transcribed the audio to place those captions. The': 9 consecutive words copied from the source without quoting"
+      ],
+      "repair_errors": [],
+      "spans_changed": [
+        "[copying] Nothing transcribed the audio to place those captions. The"
+      ]
+    }
+  },
+  "claim_utilisation": 0.18867924528301888,
+  "judged": {},
+  "judged_claims": 0,
+  "judged_unsupported": 0,
+  "injections": {
+    "planted": 10,
+    "caught": 10,
+    "recall": 1.0,
+    "recall_by_rule": {
+      "number": 1.0,
+      "quote": 1.0,
+      "entity": 1.0,
+      "intensity": 1.0,
+      "citation": 1.0
+    },
+    "missed": [],
+    "clean_bodies": 2,
+    "unplanted_error_bodies": 0,
+    "unplanted_errors_by_rule": {},
+    "unplanted_errors": []
+  },
+  "bodies": {
+    "linkedin": "Captions and visual cuts are synchronized using the speech engine's internal word-timing data. This approach avoids post-hoc transcription of generated audio, which is the method used by most video tools. \n\nScenes are divided into shots at sentence boundaries to prevent the appearance of generated video. When a sentence exceeds the maximum shot duration, it is split at the final comma. \n\nThumbnail candidates must be spaced at least 2.5s apart to ensure variety. The system also limits the render queue to three concurrent jobs, returning a 429 status code for any subsequent requests to avoid indefinite waiting periods for users. \n\nA 2 vCPU box builds at roughly 2.2x realtime. \n\nCommercial licenses cost $49 for individuals and $299 for companies.",
+    "thread": "Captions and visual cuts are synchronized using the speech engine's internal word-timing data. No post-hoc transcription is required.\n\nThe software builds narrated and captioned videos starting from a markdown script.\n\nScenes are divided into shots at sentence boundaries to prevent the appearance of generated video.\n\nWhen a sentence exceeds the maximum shot duration, it is split at the final comma.\n\nThe background music is automatically set to a level of approximately -34 dB, and ducks 8 dB during speech.\n\nA demonstration build of a project takes approximately 62s to build.\n\nVideo captioning and scene timing should be derived directly from the speech engine's word-boundary events rather than by performing a post-hoc transcription of the generated audio."
+  },
+  "inventory": {
+    "claims": [
+      {
+        "id": "c0",
+        "kind": "fact",
+        "text": "The vidsmith tool generates narrated and captioned videos starting from a markdown script.",
+        "verbatim": null
+      },
+      {
+        "id": "c1",
+        "kind": "fact",
+        "text": "Captions and visual cuts are synchronized using the speech engine's internal word-timing data.",
+        "verbatim": null
+      },
+      {
+        "id": "c2",
+        "kind": "fact",
+        "text": "The software produces an mp4 file, subtitle files in .srt and .vtt formats, and draft metadata for YouTube.",
+        "verbatim": null
+      },
+      {
+        "id": "c3",
+        "kind": "stat",
+        "text": "A demonstration build of a project takes approximately 62 seconds to complete.",
+        "verbatim": "62s to build"
+      },
+      {
+        "id": "c4",
+        "kind": "fact",
+        "text": "The default narration voice uses a free Microsoft endpoint and requires no account or API keys.",
+        "verbatim": null
+      },
+      {
+        "id": "c5",
+        "kind": "fact",
+        "text": "FFmpeg is the only mandatory non-Python dependency for the software.",
+        "verbatim": null
+      },
+      {
+        "id": "c6",
+        "kind": "fact",
+        "text": "Punctuation marks are re-added to the captions by referencing the original script because the speech engine omits them.",
+        "verbatim": null
+      },
+      {
+        "id": "c7",
+        "kind": "fact",
+        "text": "Users can optionally use Amazon Polly for narration if they have specific licensing requirements.",
+        "verbatim": null
+      },
+      {
+        "id": "c8",
+        "kind": "fact",
+        "text": "Polly is one of the few services that provides word timing data.",
+        "verbatim": null
+      },
+      {
+        "id": "c9",
+        "kind": "fact",
+        "text": "Polly charges for both audio generation and speech mark requests, effectively doubling the cost based on script length.",
+        "verbatim": null
+      },
+      {
+        "id": "c10",
+        "kind": "fact",
+        "text": "The generative engine from Polly does not offer speech marks, making it unsuitable for timing cuts or captions.",
+        "verbatim": null
+      },
+      {
+        "id": "c11",
+        "kind": "fact",
+        "text": "Scenes are divided into shots at sentence boundaries to prevent the appearance of generated video.",
+        "verbatim": null
+      },
+      {
+        "id": "c12",
+        "kind": "fact",
+        "text": "When a sentence exceeds the maximum shot duration, it is split at the final comma.",
+        "verbatim": null
+      },
+      {
+        "id": "c13",
+        "kind": "fact",
+        "text": "Gemini can be used to reorder stock footage candidates by analyzing preview stills against the narration.",
+        "verbatim": null
+      },
+      {
+        "id": "c14",
+        "kind": "fact",
+        "text": "Candidates identified by the model as having the incorrect subject are excluded from use.",
+        "verbatim": null
+      },
+      {
+        "id": "c15",
+        "kind": "fact",
+        "text": "The generated background music is a slow chord pad using detuned sines, echo, and a low-pass filter.",
+        "verbatim": null
+      },
+      {
+        "id": "c16",
+        "kind": "stat",
+        "text": "The background music is automatically set to a level of approximately -34 dB and ducks by 8 dB during speech.",
+        "verbatim": "-34 dB, and ducks 8 dB"
+      },
+      {
+        "id": "c17",
+        "kind": "fact",
+        "text": "Diagrams are drawn using JSON specifications when footage is unavailable or deemed unsuitable by the reranker.",
+        "verbatim": null
+      },
+      {
+        "id": "c18",
+        "kind": "fact",
+        "text": "Diagrams are designed to avoid Ken Burns effects to ensure that text remains readable.",
+        "verbatim": null
+      },
+      {
+        "id": "c19",
+        "kind": "fact",
+        "text": "The decision of which scenes to illustrate is made once to ensure consistency across different aspect ratios.",
+        "verbatim": null
+      },
+      {
+        "id": "c20",
+        "kind": "fact",
+        "text": "The system prefers stock photographs for thumbnails because they are composed for individual viewing, unlike video frames or diagrams.",
+        "verbatim": null
+      },
+      {
+        "id": "c21",
+        "kind": "fact",
+        "text": "Thumbnail candidates are sampled from the source picture track to avoid including watermarks, captions, or progress bars.",
+        "verbatim": null
+      },
+      {
+        "id": "c22",
+        "kind": "stat",
+        "text": "Thumbnail candidates must be spaced at least 2.5 seconds apart to ensure variety.",
+        "verbatim": "2.5s"
+      },
+      {
+        "id": "c23",
+        "kind": "fact",
+        "text": "The check utility verifies that thumbnail credits match descriptions, orientations align with cuts, and chapter timings are valid.",
+        "verbatim": null
+      },
+      {
+        "id": "c24",
+        "kind": "fact",
+        "text": "YouTube will reject the entire chapter list if any chapter does not begin at 0:00.",
+        "verbatim": "0:00"
+      },
+      {
+        "id": "c25",
+        "kind": "fact",
+        "text": "The check process does not rely on network access or AI models, allowing it to function even when API quotas are exhausted.",
+        "verbatim": null
+      },
+      {
+        "id": "c26",
+        "kind": "fact",
+        "text": "Video elements like title cards, captions, and progress bars share a unified theme to maintain a cohesive design.",
+        "verbatim": null
+      },
+      {
+        "id": "c27",
+        "kind": "fact",
+        "text": "AI image generation is intentionally excluded because free-tier API keys lack the necessary image quotas.",
+        "verbatim": null
+      },
+      {
+        "id": "c28",
+        "kind": "fact",
+        "text": "API keys are searched for in the environment, the local project folder, parent directories, and the repository root.",
+        "verbatim": null
+      },
+      {
+        "id": "c29",
+        "kind": "fact",
+        "text": "The pipeline skips processing stages that have already been completed on disk, allowing users to avoid re-running tasks like narration generation after a failed encode.",
+        "verbatim": null
+      },
+      {
+        "id": "c30",
+        "kind": "stat",
+        "text": "The test suite includes 200 fast tests that execute in seconds and 12 additional slow tests that perform actual video encoding with ffmpeg.",
+        "verbatim": null
+      },
+      {
+        "id": "c31",
+        "kind": "stat",
+        "text": "The system limits the render queue to three concurrent jobs, returning a 429 status code for any subsequent requests to avoid indefinite waiting periods for users.",
+        "verbatim": null
+      },
+      {
+        "id": "c32",
+        "kind": "fact",
+        "text": "The web interface enforces a script length limit, disabling the render button if the user exceeds the allowed word count or estimated runtime.",
+        "verbatim": null
+      },
+      {
+        "id": "c33",
+        "kind": "fact",
+        "text": "Render cancellation is designed to be cooperative, meaning the process terminates at the next stage boundary rather than stopping mid-encode to ensure CPU resources are freed efficiently.",
+        "verbatim": null
+      },
+      {
+        "id": "c34",
+        "kind": "fact",
+        "text": "Cloudflare quick tunnels allow the local server to be exposed to the internet without requiring a domain or a Cloudflare account, enabling full-speed local rendering.",
+        "verbatim": null
+      },
+      {
+        "id": "c35",
+        "kind": "fact",
+        "text": "Using the -NoToken flag disables the tunnel gate, which is generally discouraged unless you are demonstrating the software to a single user for a short period.",
+        "verbatim": null
+      },
+      {
+        "id": "c36",
+        "kind": "fact",
+        "text": "The cloudflared tool can be installed using the command winget install Cloudflare.cloudflared.",
+        "verbatim": "winget install Cloudflare.cloudflared"
+      },
+      {
+        "id": "c37",
+        "kind": "fact",
+        "text": "Unprotected instances allow anyone to consume your Gemini and Pexels API quotas.",
+        "verbatim": null
+      },
+      {
+        "id": "c38",
+        "kind": "fact",
+        "text": "The /healthz endpoint remains accessible without a token, but the keys information is restricted to authorized callers.",
+        "verbatim": null
+      },
+      {
+        "id": "c39",
+        "kind": "stat",
+        "text": "Hugging Face Spaces provides 2 vCPU and 16 GB of memory, which is significantly more powerful than the 0.1 vCPU and 512 MB offered by a free Render instance.",
+        "verbatim": null
+      },
+      {
+        "id": "c40",
+        "kind": "stat",
+        "text": "Since August 25, 2026, free Docker-based Spaces on Hugging Face are no longer available and require a PRO subscription.",
+        "verbatim": "2026-08-25"
+      },
+      {
+        "id": "c41",
+        "kind": "stat",
+        "text": "A 2 vCPU instance typically encodes video at approximately 2.2 times the speed of real-time.",
+        "verbatim": "2 vCPU box builds at roughly 2.2x realtime"
+      },
+      {
+        "id": "c42",
+        "kind": "stat",
+        "text": "Encoding 1080p video requires at least 2 vCPUs and 2 GB of memory to avoid out-of-memory errors.",
+        "verbatim": "Two vCPUs and 2 GB is the floor"
+      },
+      {
+        "id": "c43",
+        "kind": "fact",
+        "text": "Using a free DuckDNS subdomain allows Caddy to generate a valid SSL certificate for secure token transmission.",
+        "verbatim": null
+      },
+      {
+        "id": "c44",
+        "kind": "fact",
+        "text": "Render deployments use a native Python runtime and pull static ffmpeg binaries and fonts during the build process.",
+        "verbatim": null
+      },
+      {
+        "id": "c45",
+        "kind": "fact",
+        "text": "Microsoft Edge voices are provided via an undocumented, free endpoint that may experience occasional connection failures.",
+        "verbatim": null
+      },
+      {
+        "id": "c46",
+        "kind": "fact",
+        "text": "The software is available under the PolyForm Noncommercial 1.0.0 license, which permits personal, hobby, and non-profit use.",
+        "verbatim": null
+      },
+      {
+        "id": "c47",
+        "kind": "stat",
+        "text": "Commercial licenses cost $49 for individuals and $299 for companies.",
+        "verbatim": null
+      },
+      {
+        "id": "c48",
+        "kind": "fact",
+        "text": "The narration generated by edge-tts is not cleared for commercial use, and users requiring commercial compliance should use Amazon Polly instead.",
+        "verbatim": null
+      },
+      {
+        "id": "c49",
+        "kind": "fact",
+        "text": "Polly preserves word-level timing, ensuring that both video cuts and captions remain consistent.",
+        "verbatim": null
+      },
+      {
+        "id": "c50",
+        "kind": "fact",
+        "text": "Polly processes audio and speech marks as two distinct requests, effectively doubling the script length cost for a video.",
+        "verbatim": null
+      },
+      {
+        "id": "c51",
+        "kind": "fact",
+        "text": "The generative engine does not provide speech marks, which is why it cannot be selected as an option.",
+        "verbatim": null
+      },
+      {
+        "id": "c52",
+        "kind": "fact",
+        "text": "The vidsmith doctor utility identifies which keys are compatible.",
+        "verbatim": null
+      }
+    ],
+    "hook_candidates": [
+      "You can generate professional-looking videos with perfect caption timing without ever transcribing a single word of audio.",
+      "Most video tools rely on inaccurate transcription models to time their captions, but there is a more precise way.",
+      "Your bank statement is not a record of what you spent; it is a record of what your bank found convenient to store.",
+      "Stop wasting time manually syncing your video captions when your speech engine already knows exactly when every word happens.",
+      "Building high-quality video content from markdown scripts can be done locally without any API keys or paid accounts.",
+      "Stock footage search engines often return irrelevant results because they rank by popularity rather than content.",
+      "Generated video often looks artificial because it lacks the natural rhythm of sentence-based cuts.",
+      "You can force an automated video generator to draw its own diagrams when stock footage fails to illustrate a concept."
+    ],
+    "voice_samples": [
+      "Script in, narrated and captioned YouTube video out.",
+      "That is untouched output.",
+      "vidsmith never does that.",
+      "A scene is not a shot.",
+      "Every check is a fault that reached a finished build here.",
+      "AI image generation is not wired in on purpose."
+    ],
+    "thesis": "Video captioning and scene timing should be derived directly from the speech engine's word-boundary events rather than by performing a post-hoc transcription of the generated audio."
+  }
+}

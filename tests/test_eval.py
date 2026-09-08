@@ -747,6 +747,22 @@ def test_a_kept_repair_that_only_tied_is_not_counted_as_reducing():
     assert rep["fully_cleared"] == 0
 
 
+def test_the_inventory_counters_are_summed_across_sources():
+    a = _result({}); a["dropped_unanchored"] = 2; a["demoted_quotes"] = 1
+    b = _result({}); b["dropped_unanchored"] = 0; b["demoted_quotes"] = 3
+    report = aggregate([a, b], [], {"at": "x"})
+    assert report["dropped_unanchored"] == 2
+    assert report["demoted_quotes"] == 4
+
+
+def test_a_checkpoint_without_the_counters_is_read_as_zero():
+    # Runs before these existed carry neither key, and resuming across a code
+    # change is the normal case in this harness.
+    report = aggregate([_result({})], [], {"at": "x"})
+    assert report["dropped_unanchored"] == 0
+    assert report["demoted_quotes"] == 0
+
+
 def test_repair_effectiveness_is_counted_per_error_not_per_body():
     """A draft with two invented names and one copied run is three things to fix.
 

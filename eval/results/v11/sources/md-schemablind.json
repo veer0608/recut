@@ -1,0 +1,233 @@
+{
+  "id": "md-schemablind",
+  "judged_by_model": false,
+  "kind": "markdown",
+  "ref": "C:\\Users\\veera\\claude\\schemablind\\README.md",
+  "title": "schemablind",
+  "segments": 77,
+  "chars": 13752,
+  "extracted_claims": 27,
+  "dropped_unanchored": 0,
+  "demoted_quotes": 0,
+  "targets": [
+    "linkedin",
+    "thread"
+  ],
+  "verifier_errors": {
+    "linkedin": [],
+    "thread": []
+  },
+  "format_violations": {},
+  "repaired": [],
+  "repair_attempted": [],
+  "repair_detail": {},
+  "claim_utilisation": 0.48148148148148145,
+  "judged": {},
+  "judged_claims": 0,
+  "judged_unsupported": 0,
+  "injections": {
+    "planted": 10,
+    "caught": 10,
+    "recall": 1.0,
+    "recall_by_rule": {
+      "number": 1.0,
+      "quote": 1.0,
+      "entity": 1.0,
+      "intensity": 1.0,
+      "citation": 1.0
+    },
+    "missed": [],
+    "clean_bodies": 2,
+    "unplanted_error_bodies": 0,
+    "unplanted_errors_by_rule": {},
+    "unplanted_errors": []
+  },
+  "bodies": {
+    "linkedin": "A schema-blind agent consumes 9.2 turns and 13,600 tokens per question when querying real BIRD databases.\n\nMost text-to-SQL benchmarks rely on pre-provided schema definitions, but this agent operates without prior knowledge of the database structure. It discovers the schema using four specific tools instead.\n\nBatching describe_table calls improved efficiency during testing. Turns fell from 9.0 to 5.6 and tokens from 13,024 to 8,576.\n\nTo ensure results remain reliable, 40% of questions are withheld from the testing process. The project also implements four layers of security to prevent the agent from executing write operations on the database.\n\nTest runs that encounter a daily refusal are abandoned rather than scored to prevent inaccurate performance metrics. The daily token limit, rather than financial constraints, is the primary factor that restricts usage of the free tier.\n\nThis project is released under the MIT license.",
+    "thread": "SQL agents should discover database structures independently rather than relying on pre-provided definitions to achieve better performance.\n\nThe schemablind agent operates without prior knowledge of the database, using four specific tools to map the structure.\n\nThe tool sample_rows is critical because it helps identify data encoding formats, which prevents errors where a query runs but returns incorrect results.\n\nBatching describe_table calls improved efficiency, as turns fell from 9.0 to 5.6 and tokens from 13,024 to 8,576.\n\nTo prevent overfitting, 40% of the questions are withheld from the testing process, and these are selected by a hash of the question text.\n\nThe daily token limit, rather than financial constraints, is the primary factor that restricts usage of the free tier.\n\nA 429 error response body is the only place where the daily limit is explicitly identified, as response headers do not contain this information.\n\nTuning a prompt based on failed questions and then scoring it on those same questions produces a result biased toward its own answer key."
+  },
+  "inventory": {
+    "claims": [
+      {
+        "id": "c0",
+        "kind": "fact",
+        "text": "The schemablind agent operates without prior knowledge of the database schema, requiring it to discover the structure using four specific tools.",
+        "verbatim": null
+      },
+      {
+        "id": "c1",
+        "kind": "fact",
+        "text": "BIRD's execution accuracy metric evaluates performance by comparing rows returned by the agent's query and a reference query against the same database.",
+        "verbatim": null
+      },
+      {
+        "id": "c2",
+        "kind": "fact",
+        "text": "The tool sample_rows is critical because it helps identify data encoding formats, preventing errors that occur when a query runs successfully but returns incorrect results.",
+        "verbatim": null
+      },
+      {
+        "id": "c3",
+        "kind": "stat",
+        "text": "The project implements four security layers to prevent the agent from executing write operations on the database.",
+        "verbatim": "four layers"
+      },
+      {
+        "id": "c4",
+        "kind": "stat",
+        "text": "The BIRD Mini-Dev dataset consists of 500 questions distributed across 11 databases.",
+        "verbatim": "500 questions over 11 databases"
+      },
+      {
+        "id": "c5",
+        "kind": "fact",
+        "text": "Checkpointing allows long-running evaluation tasks to resume from the last answered question, saving progress if the process is interrupted.",
+        "verbatim": null
+      },
+      {
+        "id": "c6",
+        "kind": "fact",
+        "text": "The oracle reference query must achieve 100% accuracy, while the mute agent submitting no SQL must achieve 0% accuracy to validate the scoring harness.",
+        "verbatim": null
+      },
+      {
+        "id": "c7",
+        "kind": "stat",
+        "text": "The oracle correctly answered all 500 Mini-Dev questions, confirming the scorer's reliability against real data.",
+        "verbatim": null
+      },
+      {
+        "id": "c8",
+        "kind": "stat",
+        "text": "The openai/gpt-oss-120b model achieved 43% execution accuracy on the dev half and 50% on the held-out half.",
+        "verbatim": null
+      },
+      {
+        "id": "c9",
+        "kind": "fact",
+        "text": "Prompt rules demonstrated generalization by scoring no worse on unseen questions than on dev failures.",
+        "verbatim": null
+      },
+      {
+        "id": "c10",
+        "kind": "narrative",
+        "text": "API failures caused the agent to be incorrectly scored as producing no query when valid queries were actually present in the transcript.",
+        "verbatim": null
+      },
+      {
+        "id": "c11",
+        "kind": "stat",
+        "text": "Batching describe_table calls reduced the average turns per question from 9.0 to 5.6 and tokens from 13,024 to 8,576.",
+        "verbatim": "Turns fell from 9.0 to 5.6 and tokens from 13,024 to 8,576"
+      },
+      {
+        "id": "c12",
+        "kind": "stat",
+        "text": "On real BIRD databases, a schema-blind agent consumes 9.2 turns and 13,600 tokens per question.",
+        "verbatim": "9.2 turns and 13,600 tokens per question"
+      },
+      {
+        "id": "c13",
+        "kind": "stat",
+        "text": "The held-out half of the project requires 11,816 tokens over 6.6 turns per question.",
+        "verbatim": "11,816 tokens over 6.6 turns"
+      },
+      {
+        "id": "c14",
+        "kind": "stat",
+        "text": "The free tier daily cap of 200,000 tokens is applied per model, allowing multiple solvers to operate independently within one invocation.",
+        "verbatim": null
+      },
+      {
+        "id": "c15",
+        "kind": "fact",
+        "text": "The daily token limit, rather than financial constraints, is the primary factor that restricts usage of the free tier.",
+        "verbatim": null
+      },
+      {
+        "id": "c16",
+        "kind": "fact",
+        "text": "Response headers do not contain information about the daily token budget.",
+        "verbatim": null
+      },
+      {
+        "id": "c17",
+        "kind": "stat",
+        "text": "The per-minute bucket may indicate 12,000 tokens available even when the daily budget has been exhausted.",
+        "verbatim": "12,000"
+      },
+      {
+        "id": "c18",
+        "kind": "fact",
+        "text": "A 429 error response body is the only place where the daily limit is explicitly identified.",
+        "verbatim": null
+      },
+      {
+        "id": "c19",
+        "kind": "fact",
+        "text": "Test runs that encounter a daily refusal are abandoned rather than scored to prevent inaccurate performance metrics.",
+        "verbatim": null
+      },
+      {
+        "id": "c20",
+        "kind": "opinion",
+        "text": "Tuning a prompt based on failed questions and then scoring it on those same questions produces a result biased toward its own answer key.",
+        "verbatim": null
+      },
+      {
+        "id": "c21",
+        "kind": "stat",
+        "text": "To prevent overfitting, 40% of the questions are withheld from the testing process.",
+        "verbatim": "40%"
+      },
+      {
+        "id": "c22",
+        "kind": "fact",
+        "text": "The selection of held-back questions is determined by a hash of the question text to ensure it cannot be manually manipulated.",
+        "verbatim": null
+      },
+      {
+        "id": "c23",
+        "kind": "stat",
+        "text": "There are 12 toy questions currently included in the development set.",
+        "verbatim": "twelve"
+      },
+      {
+        "id": "c24",
+        "kind": "stat",
+        "text": "The evaluation harness currently consists of 119 tests.",
+        "verbatim": "119"
+      },
+      {
+        "id": "c25",
+        "kind": "stat",
+        "text": "The BIRD Mini-Dev set contains 500 curated pairs across 11 databases.",
+        "verbatim": "500 curated pairs, 11 databases"
+      },
+      {
+        "id": "c26",
+        "kind": "fact",
+        "text": "The project is released under the MIT license.",
+        "verbatim": null
+      }
+    ],
+    "hook_candidates": [
+      "Most text-to-SQL benchmarks test a model's ability to query a known schema, but real-world tasks often require discovering the schema first.",
+      "A SQL agent can effectively query a database it has never seen by using a set of discovery tools instead of being handed a schema.",
+      "Execution accuracy is the only metric that matters because it confirms the agent's query results are correct regardless of how the query was written.",
+      "Security for AI agents executing SQL requires multiple layers of enforcement to prevent unauthorized write operations.",
+      "Evaluation of large datasets can be performed incrementally by checkpointing results, allowing for long-running tasks to survive interruptions.",
+      "Most performance estimates for AI agents are wrong because they generalize cheap dev-set results to expensive held-out data.",
+      "A single API bug can lead to false conclusions about an agent's reasoning capabilities.",
+      "The daily token cap for AI models is per-model, not per-run, which changes how you should plan large-scale evaluation projects."
+    ],
+    "voice_samples": [
+      "A SQL agent that is **given no schema**.",
+      "Nobody decides whether the SQL \"looks right\".",
+      "Those two rows are not competitors \u2014 they are the harness proving itself.",
+      "The free tier's daily token cap is what blocks this, not the money.",
+      "There is deliberately no salt to turn."
+    ],
+    "thesis": "SQL agents should perform schema discovery independently rather than relying on pre-provided schema definitions to achieve more accurate text-to-SQL performance."
+  }
+}
