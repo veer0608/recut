@@ -8,13 +8,13 @@
   :root {
     --bg: #fbfaf8; --panel: #fff; --ink: #17150f; --muted: #6b6558;
     --line: #e4e0d6; --accent: #8a6d1f; --accent-soft: #f6efd7;
-    --bad: #a3341f; --ok: #2f6b45;
+    --bad: #a3341f; --ok: #2f6b45; --copied: #8a6100;
   }
   @media (prefers-color-scheme: dark) {
     :root {
       --bg: #14130f; --panel: #1c1a15; --ink: #f0ece2; --muted: #9a9384;
       --line: #2e2b23; --accent: #d9b95c; --accent-soft: #3a3218;
-      --bad: #e08a72; --ok: #7bc79a;
+      --bad: #e08a72; --ok: #7bc79a; --copied: #d8ab5a;
     }
   }
   * { box-sizing: border-box; }
@@ -76,6 +76,8 @@
   .hint { color: var(--muted); font-size: 13px; padding: 0 18px 18px; }
   .warn { color: var(--bad); font-size: 13px; padding: 0 18px 14px; }
   .warn.notice { color: var(--muted); }
+  /* Copied but supported: a real failure, and not the same failure as invention. */
+  .tag.copied { color: var(--copied); }
   .files { padding: 0 18px 16px; display: flex; flex-wrap: wrap; gap: 8px; align-items: center; }
   .fhint { flex: 1 1 100%; color: var(--muted); font-size: 13px; padding-bottom: 4px; }
   .fhint code { background: var(--accent-soft); padding: 1px 5px; border-radius: 4px; }

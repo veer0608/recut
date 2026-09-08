@@ -138,6 +138,18 @@ function wireDownloads(result) {
   });
 }
 
+// "unsupported spans" is wrong for a draft whose only errors are copying. Every
+// word a copying error flags IS supported by the source; reproducing it rather
+// than rewriting it is the fault. Copying became an error the same day this was
+// written, which is what put it behind this badge at first.
+function verdict(artifact) {
+  const errors = (artifact.warnings || []).filter((w) => w.severity !== "notice");
+  if (!errors.length) return { cls: "ok", text: "verified" };
+  if (errors.every((w) => w.rule === "copying"))
+    return { cls: "copied", text: "copied, not rewritten" };
+  return { cls: "bad", text: "unsupported spans" };
+}
+
 function warnLines(artifact) {
   return artifact.warnings
     .map(
@@ -164,9 +176,7 @@ function render(result) {
       const violation = a.meta && a.meta.format_violation;
       return `<div class="card" data-target="${esc(a.target)}">
         <h2>${esc(a.target)}
-          <span class="tag ${a.clean ? "ok" : "bad"}">${
-        a.clean ? "verified" : "unsupported spans"
-      }</span>
+          <span class="tag ${verdict(a).cls}">${verdict(a).text}</span>
         </h2>
         ${warnLines(a)}
         ${violation ? `<div class="warn notice">${esc(violation)}</div>` : ""}

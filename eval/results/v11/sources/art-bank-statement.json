@@ -1,0 +1,263 @@
+{
+  "id": "art-bank-statement",
+  "judged_by_model": false,
+  "kind": "article",
+  "ref": "https://en.wikipedia.org/wiki/Bank_statement",
+  "title": "Bank statement - Wikipedia",
+  "segments": 19,
+  "chars": 8061,
+  "extracted_claims": 24,
+  "dropped_unanchored": 0,
+  "demoted_quotes": 0,
+  "targets": [
+    "linkedin",
+    "thread"
+  ],
+  "verifier_errors": {
+    "linkedin": [
+      "[error/copying] 'to send a statement for a checking account if': 9 consecutive words copied from the source without quoting"
+    ],
+    "thread": [
+      "[error/intensity] 'essential': the source never says 'essential'; do not add force it did not use"
+    ]
+  },
+  "format_violations": {},
+  "repaired": [
+    "thread"
+  ],
+  "repair_attempted": [
+    "linkedin",
+    "thread"
+  ],
+  "repair_detail": {
+    "linkedin": {
+      "kept": false,
+      "first_pass_errors": [
+        "[error/copying] 'to send a statement for a checking account if': 9 consecutive words copied from the source without quoting"
+      ],
+      "repair_errors": [
+        "[error/intensity] 'eliminate': the source never says 'eliminates?'; do not add force it did not use",
+        "[error/copying] 'banks in the United States are only required to': 9 consecutive words copied from the source without quoting"
+      ],
+      "spans_changed": [
+        "[copying] to send a statement for a checking account if"
+      ]
+    },
+    "thread": {
+      "kept": true,
+      "first_pass_errors": [
+        "[error/intensity] 'eliminate': the source never says 'eliminates?'; do not add force it did not use"
+      ],
+      "repair_errors": [
+        "[error/intensity] 'essential': the source never says 'essential'; do not add force it did not use"
+      ],
+      "spans_changed": [
+        "[intensity] eliminate"
+      ]
+    }
+  },
+  "claim_utilisation": 0.5,
+  "judged": {},
+  "judged_claims": 0,
+  "judged_unsupported": 0,
+  "injections": {
+    "planted": 10,
+    "caught": 10,
+    "recall": 1.0,
+    "recall_by_rule": {
+      "number": 1.0,
+      "quote": 1.0,
+      "entity": 1.0,
+      "intensity": 1.0,
+      "citation": 1.0
+    },
+    "missed": [],
+    "clean_bodies": 2,
+    "unplanted_error_bodies": 1,
+    "unplanted_errors_by_rule": {
+      "intensity": 1
+    },
+    "unplanted_errors": [
+      {
+        "target": "thread",
+        "rules": [
+          "intensity"
+        ],
+        "spans": [
+          "[error/intensity] 'essential': the source never says 'essential'; do not add force it did not use"
+        ]
+      }
+    ]
+  },
+  "bodies": {
+    "linkedin": "The business name appearing on your bank statement might differ from the public trading name of the store where you shopped. This happens because of the specific payment processing arrangements used by the merchant.\n\nVisa provides guidelines for how these descriptors identify the entity processing the payment rather than the seller involved. This can make it difficult to reconcile your personal cash flow or identify potential fraud.\n\nSince the 1960s, banks have typically issued these summaries on a monthly basis. However, US banks are only legally obligated to send a statement for a checking account if at least one transaction occurs within a given month.\n\nSome mortgage lenders have moved away from traditional pay stubs. Starting in the early 2010s, certain lenders began using bank deposit records to gauge borrower income for self-employed individuals or those with unconventional income streams.\n\nElectronic statements are often generated in PDF format to hinder the recipient from altering the document.",
+    "thread": "In Japan, there has historically been no tradition of mailing bank statements. Customers instead rely on passbooks at ATMs to monitor their account balances.\n\nThe name of a business on your statement might not match its public trading name. This happens because of the specific arrangements used to process your payment.\n\nElectronic statements are often generated in PDF format. This is done to hinder the recipient from altering the document after it is issued.\n\nMoving away from paper records changes your security risks. Digital files do not require shredding, but they may be more vulnerable to data interception or computer fraud.\n\nSince the 1960s, statements have typically been issued on a monthly basis. This timing helps customers track cash flow and conduct reconciliations.\n\nSome mortgage lenders have changed how they verify income. Starting in the early 2010s, they began using bank deposit records to gauge borrower income instead of traditional pay stubs.\n\nBank statements function as evolving records that help institutions and customers manage oversight. These documents are essential for maintaining compliance and tracking financial activity over time."
+  },
+  "inventory": {
+    "claims": [
+      {
+        "id": "c0",
+        "kind": "fact",
+        "text": "A bank statement provides an official summary of financial activity for a specific period for accounts held at a financial institution.",
+        "verbatim": null
+      },
+      {
+        "id": "c1",
+        "kind": "fact",
+        "text": "Financial institutions typically prepare statements that are numbered and specify the covered time frame.",
+        "verbatim": null
+      },
+      {
+        "id": "c2",
+        "kind": "fact",
+        "text": "Once a statement is issued to a customer, the information is generally not subject to alteration.",
+        "verbatim": null
+      },
+      {
+        "id": "c3",
+        "kind": "fact",
+        "text": "Customers utilize bank statements to track cash flow, identify potential fraud, and conduct reconciliations.",
+        "verbatim": null
+      },
+      {
+        "id": "c4",
+        "kind": "fact",
+        "text": "Financial institutions are often required to keep statements for audit and tax purposes for durations mandated by tax authorities.",
+        "verbatim": null
+      },
+      {
+        "id": "c5",
+        "kind": "fact",
+        "text": "Many banks offer unofficial transaction histories via websites, apps, phone banking, or ATMs before the formal statement is generated.",
+        "verbatim": null
+      },
+      {
+        "id": "c6",
+        "kind": "fact",
+        "text": "Through open banking, account holders can authorize other financial institutions to access their balances for services like account aggregation.",
+        "verbatim": null
+      },
+      {
+        "id": "c7",
+        "kind": "stat",
+        "text": "Since the 1960s, when banks began using computers, statements have typically been issued on a monthly basis.",
+        "verbatim": "1960s"
+      },
+      {
+        "id": "c8",
+        "kind": "fact",
+        "text": "Some institutions include images of cleared cheques within the bank statement.",
+        "verbatim": null
+      },
+      {
+        "id": "c9",
+        "kind": "fact",
+        "text": "Banks may use the distribution of statements to communicate fee changes, interest rate adjustments, or promotional offers.",
+        "verbatim": null
+      },
+      {
+        "id": "c10",
+        "kind": "fact",
+        "text": "Financial institutions are generally obligated to provide paper statements unless the customer opts for electronic versions or no statements at all.",
+        "verbatim": null
+      },
+      {
+        "id": "c11",
+        "kind": "fact",
+        "text": "Some banks have introduced fees for paper statements to encourage the adoption of electronic alternatives.",
+        "verbatim": null
+      },
+      {
+        "id": "c12",
+        "kind": "fact",
+        "text": "In Japan, there has historically been no tradition of mailing bank statements, with customers relying on passbooks at ATMs to monitor their accounts.",
+        "verbatim": null
+      },
+      {
+        "id": "c13",
+        "kind": "fact",
+        "text": "Electronic statements are frequently generated in PDF format to hinder the recipient from altering the document.",
+        "verbatim": null
+      },
+      {
+        "id": "c14",
+        "kind": "fact",
+        "text": "While electronic statements eliminate the need for physical disposal like shredding, they may be more vulnerable to computer fraud, data interception, or theft of storage media.",
+        "verbatim": null
+      },
+      {
+        "id": "c15",
+        "kind": "fact",
+        "text": "A bank statement reflects the institution's perspective, where credit entries increase the bank's liability, whereas a customer viewing the account as an asset would reverse these debits and credits.",
+        "verbatim": null
+      },
+      {
+        "id": "c16",
+        "kind": "fact",
+        "text": "The name of a business appearing on a bank statement might differ from its public trading name due to payment processing arrangements.",
+        "verbatim": null
+      },
+      {
+        "id": "c17",
+        "kind": "fact",
+        "text": "Visa provides specific guidelines on how merchant descriptors should identify the entity processing the payment and the actual seller involved.",
+        "verbatim": null
+      },
+      {
+        "id": "c18",
+        "kind": "fact",
+        "text": "UK law mandates that financial institutions provide statements on paper or another durable format, with exceptions for online-only banks, passbook holders, or those who opt out.",
+        "verbatim": null
+      },
+      {
+        "id": "c19",
+        "kind": "fact",
+        "text": "US banks are only legally obligated to issue checking account statements if at least one transaction occurs within a given month.",
+        "verbatim": null
+      },
+      {
+        "id": "c20",
+        "kind": "fact",
+        "text": "Bank statements are frequently utilized to verify financial authenticity for purposes like auditing and lending.",
+        "verbatim": null
+      },
+      {
+        "id": "c21",
+        "kind": "fact",
+        "text": "The prevalence of digital statements in PDF format has increased focus on how these documents are verified and kept consistent.",
+        "verbatim": null
+      },
+      {
+        "id": "c22",
+        "kind": "stat",
+        "text": "Starting in the early 2010s, certain mortgage lenders began using bank deposit records to gauge borrower income instead of traditional pay stubs or tax documents.",
+        "verbatim": "early 2010s"
+      },
+      {
+        "id": "c23",
+        "kind": "fact",
+        "text": "Income assessment programs based on bank deposits are typically designed for self-employed individuals or those with unconventional income streams.",
+        "verbatim": null
+      }
+    ],
+    "hook_candidates": [
+      "Your bank statement is not just a summary of your spending; it is a reflection of the bank's liability to you.",
+      "In Japan, the tradition of receiving a mailed bank statement never existed.",
+      "Electronic statements are often provided in PDF format specifically to prevent you from editing the numbers.",
+      "While paper statements require shredding to prevent identity theft, electronic versions introduce risks like data interception and computer fraud.",
+      "A bank account is simultaneously an asset for the customer and a debt for the bank.",
+      "The business name you see on your bank statement is not always the name of the store where you shopped.",
+      "In the United States, your bank is not required to send you a statement if you do not use your checking account for a month.",
+      "Some mortgage lenders have stopped asking for pay stubs, choosing instead to analyze your bank deposits to determine if you qualify for a loan."
+    ],
+    "voice_samples": [
+      "Once produced and delivered to the customer, details on the statement are not normally alterable; any error found would normally be corrected on a future statement, usually with some correspondence explaining the reason for the adjustment.",
+      "Some countries such as Japan never had a tradition of mailing statements, with individual account holders being expected to keep track of deposits, withdrawals, and balances using their own passbooks at ATMs.",
+      "A bank deposit account is at the same time an asset of the depositor and debt of the bank.",
+      "Due to identity theft concerns, an electronic statement may not be seen as a dangerous alternative against physical theft as it does not contain tangible personal information and does not require extra safety measures of disposal such as shredding.",
+      "For card transactions, the transaction description shown on a bank statement may not always be identical to a business's consumer-facing trading name.",
+      "Banks in the United States are only required to send a statement for a checking account if one transaction has been made from that account in a month."
+    ],
+    "thesis": "Bank statements serve as essential, evolving financial records that facilitate account oversight, reconciliation, and regulatory compliance, transitioning from physical paper to digital formats."
+  }
+}

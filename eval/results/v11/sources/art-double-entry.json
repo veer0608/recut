@@ -1,0 +1,334 @@
+{
+  "id": "art-double-entry",
+  "judged_by_model": false,
+  "kind": "article",
+  "ref": "https://en.wikipedia.org/wiki/Double-entry_bookkeeping",
+  "title": "Double-entry bookkeeping - Wikipedia",
+  "segments": 34,
+  "chars": 18479,
+  "extracted_claims": 34,
+  "dropped_unanchored": 0,
+  "demoted_quotes": 0,
+  "targets": [
+    "linkedin",
+    "thread"
+  ],
+  "verifier_errors": {
+    "linkedin": [
+      "[error/intensity] 'the only way': the source never says 'the only way'; do not add force it did not use"
+    ],
+    "thread": [
+      "[error/intensity] 'the only way': the source never says 'the only way'; do not add force it did not use"
+    ]
+  },
+  "format_violations": {},
+  "repaired": [
+    "linkedin",
+    "thread"
+  ],
+  "repair_attempted": [
+    "linkedin",
+    "thread"
+  ],
+  "repair_detail": {
+    "linkedin": {
+      "kept": true,
+      "first_pass_errors": [
+        "[error/copying] 'the father of accounting because he was the first to publish a detailed': 13 consecutive words copied from the source without quoting"
+      ],
+      "repair_errors": [
+        "[error/intensity] 'the only way': the source never says 'the only way'; do not add force it did not use"
+      ],
+      "spans_changed": [
+        "[copying] the father of accounting because he was the first to publish a detailed"
+      ]
+    },
+    "thread": {
+      "kept": true,
+      "first_pass_errors": [
+        "[error/intensity] 'significant': the source never says 'significant(?:ly)?'; do not add force it did not use",
+        "[error/copying] 'the father of accounting because he was the first to publish a detailed': 13 consecutive words copied from the source without quoting"
+      ],
+      "repair_errors": [
+        "[error/intensity] 'the only way': the source never says 'the only way'; do not add force it did not use"
+      ],
+      "spans_changed": [
+        "[copying] the father of accounting because he was the first to publish a detailed",
+        "[intensity] significant"
+      ]
+    }
+  },
+  "claim_utilisation": 0.3235294117647059,
+  "judged": {},
+  "judged_claims": 0,
+  "judged_unsupported": 0,
+  "injections": {
+    "planted": 10,
+    "caught": 10,
+    "recall": 1.0,
+    "recall_by_rule": {
+      "number": 1.0,
+      "quote": 1.0,
+      "entity": 1.0,
+      "intensity": 1.0,
+      "citation": 1.0
+    },
+    "missed": [],
+    "clean_bodies": 2,
+    "unplanted_error_bodies": 2,
+    "unplanted_errors_by_rule": {
+      "intensity": 2
+    },
+    "unplanted_errors": [
+      {
+        "target": "linkedin",
+        "rules": [
+          "intensity"
+        ],
+        "spans": [
+          "[error/intensity] 'the only way': the source never says 'the only way'; do not add force it did not use"
+        ]
+      },
+      {
+        "target": "thread",
+        "rules": [
+          "intensity"
+        ],
+        "spans": [
+          "[error/intensity] 'the only way': the source never says 'the only way'; do not add force it did not use"
+        ]
+      }
+    ]
+  },
+  "bodies": {
+    "linkedin": "In early modern Europe, the double-entry system was sometimes associated with theological and cosmological concepts, reflecting the symmetry of God's world and the scales of justice.\n\nThis methodology requires that every financial transaction be recorded using equal and opposite debit and credit entries. These entries ensure the books remain balanced by maintaining the accounting equation, where assets equal liabilities plus equity.\n\nLuca Pacioli is frequently referred to as the father of accounting. He published a detailed account of this method in a 1494 textbook. Before this, the earliest known records utilizing the system in Europe were created by a merchant from Florence in the late 13th century.\n\nToday, this model remains the only way to prepare accounts that fulfill the true and fair view requirement under Section 393 of the UK Companies Act 2006. It also serves as the fundamental requirement for creating financial statements that adhere to US GAAP and SEC mandates for public companies.\n\nFinancial records rely on these systematic checks to identify potential errors.\n\n#accounting #finance #history",
+    "thread": "In early modern Europe, the double-entry system was sometimes associated with theological and cosmological concepts, reflecting the symmetry of God's world and the scales of justice.\n\nThe earliest known accounting records utilizing the modern double-entry system in Europe were created by a merchant from Florence in the late 13th century.\n\nThe ledger belonging to the Giovannino Farolfi & Company firm from 1299\u20131300 provides evidence of a complete double-entry system.\n\nEvery financial transaction requires equal and opposite debit and credit entries to ensure the books remain balanced.\n\nA trial balance confirms that total debits equal total credits by listing all nominal ledger account balances in two columns.\n\nThe double-entry model is the only way to prepare accounts that fulfill the true and fair view requirement under Section 393 of the UK Companies Act 2006.\n\nRigorous financial accuracy and transparency are achieved through the systematic balancing of debits and credits."
+  },
+  "inventory": {
+    "claims": [
+      {
+        "id": "c0",
+        "kind": "fact",
+        "text": "Double-entry accounting requires that every financial transaction be recorded using equal and opposite debit and credit entries to ensure the books remain balanced.",
+        "verbatim": null
+      },
+      {
+        "id": "c1",
+        "kind": "fact",
+        "text": "The primary objectives of the double-entry method are to maintain precise financial records and to facilitate the identification of potential fraud or errors.",
+        "verbatim": null
+      },
+      {
+        "id": "c2",
+        "kind": "fact",
+        "text": "The accounting equation serves as the fundamental basis for the double-entry system.",
+        "verbatim": null
+      },
+      {
+        "id": "c3",
+        "kind": "fact",
+        "text": "The earliest known accounting records utilizing the modern double-entry system in Europe were created by Amatino Manucci, a merchant from Florence, in the late 13th century.",
+        "verbatim": null
+      },
+      {
+        "id": "c4",
+        "kind": "stat",
+        "text": "The ledger belonging to the Giovannino Farolfi & Company firm from 1299\u20131300 provides evidence of a complete double-entry system.",
+        "verbatim": "1299\u20131300"
+      },
+      {
+        "id": "c5",
+        "kind": "fact",
+        "text": "Luca Pacioli, a Franciscan friar, is frequently referred to as the father of accounting because he was the first to publish a detailed account of the double-entry method in his 1494 textbook.",
+        "verbatim": null
+      },
+      {
+        "id": "c6",
+        "kind": "opinion",
+        "text": "In early modern Europe, the double-entry system was sometimes associated with theological and cosmological concepts, reflecting the symmetry of God's world and the scales of justice.",
+        "verbatim": null
+      },
+      {
+        "id": "c7",
+        "kind": "fact",
+        "text": "The traditional British approach categorizes accounts into three types: real, personal, and nominal.",
+        "verbatim": null
+      },
+      {
+        "id": "c8",
+        "kind": "fact",
+        "text": "Primary journals are important because they allow for the tracing of every business transaction back to its original voucher throughout the required retention periods.",
+        "verbatim": null
+      },
+      {
+        "id": "c9",
+        "kind": "fact",
+        "text": "The accounting equation maintains that total debits must equal total credits within an account.",
+        "verbatim": null
+      },
+      {
+        "id": "c10",
+        "kind": "fact",
+        "text": "Accounts are categorized into assets, capital, liabilities, revenues, or expenses for the purpose of the accounting equation.",
+        "verbatim": null
+      },
+      {
+        "id": "c11",
+        "kind": "fact",
+        "text": "Financial transactions are recorded in at least two nominal ledger accounts to ensure the general ledger remains balanced.",
+        "verbatim": null
+      },
+      {
+        "id": "c12",
+        "kind": "fact",
+        "text": "Debits are conventionally placed on the left side of a ledger account, while credits are placed on the right.",
+        "verbatim": null
+      },
+      {
+        "id": "c13",
+        "kind": "fact",
+        "text": "Daybooks are typically used as preliminary records rather than being part of the nominal ledger itself.",
+        "verbatim": null
+      },
+      {
+        "id": "c14",
+        "kind": "fact",
+        "text": "Daybooks may be treated as an integral part of the double-entry system if the volume of transactions is relatively small.",
+        "verbatim": null
+      },
+      {
+        "id": "c15",
+        "kind": "fact",
+        "text": "A trial balance confirms that total debits equal total credits by listing all nominal ledger account balances in two columns.",
+        "verbatim": null
+      },
+      {
+        "id": "c16",
+        "kind": "fact",
+        "text": "A debit entry signifies a value transfer to an account, while a credit entry signifies a transfer from an account.",
+        "verbatim": null
+      },
+      {
+        "id": "c17",
+        "kind": "fact",
+        "text": "Assets and expenses increase with a debit, whereas liabilities, capital, and revenue increase with a credit.",
+        "verbatim": null
+      },
+      {
+        "id": "c18",
+        "kind": "stat",
+        "text": "A business purchased inventory for $10,000 on credit, sold it for $15,000 in cash, and paid the $10,000 vendor debt, resulting in a $5,000 increase in equity.",
+        "verbatim": null
+      },
+      {
+        "id": "c19",
+        "kind": "narrative",
+        "text": "The novel Christie Malry's Own Double-Entry features a protagonist who utilizes double-entry bookkeeping methods to manage his personal life.",
+        "verbatim": null
+      },
+      {
+        "id": "c20",
+        "kind": "fact",
+        "text": "Desi Namu is identified as an Indian system for accounting.",
+        "verbatim": null
+      },
+      {
+        "id": "c21",
+        "kind": "fact",
+        "text": "The Merdiban accounting system was utilized by the Ilkhanate, the Abbasid Caliphate, and the Ottoman Empire.",
+        "verbatim": null
+      },
+      {
+        "id": "c22",
+        "kind": "fact",
+        "text": "Triple-entry bookkeeping and momentum accounting are distinct accounting concepts.",
+        "verbatim": null
+      },
+      {
+        "id": "c23",
+        "kind": "fact",
+        "text": "In banking, nostro and vostro accounts are typically maintained by one institution on behalf of another.",
+        "verbatim": null
+      },
+      {
+        "id": "c24",
+        "kind": "fact",
+        "text": "Single-entry bookkeeping is an alternative method to double-entry systems.",
+        "verbatim": null
+      },
+      {
+        "id": "c25",
+        "kind": "fact",
+        "text": "Double-entry accounting is the fundamental requirement for creating financial statements that adhere to US GAAP and SEC mandates for public companies.",
+        "verbatim": null
+      },
+      {
+        "id": "c26",
+        "kind": "fact",
+        "text": "Section 396 of the UK Companies Act 2006 requires the production of specific financial reports.",
+        "verbatim": null
+      },
+      {
+        "id": "c27",
+        "kind": "fact",
+        "text": "The double-entry model is the only way to prepare accounts that fulfill the true and fair view requirement under Section 393 of the UK Companies Act 2006.",
+        "verbatim": null
+      },
+      {
+        "id": "c28",
+        "kind": "fact",
+        "text": "Publicly traded companies in the US and the UK are legally obligated to provide a balance sheet and an income statement.",
+        "verbatim": null
+      },
+      {
+        "id": "c29",
+        "kind": "fact",
+        "text": "The core accounting equation is defined as Assets equal Liabilities plus Equity.",
+        "verbatim": null
+      },
+      {
+        "id": "c30",
+        "kind": "fact",
+        "text": "Every financial transaction involves two equal and opposite effects known as debit and credit.",
+        "verbatim": null
+      },
+      {
+        "id": "c31",
+        "kind": "fact",
+        "text": "In the late sixteenth century, double-entry bookkeeping helped give numbers cultural authority by using the concept of the balance.",
+        "verbatim": null
+      },
+      {
+        "id": "c32",
+        "kind": "stat",
+        "text": "Jane Gleeson-White authored a book titled Double Entry in November 2011.",
+        "verbatim": null
+      },
+      {
+        "id": "c33",
+        "kind": "stat",
+        "text": "Jacob Soll published a book in April 2014 regarding the relationship between financial accountability and the success or failure of countries.",
+        "verbatim": null
+      }
+    ],
+    "hook_candidates": [
+      "Your bank statements can serve as primary journals for tracking your business transactions.",
+      "The father of modern accounting was a Franciscan friar and a collaborator of Leonardo da Vinci.",
+      "Double-entry bookkeeping was once viewed as a reflection of the symmetry of God's world.",
+      "The earliest evidence of modern double-entry accounting dates back to a Florentine merchant in the late 13th century.",
+      "Every financial transaction is essentially a balancing act between two equal and opposite entries.",
+      "Every financial transaction is essentially a two-sided mirror that must remain perfectly balanced.",
+      "Your ledger is not just a list of numbers; it is a system of checks and balances that proves the integrity of your financial data.",
+      "In double-entry bookkeeping, a debit is not inherently 'bad' and a credit is not inherently 'good'; they are simply directions of value."
+    ],
+    "voice_samples": [
+      "The purpose of double-entry bookkeeping is to maintain accuracy in financial records and allow detection of errors or fraud.",
+      "In early modern Europe, double-entry bookkeeping had theological and cosmological connotations, recalling \"both the scales of justice and the symmetry of God's world\".",
+      "The great importance of the primary journals lies in the fact that they should make it possible to trace every single business transaction back to the original voucher without great effort at any given time during the retention periods, even for past events.",
+      "Pacioli is often called the \"father of accounting\" because he was the first to publish a detailed description of the double-entry system, thus enabling others to study and use it.",
+      "The accounting equation is a statement of equality between the debits and the credits.",
+      "In double-entry bookkeeping, every financial transaction is entered into at least two nominal ledger accounts to ensure that total debits equal total credits, maintaining balance in the general ledger."
+    ],
+    "thesis": "Double-entry bookkeeping is a rigorous, historically significant methodology for ensuring financial accuracy and transparency through the systematic balancing of debits and credits."
+  }
+}

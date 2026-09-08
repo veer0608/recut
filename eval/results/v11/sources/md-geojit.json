@@ -1,0 +1,215 @@
+{
+  "id": "md-geojit",
+  "judged_by_model": false,
+  "kind": "markdown",
+  "ref": "C:\\Users\\veera\\claude\\geojit-report-app\\README.md",
+  "title": "Equity Research Report Generator (Geojit-style)",
+  "segments": 41,
+  "chars": 7397,
+  "extracted_claims": 15,
+  "dropped_unanchored": 0,
+  "demoted_quotes": 0,
+  "targets": [
+    "linkedin",
+    "thread"
+  ],
+  "verifier_errors": {
+    "linkedin": [
+      "[error/intensity] 'relies on': the source never says 'relies on'; do not add force it did not use"
+    ],
+    "thread": [
+      "[error/entity] 'Claude-based LLM': name does not appear in the source"
+    ]
+  },
+  "format_violations": {},
+  "repaired": [
+    "thread"
+  ],
+  "repair_attempted": [
+    "linkedin",
+    "thread"
+  ],
+  "repair_detail": {
+    "linkedin": {
+      "kept": false,
+      "first_pass_errors": [
+        "[error/intensity] 'relies on': the source never says 'relies on'; do not add force it did not use"
+      ],
+      "repair_errors": [
+        "[error/entity] 'Claude-based LLM': name does not appear in the source",
+        "[error/copying] 'Geojit Financial Services Ltd. Generated reports are not investment advice': 10 consecutive words copied from the source without quoting"
+      ],
+      "spans_changed": [
+        "[intensity] relies on"
+      ]
+    },
+    "thread": {
+      "kept": true,
+      "first_pass_errors": [
+        "[error/intensity] 'relies on': the source never says 'relies on'; do not add force it did not use"
+      ],
+      "repair_errors": [
+        "[error/entity] 'Claude-based LLM': name does not appear in the source"
+      ],
+      "spans_changed": [
+        "[intensity] relies on"
+      ]
+    }
+  },
+  "claim_utilisation": 0.9333333333333333,
+  "judged": {},
+  "judged_claims": 0,
+  "judged_unsupported": 0,
+  "injections": {
+    "planted": 10,
+    "caught": 10,
+    "recall": 1.0,
+    "recall_by_rule": {
+      "number": 1.0,
+      "quote": 1.0,
+      "entity": 1.0,
+      "intensity": 1.0,
+      "citation": 1.0
+    },
+    "missed": [],
+    "clean_bodies": 2,
+    "unplanted_error_bodies": 2,
+    "unplanted_errors_by_rule": {
+      "entity": 1,
+      "intensity": 1
+    },
+    "unplanted_errors": [
+      {
+        "target": "linkedin",
+        "rules": [
+          "intensity"
+        ],
+        "spans": [
+          "[error/intensity] 'relies on': the source never says 'relies on'; do not add force it did not use"
+        ]
+      },
+      {
+        "target": "thread",
+        "rules": [
+          "entity"
+        ],
+        "spans": [
+          "[error/entity] 'Claude-based LLM': name does not appear in the source"
+        ]
+      }
+    ]
+  },
+  "bodies": {
+    "linkedin": "You can set up an equity research report generator in under 2 minutes.\n\nThis application converts raw financial documents from PDF, CSV, or TXT formats into standardized reports. It uses a FastAPI structure to manage visual elements like fonts and colors while maintaining a separation between data extraction logic and document styling.\n\nTo handle data extraction, the system employs an orchestrator that uses LLMs with a deterministic fallback mechanism. If the system cannot locate specific fields during this process, it labels them as 'NA' in the final output. The generator relies on ReportLab and matplotlib to render PDF reports and charts, requiring at least two charts to be populated for each document.\n\nUsers can modify geometry and section spacing to achieve a specific visual match for Geojit-style notes. This project serves as an educational template and does not constitute investment advice.\n\n#python #fintech #automation",
+    "thread": "You can generate Geojit-style equity research notes from CSV, TXT, or PDF files in under 2 minutes.\n\nThe system uses a Claude-based LLM for extraction but includes a deterministic rule-based path that works without a network connection.\n\nIf the LLM encounters an error, the system is designed to degrade gracefully to deterministic parsing.\n\nMissing data fields are labeled as 'NA' in the final report to prevent generation failures.\n\nThe application uses ReportLab and matplotlib to render PDF reports and charts, requiring at least two charts to be populated.\n\nUsers can modify geometry and section spacing in the PDF builder file to match a specific visual layout.\n\nThe data model and extraction logic remain independent of the document's visual styling.\n\nStandardized financial reports are achievable by decoupling data extraction from document rendering."
+  },
+  "inventory": {
+    "claims": [
+      {
+        "id": "c0",
+        "kind": "fact",
+        "text": "The web application converts financial documents in PDF, CSV, or TXT formats into auto-filled PDF research reports.",
+        "verbatim": null
+      },
+      {
+        "id": "c1",
+        "kind": "fact",
+        "text": "The report layout is designed to mirror the structure of Geojit-style equity research notes.",
+        "verbatim": null
+      },
+      {
+        "id": "c2",
+        "kind": "stat",
+        "text": "The application provides a quick start process that takes less than two minutes to set up.",
+        "verbatim": "under 2 minutes"
+      },
+      {
+        "id": "c3",
+        "kind": "fact",
+        "text": "The extraction process offers two modes: a Claude-based LLM path that requires an API key, and a deterministic rule-based path that functions without a network connection.",
+        "verbatim": null
+      },
+      {
+        "id": "c4",
+        "kind": "fact",
+        "text": "The system is designed to degrade gracefully to deterministic parsing if the LLM call encounters an error.",
+        "verbatim": null
+      },
+      {
+        "id": "c5",
+        "kind": "fact",
+        "text": "The application uses ReportLab and matplotlib to render PDF reports and charts respectively.",
+        "verbatim": null
+      },
+      {
+        "id": "c6",
+        "kind": "stat",
+        "text": "The system requires at least two charts, specifically a revenue trend and a margin trend, to be populated in the report.",
+        "verbatim": "two"
+      },
+      {
+        "id": "c7",
+        "kind": "fact",
+        "text": "Fields that cannot be located during the extraction process are labeled as 'NA' in the final report.",
+        "verbatim": "NA"
+      },
+      {
+        "id": "c8",
+        "kind": "fact",
+        "text": "The tech stack includes Python 3.11, FastAPI, Uvicorn, Jinja2, and pdfplumber.",
+        "verbatim": null
+      },
+      {
+        "id": "c9",
+        "kind": "fact",
+        "text": "The application uses a FastAPI-based structure with a dedicated configuration file for managing visual elements like fonts, colors, and the rating ladder.",
+        "verbatim": null
+      },
+      {
+        "id": "c10",
+        "kind": "fact",
+        "text": "Data extraction is handled by an orchestrator that utilizes LLMs with a deterministic fallback mechanism.",
+        "verbatim": null
+      },
+      {
+        "id": "c11",
+        "kind": "fact",
+        "text": "To achieve an exact visual match with a specific Geojit PDF, users can modify the geometry and section spacing within the PDF builder file.",
+        "verbatim": null
+      },
+      {
+        "id": "c12",
+        "kind": "fact",
+        "text": "The data model and extraction logic remain independent of the document's visual styling.",
+        "verbatim": null
+      },
+      {
+        "id": "c13",
+        "kind": "fact",
+        "text": "This project is a reconstructed template for educational purposes and holds no official affiliation with Geojit Financial Services Ltd.",
+        "verbatim": null
+      },
+      {
+        "id": "c14",
+        "kind": "fact",
+        "text": "Reports produced by this tool do not constitute investment advice.",
+        "verbatim": null
+      }
+    ],
+    "hook_candidates": [
+      "Turn raw financial documents into professional research reports automatically using a simple web interface.",
+      "You can generate Geojit-style equity research notes from CSV, TXT, or PDF files in under two minutes.",
+      "The report generator ensures your financial data is always processed by falling back to deterministic rules if the AI extraction fails.",
+      "Eliminate manual formatting by using a programmatic pipeline to build standardized financial research reports.",
+      "The application handles missing financial data by automatically marking fields as 'NA' rather than breaking the report generation.",
+      "You can replicate complex financial report layouts pixel-for-pixel using a modular Python-based generator.",
+      "The secret to matching a specific financial report style lies in separating your data extraction logic from your visual configuration.",
+      "This open-source template demonstrates how to build a Geojit-style research report generator from scratch."
+    ],
+    "voice_samples": [
+      "The data model and extraction don't need to change.",
+      "Generated reports are not investment advice."
+    ],
+    "thesis": "Automating the creation of standardized equity research reports is achievable by building a pipeline that normalizes financial data from various document formats and renders it into a consistent PDF layout."
+  }
+}

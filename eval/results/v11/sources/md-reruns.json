@@ -1,0 +1,258 @@
+{
+  "id": "md-reruns",
+  "judged_by_model": false,
+  "kind": "markdown",
+  "ref": "C:\\Users\\veera\\claude\\reruns\\README.md",
+  "title": "reruns",
+  "segments": 61,
+  "chars": 14231,
+  "extracted_claims": 27,
+  "dropped_unanchored": 0,
+  "demoted_quotes": 0,
+  "targets": [
+    "linkedin",
+    "thread"
+  ],
+  "verifier_errors": {
+    "linkedin": [],
+    "thread": [
+      "[error/intensity] 'relies on': the source never says 'relies on'; do not add force it did not use"
+    ]
+  },
+  "format_violations": {},
+  "repaired": [],
+  "repair_attempted": [
+    "thread"
+  ],
+  "repair_detail": {
+    "thread": {
+      "kept": false,
+      "first_pass_errors": [
+        "[error/intensity] 'relies on': the source never says 'relies on'; do not add force it did not use"
+      ],
+      "repair_errors": [
+        "[error/intensity] 'relies on': the source never says 'relies on'; do not add force it did not use"
+      ],
+      "spans_changed": []
+    }
+  },
+  "claim_utilisation": 0.3333333333333333,
+  "judged": {},
+  "judged_claims": 0,
+  "judged_unsupported": 0,
+  "injections": {
+    "planted": 10,
+    "caught": 10,
+    "recall": 1.0,
+    "recall_by_rule": {
+      "number": 1.0,
+      "quote": 1.0,
+      "entity": 1.0,
+      "intensity": 1.0,
+      "citation": 1.0
+    },
+    "missed": [],
+    "clean_bodies": 2,
+    "unplanted_error_bodies": 1,
+    "unplanted_errors_by_rule": {
+      "intensity": 1
+    },
+    "unplanted_errors": [
+      {
+        "target": "thread",
+        "rules": [
+          "intensity"
+        ],
+        "spans": [
+          "[error/intensity] 'relies on': the source never says 'relies on'; do not add force it did not use"
+        ]
+      }
+    ]
+  },
+  "bodies": {
+    "linkedin": "An agent with a 0.60 success rate on single attempts would statistically perform near 0.08 across five independent trials. \n\nMost benchmarks rely on single-turn results, but this ignores non-deterministic behavior. Running a task five times reveals if an agent is actually consistent. \n\nA task is only successful when the final database state is correct, the policy is followed, and the required tool calls are executed. Grading by checking the database state avoids the need for an LLM judge. \n\nIn recent trials, 29 out of 37 state-changing operations occurred after the simulated customer had already disconnected. The simulator configuration now only halts when a final refusal or completed action is recorded. \n\nThis system is released under the MIT license.",
+    "thread": "An agent with a 0.60 success rate on single attempts would statistically perform near 0.08 across five independent trials.\n\nRunning tasks five times reveals if an agent is actually consistent or just getting lucky.\n\nGrading relies on checking the final database state and policy adherence instead of using an LLM judge.\n\nThe backend is intentionally designed to allow agents to commit policy violations to test whether they actually follow rules.\n\nTrial-level checkpointing prevents the loss of progress when runs are interrupted by token caps or other failures.\n\nReliability in support agents should be measured by running tasks multiple times to account for non-deterministic behavior rather than relying on single-turn benchmarks."
+  },
+  "inventory": {
+    "claims": [
+      {
+        "id": "c0",
+        "kind": "stat",
+        "text": "The benchmark tool executes every task five times to determine if the agent's performance is consistent.",
+        "verbatim": "five times"
+      },
+      {
+        "id": "c1",
+        "kind": "stat",
+        "text": "An agent with a 0.60 success rate on single attempts would statistically perform near 0.08 across five independent trials.",
+        "verbatim": "0.60"
+      },
+      {
+        "id": "c2",
+        "kind": "fact",
+        "text": "Grading is performed by comparing the final database state and policy adherence against expected outcomes, rather than using an LLM judge.",
+        "verbatim": null
+      },
+      {
+        "id": "c3",
+        "kind": "fact",
+        "text": "A task is considered successful only when the final database state is correct, the policy is followed, and the required tool calls are executed.",
+        "verbatim": null
+      },
+      {
+        "id": "c4",
+        "kind": "fact",
+        "text": "The grading system does not mandate the use of the escalate_to_human tool, a decision that significantly impacts the pass rate of agents.",
+        "verbatim": null
+      },
+      {
+        "id": "c5",
+        "kind": "opinion",
+        "text": "The backend is intentionally designed to allow agents to commit policy violations to test whether they actually follow rules.",
+        "verbatim": null
+      },
+      {
+        "id": "c6",
+        "kind": "stat",
+        "text": "The pass^k metric measures the proportion of tasks that succeed across all k trials.",
+        "verbatim": "pass^k"
+      },
+      {
+        "id": "c7",
+        "kind": "fact",
+        "text": "When a simulated customer ends a conversation, the agent requires a final closing turn to prevent missing tool calls.",
+        "verbatim": null
+      },
+      {
+        "id": "c8",
+        "kind": "stat",
+        "text": "The initial evaluation run was abandoned after completing 60 out of 75 trials because it exhausted the daily token allowance.",
+        "verbatim": "60 of 75"
+      },
+      {
+        "id": "c9",
+        "kind": "fact",
+        "text": "Using regex patterns on generated prose to evaluate policy compliance can lead to false policy violation logs when the model's output does not match expected strings.",
+        "verbatim": null
+      },
+      {
+        "id": "c10",
+        "kind": "fact",
+        "text": "Trial-level checkpointing prevents the loss of progress when runs are interrupted by token caps or other failures.",
+        "verbatim": null
+      },
+      {
+        "id": "c11",
+        "kind": "stat",
+        "text": "The system ensures evaluation integrity by asserting fixed scores for oracle and mute solvers on every push.",
+        "verbatim": "oracle  15 tasks x 1 trials          mute  15 tasks x 1 trials\n  pass@1            1.000              pass@1            0.000\n  state and calls   1.000              state and calls   0.000\n  policy violated   0.000              policy violated   0.000"
+      },
+      {
+        "id": "c12",
+        "kind": "fact",
+        "text": "The --regrade functionality allows for re-evaluating finished trials from saved transcripts without incurring additional model costs.",
+        "verbatim": null
+      },
+      {
+        "id": "c13",
+        "kind": "stat",
+        "text": "The dry-run feature estimates the token cost of remaining trials before execution begins.",
+        "verbatim": "banked trials cost 640,083 tokens, 11,036 each\n  so 17 more is roughly 187,611 tokens"
+      },
+      {
+        "id": "c14",
+        "kind": "fact",
+        "text": "A domain is defined as a directory containing three specific files.",
+        "verbatim": null
+      },
+      {
+        "id": "c15",
+        "kind": "fact",
+        "text": "The software package does not contain any hardcoded retail references.",
+        "verbatim": null
+      },
+      {
+        "id": "c16",
+        "kind": "stat",
+        "text": "In recent trials, 29 out of 37 state-changing operations occurred after the simulated customer had already disconnected.",
+        "verbatim": null
+      },
+      {
+        "id": "c17",
+        "kind": "stat",
+        "text": "Out of 24 trials where every write occurred after the customer left, all 24 were successful.",
+        "verbatim": "in 24 trials every write did. All 24 passed"
+      },
+      {
+        "id": "c18",
+        "kind": "fact",
+        "text": "The simulator previously stopped upon hearing an announcement of intent because it misinterpreted such statements as task completion.",
+        "verbatim": null
+      },
+      {
+        "id": "c19",
+        "kind": "fact",
+        "text": "The current simulator configuration only halts when a final refusal or completed action is recorded.",
+        "verbatim": null
+      },
+      {
+        "id": "c20",
+        "kind": "fact",
+        "text": "The system prevents mixing trials from different harness versions because changes to the measurement methodology render comparisons invalid.",
+        "verbatim": null
+      },
+      {
+        "id": "c21",
+        "kind": "fact",
+        "text": "The grading system does not mandate that the agent provide any verbal response to pass three specific tasks.",
+        "verbatim": null
+      },
+      {
+        "id": "c22",
+        "kind": "stat",
+        "text": "In the current run, all five unknown_email trials were completed without the assistant speaking.",
+        "verbatim": null
+      },
+      {
+        "id": "c23",
+        "kind": "fact",
+        "text": "The twenty tasks in the suite are manually created rather than derived from actual support logs.",
+        "verbatim": null
+      },
+      {
+        "id": "c24",
+        "kind": "stat",
+        "text": "Five tasks were added to the suite after it was observed that nine out of twelve tasks had never failed across 88 trials.",
+        "verbatim": null
+      },
+      {
+        "id": "c25",
+        "kind": "fact",
+        "text": "The suite does not currently test for adversarial users attempting to force outcomes like refunds.",
+        "verbatim": null
+      },
+      {
+        "id": "c26",
+        "kind": "fact",
+        "text": "The software is released under the MIT license.",
+        "verbatim": "MIT"
+      }
+    ],
+    "hook_candidates": [
+      "A support agent that gets the right answer six out of ten times might actually be failing almost every time you use it.",
+      "The only way to know if an AI agent follows your rules is to give it the power to break them.",
+      "Most AI benchmarks measure how an agent answers, but real support work is about what an agent does to your database.",
+      "If your AI agent is not deterministic, testing it once is effectively the same as not testing it at all.",
+      "Grading an AI agent without an LLM judge is possible if you measure the final state of your systems instead.",
+      "A single poorly timed agent response can invalidate an entire evaluation trial.",
+      "Evaluating AI agents without trial-level persistence is a recipe for burning your budget.",
+      "Your evaluation harness might be scoring your regex patterns rather than your model's actual performance."
+    ],
+    "voice_samples": [
+      "Run that task once and you learn whether the agent can do it.",
+      "The backend permits every violation it is asked to commit.",
+      "Those transcripts also make grading fixes free."
+    ],
+    "thesis": "Reliability in support agents should be measured by running tasks multiple times to account for non-deterministic behavior rather than relying on single-turn benchmarks."
+  }
+}

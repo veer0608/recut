@@ -1,0 +1,195 @@
+{
+  "id": "md-n8n",
+  "judged_by_model": false,
+  "kind": "markdown",
+  "ref": "C:\\Users\\veera\\claude\\n8n-statement-extractor\\README.md",
+  "title": "Statement & Invoice PDF \u2192 Reconciled Rows",
+  "segments": 46,
+  "chars": 11348,
+  "extracted_claims": 16,
+  "dropped_unanchored": 0,
+  "demoted_quotes": 0,
+  "targets": [
+    "linkedin",
+    "thread"
+  ],
+  "verifier_errors": {
+    "linkedin": [
+      "[error/intensity] 'the only way': the source never says 'the only way'; do not add force it did not use"
+    ],
+    "thread": []
+  },
+  "format_violations": {},
+  "repaired": [
+    "linkedin"
+  ],
+  "repair_attempted": [
+    "linkedin"
+  ],
+  "repair_detail": {
+    "linkedin": {
+      "kept": true,
+      "first_pass_errors": [
+        "[error/entity] \"JavaScript's Date\": name does not appear in the source"
+      ],
+      "repair_errors": [
+        "[error/intensity] 'the only way': the source never says 'the only way'; do not add force it did not use"
+      ],
+      "spans_changed": [
+        "[entity] JavaScript's Date"
+      ]
+    }
+  },
+  "claim_utilisation": 0.25,
+  "judged": {},
+  "judged_claims": 0,
+  "judged_unsupported": 0,
+  "injections": {
+    "planted": 10,
+    "caught": 10,
+    "recall": 1.0,
+    "recall_by_rule": {
+      "number": 1.0,
+      "quote": 1.0,
+      "entity": 1.0,
+      "intensity": 1.0,
+      "citation": 1.0
+    },
+    "missed": [],
+    "clean_bodies": 2,
+    "unplanted_error_bodies": 1,
+    "unplanted_errors_by_rule": {
+      "intensity": 1
+    },
+    "unplanted_errors": [
+      {
+        "target": "linkedin",
+        "rules": [
+          "intensity"
+        ],
+        "spans": [
+          "[error/intensity] 'the only way': the source never says 'the only way'; do not add force it did not use"
+        ]
+      }
+    ]
+  },
+  "bodies": {
+    "linkedin": "A model can correctly match your final bank balance while still being wrong about every transaction in between. \n\nAutomated financial document extraction often fails when systems rely on models to handle numerical values. The design philosophy here mandates that the AI model must never handle a numerical value that it could potentially fabricate. \n\nInstead, workflows should use deterministic methods to extract values and restrict the LLM to assigning columns, followed by arithmetic verification to ensure accuracy. This process is designed to catch model errors on a row-by-row basis, even when the closing balances match. \n\nIn a test of 15 of 16 rows, the LLM node correctly structured the data while mislabeling one salary disbursement as a credit. Relying on a dedicated reconciliation step is the only way to catch these errors. \n\nDeterministic data handling is required to avoid data drift.",
+    "thread": "A model can correctly match your final bank balance while still being wrong about every transaction in between.\n\nThe workflow uses deterministic methods to extract values and restricts the LLM to assigning columns, followed by arithmetic verification to ensure accuracy.\n\nThe design philosophy mandates that the AI model must never handle a numerical value that it could potentially fabricate.\n\nIn a test of 15 of 16 rows, the LLM node correctly structured 15 rows while mislabeling one salary disbursement as a credit.\n\nThe reconciliation process is designed to catch model errors on a row-by-row basis, even when the closing balances match.\n\nAutomated financial document extraction requires deterministic data handling and arithmetic validation rather than relying solely on LLMs to avoid data drift."
+  },
+  "inventory": {
+    "claims": [
+      {
+        "id": "c0",
+        "kind": "fact",
+        "text": "The n8n workflow processes bank statements or invoice PDFs into structured data while verifying the arithmetic of every row against the statement's balance.",
+        "verbatim": null
+      },
+      {
+        "id": "c1",
+        "kind": "stat",
+        "text": "The n8n library contains 17 paid listings for document or PDF extraction compared to 177 free listings.",
+        "verbatim": "17 paid listings against 177 free ones"
+      },
+      {
+        "id": "c2",
+        "kind": "stat",
+        "text": "Eleven of the seventeen paid document extraction listings on n8n are specifically for resume screening.",
+        "verbatim": null
+      },
+      {
+        "id": "c3",
+        "kind": "opinion",
+        "text": "The design philosophy mandates that the AI model must never handle a numerical value that it could potentially fabricate.",
+        "verbatim": null
+      },
+      {
+        "id": "c4",
+        "kind": "fact",
+        "text": "The workflow uses deterministic methods to extract values and restricts the LLM to assigning columns, followed by arithmetic verification to ensure accuracy.",
+        "verbatim": null
+      },
+      {
+        "id": "c5",
+        "kind": "fact",
+        "text": "The demo PDF contains three specific challenges: wrapped descriptions, transactions split across page breaks, and accounting parentheses for negative values.",
+        "verbatim": null
+      },
+      {
+        "id": "c6",
+        "kind": "opinion",
+        "text": "Overlapping columns in a PDF's text layer are a flaw in the source document itself that cannot be resolved by the parser.",
+        "verbatim": null
+      },
+      {
+        "id": "c7",
+        "kind": "stat",
+        "text": "In a real n8n v2.35.7 test, the digital PDF parsing achieved 100 percent reconciliation across 16 rows.",
+        "verbatim": "16/16 rows, 100% reconciled"
+      },
+      {
+        "id": "c8",
+        "kind": "fact",
+        "text": "A test using a vision model to OCR an image-only PDF and process it through reconciliation nodes confirmed the end-to-end viability of the extraction path.",
+        "verbatim": null
+      },
+      {
+        "id": "c9",
+        "kind": "stat",
+        "text": "In a test of 16 rows, the LLM node correctly structured 15 rows while mislabeling one salary disbursement as a credit.",
+        "verbatim": "15 of 16 rows"
+      },
+      {
+        "id": "c10",
+        "kind": "fact",
+        "text": "The reconciliation process is designed to catch model errors on a row-by-row basis, even when the closing balances match.",
+        "verbatim": null
+      },
+      {
+        "id": "c11",
+        "kind": "stat",
+        "text": "While extraction has been proven on an 86-row card statement, the system has not yet been reconciled against a real statement containing a balance column.",
+        "verbatim": "86-row"
+      },
+      {
+        "id": "c12",
+        "kind": "opinion",
+        "text": "Google Gemini is a preferable choice for long-running pipelines on a free tier because Groq's free tier imposes a daily token limit that can cause silent batch failures.",
+        "verbatim": null
+      },
+      {
+        "id": "c13",
+        "kind": "fact",
+        "text": "When using local HTTP services on Windows, Node 24's fetch function may prioritize IPv6, requiring developers to explicitly use 127.0.0.1 in the base URL.",
+        "verbatim": null
+      },
+      {
+        "id": "c14",
+        "kind": "fact",
+        "text": "JavaScript's Date constructor can silently corrupt dates where the day is 12 or less by misinterpreting them as months.",
+        "verbatim": null
+      },
+      {
+        "id": "c15",
+        "kind": "fact",
+        "text": "The system now infers the decimal separator by identifying the last symbol between a dot and a comma within the document to avoid incorrect parsing of European currency formats.",
+        "verbatim": null
+      }
+    ],
+    "hook_candidates": [
+      "Most automated PDF extraction tools fail because they trust vision models to handle numbers they should not be touching.",
+      "If your bank statement parser is producing garbage data, the problem is likely the PDF's internal column geometry, not the code.",
+      "There are nearly ten times as many free PDF extraction templates on n8n as there are paid ones, yet almost no one is selling accurate structured extraction.",
+      "True financial data extraction requires a system that validates arithmetic independently of the AI used to label the rows.",
+      "A single mislabeled row by an LLM can be caught automatically if your workflow includes a dedicated reconciliation step.",
+      "Your reconciliation logic is likely failing silently if it only checks the opening and closing balances.",
+      "Automated document extraction can easily misinterpret dates if it relies on standard JavaScript date parsing.",
+      "A model can correctly match your final bank balance while still being wrong about every transaction in between."
+    ],
+    "voice_samples": [
+      "The model never touches a number it could invent.",
+      "Nodes 5 and 7 are the product."
+    ],
+    "thesis": "Automated financial document extraction requires deterministic data handling and arithmetic validation rather than relying solely on LLMs to avoid data drift."
+  }
+}
