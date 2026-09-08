@@ -205,9 +205,10 @@ unchanged under your own name is a different kind of wrong, and a tool that rewr
 for a living should notice when it did not rewrite. It was a notice rather than an
 error for as long as **80% of artifacts across the first two eval runs carried an eight
 word verbatim run**, because gating there sends four drafts in five back for repair.
-Two runs after the prompt fix now measure it at **37% and 23%**, figures that do not
+Three runs after the prompt fix measure it at **37%, 23% and 20%**, figures that do not
 differ from each other, so it is an error: the rate the gate fires at is known rather
-than hoped for.
+than hoped for. The repair clears half of what it flags, which is what makes the gate
+worth the second call it costs.
 
 A failure triggers exactly one regeneration with the offending span named. A second
 failure is surfaced to the user, not hidden. Silently shipping an unanchored figure

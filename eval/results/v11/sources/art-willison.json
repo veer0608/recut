@@ -1,0 +1,154 @@
+{
+  "id": "art-willison",
+  "judged_by_model": false,
+  "kind": "article",
+  "ref": "https://simonwillison.net/2025/Sep/6/",
+  "title": "Simon Willison\u2019s Weblog",
+  "segments": 30,
+  "chars": 6007,
+  "extracted_claims": 8,
+  "dropped_unanchored": 0,
+  "demoted_quotes": 0,
+  "targets": [
+    "linkedin",
+    "thread"
+  ],
+  "verifier_errors": {
+    "linkedin": [
+      "[error/copying] 'to pay \"at least\" a staggering $1.5 billion, plus interest to': 12 consecutive words copied from the source without quoting"
+    ],
+    "thread": [
+      "[error/copying] 'to pay at least a staggering $1.5 billion, plus interest to': 12 consecutive words copied from the source without quoting"
+    ]
+  },
+  "format_violations": {},
+  "repaired": [
+    "linkedin",
+    "thread"
+  ],
+  "repair_attempted": [
+    "linkedin",
+    "thread"
+  ],
+  "repair_detail": {
+    "linkedin": {
+      "kept": true,
+      "first_pass_errors": [
+        "[error/entity] 'United States': name does not appear in the source",
+        "[error/copying] '1 trillion parameters in a mixture-of-experts configuration with 384 experts, 32B activated parameters': 15 consecutive words copied from the source without quoting"
+      ],
+      "repair_errors": [
+        "[error/copying] 'to pay \"at least\" a staggering $1.5 billion, plus interest to': 12 consecutive words copied from the source without quoting"
+      ],
+      "spans_changed": [
+        "[copying] 1 trillion parameters in a mixture-of-experts configuration with 384 experts, 32B activated parameters",
+        "[entity] United States"
+      ]
+    },
+    "thread": {
+      "kept": true,
+      "first_pass_errors": [
+        "[error/entity] 'United States': name does not appear in the source",
+        "[error/citation] 'c_intro': cites a claim id that does not exist"
+      ],
+      "repair_errors": [
+        "[error/copying] 'to pay at least a staggering $1.5 billion, plus interest to': 12 consecutive words copied from the source without quoting"
+      ],
+      "spans_changed": [
+        "[citation] c_intro",
+        "[entity] United States"
+      ]
+    }
+  },
+  "claim_utilisation": 0.625,
+  "judged": {},
+  "judged_claims": 0,
+  "judged_unsupported": 0,
+  "injections": {
+    "planted": 10,
+    "caught": 10,
+    "recall": 1.0,
+    "recall_by_rule": {
+      "number": 1.0,
+      "quote": 1.0,
+      "entity": 1.0,
+      "intensity": 1.0,
+      "citation": 1.0
+    },
+    "missed": [],
+    "clean_bodies": 2,
+    "unplanted_error_bodies": 0,
+    "unplanted_errors_by_rule": {},
+    "unplanted_errors": []
+  },
+  "bodies": {
+    "linkedin": "It is currently legal to purchase physical books, destroy them by scanning, and use that digital content for AI training.\n\nAnthropic agreed to pay \"at least\" a staggering $1.5 billion, plus interest to resolve a class-action lawsuit regarding the use of pirated books for AI training. The settlement payout is \"approximately $3,000 per book or work\" included in the case. This figure is a discount compared to the maximum potential penalty of 150,000 dollars per book for copyright infringement.\n\nAnthropic stated that the specific digital book copies involved in the settlement were not utilized to train its commercial AI models.\n\nTechnical challenges in data modeling and AI training highlight the complexities of attributing ownership and identity in digital systems.",
+    "thread": "Anthropic agreed to pay at least a staggering $1.5 billion, plus interest to resolve a class-action lawsuit regarding the use of pirated books for AI training.\n\nThis settlement payout is estimated to be approximately $3,000 per book or work included in the case.\n\nA $3,000 payment per book is a significant discount compared to the maximum potential penalty of $150,000 per book for copyright infringement.\n\nAnthropic stated that the specific digital book copies involved in the settlement were not utilized to train its commercial AI models.\n\nIt is currently considered legal to purchase physical books, destroy them by scanning, and use the resulting digital content for AI training.\n\nLegal and technical challenges in data modeling and AI training highlight the complexities of attributing ownership and identity in digital systems."
+  },
+  "inventory": {
+    "claims": [
+      {
+        "id": "c0",
+        "kind": "stat",
+        "text": "Anthropic agreed to pay a minimum of 1.5 billion dollars plus interest to resolve a class-action lawsuit regarding the use of pirated books for AI training.",
+        "verbatim": "at least\u201d a staggering $1.5 billion, plus interest"
+      },
+      {
+        "id": "c1",
+        "kind": "stat",
+        "text": "The settlement payout is estimated to be around 3,000 dollars for each book or work included in the case.",
+        "verbatim": "approximately $3,000 per book or work"
+      },
+      {
+        "id": "c2",
+        "kind": "opinion",
+        "text": "The author suggests that a 3,000 dollar payment per book is a significant discount compared to the maximum potential penalty of 150,000 dollars per book for copyright infringement.",
+        "verbatim": null
+      },
+      {
+        "id": "c3",
+        "kind": "fact",
+        "text": "It is currently considered legal in the United States to purchase physical books, destroy them by scanning, and use the resulting digital content for AI training.",
+        "verbatim": null
+      },
+      {
+        "id": "c4",
+        "kind": "fact",
+        "text": "Anthropic stated that the specific digital book copies involved in the settlement were not utilized to train its commercial AI models.",
+        "verbatim": null
+      },
+      {
+        "id": "c5",
+        "kind": "stat",
+        "text": "The Moonshot AI model Kimi-K2-Instruct-0905 features a context window expanded to 256,000 tokens.",
+        "verbatim": "256,000 tokens"
+      },
+      {
+        "id": "c6",
+        "kind": "stat",
+        "text": "The Kimi-K2-Instruct-0905 model utilizes a mixture-of-experts architecture with 1 trillion parameters, 384 experts, and 32 billion activated parameters.",
+        "verbatim": "1 trillion parameters in a mixture-of-experts configuration with 384 experts, 32B activated parameters"
+      },
+      {
+        "id": "c7",
+        "kind": "opinion",
+        "text": "Using LLM-generated summaries to embed images can significantly improve search recall compared to relying solely on CLIP embeddings.",
+        "verbatim": null
+      }
+    ],
+    "hook_candidates": [
+      "Anthropic is paying 1.5 billion dollars to settle claims that it trained AI on pirated books.",
+      "Destroying physical books to scan them for AI training is currently a legal practice in the United States.",
+      "Data modeling is fundamentally constrained by the specific questions you intend to answer.",
+      "Using LLM-generated summaries for image retrieval can boost search recall from 28 percent to 75 percent.",
+      "A 3,000 dollar settlement per book is a bargain compared to the potential 150,000 dollar statutory penalty."
+    ],
+    "voice_samples": [
+      "It's wild to me that a $1.5 billion settlement can feel like a win for Anthropic, but given that it's undisputed that they downloaded pirated books (as did Meta and likely many other research teams) the maximum allowed penalty was $150,000 per book, so $3,000 per book is actually a significant discount.",
+      "To be clear: it appears it is legal, at least in the USA, to buy a used copy of a physical book (used = the author gets nothing), chop the spine off, scan the pages, discard the paper copy and then train on the scanned content.",
+      "I am once again shocked at how much better image retrieval performance you can get if you embed highly opinionated summaries of an image, a summary that came out of a visual language model, than using CLIP embeddings themselves.",
+      "RDF has the same problems as the SQL schemas with information scattered."
+    ],
+    "thesis": "Legal and technical challenges in data modeling and AI training highlight the complexities of attributing ownership and identity in digital systems."
+  }
+}

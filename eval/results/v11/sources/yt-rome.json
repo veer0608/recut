@@ -1,0 +1,137 @@
+{
+  "id": "yt-rome",
+  "judged_by_model": false,
+  "kind": "youtube",
+  "ref": "https://www.youtube.com/watch?v=0PkBP0dk4Lw",
+  "title": "Why Rome Never Really Fell made with vidsmith",
+  "segments": 10,
+  "chars": 2174,
+  "extracted_claims": 7,
+  "dropped_unanchored": 0,
+  "demoted_quotes": 0,
+  "targets": [
+    "linkedin",
+    "thread"
+  ],
+  "verifier_errors": {
+    "linkedin": [],
+    "thread": []
+  },
+  "format_violations": {},
+  "repaired": [
+    "linkedin",
+    "thread"
+  ],
+  "repair_attempted": [
+    "linkedin",
+    "thread"
+  ],
+  "repair_detail": {
+    "linkedin": {
+      "kept": true,
+      "first_pass_errors": [
+        "[error/intensity] 'significant': the source never says 'significant(?:ly)?'; do not add force it did not use"
+      ],
+      "repair_errors": [],
+      "spans_changed": [
+        "[intensity] significant"
+      ]
+    },
+    "thread": {
+      "kept": true,
+      "first_pass_errors": [
+        "[error/intensity] 'significant': the source never says 'significant(?:ly)?'; do not add force it did not use"
+      ],
+      "repair_errors": [],
+      "spans_changed": [
+        "[intensity] significant"
+      ]
+    }
+  },
+  "claim_utilisation": 1.0,
+  "judged": {},
+  "judged_claims": 0,
+  "judged_unsupported": 0,
+  "injections": {
+    "planted": 10,
+    "caught": 10,
+    "recall": 1.0,
+    "recall_by_rule": {
+      "number": 1.0,
+      "quote": 1.0,
+      "entity": 1.0,
+      "intensity": 1.0,
+      "citation": 1.0
+    },
+    "missed": [],
+    "clean_bodies": 2,
+    "unplanted_error_bodies": 0,
+    "unplanted_errors_by_rule": {},
+    "unplanted_errors": []
+  },
+  "bodies": {
+    "linkedin": "By 450, farmers were abandoning their land to join local warlords who offered better security than the state.\n\nThe popular belief that Rome ended abruptly due to barbarian attacks is inaccurate. The Western Roman government struggled to function because it lacked the funds to pay its obligations.\n\nEmperors reduced the silver content in coins to cover military expenditures, which caused inflation. Due to the empire's vast size, central armies were often unable to respond quickly enough to raids, leading locals to seek protection from nearby commanders.\n\nGovernance declined as military leaders prioritized bribes and internal power struggles over state loyalty, causing the tax base to shrink. The year 476 is frequently cited as the date when barbarian forces breached Roman borders.\n\nThe Roman Empire dissolved as its internal systems decayed.",
+    "thread": "By 450, farmers were abandoning their land to join local warlords who offered better security than the state.\n\nThe popular belief that Rome ended abruptly due to barbarian attacks is inaccurate.\n\nThe year 476 is frequently cited as the date when barbarian forces breached Roman borders.\n\nEmperors reduced the silver content in coins to cover military expenditures, which caused inflation.\n\nThe Western Roman government struggled to function because it lacked the funds to pay its obligations.\n\nCentral armies were often unable to respond quickly to raids, leading locals to seek protection from nearby commanders.\n\nGovernance declined as military leaders prioritized bribes and internal power struggles over state loyalty, causing the tax base to shrink.\n\nThe collapse of the Roman Empire was not a singular, sudden event caused by external invasion, but a gradual process of internal systemic decay."
+  },
+  "inventory": {
+    "claims": [
+      {
+        "id": "c0",
+        "kind": "opinion",
+        "text": "The popular belief that Rome ended abruptly due to barbarian attacks is inaccurate.",
+        "verbatim": null
+      },
+      {
+        "id": "c1",
+        "kind": "fact",
+        "text": "The Western Roman government struggled to function because it lacked the funds to pay its obligations.",
+        "verbatim": null
+      },
+      {
+        "id": "c2",
+        "kind": "stat",
+        "text": "The year 476 is frequently cited as the date when barbarian forces breached Roman borders.",
+        "verbatim": "476"
+      },
+      {
+        "id": "c3",
+        "kind": "fact",
+        "text": "Emperors contributed to economic instability by reducing the silver content in coins to cover military expenditures, which caused significant inflation.",
+        "verbatim": null
+      },
+      {
+        "id": "c4",
+        "kind": "fact",
+        "text": "Due to the empire's vast size, central armies were often unable to respond quickly enough to raids, leading locals to seek protection from nearby commanders.",
+        "verbatim": null
+      },
+      {
+        "id": "c5",
+        "kind": "fact",
+        "text": "Governance declined as military leaders prioritized bribes and internal power struggles over state loyalty, causing the tax base to shrink.",
+        "verbatim": null
+      },
+      {
+        "id": "c6",
+        "kind": "narrative",
+        "text": "By 450, farmers were abandoning their land to join local warlords who offered better security than the state.",
+        "verbatim": "450"
+      }
+    ],
+    "hook_candidates": [
+      "The fall of Rome was not a sudden catastrophe, but a long, quiet unraveling of internal systems.",
+      "Barbarian invasions were a symptom, not the primary cause, of Rome's slow collapse.",
+      "Runaway inflation and currency devaluation played a critical role in the disintegration of Roman authority.",
+      "Roman citizens abandoned their fields to follow warlords because the state could no longer provide basic protection.",
+      "The Roman Empire did not disappear in a single day; it dissolved as its political and economic structures rotted from within."
+    ],
+    "voice_samples": [
+      "You likely picture the fall of the Roman Empire as a sudden, violent night of fire and barbarians sacking the marble streets.",
+      "Rome was already fracturing from internal rot long before any outsiders breached the gates, and the Western government nearly stopped functioning because it could no longer pay its own bills.",
+      "First came the slow poison of currency devaluation.",
+      "Central authority meant nothing when a general three provinces away protected you better than the distant emperor.",
+      "Do not look for a sudden ending when empires crumble."
+    ],
+    "thesis": "The collapse of the Roman Empire was not a singular, sudden event caused by external invasion, but a gradual process of internal systemic decay."
+  }
+}

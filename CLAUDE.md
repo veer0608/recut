@@ -171,11 +171,10 @@ both directions, so severities here were set by measurement, not taste:
   strong evidence of invention, a missing phrase is not.
 - **copying** is an error since v6, and was a notice before it. 80% of artifacts across v1
   and v2 carried an 8+ word verbatim run; a gate there sends four drafts in five back for
-  repair, which is an outage rather than a gate. After the `extract.md` fix v4 measured 37%
-  and v6 measured 23% across all fifteen sources. The two do not differ (`z=1.13, p=0.26`)
-  and pre-fix against post-fix pooled is 80% to 30% (`z=5.50`), so it was promoted on the
-  repeat and not on v4 alone. It costs a regeneration on about one draft in four, and two in
-  five of the articles, which stay the hard case at 39% against markdown's 14%.
+  repair, which is an outage rather than a gate. After the `extract.md` fix: v4 37%, v6 23%,
+  **v11 20%**, each over all fifteen sources. The three do not differ (v6 against v11 is
+  `z=0.31, p=0.75`) and pre-fix against post-fix pooled is 80% to 27% (`z=6.41`). Articles
+  stay the hard case at 38% against markdown's 12%.
 - **Promoting it put copying in front of `inject.score`,** which counts a clean body raising
   any error as a false positive. Copying is never planted and a body that reproduced the
   source really did reproduce it, so the false-positive scorer excludes the rule by name.
@@ -200,25 +199,28 @@ rewriting a sentence that copies, over-reaches or misquotes is the same model pr
 the same phrasing from the same claims. An overall repair rate averages those into a
 number describing neither, which is why the figure is per rule.
 
-**What would move the copying severity, written down before v11 reported.** An error
-does two separate things: it spends a regeneration, and it makes `clean` false, which
-gates approval and drives the badge. The repair measurement only bears on the first.
+**v11 settled the copying severity, against a threshold written down before the run
+reported.** The rule was: below about a third, keep copying an error but stop retrying on
+it; above a third, the retry earns its call and nothing changes. At fifteen sources
+copying clears **5 of 10, 50%**, so nothing changes.
 
-- If copying's repair clear rate at 15 sources holds near the 1-in-6 seen so far, the
-  regeneration is the part that is not working. The answer is **not** to demote to a
-  notice, which would also give up the gate. It is to keep copying an error and skip
-  the repair for it: `pipeline.py` would only retry when some non-copying error is
-  present. The human still sees it, approval is still blocked, and no call is spent on
-  a rewrite that returns the same run reworded.
-- If it clears above roughly a third, the retry is earning its call and nothing changes.
-- Demoting back to a notice needs a different argument entirely, about whether copying
-  should gate approval at all. That is a product decision and this measurement does not
-  speak to it.
+The small-sample reading said 1 in 6 and pointed the other way. Nine repairs on two
+article sources was not a basis for moving a severity, and pre-registering the threshold
+is the only reason it did not quietly happen anyway.
 
-Only **1 repair in 9 ended clean**. The `copying` case is the pointed one: promoted to an
-error the same day this was written, it spends a regeneration on roughly two article
-drafts in five and has cleared one of six. Small n, articles only, and it wants the next
-full run before anything moves on it.
+    citation   2/2  100%      copying     5/10   50%
+    entity     3/3  100%      intensity   5/8    62%
+
+**6 of 19 repairs end clean**, against 1 of 9 on the small sample. The shape holds:
+removing an invented name or a bad id is something a regeneration does reliably, and
+rewriting a sentence is where it struggles. It struggles less than two sources suggested.
+
+**The two inventory counters, first full reading.** `dropped_unanchored` is **1** over 405
+claims, in `art-ocr`. It had been zero across v1, v2, v4 and v6, 1,586 claims, so the
+corollary the design rests on is rare rather than dormant. `demoted_quotes` is **0**, and
+the reason matters more than the number: v11 produced **2 quote claims in 405** and both
+carried `verbatim`. The demotion had nothing to catch, so it stays largely untested
+against real extractions and its denominator is far smaller than it looked.
 
 ## The eval, and the abandonment rule
 
