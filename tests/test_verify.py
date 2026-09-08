@@ -248,6 +248,21 @@ class TestCopying:
         body = 'He put it plainly: "Reconcile against receipts, not memory. If the two disagree, the receipt is almost always right."'
         assert check_copying(body, self.SRC) == []
 
+    def test_a_mixed_straight_and_curly_pair_still_counts_as_quoting(self):
+        # A generator opened with " and closed with U+201D on art-willison. If the
+        # pairing only matched like with like, a legitimate quotation would be an
+        # error, and copying became an error today.
+        body = 'He put it plainly: "Reconcile against receipts, not memory. If the two disagree, the receipt is almost always right.”'
+        assert check_copying(body, self.SRC) == []
+
+    def test_a_copied_run_with_a_quotation_inside_it_is_still_copying(self):
+        # Only a run wholly inside quotation marks is attribution. Quoting part of
+        # a passage you reproduced whole does not launder the rest of it, which is
+        # the shape art-willison produced: 12 copied words with two of them quoted.
+        body = 'Reconcile against receipts, not memory. "If the two disagree, the receipt" is almost always right.'
+        found = check_copying(body, self.SRC)
+        assert found and found[0].rule == "copying"
+
     def test_a_short_shared_phrase_is_not_copying(self):
         # Any two sentences on a subject share a few words in a row.
         body = "Reconcile against receipts, but trust your own judgement afterwards."
