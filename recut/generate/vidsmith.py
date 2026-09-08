@@ -62,7 +62,14 @@ def render_config(title: str, source_ref: str) -> str:
     invalid YAML for those and vidsmith would refuse the project.
     """
     body = yaml.safe_dump(
-        {"title": title, **CONFIG}, sort_keys=False, allow_unicode=True, default_flow_style=False
+        # `source` is read by vidsmith and written verbatim into the
+        # description of anything published from this project. The comment
+        # on the first line is for a human reading the file; this is the
+        # field the video actually credits.
+        {"title": title, "source": source_ref, **CONFIG},
+        sort_keys=False,
+        allow_unicode=True,
+        default_flow_style=False,
     )
     return f"# Written by recut from {source_ref}\n{body}"
 

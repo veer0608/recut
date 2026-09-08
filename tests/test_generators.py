@@ -284,3 +284,48 @@ class TestProvenanceTravels:
         # The whole point of the anchors: a reader can go and look.
         quoted = document.raw[segment["char_start"]:segment["char_end"]]
         assert "speech engine" in quoted
+
+
+class TestSourceTravelsToTheVideo:
+    """The emitted project names what it was built from.
+
+    vidsmith writes that string verbatim into the description of anything
+    published from the project, so a video made out of someone else's writing
+    credits it. recut is the only thing that knows the source.
+    """
+
+    def test_the_config_carries_the_source(self):
+        import yaml
+
+        from recut.generate.vidsmith import render_config
+
+        parsed = yaml.safe_load(render_config("A title", "https://example.com/post"))
+        assert parsed["source"] == "https://example.com/post"
+
+    def test_a_query_string_survives_intact(self):
+        import yaml
+
+        from recut.generate.vidsmith import render_config
+
+        # An attribution is only an attribution if it still resolves. The
+        # comment on line one is prose for a human; this field is the one read.
+        ref = "https://example.com/a?b=1&c=2#x"
+        assert yaml.safe_load(render_config("T", ref))["source"] == ref
+
+    def test_a_title_with_a_colon_still_yields_valid_yaml(self):
+        import yaml
+
+        from recut.generate.vidsmith import render_config
+
+        parsed = yaml.safe_load(render_config("Rome: how it fell", "ref"))
+        assert parsed["title"] == "Rome: how it fell"
+        assert parsed["source"] == "ref"
+
+    def test_a_local_path_is_carried_as_written(self):
+        import yaml
+
+        from recut.generate.vidsmith import render_config
+
+        assert yaml.safe_load(render_config("T", "../schemablind/README.md"))["source"] == (
+            "../schemablind/README.md"
+        )

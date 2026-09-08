@@ -116,6 +116,11 @@ render   59.4s of picture across 5 shots, mixing and encoding
 done     empires-do-not-end-in-a-single-day-9x16.mp4  (59.4s, 9.0 MB, 98s to build)
 ```
 
+The emitted `config.yaml` names the source, and vidsmith writes that string verbatim
+into the description of anything published from the project. A video built out of
+someone else's writing credits it, and the credit is assembled rather than generated,
+because an attribution a model has paraphrased is not an attribution.
+
 Narration is written for a speech engine, so numbers are spelled out and symbols are
 rejected before they reach the voice: "four hundred seventy six", never "476". Visual
 queries have to name something a camera could point at, so "the concept of decline"
