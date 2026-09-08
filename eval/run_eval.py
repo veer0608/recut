@@ -184,6 +184,48 @@ def clear_stale(sources_dir: Path, ids: set[str] | None = None) -> int:
     return len(stale)
 
 
+def _repair_stats(results: list[dict]) -> dict:
+    """What the one repair retry actually bought, per run.
+
+    The retry is half the model calls a draft with errors costs, and until now
+    nothing said whether it was worth them. `kept` is the pipeline's own decision,
+    which a tie satisfies; `reduced` is the stricter question of whether the draft
+    ended with fewer errors than it started with, and `fully_cleared` the strictest.
+    A gap between kept and reduced is the tie-break doing its work, not a fault.
+
+    `still_failing_by_rule` counts a rule that was there before the repair and is
+    still there after it, which is the rule the repair prompt cannot move. Copying
+    became an error the same day this was written, and whether it is spending a
+    regeneration per article draft to produce the same copied run is exactly the
+    question this exists to answer.
+    """
+    attempted = kept = reduced = fully_cleared = 0
+    persistent: dict[str, int] = {}
+    for result in results:
+        for detail in (result.get("repair_detail") or {}).values():
+            attempted += 1
+            before = detail.get("first_pass_errors", [])
+            after = detail.get("repair_errors", [])
+            if detail.get("kept"):
+                kept += 1
+            if len(after) < len(before):
+                reduced += 1
+            if not after:
+                fully_cleared += 1
+            before_rules = {e.split("/")[1].split("]")[0] for e in before if "/" in e}
+            after_rules = {e.split("/")[1].split("]")[0] for e in after if "/" in e}
+            for rule in before_rules & after_rules:
+                persistent[rule] = persistent.get(rule, 0) + 1
+    return {
+        "attempted": attempted,
+        "kept": kept,
+        "reduced_error_count": reduced,
+        "fully_cleared": fully_cleared,
+        "reduced_rate": (reduced / attempted) if attempted else None,
+        "still_failing_by_rule": dict(sorted(persistent.items())),
+    }
+
+
 def aggregate(results: list[dict], failures: list[dict], run: dict) -> dict:
     complete = len(failures) == 0
     # A run that skipped the judge measured the deterministic layer only. It has
@@ -219,6 +261,7 @@ def aggregate(results: list[dict], failures: list[dict], run: dict) -> dict:
     artifacts = sum(len(r["targets"]) for r in results)
     violations = sum(len(r["format_violations"]) for r in results)
     utilisations = [r["claim_utilisation"] for r in results if r["claim_utilisation"] is not None]
+    repair = _repair_stats(results)
 
     by_rule: dict[str, list[float]] = {}
     for result in results:
@@ -267,6 +310,7 @@ def aggregate(results: list[dict], failures: list[dict], run: dict) -> dict:
         "unplanted_errors_by_rule": dict(sorted(fp_by_rule.items())),
         "format_compliance": (1 - violations / artifacts) if artifacts else None,
         "claim_utilisation": (sum(utilisations) / len(utilisations)) if utilisations else None,
+        "repair": repair,
         "artifacts": artifacts,
     }
 
@@ -394,6 +438,15 @@ def main(argv: list[str] | None = None) -> int:
     for rule, count in report["unplanted_errors_by_rule"].items():
         print(f"{DIM}            {rule:<10} fired on {count} unplanted bod"
               f"{'y' if count == 1 else 'ies'}{OFF}")
+    rep = report["repair"]
+    if rep["attempted"]:
+        print(
+            f"repair      {rep['attempted']} attempted, {rep['kept']} kept, "
+            f"{rep['reduced_error_count']} reduced the count, "
+            f"{rep['fully_cleared']} cleared it"
+        )
+        for rule, count in rep["still_failing_by_rule"].items():
+            print(f"{DIM}            {rule:<10} survived the repair {count} time(s){OFF}")
     print(f"format      {_pct(report['format_compliance'])} compliant")
     print(f"utilisation {_pct(report['claim_utilisation'])} of extracted claims used")
 

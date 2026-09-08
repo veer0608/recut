@@ -718,6 +718,56 @@ def test_fresh_clears_a_previous_attempts_files(tmp_path):
     assert list(sources.iterdir()) == []
 
 
+def _result(detail):
+    return {
+        "judged_by_model": False, "judged_claims": 0, "judged_unsupported": 0,
+        "claim_utilisation": None, "targets": ["linkedin"], "format_violations": {},
+        "repair_detail": detail,
+        "injections": {"planted": 0, "caught": 0, "clean_bodies": 0,
+                       "unplanted_error_bodies": 0, "recall_by_rule": {}},
+    }
+
+
+def test_a_kept_repair_that_only_tied_is_not_counted_as_reducing():
+    """kept and reduced are different questions and the gap is the tie-break.
+
+    A tie goes to the repair, so kept can exceed reduced without anything being
+    wrong. Reporting only kept would make the retry look more useful than it is.
+    """
+    detail = {"linkedin": {
+        "kept": True,
+        "first_pass_errors": ["[error/quote] 'a': x"],
+        "repair_errors": ["[error/intensity] 'b': y"],
+        "spans_changed": ["[quote] a"],
+    }}
+    rep = aggregate([_result(detail)], [], {"at": "x"})["repair"]
+    assert rep["attempted"] == 1
+    assert rep["kept"] == 1
+    assert rep["reduced_error_count"] == 0
+    assert rep["fully_cleared"] == 0
+
+
+def test_a_rule_that_survives_its_own_repair_is_named():
+    # The question copying-as-an-error raises: is the retry spending a call to
+    # produce the same copied run?
+    detail = {"linkedin": {
+        "kept": False,
+        "first_pass_errors": ["[error/copying] 'x': 12 words", "[error/entity] 'y': z"],
+        "repair_errors": ["[error/copying] 'x reworded': 12 words"],
+        "spans_changed": [],
+    }}
+    rep = aggregate([_result(detail)], [], {"at": "x"})["repair"]
+    assert rep["still_failing_by_rule"] == {"copying": 1}
+    assert rep["reduced_error_count"] == 1
+    assert rep["fully_cleared"] == 0
+
+
+def test_a_run_with_no_repairs_reports_zero_not_none():
+    rep = aggregate([_result({})], [], {"at": "x"})["repair"]
+    assert rep["attempted"] == 0
+    assert rep["reduced_rate"] is None
+
+
 def test_fresh_only_clears_the_sources_the_run_will_rewrite(tmp_path):
     """--fresh --only art-willison must not destroy the other fourteen.
 

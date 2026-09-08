@@ -188,6 +188,15 @@ both directions, so severities here were set by measurement, not taste:
   disqualified run is skipped and the scan continues, so numbers cannot mask a copied
   sentence further along the body.
 
+**What the repair retry buys is now measured, not assumed.** `_repair_stats` aggregates
+`repair_detail` into attempted / kept / reduced / fully_cleared plus
+`still_failing_by_rule`. `kept` is the pipeline's own decision and a tie satisfies it;
+`reduced` is the stricter question. First reading, across four small runs and nine
+repairs: **1 of 9 ended clean**, and **`copying` survived its own repair 5 times out of
+5**. That is a regeneration per affected draft buying nothing on articles, which is the
+case against having promoted `copying` to an error the same day. Small n, articles only,
+and it wants the next full run before anything moves on it.
+
 ## The eval, and the abandonment rule
 
 `eval/run_eval.py` publishes one number or none. If any golden source fails,
