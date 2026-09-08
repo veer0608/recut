@@ -93,6 +93,11 @@ def run_source(
         "chars": len(document.raw),
         "extracted_claims": len(repurpose_claims.claims),
         "dropped_unanchored": repurpose_claims.__dict__.get("_dropped", 0),
+        # A quote claim with no verbatim is relabelled opinion rather than dropped.
+        # Counted so the fix stays visible: if this goes to zero the extractor has
+        # started filling verbatim, and if it climbs the generators are being handed
+        # fewer quotations than the source actually contains.
+        "demoted_quotes": repurpose_claims.__dict__.get("_demoted_quotes", 0),
         "targets": [a.target for a in artifacts],
         "verifier_errors": {a.target: [str(w) for w in a.errors] for a in artifacts},
         "format_violations": {
@@ -126,8 +131,14 @@ def run_source(
         # a question about claim text, not about generator willpower, and the
         # runs that would have answered it had thrown the inventory away.
         "inventory": {
+            # verbatim is stored because its absence is the whole question for a
+            # quote claim: text is a restatement by construction, so a quote claim
+            # with no verbatim has nothing a generator can legitimately put in
+            # quotation marks. art-willison published an invented quotation and the
+            # stored inventory could not say which of the two had happened.
             "claims": [
-                {"id": c.id, "kind": c.kind, "text": c.text} for c in repurpose_claims.claims
+                {"id": c.id, "kind": c.kind, "text": c.text, "verbatim": c.verbatim}
+                for c in repurpose_claims.claims
             ],
             "hook_candidates": list(repurpose_claims.hook_candidates),
             "voice_samples": list(repurpose_claims.voice_samples),

@@ -197,6 +197,72 @@ class TestRepurpose:
         _, artifacts = repurpose(document, ["linkedin"], llm)
         assert "repair_attempted" not in artifacts[0].meta
 
+    def test_a_quote_claim_without_exact_words_is_relabelled(self, document):
+        """It has nothing to quote, and the label is what invites the invention.
+
+        art-willison carried `[quote] The correct way to model data entities depends
+        entirely on the specific questions a user intends to answer.` with verbatim
+        None, and both outputs published it inside quotation marks attributed to a
+        named person. Telling the generator not to was tried and made it worse.
+        """
+        reply = json.dumps(
+            {
+                "thesis": "t",
+                "claims": [
+                    {
+                        "id": "x",
+                        "text": "IanCal argues the structure follows the questions.",
+                        "kind": "quote",
+                        "segment_ids": ["s1"],
+                        "verbatim": None,
+                    }
+                ],
+            }
+        )
+        claims = extract(document, ScriptedLLM([reply]))
+        assert [c.kind for c in claims.claims] == ["opinion"]
+        assert claims.__dict__["_demoted_quotes"] == 1
+
+    def test_a_quote_claim_with_exact_words_keeps_its_label(self, document):
+        reply = json.dumps(
+            {
+                "thesis": "t",
+                "claims": [
+                    {
+                        "id": "x",
+                        "text": "The merchant name comes from the processor.",
+                        "kind": "quote",
+                        "segment_ids": ["s1"],
+                        "verbatim": "typed by the payment processor",
+                    }
+                ],
+            }
+        )
+        claims = extract(document, ScriptedLLM([reply]))
+        assert [c.kind for c in claims.claims] == ["quote"]
+        assert claims.__dict__["_demoted_quotes"] == 0
+
+    def test_a_hallucinated_verbatim_also_costs_the_quote_label(self, document):
+        # verbatim is nulled when it is not in the source, and the demotion runs
+        # after that, so an invented exact-words span cannot keep the label either.
+        reply = json.dumps(
+            {
+                "thesis": "t",
+                "claims": [
+                    {
+                        "id": "x",
+                        "text": "He said the statement lies.",
+                        "kind": "quote",
+                        "segment_ids": ["s1"],
+                        "verbatim": "words that are nowhere in the source",
+                    }
+                ],
+            }
+        )
+        claims = extract(document, ScriptedLLM([reply]))
+        assert [c.kind for c in claims.claims] == ["opinion"]
+        assert claims.claims[0].verbatim is None
+
     def test_thread_posts_over_the_limit_are_flagged(self, document):
         llm = ScriptedLLM([EXTRACT_REPLY, self._thread(["x" * 300] + ["short post here"] * 4)])
         _, artifacts = repurpose(document, ["thread"], llm)

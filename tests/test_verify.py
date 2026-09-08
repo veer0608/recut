@@ -317,3 +317,53 @@ class TestCopyingProseFloor:
     def test_the_floor_counts_meaning_not_length(self):
         assert _prose_words(["from", "9.0", "to", "5.6", "and", "tokens"]) == 1
         assert _prose_words(["most", "tools", "generate", "speech"]) == 3
+
+
+SOURCE_DOC = """# T
+
+The structure depends on the questions.
+"""
+
+
+class TestQuoteClaimsAreQuotableAtAll:
+    """The generator is told to quote a label that render_claims has to emit.
+
+    art-willison published `IanCal argues that "the correct way to model data
+    depends entirely on the specific questions one intends to answer."` from a
+    claim whose text was a paraphrase, because _faithfulness.md said to put "those
+    words" in quotation marks and a claim's text is a restatement by construction.
+    The prompt now names the `exact words` line. If either side renames it the
+    generator is quoting a label that does not exist, and nothing else would say so.
+    """
+
+    def _claims(self, verbatim):
+        from recut.models import Claim, ClaimSet
+
+        return ClaimSet(
+            document_id="d",
+            claims=[
+                Claim(
+                    id="c0",
+                    text="IanCal argues the structure depends on the questions.",
+                    kind="quote",
+                    segment_ids=["s1"],
+                    verbatim=verbatim,
+                )
+            ],
+        )
+
+    def test_render_claims_emits_the_label_the_prompt_names(self):
+        from recut.extract import render_claims
+        from recut.ingest.markdown import ingest_text
+
+        doc = ingest_text(SOURCE_DOC, source_ref="t")
+        rendered = render_claims(self._claims("the structure depends on the questions"), doc)
+        assert 'exact words: "the structure depends on the questions"' in rendered
+
+    def test_a_quote_claim_without_verbatim_shows_the_generator_no_words(self):
+        from recut.extract import render_claims
+        from recut.ingest.markdown import ingest_text
+
+        doc = ingest_text(SOURCE_DOC, source_ref="t")
+        rendered = render_claims(self._claims(None), doc)
+        assert "exact words" not in rendered

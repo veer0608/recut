@@ -1,0 +1,216 @@
+{
+  "id": "art-willison",
+  "judged_by_model": false,
+  "kind": "article",
+  "ref": "https://simonwillison.net/2025/Sep/6/",
+  "title": "Simon Willison\u2019s Weblog",
+  "segments": 30,
+  "chars": 6007,
+  "extracted_claims": 8,
+  "dropped_unanchored": 0,
+  "targets": [
+    "linkedin",
+    "thread"
+  ],
+  "verifier_errors": {
+    "linkedin": [
+      "[error/quote] 'to settle a lawsuit. This payout averages': not a verbatim span of the source",
+      "[error/quote] 'while the potential penalty for unauthorized use was': not a verbatim span of the source",
+      "[error/quote] '.\\n\\nUnder current legal interpretations, buying a physical book, scanning it, and training an AI on the digital output may qualify as fair use. The company stated that the digital copies involved in the settlement were not used to train its commercial models.\\n\\nData modeling remains complex because': not a verbatim span of the source",
+      "[error/entity] 'Using LLM-generated': name does not appear in the source",
+      "[error/intensity] 'depends entirely': the source never says 'depends entirely'; do not add force it did not use",
+      "[error/copying] 'to pay \"at least\u201d a staggering $1.5 billion, plus interest\" to': 12 consecutive words copied from the source without quoting"
+    ],
+    "thread": [
+      "[error/quote] 'the correct way to model data entities depends entirely on the specific questions a user intends to answer.': not a verbatim span of the source",
+      "[error/entity] 'United States': name does not appear in the source",
+      "[error/intensity] 'depends entirely': the source never says 'depends entirely'; do not add force it did not use",
+      "[error/copying] 'to pay \"at least\" a staggering $1.5 billion, plus interest, to': 12 consecutive words copied from the source without quoting"
+    ]
+  },
+  "format_violations": {},
+  "repaired": [
+    "linkedin"
+  ],
+  "repair_attempted": [
+    "linkedin",
+    "thread"
+  ],
+  "repair_detail": {
+    "linkedin": {
+      "kept": true,
+      "first_pass_errors": [
+        "[error/quote] 'to resolve a class-action lawsuit regarding AI training. This settlement averages': not a verbatim span of the source",
+        "[error/quote] 'while the maximum potential penalty for unauthorized use was': not a verbatim span of the source",
+        "[error/quote] '.\\n\\nUnder current United States legal interpretations, purchasing a physical book, scanning it, and training an AI on the digital output may qualify as fair use. Anthropic noted that the specific digital copies involved in this settlement were not used to train its commercial models.\\n\\nTechnical challenges in data modeling persist. As noted,': not a verbatim span of the source",
+        "[error/quote] \"Performance metrics also vary. For instance, Moonshot AI's Kimi-K2-Instruct-0905 model utilizes\": not a verbatim span of the source",
+        "[error/entity] 'United States': name does not appear in the source",
+        "[error/entity] \"Moonshot AI's Kimi-K2-Instruct-0905\": name does not appear in the source",
+        "[error/intensity] 'depends entirely': the source never says 'depends entirely'; do not add force it did not use",
+        "[error/copying] 'to pay \"at least\" a staggering $1.5 billion, plus interest\" to': 12 consecutive words copied from the source without quoting"
+      ],
+      "repair_errors": [
+        "[error/quote] 'to settle a lawsuit. This payout averages': not a verbatim span of the source",
+        "[error/quote] 'while the potential penalty for unauthorized use was': not a verbatim span of the source",
+        "[error/quote] '.\\n\\nUnder current legal interpretations, buying a physical book, scanning it, and training an AI on the digital output may qualify as fair use. The company stated that the digital copies involved in the settlement were not used to train its commercial models.\\n\\nData modeling remains complex because': not a verbatim span of the source",
+        "[error/entity] 'Using LLM-generated': name does not appear in the source",
+        "[error/intensity] 'depends entirely': the source never says 'depends entirely'; do not add force it did not use",
+        "[error/copying] 'to pay \"at least\u201d a staggering $1.5 billion, plus interest\" to': 12 consecutive words copied from the source without quoting"
+      ],
+      "cleared": [
+        "[copying] to pay \"at least\" a staggering $1.5 billion, plus interest\" to",
+        "[entity] Moonshot AI's Kimi-K2-Instruct-0905",
+        "[entity] United States",
+        "[quote] .\n\nUnder current United States legal interpretations, purchasing a physical book, scanning it, and training an AI on the digital output may qualify as fair use. Anthropic noted that the specific digital copies involved in this settlement were not used to train its commercial models.\n\nTechnical challenges in data modeling persist. As noted,",
+        "[quote] Performance metrics also vary. For instance, Moonshot AI's Kimi-K2-Instruct-0905 model utilizes",
+        "[quote] to resolve a class-action lawsuit regarding AI training. This settlement averages",
+        "[quote] while the maximum potential penalty for unauthorized use was"
+      ]
+    },
+    "thread": {
+      "kept": false,
+      "first_pass_errors": [
+        "[error/quote] 'the correct way to model data entities depends entirely on the specific questions a user intends to answer.': not a verbatim span of the source",
+        "[error/entity] 'United States': name does not appear in the source",
+        "[error/intensity] 'depends entirely': the source never says 'depends entirely'; do not add force it did not use",
+        "[error/copying] 'to pay \"at least\" a staggering $1.5 billion, plus interest, to': 12 consecutive words copied from the source without quoting"
+      ],
+      "repair_errors": [
+        "[error/quote] 'to settle a class-action lawsuit. While that figure sounds massive, it may actually be a discount for the company.\\n\\nThe maximum penalty for unauthorized use of books in this case was $150,000 per book. The settlement payouts are expected to be': not a verbatim span of the source",
+        "[error/quote] 'for each title.\\n\\nAnthropic noted that the specific digital copies involved in this settlement were not used to train its commercial AI models.\\n\\nUnder current legal interpretations, buying a physical book, scanning it, and training an AI on the digital output may qualify as fair use.\\n\\nTechnical challenges in data modeling persist because': not a verbatim span of the source",
+        "[error/intensity] 'massive': the source never says 'massive(?:ly)?'; do not add force it did not use",
+        "[error/intensity] 'depends entirely': the source never says 'depends entirely'; do not add force it did not use",
+        "[error/copying] 'to pay \"at least\u201d a staggering $1.5 billion, plus interest\" to': 12 consecutive words copied from the source without quoting"
+      ],
+      "cleared": [
+        "[copying] to pay \"at least\" a staggering $1.5 billion, plus interest, to",
+        "[entity] United States",
+        "[quote] the correct way to model data entities depends entirely on the specific questions a user intends to answer."
+      ]
+    }
+  },
+  "claim_utilisation": 0.875,
+  "judged": {},
+  "judged_claims": 0,
+  "judged_unsupported": 0,
+  "injections": {
+    "planted": 10,
+    "caught": 10,
+    "recall": 1.0,
+    "recall_by_rule": {
+      "number": 1.0,
+      "quote": 1.0,
+      "entity": 1.0,
+      "intensity": 1.0,
+      "citation": 1.0
+    },
+    "missed": [],
+    "clean_bodies": 2,
+    "false_positive_bodies": 2,
+    "false_positives_by_rule": {
+      "entity": 2,
+      "intensity": 2,
+      "quote": 2
+    },
+    "false_positives": [
+      {
+        "target": "linkedin",
+        "rules": [
+          "entity",
+          "intensity",
+          "quote"
+        ],
+        "spans": [
+          "[error/quote] 'to settle a lawsuit. This payout averages': not a verbatim span of the source",
+          "[error/quote] 'while the potential penalty for unauthorized use was': not a verbatim span of the source",
+          "[error/quote] '.\\n\\nUnder current legal interpretations, buying a physical book, scanning it, and training an AI on the digital output may qualify as fair use. The company stated that the digital copies involved in the settlement were not used to train its commercial models.\\n\\nData modeling remains complex because': not a verbatim span of the source",
+          "[error/entity] 'Using LLM-generated': name does not appear in the source",
+          "[error/intensity] 'depends entirely': the source never says 'depends entirely'; do not add force it did not use"
+        ]
+      },
+      {
+        "target": "thread",
+        "rules": [
+          "entity",
+          "intensity",
+          "quote"
+        ],
+        "spans": [
+          "[error/quote] 'the correct way to model data entities depends entirely on the specific questions a user intends to answer.': not a verbatim span of the source",
+          "[error/entity] 'United States': name does not appear in the source",
+          "[error/intensity] 'depends entirely': the source never says 'depends entirely'; do not add force it did not use"
+        ]
+      }
+    ]
+  },
+  "bodies": {
+    "linkedin": "Anthropic agreed to pay \"at least\u201d a staggering $1.5 billion, plus interest\" to settle a lawsuit. This payout averages \"approximately $3,000 per book or work\" while the potential penalty for unauthorized use was \"$150,000 per book\".\n\nUnder current legal interpretations, buying a physical book, scanning it, and training an AI on the digital output may qualify as fair use. The company stated that the digital copies involved in the settlement were not used to train its commercial models.\n\nData modeling remains complex because \"The correct way to model data entities depends entirely on the specific questions a user intends to answer.\"\n\nUsing LLM-generated summaries to embed images can improve search recall compared to using standard CLIP embeddings.\n\nLegal and technical landscapes for AI continue to shift.",
+    "thread": "Anthropic agreed to pay \"at least\" a staggering $1.5 billion, plus interest, to settle a class-action lawsuit regarding AI training.\n\nThe settlement payouts are expected to be \"approximately $3,000 per book or work\" involved in the case.\n\nThis figure is notable because the maximum potential penalty for the unauthorized use of books was \"$150,000 per book\" in this instance.\n\nUnder current United States legal interpretations, buying a physical book, scanning it, and training an AI on the digital output may qualify as fair use.\n\nAnthropic stated that the specific digital copies involved in this settlement were not utilized to train its commercial AI models.\n\nTechnical challenges persist in AI, as \"the correct way to model data entities depends entirely on the specific questions a user intends to answer.\"\n\nThe evolving legal landscape and complex data modeling requirements show that the path for AI development remains unsettled."
+  },
+  "inventory": {
+    "claims": [
+      {
+        "id": "c0",
+        "kind": "stat",
+        "text": "Anthropic agreed to pay at least 1.5 billion dollars plus interest to resolve a class-action lawsuit brought by authors.",
+        "verbatim": "at least\u201d a staggering $1.5 billion, plus interest"
+      },
+      {
+        "id": "c1",
+        "kind": "stat",
+        "text": "The settlement payouts are anticipated to be roughly 3,000 dollars for every individual work.",
+        "verbatim": "approximately $3,000 per book or work"
+      },
+      {
+        "id": "c2",
+        "kind": "stat",
+        "text": "The maximum potential penalty for the unauthorized use of books in this case was 150,000 dollars per title.",
+        "verbatim": "$150,000 per book"
+      },
+      {
+        "id": "c3",
+        "kind": "opinion",
+        "text": "Under current United States legal interpretations, purchasing a physical book, scanning it, and training an AI on the digital output may qualify as fair use.",
+        "verbatim": null
+      },
+      {
+        "id": "c4",
+        "kind": "fact",
+        "text": "Anthropic stated that the specific digital copies involved in the settlement were not utilized to train its commercial AI models.",
+        "verbatim": null
+      },
+      {
+        "id": "c5",
+        "kind": "quote",
+        "text": "The correct way to model data entities depends entirely on the specific questions a user intends to answer.",
+        "verbatim": null
+      },
+      {
+        "id": "c6",
+        "kind": "stat",
+        "text": "Moonshot AI's Kimi-K2-Instruct-0905 model features a mixture-of-experts architecture with 1 trillion parameters.",
+        "verbatim": "1 trillion parameters in a mixture-of-experts configuration"
+      },
+      {
+        "id": "c7",
+        "kind": "opinion",
+        "text": "Using LLM-generated summaries to embed images can significantly improve search recall compared to using standard CLIP embeddings.",
+        "verbatim": null
+      }
+    ],
+    "hook_candidates": [
+      "A 1.5 billion dollar settlement for AI training might actually be a discount for the company involved.",
+      "Scanning used books to train AI models is currently considered fair use in the United States.",
+      "Data modeling is often impossible because the right structure depends on the questions you have not asked yet.",
+      "Using LLM summaries instead of CLIP embeddings can boost image search recall from 28% to 75%.",
+      "The legal definition of a university is so complex that even identifying the name of Cambridge is a challenge."
+    ],
+    "voice_samples": [
+      "It's wild to me that a $1.5 billion settlement can feel like a win for Anthropic, but given that it's undisputed that they downloaded pirated books (as did Meta and likely many other research teams) the maximum allowed penalty was $150,000 per book, so $3,000 per book is actually a significant discount.",
+      "To be clear: it appears it is legal, at least in the USA, to buy a used copy of a physical book (used = the author gets nothing), chop the spine off, scan the pages, discard the paper copy and then train on the scanned content.",
+      "I spent a long time building identifiers for universities and companies (which was taken for ROR later) and it was a nightmare to say what a university even was.",
+      "I am once again shocked at how much better image retrieval performance you can get if you embed highly opinionated summaries of an image, a summary that came out of a visual language model, than using CLIP embeddings themselves."
+    ],
+    "thesis": "The legal landscape regarding AI training on copyrighted works is evolving through settlements and court interpretations of fair use, while technical challenges in data modeling and AI performance metrics remain complex."
+  }
+}

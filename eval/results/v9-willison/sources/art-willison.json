@@ -1,0 +1,158 @@
+{
+  "id": "art-willison",
+  "judged_by_model": false,
+  "kind": "article",
+  "ref": "https://simonwillison.net/2025/Sep/6/",
+  "title": "Simon Willison\u2019s Weblog",
+  "segments": 30,
+  "chars": 6007,
+  "extracted_claims": 9,
+  "dropped_unanchored": 0,
+  "demoted_quotes": 1,
+  "targets": [
+    "linkedin",
+    "thread"
+  ],
+  "verifier_errors": {
+    "linkedin": [
+      "[error/copying] 'to pay \"at least\u201d a staggering $1.5 billion, plus interest\" to': 12 consecutive words copied from the source without quoting"
+    ],
+    "thread": [
+      "[error/copying] 'to pay \"at least\" a staggering $1.5 billion, plus interest to': 12 consecutive words copied from the source without quoting"
+    ]
+  },
+  "format_violations": {},
+  "repaired": [
+    "linkedin",
+    "thread"
+  ],
+  "repair_attempted": [
+    "linkedin",
+    "thread"
+  ],
+  "repair_detail": {
+    "linkedin": {
+      "kept": true,
+      "first_pass_errors": [
+        "[error/entity] 'United States': name does not appear in the source",
+        "[error/copying] 'to pay \"at least\" a staggering $1.5 billion, plus interest to': 12 consecutive words copied from the source without quoting"
+      ],
+      "repair_errors": [
+        "[error/copying] 'to pay \"at least\u201d a staggering $1.5 billion, plus interest\" to': 12 consecutive words copied from the source without quoting"
+      ],
+      "cleared": [
+        "[copying] to pay \"at least\" a staggering $1.5 billion, plus interest to",
+        "[entity] United States"
+      ]
+    },
+    "thread": {
+      "kept": true,
+      "first_pass_errors": [
+        "[error/entity] 'United States': name does not appear in the source"
+      ],
+      "repair_errors": [
+        "[error/copying] 'to pay \"at least\" a staggering $1.5 billion, plus interest to': 12 consecutive words copied from the source without quoting"
+      ],
+      "cleared": [
+        "[entity] United States"
+      ]
+    }
+  },
+  "claim_utilisation": 0.6666666666666666,
+  "judged": {},
+  "judged_claims": 0,
+  "judged_unsupported": 0,
+  "injections": {
+    "planted": 10,
+    "caught": 10,
+    "recall": 1.0,
+    "recall_by_rule": {
+      "number": 1.0,
+      "quote": 1.0,
+      "entity": 1.0,
+      "intensity": 1.0,
+      "citation": 1.0
+    },
+    "missed": [],
+    "clean_bodies": 2,
+    "false_positive_bodies": 0,
+    "false_positives_by_rule": {},
+    "false_positives": []
+  },
+  "bodies": {
+    "linkedin": "Anthropic agreed to pay \"at least\u201d a staggering $1.5 billion, plus interest\" to settle a lawsuit about using pirated books for AI training. This settlement works out to approximately $3,000 per book.\n\nWhile this figure is large, it represents a significant discount compared to the maximum potential penalty of $150,000 per book. Anthropic noted that the specific digital copies involved were not used to train its commercial models.\n\nIt appears to be legal to purchase physical books, scan them, and train AI models on the resulting digital content. The legal and technical challenges regarding data usage continue to shape the development of artificial intelligence.\n\nHow we model data depends on the specific questions we intend to answer.",
+    "thread": "Anthropic agreed to pay \"at least\" a staggering $1.5 billion, plus interest to settle a class-action lawsuit regarding the use of pirated books for AI training.\n\nThe settlement payouts are estimated to be \"approximately $3,000 per book.\"\n\nPaying \"approximately $3,000 per book\" is a significant discount compared to the maximum potential penalty of \"$150,000 per book, so $3,000 per book.\"\n\nAnthropic stated that the specific digital book copies involved in the settlement were not utilized to train its commercial AI models.\n\nIt appears to be legal to purchase physical books, scan them, and train AI models on the resulting digital content.\n\nLegal and technical challenges regarding data usage, entity identification, and model performance continue to shape the development and regulation of artificial intelligence."
+  },
+  "inventory": {
+    "claims": [
+      {
+        "id": "c0",
+        "kind": "stat",
+        "text": "Anthropic agreed to pay at least 1.5 billion dollars plus interest to settle a class-action lawsuit regarding the use of pirated books for AI training.",
+        "verbatim": "at least\u201d a staggering $1.5 billion, plus interest"
+      },
+      {
+        "id": "c1",
+        "kind": "stat",
+        "text": "The settlement payouts are estimated to be approximately 3,000 dollars per book.",
+        "verbatim": "approximately $3,000 per book"
+      },
+      {
+        "id": "c2",
+        "kind": "stat",
+        "text": "The author believes that paying 3,000 dollars per book is a significant discount compared to the maximum potential penalty of 150,000 dollars per book.",
+        "verbatim": "$150,000 per book, so $3,000 per book"
+      },
+      {
+        "id": "c3",
+        "kind": "opinion",
+        "text": "It appears to be legal in the United States to purchase physical books, scan them, and train AI models on the resulting digital content.",
+        "verbatim": null
+      },
+      {
+        "id": "c4",
+        "kind": "fact",
+        "text": "Anthropic stated that the specific digital book copies involved in the settlement were not utilized to train its commercial AI models.",
+        "verbatim": null
+      },
+      {
+        "id": "c5",
+        "kind": "opinion",
+        "text": "IanCal argues that the correct way to model data depends entirely on the specific questions one intends to answer.",
+        "verbatim": null
+      },
+      {
+        "id": "c6",
+        "kind": "stat",
+        "text": "The Kimi-K2-Instruct-0905 model features a context window increased to 256,000 tokens.",
+        "verbatim": "256,000 tokens"
+      },
+      {
+        "id": "c7",
+        "kind": "stat",
+        "text": "The Kimi-K2-Instruct-0905 model is a mixture-of-experts model with 1 trillion parameters, 384 experts, and 32 billion activated parameters.",
+        "verbatim": "1 trillion parameters in a mixture-of-experts configuration with 384 experts, 32B activated parameters"
+      },
+      {
+        "id": "c8",
+        "kind": "opinion",
+        "text": "Using highly opinionated summaries generated by a visual language model can significantly improve image retrieval performance compared to using standard CLIP embeddings.",
+        "verbatim": null
+      }
+    ],
+    "hook_candidates": [
+      "A 1.5 billion dollar settlement for AI training data might actually be a bargain for the companies involved.",
+      "It is currently legal in the US to buy a book, destroy it, and use the digital scan to train an AI.",
+      "Modeling data is impossible until you define exactly what questions you are trying to answer.",
+      "Using LLM-generated summaries to search for images can outperform standard embedding techniques by a massive margin.",
+      "Naming a university or a company is surprisingly difficult when you try to model it for a database."
+    ],
+    "voice_samples": [
+      "It's wild to me that a $1.5 billion settlement can feel like a win for Anthropic, but given that it's undisputed that they downloaded pirated books (as did Meta and likely many other research teams) the maximum allowed penalty was $150,000 per book, so $3,000 per book is actually a significant discount.",
+      "To be clear: it appears it is legal, at least in the USA, to buy a used copy of a physical book (used = the author gets nothing), chop the spine off, scan the pages, discard the paper copy and then train on the scanned content.",
+      "RDF has the same problems as the SQL schemas with information scattered.",
+      "I am once again shocked at how much better image retrieval performance you can get if you embed highly opinionated summaries of an image, a summary that came out of a visual language model, than using CLIP embeddings themselves."
+    ],
+    "thesis": "Legal and technical challenges regarding data usage, entity identification, and model performance continue to shape the development and regulation of artificial intelligence."
+  }
+}

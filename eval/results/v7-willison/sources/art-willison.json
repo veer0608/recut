@@ -1,0 +1,191 @@
+{
+  "id": "art-willison",
+  "judged_by_model": false,
+  "kind": "article",
+  "ref": "https://simonwillison.net/2025/Sep/6/",
+  "title": "Simon Willison\u2019s Weblog",
+  "segments": 30,
+  "chars": 6007,
+  "extracted_claims": 9,
+  "dropped_unanchored": 0,
+  "targets": [
+    "linkedin",
+    "thread"
+  ],
+  "verifier_errors": {
+    "linkedin": [
+      "[error/quote] 'the correct way to model data depends entirely on the specific questions one intends to answer.': not a verbatim span of the source",
+      "[error/intensity] 'depends entirely': the source never says 'depends entirely'; do not add force it did not use"
+    ],
+    "thread": [
+      "[error/quote] 'the correct way to model data depends entirely on the specific questions one intends to answer.': not a verbatim span of the source",
+      "[error/entity] 'United States': name does not appear in the source",
+      "[error/intensity] 'depends entirely': the source never says 'depends entirely'; do not add force it did not use"
+    ]
+  },
+  "format_violations": {},
+  "repaired": [
+    "linkedin",
+    "thread"
+  ],
+  "repair_attempted": [
+    "linkedin",
+    "thread"
+  ],
+  "repair_detail": {
+    "linkedin": {
+      "kept": true,
+      "first_pass_errors": [
+        "[error/quote] 'the correct way to model data depends entirely on the specific questions one intends to answer.': not a verbatim span of the source",
+        "[error/entity] 'United States': name does not appear in the source",
+        "[error/entity] \"Moonshot AI's Kimi-K2-Instruct-0905\": name does not appear in the source",
+        "[error/entity] 'Using LLM-generated': name does not appear in the source",
+        "[error/intensity] 'depends entirely': the source never says 'depends entirely'; do not add force it did not use"
+      ],
+      "repair_errors": [
+        "[error/quote] 'the correct way to model data depends entirely on the specific questions one intends to answer.': not a verbatim span of the source",
+        "[error/intensity] 'depends entirely': the source never says 'depends entirely'; do not add force it did not use"
+      ],
+      "cleared": [
+        "[entity] Moonshot AI's Kimi-K2-Instruct-0905",
+        "[entity] United States",
+        "[entity] Using LLM-generated"
+      ]
+    },
+    "thread": {
+      "kept": true,
+      "first_pass_errors": [
+        "[error/quote] 'the correct way to model data depends entirely on the specific questions one intends to answer.': not a verbatim span of the source",
+        "[error/entity] 'Using LLM-generated': name does not appear in the source",
+        "[error/intensity] 'massive': the source never says 'massive(?:ly)?'; do not add force it did not use",
+        "[error/intensity] 'depends entirely': the source never says 'depends entirely'; do not add force it did not use"
+      ],
+      "repair_errors": [
+        "[error/quote] 'the correct way to model data depends entirely on the specific questions one intends to answer.': not a verbatim span of the source",
+        "[error/entity] 'United States': name does not appear in the source",
+        "[error/intensity] 'depends entirely': the source never says 'depends entirely'; do not add force it did not use"
+      ],
+      "cleared": [
+        "[entity] Using LLM-generated",
+        "[intensity] massive"
+      ]
+    }
+  },
+  "claim_utilisation": 1.0,
+  "judged": {},
+  "judged_claims": 0,
+  "judged_unsupported": 0,
+  "injections": {
+    "planted": 10,
+    "caught": 10,
+    "recall": 1.0,
+    "recall_by_rule": {
+      "number": 1.0,
+      "quote": 1.0,
+      "entity": 1.0,
+      "intensity": 1.0,
+      "citation": 1.0
+    },
+    "missed": [],
+    "clean_bodies": 2,
+    "false_positive_bodies": 2,
+    "false_positives_by_rule": {
+      "entity": 1,
+      "intensity": 2,
+      "quote": 2
+    },
+    "false_positives": [
+      {
+        "target": "linkedin",
+        "rules": [
+          "intensity",
+          "quote"
+        ],
+        "spans": [
+          "[error/quote] 'the correct way to model data depends entirely on the specific questions one intends to answer.': not a verbatim span of the source",
+          "[error/intensity] 'depends entirely': the source never says 'depends entirely'; do not add force it did not use"
+        ]
+      },
+      {
+        "target": "thread",
+        "rules": [
+          "entity",
+          "intensity",
+          "quote"
+        ],
+        "spans": [
+          "[error/quote] 'the correct way to model data depends entirely on the specific questions one intends to answer.': not a verbatim span of the source",
+          "[error/entity] 'United States': name does not appear in the source",
+          "[error/intensity] 'depends entirely': the source never says 'depends entirely'; do not add force it did not use"
+        ]
+      }
+    ]
+  },
+  "bodies": {
+    "linkedin": "Anthropic agreed to pay $1.5 billion to resolve a lawsuit regarding the use of pirated books for training.\n\nWhile the maximum potential penalty reached $150,000 per book, the settlement payout is roughly $3,000 per book. It appears legal to purchase physical copies, scan the content, and train models on the digital files, even if the paper copies are destroyed.\n\nTechnical and legal complexities regarding data usage require careful thought. IanCal notes that \"the correct way to model data depends entirely on the specific questions one intends to answer.\"\n\nData modeling remains a difficult challenge.",
+    "thread": "Anthropic agreed to pay $1.5 billion to resolve a class-action lawsuit over pirated books. Given the maximum potential penalty was $150,000 per book, the settlement cost of $3,000 per book functions as a significant discount for the company.\n\nAnthropic noted that the specific digital files involved in this settlement were not used to train its commercially available models.\n\nIt appears legal in the United States to purchase physical books, scan them for digital training content, and destroy the original copies.\n\nBeyond legal issues, technical modeling of data remains difficult. As IanCal notes, \"the correct way to model data depends entirely on the specific questions one intends to answer.\"\n\nNew models like the Kimi-K2-Instruct-0905 with its 256,000 token context window and 1 trillion total parameters show how quickly the landscape shifts.\n\nUsing model-generated summaries to embed images for search can improve recall compared to standard CLIP embeddings.\n\nLegal and technical complexities surrounding data usage and entity modeling require nuanced understanding rather than simplistic assumptions."
+  },
+  "inventory": {
+    "claims": [
+      {
+        "id": "c0",
+        "kind": "stat",
+        "text": "Anthropic agreed to pay at least $1.5 billion plus interest to resolve a class-action lawsuit regarding the use of pirated books for AI training."
+      },
+      {
+        "id": "c1",
+        "kind": "stat",
+        "text": "The settlement payout is expected to be roughly $3,000 per book."
+      },
+      {
+        "id": "c2",
+        "kind": "stat",
+        "text": "The maximum potential penalty for the unauthorized use of books in this context was $150,000 per book."
+      },
+      {
+        "id": "c3",
+        "kind": "opinion",
+        "text": "It appears to be legal in the United States to purchase physical books, scan them, and train AI on the digital content, even if the physical copies are destroyed."
+      },
+      {
+        "id": "c4",
+        "kind": "fact",
+        "text": "Anthropic stated that the specific digital copies involved in the settlement were not utilized to train its commercially available AI models."
+      },
+      {
+        "id": "c5",
+        "kind": "quote",
+        "text": "IanCal argues that the correct way to model data depends entirely on the specific questions one intends to answer."
+      },
+      {
+        "id": "c6",
+        "kind": "stat",
+        "text": "Moonshot AI's Kimi-K2-Instruct-0905 model features a 256,000 token context window."
+      },
+      {
+        "id": "c7",
+        "kind": "stat",
+        "text": "The Kimi-K2-Instruct-0905 model is a mixture-of-experts architecture with 1 trillion total parameters."
+      },
+      {
+        "id": "c8",
+        "kind": "opinion",
+        "text": "Using LLM-generated summaries to embed images for search can significantly improve recall compared to using standard CLIP embeddings."
+      }
+    ],
+    "hook_candidates": [
+      "A $1.5 billion settlement for using pirated books might actually be a bargain for an AI company.",
+      "The legality of training AI on scanned books hinges on the destruction of the original physical copies.",
+      "Data modeling is not a universal solution because the best structure depends on the questions you need to ask.",
+      "Embedding LLM-written summaries of images can outperform CLIP embeddings by a massive margin in search recall.",
+      "Defining what constitutes a university or a company is a surprisingly difficult challenge for data identifiers."
+    ],
+    "voice_samples": [
+      "It's wild to me that a $1.5 billion settlement can feel like a win for Anthropic, but given that it's undisputed that they downloaded pirated books (as did Meta and likely many other research teams) the maximum allowed penalty was $150,000 per book, so $3,000 per book is actually a significant discount.",
+      "To be clear: it appears it is legal, at least in the USA, to buy a used copy of a physical book (used = the author gets nothing), chop the spine off, scan the pages, discard the paper copy and then train on the scanned content.",
+      "I spent a long time building identifiers for universities and companies (which was taken for ROR later) and it was a nightmare to say what a university even was.",
+      "I am once again shocked at how much better image retrieval performance you can get if you embed highly opinionated summaries of an image, a summary that came out of a visual language model, than using CLIP embeddings themselves."
+    ],
+    "thesis": "Legal and technical complexities surrounding data usage, entity modeling, and AI model development require nuanced understanding rather than simplistic assumptions."
+  }
+}

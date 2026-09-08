@@ -55,6 +55,19 @@ product's only guarantee is gone.
 Corollary in `extract.py`: a claim the model returns without a valid `segment_id` is
 **dropped**, not repaired. Unanchored claims are the exact failure this exists to prevent.
 
+**Second corollary: a `quote` claim with no `verbatim` is relabelled `opinion`.** A claim's
+`text` is a restatement in the extractor's own words by construction, so a generator told
+that a claim is a quotation will quote the restatement and attribute it to a named person.
+`art-willison` published `IanCal argues that "the correct way to model data depends entirely
+on the specific questions one intends to answer."` from a claim whose `verbatim` was null.
+Telling the generator not to was tried first and made it **worse**: errors on that source
+went 2 and 3 to 6 and 4, because a block about quoting mechanics increased quoting
+generally. The label is the invitation, so the label goes, deterministically and in code.
+It runs after the check that nulls a `verbatim` absent from the source, so an invented
+exact-words span cannot keep the label either. Demoted rather than dropped: the claim is
+anchored and its content is real, and dropping loses a true claim to fix a false badge.
+`_demoted_quotes` carries the count, and the eval stores it as `demoted_quotes`.
+
 **The corollary that took a day to find.** A generator never sees the source, so any
 sentence it publishes word for word arrived through a claim. Copying was therefore
 inherited, not authored, which is why an anti-copying paragraph added to the *generator*

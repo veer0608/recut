@@ -65,10 +65,13 @@ def windows(document: Document, max_chars: int = WINDOW_CHARS) -> list[list[Segm
     return out
 
 
-def _clean(raw: _RawExtract, document: Document, offset: int) -> tuple[list[Claim], int]:
+def _clean(
+    raw: _RawExtract, document: Document, offset: int
+) -> tuple[list[Claim], int, int]:
     known = {segment.id for segment in document.segments}
     claims: list[Claim] = []
     dropped = 0
+    demoted = 0
     for item in raw.claims:
         anchors = [seg_id for seg_id in item.segment_ids if seg_id in known]
         if not anchors or not item.text.strip():
@@ -79,18 +82,30 @@ def _clean(raw: _RawExtract, document: Document, offset: int) -> tuple[list[Clai
         verbatim = item.verbatim
         if verbatim and verbatim not in document.text:
             verbatim = None
+        kind = item.kind if item.kind in _KINDS else "fact"
+        # A quote claim with no verbatim has no words to quote. `text` is a
+        # restatement in the extractor's words by construction, so a generator
+        # told to quote a quote claim will quote the restatement and attribute it
+        # to a named person. art-willison published exactly that. The label is the
+        # invitation, so the label goes: the claim is anchored and its content is
+        # real, it simply is not a quotation. Demoted rather than dropped because
+        # dropping loses a true claim to fix a false badge, and asking the model
+        # again was tried and made it worse.
+        if kind == "quote" and not verbatim:
+            kind = "opinion"
+            demoted += 1
         claims.append(
             Claim(
                 # Ids are assigned from a running counter, never taken from the
                 # model, so two windows can never hand back the same id.
                 id=f"c{offset + len(claims)}",
                 text=item.text.strip(),
-                kind=item.kind if item.kind in _KINDS else "fact",
+                kind=kind,
                 segment_ids=anchors,
                 verbatim=verbatim,
             )
         )
-    return claims, dropped
+    return claims, dropped, demoted
 
 
 def extract(document: Document, llm: LLM, max_chars: int = WINDOW_CHARS) -> ClaimSet:
@@ -101,6 +116,7 @@ def extract(document: Document, llm: LLM, max_chars: int = WINDOW_CHARS) -> Clai
     voices: list[str] = []
     theses: list[str] = []
     dropped = 0
+    demoted = 0
 
     for segments in windows(document, max_chars):
         prompt = load_prompt(
@@ -110,9 +126,10 @@ def extract(document: Document, llm: LLM, max_chars: int = WINDOW_CHARS) -> Clai
             source=render_source(segments),
         )
         raw = llm.structured(prompt, _RawExtract)
-        window_claims, window_dropped = _clean(raw, document, len(claims))
+        window_claims, window_dropped, window_demoted = _clean(raw, document, len(claims))
         claims += window_claims
         dropped += window_dropped
+        demoted += window_demoted
         entities += raw.entities
         hooks += raw.hook_candidates
         # A "sample" the model paraphrased is not a sample. Only exact spans survive.
@@ -140,6 +157,7 @@ def extract(document: Document, llm: LLM, max_chars: int = WINDOW_CHARS) -> Clai
         voice_samples=list(dict.fromkeys(v.strip() for v in voices))[:6],
     )
     claim_set.__dict__["_dropped"] = dropped
+    claim_set.__dict__["_demoted_quotes"] = demoted
     return claim_set
 
 
