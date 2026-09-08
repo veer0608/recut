@@ -233,6 +233,13 @@ Recall would need a hand-labelled inventory the golden set does not have.
 `--seed` only places planted fabrications. It does **not** make a run reproducible, which is why
 repeats are the only way to settle a rate.
 
+**The current judge is not uniformly more lenient, which is what this used to say.**
+Measured on identical stored bodies across 23 source comparisons: v1 goes 15.4% to 13.1%
+and v2 goes 10.2% to 7.5%, so the direction is down, but pooled that is `z=1.04, p=0.30`
+and it is not uniform. Groq is looser on 12 sources, **stricter on 5**, identical on 6.
+`md-vidsmith` goes 0/19 to 3/20 and `yt-rome` 0/19 to 1/19. A per-source figure from one
+judge cannot be swapped for the other's, and the aggregate shift is not established either.
+
 Published: **15.5% unsupported** (v1, 258 claims, all 15 sources). A v2 measured 10.0% but is not
 published: z=+1.86, p=0.063 on one run. Articles improved decisively (25.9% to 5.6%, p<0.001)
 while markdown regressed (8.9% to 15.0%).
@@ -272,7 +279,7 @@ while markdown regressed (8.9% to 15.0%).
 No test touches the network, and it should stay that way: `ScriptedLLM` in
 `tests/test_pipeline.py` drives the whole pipeline including the repair path, the ingest tests
 feed fixture HTML and fixture caption cues, and `tests/conftest.py` gives every module a client
-against a throwaway database. **324 tests, ~6s.** If the suite jumps to ~17s, a test is
+against a throwaway database. **342 tests, ~7s.** If the suite jumps to ~17s, a test is
 reaching the network; `--durations` finds it. A test that *sleeps* trips the same wire: the
 token pacer's first tests waited on a real clock and took the suite to 75 seconds, so they
 use a fake clock that sleeping advances and assert the waiting rather than performing it.

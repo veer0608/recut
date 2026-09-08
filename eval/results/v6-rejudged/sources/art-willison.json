@@ -1,0 +1,225 @@
+{
+  "id": "art-willison",
+  "judged_by_model": true,
+  "kind": "article",
+  "ref": "https://simonwillison.net/2025/Sep/6/",
+  "title": "Simon Willison\u2019s Weblog",
+  "segments": 30,
+  "chars": 6007,
+  "extracted_claims": 8,
+  "dropped_unanchored": 0,
+  "targets": [
+    "linkedin",
+    "thread"
+  ],
+  "verifier_errors": {
+    "linkedin": [
+      "[error/quote] 'the effectiveness of data modeling is entirely dependent on the specific questions one intends to address.': not a verbatim span of the source"
+    ],
+    "thread": [
+      "[error/quote] 'the effectiveness of data modeling is entirely dependent on the specific questions one intends to address.': not a verbatim span of the source"
+    ]
+  },
+  "format_violations": {},
+  "repaired": [
+    "thread"
+  ],
+  "claim_utilisation": 0.625,
+  "judged": {
+    "linkedin": {
+      "sentences": 6,
+      "windows": 1,
+      "window_chars": 12000,
+      "claims": 6,
+      "unsupported": 0,
+      "rate": 0.0,
+      "unjudged": 0,
+      "verdicts": [
+        {
+          "n": 1,
+          "sentence": "Anthropic agreed to pay at least 1.5 billion dollars plus interest to resolve a class-action lawsuit regarding the use of copyrighted books.",
+          "verdict": "supported",
+          "why": "Source s3 says Anthropic will pay at least $1.5\u202fbillion plus interest to settle the class\u2011action lawsuit."
+        },
+        {
+          "n": 2,
+          "sentence": "This settlement payout for authors is estimated at approximately 3,000 dollars per book or work.",
+          "verdict": "supported",
+          "why": "Source s3 notes payouts are expected to be about $3,000 per book or work."
+        },
+        {
+          "n": 3,
+          "sentence": "The maximum potential penalty for unauthorized use in this case could have reached 150,000 dollars per book.",
+          "verdict": "supported",
+          "why": "Source s4 states the maximum allowed penalty was $150,000 per book."
+        },
+        {
+          "n": 4,
+          "sentence": "Anthropic stated that the specific digital book copies involved in this settlement were not utilized to train its commercial AI models.",
+          "verdict": "supported",
+          "why": "Source s13 records Anthropic\u2019s statement that the specific digital copies were not used to train its commercial models."
+        },
+        {
+          "n": 5,
+          "sentence": "Meanwhile, in the field of data modeling, IanCal argues that \"the effectiveness of data modeling is entirely dependent on the specific questions one intends to address.\"",
+          "verdict": "supported",
+          "why": "Source s22 (attributed to IanCal) says modelling depends on the questions you want to answer, matching the paraphrased claim."
+        },
+        {
+          "n": 6,
+          "sentence": "Legal questions regarding AI training on copyrighted materials remain unsettled.",
+          "verdict": "supported",
+          "why": "Source includes uncertainty about other legal cases and open questions, indicating the issues remain unsettled."
+        }
+      ]
+    },
+    "thread": {
+      "sentences": 6,
+      "windows": 1,
+      "window_chars": 12000,
+      "claims": 6,
+      "unsupported": 1,
+      "rate": 0.16666666666666666,
+      "unjudged": 0,
+      "verdicts": [
+        {
+          "n": 1,
+          "sentence": "Anthropic agreed to pay at least $1.5 billion, plus interest, to resolve a class-action lawsuit regarding the use of copyrighted books.",
+          "verdict": "supported",
+          "why": "Source states Anthropic will pay at least $1.5\u202fbillion plus interest to settle the class\u2011action lawsuit."
+        },
+        {
+          "n": 2,
+          "sentence": "The payouts for authors in this settlement are estimated to be approximately $3,000 per book or work.",
+          "verdict": "supported",
+          "why": "Source says payouts are expected to be about $3,000 per book or work."
+        },
+        {
+          "n": 3,
+          "sentence": "This figure represents a significant reduction from the maximum potential penalty of $150,000 per book that could have been applied in this case.",
+          "verdict": "supported",
+          "why": "Source notes the maximum possible penalty was $150,000 per book, making $3,000 a large discount."
+        },
+        {
+          "n": 4,
+          "sentence": "Anthropic stated that the specific digital book copies involved in the settlement were not utilized to train its commercial AI models.",
+          "verdict": "supported",
+          "why": "Source quotes Anthropic saying digital copies covered by the settlement were not used to train its commercial models."
+        },
+        {
+          "n": 5,
+          "sentence": "IanCal argues that \"the effectiveness of data modeling is entirely dependent on the specific questions one intends to address.\"",
+          "verdict": "supported",
+          "why": "Source attributes to IanCal the claim that modelling depends on the questions you want to answer, matching the paraphrased statement."
+        },
+        {
+          "n": 6,
+          "sentence": "The legal landscape regarding AI training on copyrighted materials remains complex and unsettled due to ongoing debates over data modeling.",
+          "verdict": "unsupported",
+          "why": "Source does not claim the legal landscape is unsettled due to data\u2011modeling debates."
+        }
+      ]
+    }
+  },
+  "judged_claims": 12,
+  "judged_unsupported": 1,
+  "injections": {
+    "planted": 10,
+    "caught": 10,
+    "recall": 1.0,
+    "recall_by_rule": {
+      "number": 1.0,
+      "quote": 1.0,
+      "entity": 1.0,
+      "intensity": 1.0,
+      "citation": 1.0
+    },
+    "missed": [],
+    "clean_bodies": 2,
+    "false_positive_bodies": 2,
+    "false_positives": [
+      {
+        "target": "linkedin",
+        "spans": [
+          "[error/quote] 'the effectiveness of data modeling is entirely dependent on the specific questions one intends to address.': not a verbatim span of the source"
+        ]
+      },
+      {
+        "target": "thread",
+        "spans": [
+          "[error/quote] 'the effectiveness of data modeling is entirely dependent on the specific questions one intends to address.': not a verbatim span of the source"
+        ]
+      }
+    ]
+  },
+  "bodies": {
+    "linkedin": "Anthropic agreed to pay at least 1.5 billion dollars plus interest to resolve a class-action lawsuit regarding the use of copyrighted books.\n\nThis settlement payout for authors is estimated at approximately 3,000 dollars per book or work. The maximum potential penalty for unauthorized use in this case could have reached 150,000 dollars per book.\n\nAnthropic stated that the specific digital book copies involved in this settlement were not utilized to train its commercial AI models.\n\nMeanwhile, in the field of data modeling, IanCal argues that \"the effectiveness of data modeling is entirely dependent on the specific questions one intends to address.\"\n\nLegal questions regarding AI training on copyrighted materials remain unsettled.",
+    "thread": "Anthropic agreed to pay at least $1.5 billion, plus interest, to resolve a class-action lawsuit regarding the use of copyrighted books.\n\nThe payouts for authors in this settlement are estimated to be approximately $3,000 per book or work.\n\nThis figure represents a significant reduction from the maximum potential penalty of $150,000 per book that could have been applied in this case.\n\nAnthropic stated that the specific digital book copies involved in the settlement were not utilized to train its commercial AI models.\n\nIanCal argues that \"the effectiveness of data modeling is entirely dependent on the specific questions one intends to address.\"\n\nThe legal landscape regarding AI training on copyrighted materials remains complex and unsettled due to ongoing debates over data modeling."
+  },
+  "inventory": {
+    "claims": [
+      {
+        "id": "c0",
+        "kind": "stat",
+        "text": "Anthropic agreed to pay a minimum of 1.5 billion dollars plus interest to resolve a class-action lawsuit concerning the use of copyrighted books."
+      },
+      {
+        "id": "c1",
+        "kind": "stat",
+        "text": "The settlement payouts for authors are estimated to be roughly 3,000 dollars per work."
+      },
+      {
+        "id": "c2",
+        "kind": "stat",
+        "text": "The maximum potential penalty for the unauthorized use of books in this case could have reached 150,000 dollars per title."
+      },
+      {
+        "id": "c3",
+        "kind": "fact",
+        "text": "Anthropic stated that the specific digital book copies involved in the settlement were not utilized to train its commercial AI models."
+      },
+      {
+        "id": "c4",
+        "kind": "stat",
+        "text": "Moonshot AI released an updated model, Kimi-K2-Instruct-0905, which features an expanded context window of 256,000 tokens."
+      },
+      {
+        "id": "c5",
+        "kind": "stat",
+        "text": "The Kimi-K2-Instruct-0905 model utilizes a mixture-of-experts architecture containing 1 trillion total parameters."
+      },
+      {
+        "id": "c6",
+        "kind": "opinion",
+        "text": "Using LLM-generated summaries for image retrieval can significantly improve recall compared to relying solely on CLIP embeddings."
+      },
+      {
+        "id": "c7",
+        "kind": "quote",
+        "text": "IanCal argues that the effectiveness of data modeling is entirely dependent on the specific questions one intends to address."
+      }
+    ],
+    "hook_candidates": [
+      "A 1.5 billion dollar settlement for AI training might actually be a bargain for Anthropic.",
+      "It is currently legal in the US to destroy physical books to train AI models.",
+      "Data modeling is often a futile exercise unless you know exactly what questions you are trying to solve.",
+      "Using LLM-generated summaries can boost image search recall from 28 percent to 75 percent.",
+      "The legal definition of a university is so complex that even naming Cambridge is a challenge."
+    ],
+    "voice_samples": [
+      "It's wild to me that a $1.5 billion settlement can feel like a win for Anthropic, but given that it's undisputed that they downloaded pirated books (as did Meta and likely many other research teams) the maximum allowed penalty was $150,000 per book, so $3,000 per book is actually a significant discount.",
+      "To be clear: it appears it is legal, at least in the USA, to buy a used copy of a physical book (used = the author gets nothing), chop the spine off, scan the pages, discard the paper copy and then train on the scanned content.",
+      "RDF has the same problems as the SQL schemas with information scattered.",
+      "I am once again shocked at how much better image retrieval performance you can get if you embed highly opinionated summaries of an image, a summary that came out of a visual language model, than using CLIP embeddings themselves."
+    ],
+    "thesis": "The legal landscape regarding AI training on copyrighted materials remains complex and unsettled, as evidenced by recent massive settlements and ongoing debates over data modeling."
+  },
+  "rejudged": {
+    "from": 0,
+    "provider": "groq",
+    "models": [
+      "openai/gpt-oss-120b"
+    ],
+    "source_char_drift": 0
+  }
+}

@@ -344,8 +344,12 @@ is the whole reason repeats are needed.
 - Numbers from the current judge are not comparable to the 15.5% and 10.0% above,
   which a different judge produced. `eval/rejudge.py` re-scores a finished run's stored
   bodies to put them on one scale, and until that is complete the two cannot be set
-  beside each other. Partial evidence suggests the current judge is uniformly more
-  lenient, which would make a lower figure a change of scale rather than an improvement.
+  beside each other. Across 23 source comparisons on identical bodies the current judge
+  scores lower in aggregate, 15.4% to 13.1% on v1 and 10.2% to 7.5% on v2, but pooled
+  that is `z=1.04, p=0.30` and the effect is not uniform: it is looser on 12 sources,
+  **stricter on 5**, and identical on 6. So a lower figure from it is neither an
+  improvement nor a clean change of scale, and per-source numbers cannot be swapped
+  between the two at all.
 - Sources are capped near 40k characters. Behaviour on book-length input is unmeasured.
 
 ## Setup
