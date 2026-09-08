@@ -1,6 +1,6 @@
 {
   "run": {
-    "at": "2026-09-08T18:02:50+00:00",
+    "at": "2026-09-08T18:10:46+00:00",
     "seed": 0,
     "targets": [
       "linkedin",
@@ -13,7 +13,7 @@
       "gemini-3-flash-preview",
       "qwen/qwen3.6-27b"
     ],
-    "model_calls": 5
+    "model_calls": 0
   },
   "complete": true,
   "judged_by_model": false,
@@ -34,8 +34,8 @@
     "intensity": 1.0,
     "citation": 1.0
   },
-  "verifier_false_positive_rate": 0.0,
-  "verifier_false_positives_by_rule": {},
+  "unplanted_error_rate": 0.0,
+  "unplanted_errors_by_rule": {},
   "format_compliance": 1.0,
   "claim_utilisation": 0.6666666666666666,
   "artifacts": 2

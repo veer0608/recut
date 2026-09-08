@@ -81,28 +81,28 @@ class TestInjection:
         assert result["planted"] == 5
         assert result["recall"] == 1.0, result["missed"]
 
-    def test_a_clean_body_produces_no_false_positive(self, clean_artifact, document, claims):
-        assert score([clean_artifact], document, claims)["false_positive_bodies"] == 0
+    def test_a_clean_body_raises_no_error(self, clean_artifact, document, claims):
+        assert score([clean_artifact], document, claims)["unplanted_error_bodies"] == 0
 
-    def test_a_false_positive_says_which_rule_cried_wolf(self, document, claims):
+    def test_an_unplanted_error_says_which_rule_fired(self, document, claims):
         # Recall was per rule from the start. This direction was only a body count,
         # so when v4 and v6 differed by two bodies out of thirty there was nothing
         # on disk to say which rule moved.
         noisy = Artifact(target="linkedin", body="Adyen Holdings said so.", claim_ids=[])
         result = score([noisy], document, claims)
-        assert result["false_positive_bodies"] == 1
-        assert result["false_positives_by_rule"] == {"entity": 1}
-        assert result["false_positives"][0]["rules"] == ["entity"]
+        assert result["unplanted_error_bodies"] == 1
+        assert result["unplanted_errors_by_rule"] == {"entity": 1}
+        assert result["unplanted_errors"][0]["rules"] == ["entity"]
 
     def test_a_rule_firing_twice_in_one_body_counts_once(self, document, claims):
-        # Kept commensurable with false_positive_bodies, which is a body count.
+        # Kept commensurable with unplanted_error_bodies, which is a body count.
         twice = Artifact(
             target="linkedin", body="Adyen Holdings and Stripe Payments said so.", claim_ids=[]
         )
         result = score([twice], document, claims)
-        assert result["false_positives_by_rule"] == {"entity": 1}
+        assert result["unplanted_errors_by_rule"] == {"entity": 1}
 
-    def test_copying_is_not_scored_as_a_fabrication_false_positive(self, document, claims):
+    def test_copying_is_not_scored_as_an_unplanted_fabrication_error(self, document, claims):
         # Copying became an error once v6 confirmed the rate, which put it in front
         # of this scorer. It is never planted, and a body reproducing the source
         # really did reproduce it. Counting that here would make the false-positive
@@ -112,7 +112,7 @@ class TestInjection:
         fired = verify(copied, document, claims).errors
         assert [w.rule for w in fired] == ["copying"]
         result = score([copied], document, claims)
-        assert result["false_positive_bodies"] == 0
+        assert result["unplanted_error_bodies"] == 0
 
     def test_credit_needs_the_right_rule_to_fire(self, document, claims):
         # A body whose entity rule fires for an unrelated reason must not be scored
@@ -120,7 +120,7 @@ class TestInjection:
         noisy = Artifact(target="linkedin", body="Adyen Holdings said so about it.", claim_ids=[])
         result = score([noisy], document, claims)
         assert result["recall_by_rule"]["number"] == 1.0
-        assert result["false_positive_bodies"] == 1
+        assert result["unplanted_error_bodies"] == 1
 
 
 class TestJudgeSentences:
@@ -203,7 +203,7 @@ class TestAbandonmentRule:
                 "planted": 5,
                 "caught": 5,
                 "clean_bodies": 1,
-                "false_positive_bodies": 0,
+                "unplanted_error_bodies": 0,
                 "recall_by_rule": {"number": 1.0},
             },
         }
@@ -224,7 +224,7 @@ class TestAbandonmentRule:
     def test_secondary_metrics_still_aggregate(self):
         report = aggregate([self._result("a", 10, 1)], [], {})
         assert report["verifier_recall_on_injections"] == 1.0
-        assert report["verifier_false_positive_rate"] == 0.0
+        assert report["unplanted_error_rate"] == 0.0
         assert report["format_compliance"] == 1.0
 
 
@@ -250,7 +250,7 @@ class TestOneInstrument:
             "judged": {"linkedin": {"claims": judged, "unsupported": unsupported,
                                     "window_chars": window_chars}},
             "injections": {"planted": 5, "caught": 5, "clean_bodies": 1,
-                           "false_positive_bodies": 0, "recall_by_rule": {"number": 1.0}},
+                           "unplanted_error_bodies": 0, "recall_by_rule": {"number": 1.0}},
         }
 
     def test_one_window_size_publishes_a_rate(self):
@@ -297,7 +297,7 @@ class TestUnjudgedRun:
                 "planted": 5,
                 "caught": 5,
                 "clean_bodies": 1,
-                "false_positive_bodies": 0,
+                "unplanted_error_bodies": 0,
                 "recall_by_rule": {"number": 1.0},
             },
         }

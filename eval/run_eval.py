@@ -202,7 +202,13 @@ def aggregate(results: list[dict], failures: list[dict], run: dict) -> dict:
     planted = sum(r["injections"]["planted"] for r in results)
     caught = sum(r["injections"]["caught"] for r in results)
     bodies = sum(r["injections"]["clean_bodies"] for r in results)
-    fp_bodies = sum(r["injections"]["false_positive_bodies"] for r in results)
+    # Checkpoints written before the rename carry the old key. A run that walls
+    # mid-way and resumes across a code change is the normal case here, not an
+    # exotic one, so the rename must not turn a resumable run into a crash.
+    fp_bodies = sum(
+        r["injections"].get("unplanted_error_bodies", r["injections"].get("false_positive_bodies", 0))
+        for r in results
+    )
     artifacts = sum(len(r["targets"]) for r in results)
     violations = sum(len(r["format_violations"]) for r in results)
     utilisations = [r["claim_utilisation"] for r in results if r["claim_utilisation"] is not None]
@@ -216,7 +222,10 @@ def aggregate(results: list[dict], failures: list[dict], run: dict) -> dict:
     # would weight a source with three artifacts the same as one with thirty.
     fp_by_rule: dict[str, int] = {}
     for result in results:
-        for rule, count in result["injections"].get("false_positives_by_rule", {}).items():
+        by_name = result["injections"].get("unplanted_errors_by_rule") or result[
+            "injections"
+        ].get("false_positives_by_rule", {})
+        for rule, count in by_name.items():
             fp_by_rule[rule] = fp_by_rule.get(rule, 0) + count
 
     headline = (judged_unsupported / judged_claims) if judged_claims else None
@@ -242,8 +251,10 @@ def aggregate(results: list[dict], failures: list[dict], run: dict) -> dict:
         "verifier_recall_by_rule": {
             rule: sum(v) / len(v) for rule, v in by_rule.items() if v
         },
-        "verifier_false_positive_rate": (fp_bodies / bodies) if bodies else None,
-        "verifier_false_positives_by_rule": dict(sorted(fp_by_rule.items())),
+        # Not a false-positive rate. See inject.score: three of v6's five were
+        # real catches. An upper bound on false alarms, nothing narrower.
+        "unplanted_error_rate": (fp_bodies / bodies) if bodies else None,
+        "unplanted_errors_by_rule": dict(sorted(fp_by_rule.items())),
         "format_compliance": (1 - violations / artifacts) if artifacts else None,
         "claim_utilisation": (sum(utilisations) / len(utilisations)) if utilisations else None,
         "artifacts": artifacts,
@@ -364,12 +375,12 @@ def main(argv: list[str] | None = None) -> int:
     print(
         f"verifier    recall {_pct(report['verifier_recall_on_injections'])} on "
         f"{sum(r['injections']['planted'] for r in results)} planted fabrications, "
-        f"false positives {_pct(report['verifier_false_positive_rate'])}"
+        f"errors on unplanted bodies {_pct(report['unplanted_error_rate'])}"
     )
     for rule, value in sorted(report["verifier_recall_by_rule"].items()):
         print(f"            {rule:<10} {_pct(value)}")
-    for rule, count in report["verifier_false_positives_by_rule"].items():
-        print(f"{DIM}            {rule:<10} cried wolf on {count} clean bod"
+    for rule, count in report["unplanted_errors_by_rule"].items():
+        print(f"{DIM}            {rule:<10} fired on {count} unplanted bod"
               f"{'y' if count == 1 else 'ies'}{OFF}")
     print(f"format      {_pct(report['format_compliance'])} compliant")
     print(f"utilisation {_pct(report['claim_utilisation'])} of extracted claims used")

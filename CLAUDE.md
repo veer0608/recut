@@ -206,6 +206,18 @@ which is why `aggregate()` withholds the headline when a run mixes sizes.
 `eval/inject.py` plants known fabrications so the deterministic layer gets a score whose
 truth is known by construction: an unvalidated judge is a number with nothing behind it.
 
+**`unplanted_error_rate` is not a false-positive rate**, and was called one until v6. It
+counts errors raised on bodies nothing was planted in, and three of v6's five were invented
+quotations the quote rule caught correctly, one attributed to a named person. Injections are
+planted *on top of* generated bodies, so an unplanted body is only assumed clean. It is an
+upper bound on false alarms; separating them needs the bodies labelled by hand. Renamed for
+the same reason `claim_utilisation` is not called recall. `copying` is excluded outright,
+since it is never planted and a body that reproduced the source really did reproduce it.
+`unplanted_errors_by_rule` says which rule fired, because the bare count hid that quote had
+started firing where it never had before. `aggregate` still reads the old key from a
+checkpoint written before the rename, because resuming across a code change is the normal
+case here.
+
 `eval/rejudge.py` re-scores a finished run's stored bodies when the judge changes, at
 the cost of judging and no generation. A rate is only comparable to another rate the
 same judge produced. `--only <id>` aims a small budget at one source; it limits what is

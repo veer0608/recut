@@ -43,7 +43,7 @@ def checkpoint(tmp_path):
                 "format_violations": {},
                 "injections": {
                     "planted": 5, "caught": 5, "clean_bodies": 1,
-                    "false_positive_bodies": 0, "recall_by_rule": {"number": 1.0},
+                    "unplanted_error_bodies": 0, "recall_by_rule": {"number": 1.0},
                 },
             }
         ),
@@ -128,7 +128,7 @@ class TestOnlyFlag:
                     "judged_claims": 2, "judged_unsupported": 0,
                     "claim_utilisation": 0.5, "format_violations": {},
                     "injections": {"planted": 1, "caught": 1, "clean_bodies": 1,
-                                   "false_positive_bodies": 0, "recall_by_rule": {"number": 1.0}},
+                                   "unplanted_error_bodies": 0, "recall_by_rule": {"number": 1.0}},
                 }), encoding="utf-8",
             )
         out = runs / "r-rejudged" / "sources"
@@ -139,7 +139,7 @@ class TestOnlyFlag:
                             "judged_claims": 2, "judged_unsupported": 0,
                             "claim_utilisation": 0.5, "format_violations": {},
                             "injections": {"planted": 1, "caught": 1, "clean_bodies": 1,
-                                           "false_positive_bodies": 0,
+                                           "unplanted_error_bodies": 0,
                                            "recall_by_rule": {"number": 1.0}}}),
                 encoding="utf-8",
             )

@@ -3,9 +3,15 @@
 The entailment judge in judge.py produces the headline number, but a judge is
 itself a model and an unvalidated judge is a number with nothing behind it. This
 module builds the one part of the eval where the truth is known by construction:
-every injection here is a fabrication, and every clean body is clean. Anything the
-verifier misses is a false negative and anything it flags on a clean body is a
-false positive, with no judgement call in either direction.
+every injection here is a fabrication, so anything the verifier misses is a false
+negative with no judgement call about it.
+
+The other direction is weaker and used to be overstated here. Injections are planted
+on top of generated bodies, and a body with nothing planted in it is only assumed
+clean: v6 raised errors on five of them and three were invented quotations the quote
+rule caught correctly, one attributed to a named person. So errors on unplanted
+bodies are an upper bound on false alarms, not a count of them, and the fields are
+named for that.
 """
 
 from __future__ import annotations
@@ -141,7 +147,7 @@ def plant(artifact: Artifact, document: Document, seed: int = 0) -> list[Injecti
 def score(
     artifacts: list[Artifact], document: Document, claims: ClaimSet, seed: int = 0
 ) -> dict:
-    """Verifier recall on planted fabrications, and false positives on clean bodies.
+    """Verifier recall on planted fabrications, and errors on unplanted bodies.
 
     Recall is per rule as well as overall, because an overall number hides a rule
     that has quietly stopped working.
@@ -169,12 +175,18 @@ def score(
                     }
                 )
 
-    # A false positive here means the verifier claimed a fabrication in a body that
-    # had none planted. Copying is not a fabrication and is never planted: a clean
-    # body reproducing the source really did reproduce it, and counting that as a
-    # false alarm would make this number fall every time the copying rule works.
-    # It became an error rather than a notice once v6 confirmed the rate, which is
-    # what put it in front of this scorer at all.
+    # Errors raised on a body nothing was planted in. NOT false alarms, though the
+    # metric was called that until v6 showed why it matters: three of the five were
+    # invented quotations the quote rule caught correctly, including one attributed
+    # to a named person. A body with no injection is assumed clean and nothing
+    # establishes that, because injections are planted on top of generated bodies
+    # and the base body carries its own faults. This is an upper bound on false
+    # alarms; separating them needs the bodies labelled by hand. Named for what it
+    # counts, the way claim_utilisation is named for what it counts.
+    #
+    # Copying is excluded outright. It is never planted, and a body reproducing the
+    # source really did reproduce it, so counting it here would make the number
+    # climb every time the copying rule worked.
     fabrication_errors = [
         (a, [w for w in verify(
             Artifact(target=a.target, body=a.body, claim_ids=a.claim_ids), document, claims
@@ -197,7 +209,7 @@ def score(
     # v4 and v6 differed by two bodies out of thirty and nothing on disk said
     # whether that was intensity, entity, or something new. Counted per body, so
     # a rule firing twice in one body counts once and the figures stay
-    # commensurable with false_positive_bodies.
+    # commensurable with unplanted_error_bodies.
     fp_by_rule: dict[str, int] = {}
     for _, errors in fabrication_errors:
         for rule in {w.rule for w in errors}:
@@ -214,7 +226,7 @@ def score(
         "recall_by_rule": per_rule,
         "missed": missed,
         "clean_bodies": len(artifacts),
-        "false_positive_bodies": len(false_positives),
-        "false_positives_by_rule": dict(sorted(fp_by_rule.items())),
-        "false_positives": false_positives,
+        "unplanted_error_bodies": len(false_positives),
+        "unplanted_errors_by_rule": dict(sorted(fp_by_rule.items())),
+        "unplanted_errors": false_positives,
     }
