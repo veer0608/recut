@@ -101,6 +101,20 @@ def run_source(
             if "format_violation" in a.meta
         },
         "repaired": [a.target for a in artifacts if a.meta.get("repaired")],
+        # A repair that was attempted and refused used to look exactly like one
+        # that never ran. art-willison/linkedin shipped an invented quotation and
+        # the stored run could not say whether anything had tried to stop it.
+        "repair_attempted": [a.target for a in artifacts if a.meta.get("repair_attempted")],
+        "repair_detail": {
+            a.target: {
+                "kept": a.meta.get("repaired"),
+                "first_pass_errors": a.meta.get("first_pass_errors", []),
+                "repair_errors": a.meta.get("repair_errors", []),
+                "cleared": a.meta.get("repair_cleared", []),
+            }
+            for a in artifacts
+            if a.meta.get("repair_attempted")
+        },
         "claim_utilisation": _utilisation(artifacts, repurpose_claims),
         "judged": judged,
         "judged_claims": supported_claims,

@@ -66,9 +66,31 @@ def repurpose(
             retry = verify(
                 build(document, claims, llm, note=repair_note(artifact)), document, claims
             )
-            retry.meta["repaired"] = True
-            retry.meta["first_pass_errors"] = [str(w) for w in artifact.errors]
-            artifact = retry if len(retry.errors) < len(artifact.errors) else artifact
+            # Did the retry clear what it was actually asked to clear? Counting
+            # errors treats every rule as interchangeable, and it kept a draft
+            # that put an invented direct quotation in a named person's mouth:
+            # art-willison/linkedin in v6 tied on count, so the first pass won and
+            # the fabricated quote shipped. The repair note names specific spans.
+            # Whether those spans are gone is the question it was sent to answer.
+            asked = {(w.rule, w.span) for w in artifact.errors}
+            cleared = asked - {(w.rule, w.span) for w in retry.errors}
+            keep_retry = len(retry.errors) < len(artifact.errors) or (
+                bool(cleared) and len(retry.errors) <= len(artifact.errors)
+            )
+            first_pass = [str(w) for w in artifact.errors]
+            retry_errors = [str(w) for w in retry.errors]
+            artifact = retry if keep_retry else artifact
+            # Recorded on whichever draft survives. Both of these used to be set on
+            # the retry alone, so a rejected repair took the evidence that it had
+            # ever run out of scope with it, and the stored run could not tell a
+            # repair that was refused from one that never happened.
+            artifact.meta["repaired"] = keep_retry
+            artifact.meta["repair_attempted"] = True
+            artifact.meta["first_pass_errors"] = first_pass
+            artifact.meta["repair_errors"] = retry_errors
+            artifact.meta["repair_cleared"] = sorted(
+                f"[{rule}] {span}" for rule, span in cleared
+            )
         _carry_provenance(artifact, document, claims)
         artifacts.append(artifact)
 

@@ -144,6 +144,59 @@ class TestRepurpose:
         assert not artifacts[0].clean
         assert artifacts[0].errors[0].span.startswith("91")
 
+    def test_a_repair_that_swaps_one_error_for_another_is_kept(self, document):
+        """The tie that shipped an invented quotation.
+
+        art-willison/linkedin in v6: the retry did not reduce the error count, so
+        the count comparison kept the first pass, and the first pass was the draft
+        with a fabricated direct quotation attributed to a named person. The repair
+        note names spans. Clearing a named span is the job, not lowering a total.
+        """
+        filler = "Reconcile against receipts. " * 10
+        bad = self._reply(f'IanCal argues that "data modeling depends on questions". {filler}')
+        swap = self._reply(f"Merchant names are wrong on 91% of statements. {filler}")
+        llm = ScriptedLLM([EXTRACT_REPLY, bad, swap])
+
+        _, artifacts = repurpose(document, ["linkedin"], llm)
+
+        meta = artifacts[0].meta
+        # Vacuous unless both drafts really do carry one error each: on any other
+        # split the plain count comparison would have decided it.
+        assert len(meta["first_pass_errors"]) == len(meta["repair_errors"]) == 1
+        assert meta["repaired"] is True
+        assert any("data modeling" in c for c in meta["repair_cleared"])
+        assert "data modeling" not in artifacts[0].body
+
+    def test_a_repair_that_clears_nothing_leaves_the_first_pass_standing(self, document):
+        bad = self._reply("Merchant names are wrong on 91% of statements. " * 8)
+        llm = ScriptedLLM([EXTRACT_REPLY, bad, bad])
+        _, artifacts = repurpose(document, ["linkedin"], llm)
+        assert artifacts[0].meta["repaired"] is False
+        assert artifacts[0].meta["repair_cleared"] == []
+
+    def test_a_refused_repair_still_records_that_it_ran(self, document):
+        """A repair that was attempted and rejected used to look like no repair.
+
+        Both the flag and the first-pass errors were written to the retry, so
+        discarding the retry discarded the evidence. The stored run could not tell
+        a repair that was refused from one that never happened.
+        """
+        bad = self._reply("Merchant names are wrong on 91% of statements. " * 8)
+        llm = ScriptedLLM([EXTRACT_REPLY, bad, bad])
+        _, artifacts = repurpose(document, ["linkedin"], llm)
+        meta = artifacts[0].meta
+        assert meta["repair_attempted"] is True
+        assert meta["repaired"] is False
+        assert any("91%" in e for e in meta["first_pass_errors"])
+        assert any("91%" in e for e in meta["repair_errors"])
+
+    def test_a_clean_first_pass_records_no_repair_at_all(self, document):
+        llm = ScriptedLLM(
+            [EXTRACT_REPLY, self._reply("The merchant name is typed by the processor. " * 12)]
+        )
+        _, artifacts = repurpose(document, ["linkedin"], llm)
+        assert "repair_attempted" not in artifacts[0].meta
+
     def test_thread_posts_over_the_limit_are_flagged(self, document):
         llm = ScriptedLLM([EXTRACT_REPLY, self._thread(["x" * 300] + ["short post here"] * 4)])
         _, artifacts = repurpose(document, ["thread"], llm)
