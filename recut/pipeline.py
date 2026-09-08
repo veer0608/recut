@@ -69,9 +69,57 @@ def repurpose(
             retry.meta["repaired"] = True
             retry.meta["first_pass_errors"] = [str(w) for w in artifact.errors]
             artifact = retry if len(retry.errors) < len(artifact.errors) else artifact
+        _carry_provenance(artifact, document, claims)
         artifacts.append(artifact)
 
     return claims, artifacts
+
+
+def sidecar(artifact: Artifact, document: Document, claims: ClaimSet) -> dict:
+    """Which span of the source stands behind each claim this artifact used."""
+    return {
+        "target": artifact.target,
+        "source": {"title": document.title, "ref": document.source_ref},
+        "meta": artifact.meta,
+        "warnings": [w.model_dump() for w in artifact.warnings],
+        "provenance": [
+            {
+                "claim_id": claim.id,
+                "claim": claim.text,
+                "segments": [
+                    {
+                        "id": seg_id,
+                        "timecode": (seg.timecode if (seg := document.segment(seg_id)) else None),
+                        "char_start": seg.char_start if seg else None,
+                        "char_end": seg.char_end if seg else None,
+                    }
+                    for seg_id in claim.segment_ids
+                ],
+            }
+            for claim_id in artifact.claim_ids
+            if (claim := claims.claim(claim_id))
+        ],
+    }
+
+
+def _carry_provenance(artifact: Artifact, document: Document, claims: ClaimSet) -> None:
+    """Put the anchors inside the directory a target emits.
+
+    A target that emits files hands that directory to another tool, and the
+    sidecar written beside it does not travel. The vidsmith project becomes a
+    published video, so it was the one output that could not be traced back to
+    its source, in a product whose entire claim is that everything can.
+
+    Written after verification so the warnings it carries are the ones that
+    survived the repair pass, not the first draft's.
+    """
+    if not artifact.files:
+        return
+    roots = {Path(name).parts[0] for name in artifact.files if Path(name).parts}
+    for root in roots:
+        artifact.files[f"{root}/provenance.json"] = json.dumps(
+            sidecar(artifact, document, claims), indent=2
+        )
 
 
 def write_out(
@@ -90,30 +138,8 @@ def write_out(
             path = out_dir / relative
             path.parent.mkdir(parents=True, exist_ok=True)
             path.write_text(content, encoding="utf-8")
-        sidecar = {
-            "target": artifact.target,
-            "meta": artifact.meta,
-            "warnings": [w.model_dump() for w in artifact.warnings],
-            "provenance": [
-                {
-                    "claim_id": claim.id,
-                    "claim": claim.text,
-                    "segments": [
-                        {
-                            "id": seg_id,
-                            "timecode": (s.timecode if (s := document.segment(seg_id)) else None),
-                            "char_start": s.char_start if s else None,
-                            "char_end": s.char_end if s else None,
-                        }
-                        for seg_id in claim.segment_ids
-                    ],
-                }
-                for claim_id in artifact.claim_ids
-                if (claim := claims.claim(claim_id))
-            ],
-        }
         (out_dir / f"{artifact.target}.provenance.json").write_text(
-            json.dumps(sidecar, indent=2), encoding="utf-8"
+            json.dumps(sidecar(artifact, document, claims), indent=2), encoding="utf-8"
         )
 
     return out_dir

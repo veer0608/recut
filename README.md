@@ -79,6 +79,7 @@ newsletter.txt
 article.txt
 vidsmith/script.md           a vidsmith project, buildable as it stands
 vidsmith/config.yaml
+vidsmith/provenance.json     the anchors, inside the directory that gets handed over
 claims.json                  the full inventory
 ```
 

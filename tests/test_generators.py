@@ -211,3 +211,76 @@ class TestVidsmith:
         out = write_out(tmp_path / "run", text_doc, claim_set, artifacts)
         assert (out / "vidsmith" / "script.md").exists()
         assert (out / "vidsmith" / "config.yaml").exists()
+
+
+class TestProvenanceTravels:
+    """The directory a target emits carries its own anchors.
+
+    A sidecar written beside the project does not travel with it. The vidsmith
+    project becomes a published video, so without this it was the one output
+    that could not be traced back, in a product whose whole claim is that
+    everything can.
+    """
+
+    def _document(self):
+        from recut.ingest.markdown import ingest_text
+
+        return ingest_text(
+            "# Captions\n\nThe speech engine reports when each word starts.\n\n"
+            "Transcribing the audio back is a guess.\n",
+            source_ref="test",
+        )
+
+    def _claims(self):
+        from recut.models import Claim, ClaimSet
+
+        return ClaimSet(
+            document_id="d",
+            claims=[
+                Claim(id="c0", text="The engine reports word timings.", segment_ids=["s1"]),
+                Claim(id="c1", text="Transcribing back is a guess.", segment_ids=["s2"]),
+            ],
+        )
+
+    def _artifact(self, files):
+        from recut.models import Artifact
+
+        return Artifact(target="vidsmith", body="Narration.", claim_ids=["c0"], files=files)
+
+    def test_an_emitted_directory_gets_a_provenance_file(self):
+        from recut.pipeline import _carry_provenance
+
+        artifact = self._artifact({"vidsmith/script.md": "# S\n", "vidsmith/config.yaml": "t: 1\n"})
+        _carry_provenance(artifact, self._document(), self._claims())
+        assert "vidsmith/provenance.json" in artifact.files
+
+    def test_it_names_the_segment_behind_each_claim_used(self):
+        import json
+
+        from recut.pipeline import _carry_provenance
+
+        artifact = self._artifact({"vidsmith/script.md": "# S\n"})
+        _carry_provenance(artifact, self._document(), self._claims())
+        written = json.loads(artifact.files["vidsmith/provenance.json"])
+        assert [p["claim_id"] for p in written["provenance"]] == ["c0"]
+        assert written["provenance"][0]["segments"][0]["id"] == "s1"
+
+    def test_a_prose_target_emits_nothing_and_gains_nothing(self):
+        from recut.pipeline import _carry_provenance
+
+        artifact = self._artifact({})
+        _carry_provenance(artifact, self._document(), self._claims())
+        assert artifact.files == {}
+
+    def test_the_span_can_be_read_back_out_of_the_source(self):
+        import json
+
+        from recut.pipeline import _carry_provenance
+
+        document = self._document()
+        artifact = self._artifact({"vidsmith/script.md": "# S\n"})
+        _carry_provenance(artifact, document, self._claims())
+        segment = json.loads(artifact.files["vidsmith/provenance.json"])["provenance"][0]["segments"][0]
+        # The whole point of the anchors: a reader can go and look.
+        quoted = document.raw[segment["char_start"]:segment["char_end"]]
+        assert "speech engine" in quoted
