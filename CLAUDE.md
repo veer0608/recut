@@ -5,7 +5,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 ## Commands
 
 ```bash
-.venv/Scripts/python -m pytest -q                          # whole suite, ~5s, no network
+.venv/Scripts/python -m pytest -q                          # whole suite, ~6s, no network
 .venv/Scripts/python -m pytest tests/test_verify.py -q      # one file
 .venv/Scripts/python -m pytest -k "intensity" -q            # one topic
 .venv/Scripts/python -m pytest --durations=6 -q             # find a test that started hitting the network
@@ -20,6 +20,8 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 ```
 
 `recut build` renders drafts a human approved in the review queue and nothing else.
+The draft carries the emitted files through the queue, which is what makes this possible
+at all: before that column existed an approved vidsmith draft had nothing to render.
 Rendering is the expensive half, a minute or two of compute plus vidsmith's own model
 calls, so spending it at generation time spends it on drafts that get rejected. The
 queue stores each artifact's emitted files for exactly this, and `ReviewQueue._migrate`
@@ -34,6 +36,9 @@ the text was written and verified and only the render failed.
 ```bash
 .venv/Scripts/python eval/run_eval.py --run v3 --fresh --targets linkedin,thread   # 20-30 min, ~120 calls
 .venv/Scripts/python eval/tune_intensity.py                # re-derives rule precision from checkpoints, no calls
+.venv/Scripts/python eval/measure_copying.py --runs v1,v2   # copying rate over stored bodies, no calls
+.venv/Scripts/python eval/run_eval.py --run v6 --no-judge   # generate and score deterministically, ~a third the cost
+.venv/Scripts/python eval/rejudge.py v1 --only art-ocr      # re-score stored bodies, judging only, no generation
 ```
 
 Install: `python -m venv .venv && .venv/Scripts/python -m pip install -e ".[web,api,dev]"`, then copy
@@ -49,6 +54,19 @@ product's only guarantee is gone.
 
 Corollary in `extract.py`: a claim the model returns without a valid `segment_id` is
 **dropped**, not repaired. Unanchored claims are the exact failure this exists to prevent.
+
+**The corollary that took a day to find.** A generator never sees the source, so any
+sentence it publishes word for word arrived through a claim. Copying was therefore
+inherited, not authored, which is why an anti-copying paragraph added to the *generator*
+prompts moved the rate from 80% to 77% and nothing else. Telling `extract.md` to restate
+claim text in its own words took the inventory from 36% carrying an 8+ word verbatim run
+to 4%, and the outputs from 77% to 37%.
+
+`hook_candidates` was the same leak one level down: once claim text was clean, every
+remaining copied run traced to a hook, which the prompt had asked to be "supported by the
+source" without ever saying to write rather than lift. `voice_samples` are verbatim by
+design and are tone reference; they were the obvious suspect and the measurement cleared
+them.
 
 ## Architecture
 
@@ -84,6 +102,18 @@ sets `requires_timed = True` to be offered only for audio and video (`article` d
 rewriting an article as an article is not repurposing). A target may emit files instead of
 prose via `Artifact.files`; `vidsmith` emits a buildable project directory.
 
+**What a target emits carries its own provenance.** `pipeline._carry_provenance` writes
+`provenance.json` *inside* each emitted directory after verification, because the sidecar
+written beside it does not travel and that directory is what becomes a published video.
+The one output that reaches an audience was the one that could not be traced back.
+
+**A local source is credited by its title, not its path.** `generate/vidsmith.credit_for`
+puts the URL in `config.yaml`'s `source` for an article or video, and the document title
+for a local file. vidsmith writes that string verbatim into a YouTube description, where
+an absolute path off this laptop credits nothing and publishes a directory layout. The
+comment on line one still names the real input, for whoever opens the file; the two are
+separate arguments to `render_config` because they are separate jobs.
+
 **Prompts live in `recut/prompts/*.md`**, loaded at runtime, not as Python strings. They change
 more often than the code. The file name is the `load_prompt` argument, not the module name, and
 the two are not always the same word: the `vidsmith` target loads `prompts/video.md`.
@@ -103,9 +133,17 @@ both directions, so severities here were set by measurement, not taste:
 - **entity** is an error only when a *word* of the name is absent from the source. A phrase
   that is absent but built from present words ("Western Roman") is a notice: a missing word is
   strong evidence of invention, a missing phrase is not.
-- **copying** is a notice on purpose, for now. 80% of artifacts across v1 and v2 carried an 8+
-  word verbatim run. A gate at that rate would send four drafts in five back for repair before
-  the prompt fix had a chance to work. Promote it once a run measures the new rate.
+- **copying** is a notice on purpose, for now, and the rate it fires at has moved. 80% of
+  artifacts across v1 and v2 carried an 8+ word verbatim run; after the `extract.md` fix it is
+  37% overall and 14% on markdown (`z=+2.85, p=0.004`). A gate at 80% would have sent four
+  drafts in five back for repair. Promote it once a repeat holds, not on one run.
+- **copying also needs `MIN_COPIED_PROSE` words that carry meaning** before it counts. The
+  generator prompts require a figure to match its `stat` claim exactly, so a run of them drags
+  its connecting words along: "from 9.0 to 5.6 and tokens from 13,024 to 8,576" is fourteen
+  words and one of them is prose. Measured over 84 copied runs, a floor of four drops 5% of
+  them and every one it drops is a figure recital; five starts taking real sentences. A
+  disqualified run is skipped and the scan continues, so numbers cannot mask a copied
+  sentence further along the body.
 
 ## The eval, and the abandonment rule
 
@@ -138,7 +176,12 @@ truth is known by construction: an unvalidated judge is a number with nothing be
 
 `eval/rejudge.py` re-scores a finished run's stored bodies when the judge changes, at
 the cost of judging and no generation. A rate is only comparable to another rate the
-same judge produced.
+same judge produced. `--only <id>` aims a small budget at one source; it limits what is
+paid for and never what is reported, so a source nobody has judged still withholds the
+headline. Progress is checkpointed **per window**, in `eval/results/*/partial/`, because
+a wall part-way through a large source used to discard every window before it: `art-ocr`
+wants about 10k tokens and attempts were each burning one to two thousand and recording
+nothing. Those crumbs are deleted when the source completes and are gitignored meanwhile.
 
 `claim_utilisation` is **not** recall. It is the share of extracted claims some output used.
 Recall would need a hand-labelled inventory the golden set does not have.
@@ -185,8 +228,10 @@ while markdown regressed (8.9% to 15.0%).
 No test touches the network, and it should stay that way: `ScriptedLLM` in
 `tests/test_pipeline.py` drives the whole pipeline including the repair path, the ingest tests
 feed fixture HTML and fixture caption cues, and `tests/conftest.py` gives every module a client
-against a throwaway database. **236 tests, ~5s.** If the suite jumps to ~17s, a test is
-reaching the network; `--durations` finds it.
+against a throwaway database. **324 tests, ~6s.** If the suite jumps to ~17s, a test is
+reaching the network; `--durations` finds it. A test that *sleeps* trips the same wire: the
+token pacer's first tests waited on a real clock and took the suite to 75 seconds, so they
+use a fake clock that sleeping advances and assert the waiting rather than performing it.
 
 `tests/test_cli.py` exists because `python -m recut run` once shipped with a `NameError` on the
 first line of `main()` while 155 tests were green. A module that imports cleanly is not a module
