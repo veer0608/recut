@@ -39,13 +39,21 @@ from recut.llm import LLMError  # noqa: E402
 GREEN, RED, YELLOW, DIM, OFF = "\033[32m", "\033[31m", "\033[33m", "\033[2m", "\033[0m"
 
 
-def rejudge_source(checkpoint: Path, judge_llm) -> dict:
-    """The stored result with its judged numbers replaced. Raises if it cannot."""
+def rejudge_source(checkpoint: Path, judge_llm, partial_dir: Path | None = None) -> dict:
+    """The stored result with its judged numbers replaced. Raises if it cannot.
+
+    `partial_dir` gives each body somewhere to record how far it got, so a quota
+    wall part-way through a large source costs the window it was on rather than
+    every window already paid for.
+    """
     old = json.loads(checkpoint.read_text(encoding="utf-8"))
     document = ingest(old["ref"])
 
     drift = len(document.raw) - old["chars"]
-    judged = {t: judge(body, document, judge_llm) for t, body in old["bodies"].items()}
+    judged = {}
+    for target, body in old["bodies"].items():
+        cache = None if partial_dir is None else partial_dir / f"{old['id']}.{target}.json"
+        judged[target] = judge(body, document, judge_llm, cache=cache)
 
     return {
         **old,
@@ -112,12 +120,15 @@ def main(argv: list[str] | None = None) -> int:
                 print(f"{DIM}  {checkpoint.stem:<20} skipped, not selected{OFF}")
                 continue
             try:
-                result = rejudge_source(checkpoint, judge_llm)
+                result = rejudge_source(checkpoint, judge_llm, out_dir / "partial")
             except Exception as exc:  # noqa: BLE001 - a failure is data
                 failures.append({"id": checkpoint.stem, "error": f"{type(exc).__name__}: {exc}"[:900]})
                 print(f"{RED}  {checkpoint.stem:<20} failed  {type(exc).__name__}{OFF}")
                 continue
             target.write_text(json.dumps(result, indent=2), encoding="utf-8")
+            # The source is whole now, so the crumbs that got it there are noise.
+            for crumb in (out_dir / "partial").glob(f"{checkpoint.stem}.*.json"):
+                crumb.unlink()
             results.append(result)
             rate = result["judged_unsupported"] / result["judged_claims"] if result["judged_claims"] else None
             drift = result["rejudged"]["source_char_drift"]

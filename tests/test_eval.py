@@ -415,6 +415,77 @@ class TestJudgeBatching:
         assert result["claims"] == 1
 
 
+class TestJudgeResume:
+    """Progress through a large source survives a quota wall.
+
+    art-ocr needs about 10k tokens across its windows. Four attempts each spent
+    one to two thousand of exactly that budget, recorded nothing, and left the
+    next attempt further away. The risk in fixing it is worse than the bug: a
+    resume that attaches an old verdict to a new sentence corrupts the number
+    instead of failing.
+    """
+
+    @pytest.fixture
+    def wide(self, monkeypatch):
+        import judge as judge_mod
+
+        from recut.ingest.markdown import ingest_text
+
+        monkeypatch.setattr(judge_mod, "JUDGE_WINDOW_CHARS", 60)
+        return ingest_text(
+            "# Wide" + "\n\n" + ("\n\n").join(
+                f"Paragraph {i} says something about topic {i}." * 2 for i in range(6)
+            ),
+            source_ref="wide",
+        )
+
+    def _reply(self, verdicts):
+        return json.dumps({"verdicts": verdicts})
+
+    def test_a_completed_window_is_written_to_the_cache(self, wide, tmp_path):
+        cache = tmp_path / "p.json"
+        body = "Something here is asserted about the topics plainly."
+        llm = ScriptedLLM([self._reply([{"n": 1, "verdict": "supported", "why": "y"}])])
+        judge(body, wide, llm, cache=cache)
+        assert cache.exists()
+        assert json.loads(cache.read_text(encoding="utf-8"))["next_window"] >= 1
+
+    def test_a_second_attempt_does_not_re_ask_a_settled_sentence(self, wide, tmp_path):
+        cache = tmp_path / "p.json"
+        body = "Something here is asserted about the topics plainly."
+        judge(body, wide, ScriptedLLM([self._reply([{"n": 1, "verdict": "supported", "why": "y"}])]), cache=cache)
+        # No scripted replies at all: if it asked anything, this would raise.
+        again = judge(body, wide, ScriptedLLM([]), cache=cache)
+        assert again["claims"] == 1
+        assert again["unsupported"] == 0
+
+    def test_a_changed_body_discards_the_saved_progress(self, wide, tmp_path):
+        cache = tmp_path / "p.json"
+        judge("A first body asserting one thing here.", wide,
+              ScriptedLLM([self._reply([{"n": 1, "verdict": "supported", "why": "y"}])]), cache=cache)
+        # Different body, same cache file. Reusing verdict index 1 would attach
+        # the old answer to a different sentence.
+        # Unresumed, so it walks every window; an unsupported sentence is
+        # re-asked against each one, which is the existential rule working.
+        result = judge("A different body asserting another thing.", wide,
+                       ScriptedLLM([self._reply([{"n": 1, "verdict": "unsupported", "why": "n"}])
+                                    for _ in range(12)]),
+                       cache=cache)
+        assert result["unsupported"] == 1
+
+    def test_unreadable_progress_is_treated_as_none(self, wide, tmp_path):
+        cache = tmp_path / "p.json"
+        cache.write_text("{ truncated", encoding="utf-8")
+        body = "Something here is asserted about the topics plainly."
+        result = judge(body, wide, ScriptedLLM([self._reply([{"n": 1, "verdict": "supported", "why": "y"}])]), cache=cache)
+        assert result["claims"] == 1
+
+    def test_no_cache_path_means_no_files_and_no_resume(self, wide, tmp_path):
+        body = "Something here is asserted about the topics plainly."
+        judge(body, wide, ScriptedLLM([self._reply([{"n": 1, "verdict": "supported", "why": "y"}])]))
+        assert list(tmp_path.iterdir()) == []
+
+
 class TestJudgeSeparation:
     """Nothing grades its own work, and the eval can still run when a quota goes.
 

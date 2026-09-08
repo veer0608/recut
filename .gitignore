@@ -15,3 +15,7 @@ eval/.cache/
 # Tracebacks from a source that failed mid-run. Useful while diagnosing, and
 # superseded by the failure list the report already carries.
 eval/results/*/sources/*.error.txt
+
+# Judge progress part-way through a source. Useful only until that source
+# completes, and deleted when it does.
+eval/results/*/partial/

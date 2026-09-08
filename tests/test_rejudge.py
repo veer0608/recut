@@ -59,7 +59,7 @@ class _Judge:
 
 
 def _patch(monkeypatch, judge):
-    monkeypatch.setattr(rejudge, "judge", lambda body, document, llm: judge.result)
+    monkeypatch.setattr(rejudge, "judge", lambda body, document, llm, cache=None: judge.result)
 
 
 class TestRejudgeSource:
@@ -149,7 +149,7 @@ class TestOnlyFlag:
             budget = type("B", (), {"calls": 0})()
 
         monkeypatch.setattr(rj, "judge_client", lambda **kw: _Stub())
-        monkeypatch.setattr(rj, "judge", lambda body, doc, llm: {
+        monkeypatch.setattr(rj, "judge", lambda body, doc, llm, cache=None: {
             "claims": 2, "unsupported": 1, "rate": 0.5, "sentences": 2,
             "unjudged": 0, "verdicts": [],
         })

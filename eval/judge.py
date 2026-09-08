@@ -15,7 +15,11 @@ Two guards against the obvious objection that a model is grading a model:
 
 from __future__ import annotations
 
+import hashlib
+import json
 import re
+from pathlib import Path
+from typing import NamedTuple
 
 from pydantic import BaseModel, Field
 
@@ -143,7 +147,60 @@ def sentences_of(body: str) -> list[str]:
     return out
 
 
-def judge(body: str, document: Document, llm: LLM) -> dict:
+class _Partial(NamedTuple):
+    verdicts: dict
+    next_window: int
+
+
+def _fingerprint(body: str, sentences: list[str]) -> str:
+    """What the saved progress was about.
+
+    A partial file is only usable against the same body split the same way. If
+    either changes, the verdict indexes mean something else and resuming would
+    attach an old answer to a new sentence.
+    """
+    digest = hashlib.sha256()
+    digest.update(body.encode("utf-8"))
+    digest.update(str(len(sentences)).encode("utf-8"))
+    return digest.hexdigest()[:16]
+
+
+def _load_partial(cache, body: str, sentences: list[str]) -> _Partial:
+    if cache is None or not Path(cache).exists():
+        return _Partial({}, 0)
+    try:
+        saved = json.loads(Path(cache).read_text(encoding="utf-8"))
+    except (OSError, ValueError):
+        # Unreadable progress is no progress. Judging again costs tokens;
+        # resuming from a half-written file costs the number's meaning.
+        return _Partial({}, 0)
+    if saved.get("fingerprint") != _fingerprint(body, sentences):
+        return _Partial({}, 0)
+    verdicts = {
+        int(n): _Verdict(n=int(n), verdict=v.get("verdict", "unsupported"), why=v.get("why", ""))
+        for n, v in saved.get("verdicts", {}).items()
+    }
+    return _Partial(verdicts, int(saved.get("next_window", 0)))
+
+
+def _save_partial(cache, body: str, sentences: list[str], by_index: dict, next_window: int) -> None:
+    if cache is None:
+        return
+    path = Path(cache)
+    path.parent.mkdir(parents=True, exist_ok=True)
+    payload = {
+        "fingerprint": _fingerprint(body, sentences),
+        "next_window": next_window,
+        "verdicts": {str(n): {"verdict": v.verdict, "why": v.why} for n, v in by_index.items()},
+    }
+    # Written whole and moved into place, so a process killed mid-write leaves
+    # the previous progress rather than a truncated file.
+    tmp = path.with_suffix(path.suffix + ".tmp")
+    tmp.write_text(json.dumps(payload), encoding="utf-8")
+    tmp.replace(path)
+
+
+def judge(body: str, document: Document, llm: LLM, cache: Path | None = None) -> dict:
     """Per-sentence verdicts plus the unsupported rate for this one output."""
     sentences = sentences_of(body)
     if not sentences:
@@ -161,10 +218,26 @@ def judge(body: str, document: Document, llm: LLM) -> dict:
     # window and not against the next, and the denominator would depend on where
     # the boundaries happened to fall.
     panes = windows(document, JUDGE_WINDOW_CHARS)
-    by_index: dict[int, _Verdict] = {}
-    open_indexes = list(range(1, len(sentences) + 1))
 
-    for pane in panes:
+    # A quota wall mid-source used to throw away every window already paid
+    # for. art-ocr needs about 10k tokens across its windows, and four
+    # attempts each burned one to two thousand of exactly that budget and
+    # recorded nothing, so every retry left the next one further away.
+    # Progress is now written after each window and picked up on the next
+    # attempt.
+    resumed = _load_partial(cache, body, sentences)
+    by_index: dict[int, _Verdict] = resumed.verdicts
+    first_window = resumed.next_window
+    open_indexes = [
+        n
+        for n in range(1, len(sentences) + 1)
+        if (by_index[n].verdict.strip().lower() if n in by_index else "")
+        not in ("supported", "not_a_claim")
+    ]
+
+    for window_index, pane in enumerate(panes):
+        if window_index < first_window:
+            continue
         if not open_indexes:
             break
         rendered = render_source(pane)
@@ -191,6 +264,9 @@ def judge(body: str, document: Document, llm: LLM) -> dict:
             if (by_index[index].verdict.strip().lower() if index in by_index else "")
             not in ("supported", "not_a_claim")
         ]
+        # Written only once a whole window is done. A window that died
+        # part-way is re-asked rather than half-trusted.
+        _save_partial(cache, body, sentences, by_index, window_index + 1)
 
     verdicts = []
     claims = 0
