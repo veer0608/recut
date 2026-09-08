@@ -10,7 +10,7 @@ sys.path.insert(0, str(Path(__file__).resolve().parent.parent / "eval"))
 
 from inject import plant, score  # noqa: E402
 from judge import judge, sentences_of  # noqa: E402
-from run_eval import aggregate, load_sources  # noqa: E402
+from run_eval import aggregate, clear_stale, load_sources  # noqa: E402
 
 from recut.ingest.markdown import ingest_text  # noqa: E402
 from recut.models import Artifact, Claim, ClaimSet  # noqa: E402
@@ -669,3 +669,37 @@ class TestGoldenSet:
     def test_local_refs_are_resolved_to_absolute_paths(self):
         local = [e for e in load_sources() if not e["ref"].startswith("http")]
         assert local and all(Path(e["ref"]).is_absolute() for e in local)
+
+
+def test_fresh_clears_a_previous_attempts_files(tmp_path):
+    """--fresh regenerates everything, so the old attempt's files must not survive.
+
+    v6 finished 15/15 sitting next to 15 tracebacks from the run that hit Groq's
+    per-day wall half an hour earlier, and only report.json said which was true.
+    """
+    sources = tmp_path / "sources"
+    sources.mkdir()
+    (sources / "md-vidsmith.json").write_text("{}", encoding="utf-8")
+    (sources / "md-vidsmith.error.txt").write_text("Traceback", encoding="utf-8")
+    (sources / "art-ocr.error.txt").write_text("Traceback", encoding="utf-8")
+
+    assert clear_stale(sources) == 3
+    assert list(sources.iterdir()) == []
+
+
+def test_fresh_keeps_the_per_window_crumbs(tmp_path):
+    """partial/ is what makes a walled run resumable. --fresh must not touch it."""
+    sources = tmp_path / "sources"
+    (sources / "partial").mkdir(parents=True)
+    crumb = sources / "partial" / "art-ocr.w3.json"
+    crumb.write_text("{}", encoding="utf-8")
+    (sources / "art-ocr.error.txt").write_text("Traceback", encoding="utf-8")
+
+    assert clear_stale(sources) == 1
+    assert crumb.exists()
+
+
+def test_clearing_an_empty_directory_is_not_an_event(tmp_path):
+    sources = tmp_path / "sources"
+    sources.mkdir()
+    assert clear_stale(sources) == 0

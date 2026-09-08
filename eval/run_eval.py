@@ -135,6 +135,23 @@ def _utilisation(artifacts: list[Artifact], claims: ClaimSet) -> float | None:
     return len(used) / len(claims.claims)
 
 
+def clear_stale(sources_dir: Path) -> int:
+    """Remove a previous attempt's per-source files. Returns how many went.
+
+    Only the two names this harness writes, and only in the run's own sources/
+    directory. `partial/` is deliberately untouched: those are per-window judge
+    crumbs, and discarding them is what --fresh is not for.
+    """
+    stale = sorted(
+        p
+        for pattern in ("*.json", "*.error.txt")
+        for p in sources_dir.glob(pattern)
+    )
+    for path in stale:
+        path.unlink()
+    return len(stale)
+
+
 def aggregate(results: list[dict], failures: list[dict], run: dict) -> dict:
     complete = len(failures) == 0
     # A run that skipped the judge measured the deterministic layer only. It has
@@ -220,6 +237,17 @@ def main(argv: list[str] | None = None) -> int:
     out_dir = RESULTS / args.run
     (out_dir / "sources").mkdir(parents=True, exist_ok=True)
 
+    # --fresh regenerates every source, so anything already in sources/ describes a
+    # run that no longer exists. Left in place, a failed attempt's tracebacks sit
+    # beside a later attempt's results and nothing but report.json says which is
+    # which: v6 finished 15/15 next to 15 error files from the Groq per-day wall
+    # half an hour earlier. Only this run's own per-source files are removed;
+    # partial/ holds per-window judge crumbs that are the point of resuming.
+    if args.fresh:
+        cleared = clear_stale(out_dir / "sources")
+        if cleared:
+            print(f"{DIM}cleared {cleared} file(s) from a previous {args.run}{OFF}")
+
     sources = load_sources()
     if args.only:
         wanted = {s.strip() for s in args.only.split(",")}
@@ -274,6 +302,9 @@ def main(argv: list[str] | None = None) -> int:
 
         # Written before the next source starts, so a cliff costs one source.
         checkpoint.write_text(json.dumps(result, indent=2), encoding="utf-8")
+        # A source that failed and now succeeds must stop claiming it failed. The
+        # resume path reaches here too, where --fresh never ran to clear it.
+        (out_dir / "sources" / f"{entry['id']}.error.txt").unlink(missing_ok=True)
         results.append(result)
         rate = result["judged_unsupported"] / result["judged_claims"] if result["judged_claims"] else None
         shown = f"{rate:.1%}" if rate is not None else "n/a"
