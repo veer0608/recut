@@ -156,6 +156,12 @@ def extract(document: Document, llm: LLM, max_chars: int = WINDOW_CHARS) -> Clai
         hook_candidates=list(dict.fromkeys(hooks))[:8],
         voice_samples=list(dict.fromkeys(v.strip() for v in voices))[:6],
     )
+    # Diagnostics, not fields, and deliberately so: they are reachable in-process
+    # where the eval reads them, and absent from model_dump, so claims.json and the
+    # API payload stay the product's output rather than the harness's. The cost is
+    # that they do NOT survive a JSON round-trip -- read them back off a serialised
+    # ClaimSet and you get None, silently. Anything that needs them after storage
+    # has to carry them itself, which is what run_eval does per source.
     claim_set.__dict__["_dropped"] = dropped
     claim_set.__dict__["_demoted_quotes"] = demoted
     return claim_set

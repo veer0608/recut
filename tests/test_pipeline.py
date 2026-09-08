@@ -210,6 +210,21 @@ class TestRepurpose:
         _, artifacts = repurpose(document, ["linkedin"], llm)
         assert "repair_attempted" not in artifacts[0].meta
 
+    def test_the_inventory_counters_stay_out_of_the_product_payload(self, document):
+        """They are diagnostics. claims.json is the product's output, not the eval's.
+
+        And the cost of that: they do not survive the round trip, so reading them
+        back off a stored ClaimSet gives None rather than an error.
+        """
+        reply = json.dumps({"thesis": "t", "claims": [
+            {"id": "x", "text": "A claim.", "kind": "fact",
+             "segment_ids": ["s1"], "verbatim": None}]})
+        claims = extract(document, ScriptedLLM([reply]))
+        dumped = claims.model_dump_json()
+        assert "_dropped" not in dumped
+        assert "_demoted_quotes" not in dumped
+        assert ClaimSet.model_validate_json(dumped).__dict__.get("_dropped") is None
+
     def test_a_quote_claim_without_exact_words_is_relabelled(self, document):
         """It has nothing to quote, and the label is what invites the invention.
 
