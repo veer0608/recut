@@ -69,6 +69,12 @@ def main(argv: list[str] | None = None) -> int:
     ap.add_argument("runs", help="comma separated run names under eval/results")
     ap.add_argument("--suffix", default="-rejudged", help="where to write the new run")
     ap.add_argument("--env", default=".env")
+    ap.add_argument(
+        "--only",
+        default="",
+        help="comma separated source ids to judge. Everything already re-judged "
+        "still counts toward the report; this only limits what is paid for.",
+    )
     args = ap.parse_args(argv)
     load_dotenv(args.env, override=False)
 
@@ -88,12 +94,22 @@ def main(argv: list[str] | None = None) -> int:
         (out_dir / "sources").mkdir(parents=True, exist_ok=True)
         print(f"\n{run} -> {out_dir.name}")
 
+        # --only limits what is judged, never what is reported. A targeted run
+        # still walks every source, so the report is built over everything on
+        # disk and a source nobody has judged yet withholds the headline rather
+        # than quietly shrinking the denominator to whatever was selected.
+        wanted = {s.strip() for s in args.only.split(",") if s.strip()}
+
         results, failures = [], []
         for checkpoint in sorted(src_dir.glob("*.json")):
             target = out_dir / "sources" / checkpoint.name
             if target.exists():
                 results.append(json.loads(target.read_text(encoding="utf-8")))
                 print(f"{DIM}  {checkpoint.stem:<20} cached{OFF}")
+                continue
+            if wanted and checkpoint.stem not in wanted:
+                failures.append({"id": checkpoint.stem, "error": "not selected by --only"})
+                print(f"{DIM}  {checkpoint.stem:<20} skipped, not selected{OFF}")
                 continue
             try:
                 result = rejudge_source(checkpoint, judge_llm)

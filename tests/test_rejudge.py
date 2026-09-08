@@ -103,6 +103,75 @@ class TestRejudgeSource:
         assert aggregate([out], [], {})["unsupported_claim_rate"] is not None
 
 
+class TestOnlyFlag:
+    """--only limits what is paid for, never what is reported.
+
+    The trap it avoids: a targeted run that reported over its own selection
+    would turn "judge one source" into a headline over one source, which is the
+    abandonment rule defeated by a command-line flag.
+    """
+
+    def _run(self, tmp_path, monkeypatch, only, existing=()):
+        import rejudge as rj
+        import run_eval
+
+        runs = tmp_path / "results"
+        (runs / "r" / "sources").mkdir(parents=True)
+        source = tmp_path / "post.md"
+        source.write_text("# S" + "\n\n" + "The source says a thing.", encoding="utf-8")
+        for name in ("a", "b", "c"):
+            (runs / "r" / "sources" / f"{name}.json").write_text(
+                json.dumps({
+                    "id": name, "kind": "markdown", "ref": str(source),
+                    "chars": len(source.read_text(encoding="utf-8")),
+                    "targets": ["linkedin"], "bodies": {"linkedin": "A thing is said."},
+                    "judged_claims": 2, "judged_unsupported": 0,
+                    "claim_utilisation": 0.5, "format_violations": {},
+                    "injections": {"planted": 1, "caught": 1, "clean_bodies": 1,
+                                   "false_positive_bodies": 0, "recall_by_rule": {"number": 1.0}},
+                }), encoding="utf-8",
+            )
+        out = runs / "r-rejudged" / "sources"
+        out.mkdir(parents=True)
+        for name in existing:
+            (out / f"{name}.json").write_text(
+                json.dumps({"id": name, "targets": ["linkedin"], "judged_by_model": True,
+                            "judged_claims": 2, "judged_unsupported": 0,
+                            "claim_utilisation": 0.5, "format_violations": {},
+                            "injections": {"planted": 1, "caught": 1, "clean_bodies": 1,
+                                           "false_positive_bodies": 0,
+                                           "recall_by_rule": {"number": 1.0}}}),
+                encoding="utf-8",
+            )
+        monkeypatch.setattr(rj, "RESULTS", runs)
+        monkeypatch.setattr(run_eval, "RESULTS", runs)
+        class _Stub:
+            budget = type("B", (), {"calls": 0})()
+
+        monkeypatch.setattr(rj, "judge_client", lambda **kw: _Stub())
+        monkeypatch.setattr(rj, "judge", lambda body, doc, llm: {
+            "claims": 2, "unsupported": 1, "rate": 0.5, "sentences": 2,
+            "unjudged": 0, "verdicts": [],
+        })
+        rj.main(["r", "--only", only])
+        return json.loads((runs / "r-rejudged" / "report.json").read_text(encoding="utf-8"))
+
+    def test_only_the_named_source_is_judged(self, tmp_path, monkeypatch):
+        report = self._run(tmp_path, monkeypatch, "b")
+        assert {f["id"] for f in report["failures"]} == {"a", "c"}
+        assert report["sources_completed"] == 1
+
+    def test_a_targeted_run_does_not_publish_a_rate_over_its_selection(self, tmp_path, monkeypatch):
+        assert self._run(tmp_path, monkeypatch, "b")["unsupported_claim_rate"] is None
+
+    def test_earlier_work_still_counts_toward_the_report(self, tmp_path, monkeypatch):
+        # a and c were judged on previous runs; judging b completes the set.
+        report = self._run(tmp_path, monkeypatch, "b", existing=("a", "c"))
+        assert report["sources_completed"] == 3
+        assert report["complete"] is True
+        assert report["unsupported_claim_rate"] is not None
+
+
 class TestAbandonment:
     def test_a_source_that_fails_to_judge_still_withholds_the_headline(self, checkpoint, monkeypatch):
         _patch(monkeypatch, _Judge())
