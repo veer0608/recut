@@ -11,6 +11,7 @@ from .ingest import ingest, source_kind
 from .ingest.markdown import slug
 from .llm import LLM, LLMError
 from .pipeline import GENERATORS, applicable, repurpose, unsupported, write_out
+from .review import APPROVED, ReviewQueue
 
 GREEN, RED, YELLOW, DIM, OFF = "\033[32m", "\033[31m", "\033[33m", "\033[2m", "\033[0m"
 
@@ -29,6 +30,62 @@ def _utf8_stdout() -> None:
             except (ValueError, OSError):
                 # A stream that will not be reconfigured is not a reason to abort.
                 pass
+
+
+def _build_approved(args) -> int:
+    """Render drafts a human has approved, and only those.
+
+    Rendering is the expensive half: a minute or two of compute plus the video
+    tool's own model calls. Doing it at generation time spends that on drafts
+    that may be rejected, and this project's whole stance is that nothing
+    reaches publication unreviewed. So the render hangs off the approval rather
+    than off the run that produced the draft.
+    """
+    queue = ReviewQueue(args.db)
+    # list() is deliberately a summary and omits the emitted files, which are
+    # among the largest columns. Fetch each one in full before building it.
+    if args.draft:
+        drafts = [queue.get(args.draft)]
+    else:
+        drafts = [queue.get(row["id"]) for row in queue.list(APPROVED)]
+    drafts = [d for d in drafts if d]
+    if not drafts:
+        print(f"{DIM}nothing approved and waiting to be built{OFF}")
+        return 0
+
+    buildable = [d for d in drafts if d.get("files")]
+    for draft in drafts:
+        if not draft.get("files"):
+            print(f"{DIM}{draft['target']:<9} {draft['id']}  no project to build{OFF}")
+    if not buildable:
+        return 0
+
+    failures = 0
+    for draft in buildable:
+        # Written under the draft id, not the source slug: two drafts from one
+        # source are two different approvals and must not overwrite each other.
+        root = Path(args.out) / "approved" / draft["id"]
+        for relative, content in draft["files"].items():
+            path = root / relative
+            path.parent.mkdir(parents=True, exist_ok=True)
+            path.write_text(content, encoding="utf-8")
+
+        project = root / "vidsmith"
+        if not (project / "script.md").exists():
+            print(f"{YELLOW}{draft['target']:<9} {draft['id']}  no vidsmith project{OFF}")
+            continue
+
+        print(f"{draft['target']:<9} {draft['id']}  {draft.get('source_title') or ''}")
+        video, problem = build_video(
+            project, aspect=args.aspect, echo=lambda line: print(f"         {DIM}{line}{OFF}")
+        )
+        if problem:
+            print(f"{RED}         build failed: {problem}{OFF}", file=sys.stderr)
+            failures += 1
+            continue
+        print(f"         {GREEN}{video}{OFF}  ({video.stat().st_size / 1e6:.1f} MB)")
+
+    return 4 if failures else 0
 
 
 def main(argv: list[str] | None = None) -> int:
@@ -55,9 +112,22 @@ def main(argv: list[str] | None = None) -> int:
     )
     run.add_argument("--aspect", help="override the shape vidsmith renders, e.g. 16:9")
 
+    built = sub.add_parser(
+        "build",
+        help="render approved drafts that emitted a project, e.g. the vidsmith target",
+    )
+    built.add_argument("--draft", default="", help="one draft id, default every approved one")
+    built.add_argument("--out", default="out", help="output directory (default: out)")
+    built.add_argument("--db", default="recut.db", help="the review database")
+    built.add_argument("--aspect", help="override the shape vidsmith renders, e.g. 16:9")
+    built.add_argument("--env", default=".env", help="env file holding the API keys")
+
     args = parser.parse_args(argv)
     _utf8_stdout()
     load_dotenv(args.env, override=False)
+
+    if args.command == "build":
+        return _build_approved(args)
 
     print(f"reading  {source_kind(args.source)}")
     try:

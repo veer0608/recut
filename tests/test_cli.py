@@ -85,3 +85,99 @@ class TestConsoleEncoding:
         monkeypatch.setattr(cli, "LLM", no_llm)
         assert cli.main(["run", str(path), "--env", str(tmp_path / "x")]) == 1
         assert "reconciled rows" in capsys.readouterr().out
+
+
+class TestBuildApproved:
+    """Rendering hangs off the approval, not off the run that made the draft.
+
+    A render is a minute or two of compute plus the video tool's own model
+    calls. Spending that at generation time spends it on drafts a reviewer may
+    reject, in a project whose stance is that nothing reaches publication
+    unreviewed.
+    """
+
+    def _queue(self, tmp_path, state=None, files=None):
+        from recut.review import ReviewQueue
+
+        queue = ReviewQueue(tmp_path / "q.db")
+        draft_id = queue.add(
+            "job",
+            {"title": "T", "ref": "r", "raw": "x"},
+            {
+                "target": "vidsmith",
+                "body": "Narration.",
+                "sentences": [],
+                "warnings": [],
+                "coverage": 1.0,
+                "clean": True,
+                "files": files if files is not None else {"vidsmith/script.md": "# S\n"},
+            },
+        )
+        if state:
+            queue.set_state(draft_id, state)
+        return queue, draft_id
+
+    def test_a_pending_draft_is_not_built(self, tmp_path, monkeypatch, capsys):
+        from recut import cli
+
+        self._queue(tmp_path, state=None)
+        called = []
+        monkeypatch.setattr(cli, "build_video", lambda *a, **k: called.append(a) or (None, "x"))
+        code = cli.main(["build", "--db", str(tmp_path / "q.db"), "--out", str(tmp_path / "o")])
+        assert code == 0
+        assert called == []
+
+    def test_an_approved_draft_is_built(self, tmp_path, monkeypatch):
+        from pathlib import Path
+
+        from recut import cli
+
+        self._queue(tmp_path, state="approved")
+        seen = {}
+
+        def fake_build(project, **kwargs):
+            seen["project"] = Path(project)
+            out = Path(project) / "out"
+            out.mkdir(parents=True, exist_ok=True)
+            mp4 = out / "v-9x16.mp4"
+            mp4.write_bytes(b"0" * 10)
+            return mp4, None
+
+        monkeypatch.setattr(cli, "build_video", fake_build)
+        code = cli.main(["build", "--db", str(tmp_path / "q.db"), "--out", str(tmp_path / "o")])
+        assert code == 0
+        # The emitted project is written back out before being handed over.
+        assert (seen["project"] / "script.md").read_text(encoding="utf-8") == "# S\n"
+
+    def test_two_drafts_do_not_overwrite_each_other(self, tmp_path, monkeypatch):
+        from pathlib import Path
+
+        from recut import cli
+
+        queue, first = self._queue(tmp_path, state="approved")
+        second = queue.add(
+            "job",
+            {"title": "T", "ref": "r", "raw": "x"},
+            {"target": "vidsmith", "body": "b", "sentences": [], "warnings": [],
+             "coverage": 1.0, "clean": True, "files": {"vidsmith/script.md": "# Other\n"}},
+        )
+        queue.set_state(second, "approved")
+
+        roots = []
+        monkeypatch.setattr(cli, "build_video", lambda p, **k: roots.append(Path(p)) or (None, "no"))
+        cli.main(["build", "--db", str(tmp_path / "q.db"), "--out", str(tmp_path / "o")])
+        assert len({str(r) for r in roots}) == 2
+
+    def test_an_approved_prose_draft_is_skipped_not_failed(self, tmp_path, monkeypatch):
+        from recut import cli
+
+        self._queue(tmp_path, state="approved", files={})
+        monkeypatch.setattr(cli, "build_video", lambda *a, **k: (None, "should not run"))
+        assert cli.main(["build", "--db", str(tmp_path / "q.db"), "--out", str(tmp_path / "o")]) == 0
+
+    def test_a_failed_render_gets_its_own_exit_code(self, tmp_path, monkeypatch):
+        from recut import cli
+
+        self._queue(tmp_path, state="approved")
+        monkeypatch.setattr(cli, "build_video", lambda *a, **k: (None, "vidsmith exited 1"))
+        assert cli.main(["build", "--db", str(tmp_path / "q.db"), "--out", str(tmp_path / "o")]) == 4

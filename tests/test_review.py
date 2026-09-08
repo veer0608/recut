@@ -155,3 +155,71 @@ class TestHttpQueue:
 
     def test_a_bad_transition_is_409_not_500(self, client):
         assert client.post("/api/queue/nope/state", json={"state": "posted"}).status_code == 404
+
+
+class TestEmittedFiles:
+    """A target that emits a project has to survive the queue to be built.
+
+    The vidsmith target's output is a directory, not prose. Before the drafts
+    table carried it, an approved draft had nothing to render and the only way
+    to get a video was to render every draft at generation time, including the
+    ones a reviewer would go on to reject.
+    """
+
+    def _artifact(self, files=None):
+        return {
+            "target": "vidsmith",
+            "body": "Narration that a human can read and judge.",
+            "sentences": [],
+            "warnings": [],
+            "coverage": 1.0,
+            "clean": True,
+            "files": files if files is not None else {
+                "vidsmith/script.md": "# A script\n",
+                "vidsmith/config.yaml": "title: A script\n",
+            },
+        }
+
+    def test_an_emitted_project_survives_the_queue(self, tmp_path):
+        queue = ReviewQueue(tmp_path / "q.db")
+        draft_id = queue.add("job", SOURCE, self._artifact())
+        draft = queue.get(draft_id)
+        assert draft["files"]["vidsmith/script.md"] == "# A script\n"
+
+    def test_a_prose_target_stores_no_files_rather_than_null(self, tmp_path):
+        queue = ReviewQueue(tmp_path / "q.db")
+        draft_id = queue.add("job", SOURCE, {**self._artifact(files={}), "target": "linkedin"})
+        assert queue.get(draft_id)["files"] == {}
+
+    def test_a_queue_created_before_the_column_existed_still_opens(self, tmp_path):
+        # CREATE TABLE IF NOT EXISTS does nothing to a table already there, so
+        # without the migration an older database would keep working and
+        # silently drop every emitted project.
+        import sqlite3
+
+        path = tmp_path / "old.db"
+        conn = sqlite3.connect(path)
+        conn.executescript(
+            "CREATE TABLE drafts (id TEXT PRIMARY KEY, job_id TEXT, target TEXT NOT NULL,"
+            " state TEXT NOT NULL, body TEXT NOT NULL, source_title TEXT, source_ref TEXT,"
+            " source_raw TEXT, sentences TEXT, warnings TEXT, coverage REAL, clean INTEGER,"
+            " created_at TEXT NOT NULL, updated_at TEXT NOT NULL, note TEXT);"
+        )
+        conn.commit()
+        conn.close()
+
+        queue = ReviewQueue(path)
+        draft_id = queue.add("job", SOURCE, self._artifact())
+        assert queue.get(draft_id)["files"]["vidsmith/script.md"] == "# A script\n"
+
+    def test_a_row_written_before_the_migration_reads_as_no_files(self, tmp_path):
+        import sqlite3
+
+        queue = ReviewQueue(tmp_path / "q.db")
+        draft_id = queue.add("job", SOURCE, self._artifact())
+        conn = sqlite3.connect(tmp_path / "q.db")
+        conn.execute("UPDATE drafts SET files = NULL WHERE id = ?", (draft_id,))
+        conn.commit()
+        conn.close()
+        # Absent is empty, not a crash: an old draft is simply not buildable.
+        assert queue.get(draft_id)["files"] == {}

@@ -49,6 +49,7 @@ CREATE TABLE IF NOT EXISTS drafts (
     source_raw   TEXT,
     sentences    TEXT,
     warnings     TEXT,
+    files        TEXT,
     coverage     REAL,
     clean        INTEGER,
     created_at   TEXT NOT NULL,
@@ -72,6 +73,20 @@ class ReviewQueue:
         self.path = str(path)
         with self._connect() as conn:
             conn.executescript(SCHEMA)
+            self._migrate(conn)
+
+    @staticmethod
+    def _migrate(conn) -> None:
+        """Columns added after a database already existed.
+
+        CREATE TABLE IF NOT EXISTS does nothing to a table that is already
+        there, so a queue created before `files` existed would keep working and
+        silently drop every emitted project. Cheap to check, and the alternative
+        is a draft that cannot be built for a reason nobody can see.
+        """
+        have = {row["name"] for row in conn.execute("PRAGMA table_info(drafts)")}
+        if "files" not in have:
+            conn.execute("ALTER TABLE drafts ADD COLUMN files TEXT")
 
     def _connect(self) -> sqlite3.Connection:
         conn = sqlite3.connect(self.path, timeout=30)
@@ -85,9 +100,9 @@ class ReviewQueue:
         with self._connect() as conn:
             conn.execute(
                 "INSERT INTO drafts (id, job_id, target, state, body, source_title,"
-                " source_ref, source_raw, sentences, warnings, coverage, clean,"
-                " created_at, updated_at)"
-                " VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?)",
+                " source_ref, source_raw, sentences, warnings, files, coverage,"
+                " clean, created_at, updated_at)"
+                " VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)",
                 (
                     draft_id,
                     job_id,
@@ -101,6 +116,10 @@ class ReviewQueue:
                     source.get("raw"),
                     json.dumps(artifact.get("sentences") or []),
                     json.dumps(artifact.get("warnings") or []),
+                    # A target that emits files is not reviewable as prose
+                    # alone, and rendering one before a human has looked costs
+                    # minutes of compute on a draft that may be rejected.
+                    json.dumps(artifact.get("files") or {}),
                     artifact.get("coverage"),
                     1 if artifact.get("clean") else 0,
                     _now(),
@@ -165,5 +184,8 @@ class ReviewQueue:
         draft = dict(row)
         draft["sentences"] = json.loads(draft["sentences"] or "[]")
         draft["warnings"] = json.loads(draft["warnings"] or "[]")
+        # `.get` because a row written before the column existed has no key at
+        # all, which is different from having an empty one.
+        draft["files"] = json.loads(draft.get("files") or "{}")
         draft["clean"] = bool(draft["clean"])
         return draft

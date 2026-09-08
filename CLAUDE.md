@@ -15,8 +15,16 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 .venv/Scripts/python -m recut run README.md --targets linkedin,thread
 .venv/Scripts/python -m recut run "https://www.youtube.com/watch?v=ID" --targets all
 .venv/Scripts/python -m recut run post.md --targets vidsmith --build   # straight to mp4
+.venv/Scripts/python -m recut build                        # render approved drafts only
 .venv/Scripts/python -m uvicorn recut.api:app --port 8078   # API + page at /
 ```
+
+`recut build` renders drafts a human approved in the review queue and nothing else.
+Rendering is the expensive half, a minute or two of compute plus vidsmith's own model
+calls, so spending it at generation time spends it on drafts that get rejected. The
+queue stores each artifact's emitted files for exactly this, and `ReviewQueue._migrate`
+adds that column to databases that predate it, because `CREATE TABLE IF NOT EXISTS`
+would otherwise leave an old queue silently dropping every project.
 
 `--build` shells out to vidsmith's interpreter, found from `VIDSMITH_PYTHON`, then
 `VIDSMITH_HOME`, then a sibling checkout. It is never imported: rendering drags in
