@@ -1,0 +1,141 @@
+{
+  "id": "art-reconciliation",
+  "judged_by_model": false,
+  "kind": "article",
+  "ref": "https://en.wikipedia.org/wiki/Bank_reconciliation",
+  "title": "Bank reconciliation - Wikipedia",
+  "segments": 10,
+  "chars": 2637,
+  "extracted_claims": 10,
+  "dropped_unanchored": 0,
+  "demoted_quotes": 0,
+  "targets": [
+    "linkedin",
+    "thread"
+  ],
+  "verifier_errors": {
+    "linkedin": [],
+    "thread": []
+  },
+  "format_violations": {},
+  "repaired": [
+    "thread"
+  ],
+  "repair_attempted": [
+    "thread"
+  ],
+  "repair_detail": {
+    "thread": {
+      "kept": true,
+      "first_pass_errors": [
+        "[error/citation] 'argument': cites a claim id that does not exist"
+      ],
+      "repair_errors": [],
+      "spans_changed": [
+        "[citation] argument"
+      ]
+    }
+  },
+  "claim_utilisation": 1.0,
+  "judged": {},
+  "judged_claims": 0,
+  "judged_unsupported": 0,
+  "injections": {
+    "planted": 10,
+    "caught": 10,
+    "recall": 1.0,
+    "recall_by_rule": {
+      "number": 1.0,
+      "quote": 1.0,
+      "entity": 1.0,
+      "intensity": 1.0,
+      "citation": 1.0
+    },
+    "missed": [],
+    "clean_bodies": 2,
+    "unplanted_error_bodies": 0,
+    "unplanted_errors_by_rule": {},
+    "unplanted_errors": []
+  },
+  "bodies": {
+    "linkedin": "Stale cheques are typically reversed in your accounting records rather than cancelled.\n\nBank reconciliation involves matching your internal ledger against the balance provided by your financial institution. Discrepancies often appear for three primary reasons, including timing differences, missing entries, or recording errors.\n\nFinancial institutions frequently provide transaction data in .csv format to assist with this process. You might compare recent transactions or perform a full audit of unmatched items to resolve variances. Creating a reconciliation statement helps detail the specific entries responsible for the difference between the two balances.\n\nPerforming these checks at frequent intervals is considered good practice because it can reduce your future workload. Corrective entries for identified discrepancies are generally made in a later period rather than being backdated.\n\nAre you reconciling your accounts regularly?",
+    "thread": "Stale cheques are typically reversed in your accounting records rather than cancelled.\n\nInternal books and bank records often differ because of three distinct reasons.\n\nThese discrepancies can stem from timing gaps, missing entries, or simple recording mistakes.\n\nFinancial institutions help by providing direct exports of transaction data, often in .csv format.\n\nReconciliation might involve comparing recent transactions or performing a full audit of unmatched items.\n\nA bank reconciliation statement details the specific entries that explain why two balances do not match.\n\nCorrective entries for these variances are generally made in a later period instead of backdating them.\n\nPerforming these checks at frequent intervals is good practice to lower your future workload.\n\nEntities should regularly reconcile internal records with bank statements to identify and fix discrepancies."
+  },
+  "inventory": {
+    "claims": [
+      {
+        "id": "c0",
+        "kind": "fact",
+        "text": "Bank reconciliation is the procedure of matching an entity's internal account ledger with the balance provided by a financial institution.",
+        "verbatim": null
+      },
+      {
+        "id": "c1",
+        "kind": "fact",
+        "text": "Any variances between internal books and bank records require investigation and potential correction.",
+        "verbatim": null
+      },
+      {
+        "id": "c2",
+        "kind": "fact",
+        "text": "Financial institutions often provide direct exports of transaction data, frequently in .csv format, to help with the reconciliation process.",
+        "verbatim": null
+      },
+      {
+        "id": "c3",
+        "kind": "stat",
+        "text": "There are primarily three reasons for discrepancies between internal records and bank statements.",
+        "verbatim": "three"
+      },
+      {
+        "id": "c4",
+        "kind": "fact",
+        "text": "Discrepancies can occur due to timing differences, transactions recorded by the bank but not the entity, or recording errors.",
+        "verbatim": null
+      },
+      {
+        "id": "c5",
+        "kind": "fact",
+        "text": "Reconciliation can sometimes be achieved by comparing recent transactions, or it may require a full audit of unmatched items.",
+        "verbatim": null
+      },
+      {
+        "id": "c6",
+        "kind": "opinion",
+        "text": "It is considered good practice to perform reconciliations at frequent intervals to reduce the workload.",
+        "verbatim": null
+      },
+      {
+        "id": "c7",
+        "kind": "fact",
+        "text": "A bank reconciliation statement is a document created to detail the specific entries responsible for the difference between two balances.",
+        "verbatim": null
+      },
+      {
+        "id": "c8",
+        "kind": "fact",
+        "text": "Outstanding cheques are an example of entries that cause differences between bank and internal balances.",
+        "verbatim": null
+      },
+      {
+        "id": "c9",
+        "kind": "fact",
+        "text": "Corrective entries for discrepancies are generally made in a later period rather than being backdated, while stale cheques are typically reversed.",
+        "verbatim": null
+      }
+    ],
+    "hook_candidates": [
+      "Your bank statement and your internal accounting records are rarely in perfect agreement.",
+      "Reconciling your accounts is not just about finding errors, but about identifying timing gaps.",
+      "If you are not reconciling your bank accounts frequently, you are creating more work for yourself later.",
+      "Stale cheques should be reversed rather than cancelled in your accounting records.",
+      "Many banks now allow you to import your transaction history directly into your accounting software to simplify reconciliation."
+    ],
+    "voice_samples": [
+      "Any difference between the two figures needs to be examined and, if appropriate, rectified.",
+      "For this reason, and to minimise the amount of work involved, it is good practice to reconcile at reasonably frequent intervals.",
+      "When cheques become stale (ie., out of date), they would typically be reversed, not cancelled."
+    ],
+    "thesis": "Entities should regularly reconcile their internal financial records with bank statements to identify and rectify discrepancies caused by timing, missing entries, or errors."
+  }
+}

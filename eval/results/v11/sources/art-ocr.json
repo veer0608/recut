@@ -1,0 +1,379 @@
+{
+  "id": "art-ocr",
+  "judged_by_model": false,
+  "kind": "article",
+  "ref": "https://en.wikipedia.org/wiki/Optical_character_recognition",
+  "title": "Optical character recognition - Wikipedia",
+  "segments": 48,
+  "chars": 31494,
+  "extracted_claims": 48,
+  "dropped_unanchored": 1,
+  "demoted_quotes": 0,
+  "targets": [
+    "linkedin",
+    "thread"
+  ],
+  "verifier_errors": {
+    "linkedin": [
+      "[error/copying] 'may result in an error rate of 5% or worse if': 11 consecutive words copied from the source without quoting"
+    ],
+    "thread": []
+  },
+  "format_violations": {},
+  "repaired": [
+    "linkedin"
+  ],
+  "repair_attempted": [
+    "linkedin"
+  ],
+  "repair_detail": {
+    "linkedin": {
+      "kept": true,
+      "first_pass_errors": [
+        "[error/copying] '1% (99% accuracy) may result in an error rate of 5% or worse if': 14 consecutive words copied from the source without quoting"
+      ],
+      "repair_errors": [
+        "[error/copying] 'may result in an error rate of 5% or worse if': 11 consecutive words copied from the source without quoting"
+      ],
+      "spans_changed": [
+        "[copying] 1% (99% accuracy) may result in an error rate of 5% or worse if"
+      ]
+    }
+  },
+  "claim_utilisation": 0.2708333333333333,
+  "judged": {},
+  "judged_claims": 0,
+  "judged_unsupported": 0,
+  "injections": {
+    "planted": 10,
+    "caught": 10,
+    "recall": 1.0,
+    "recall_by_rule": {
+      "number": 1.0,
+      "quote": 1.0,
+      "entity": 1.0,
+      "intensity": 1.0,
+      "citation": 1.0
+    },
+    "missed": [],
+    "clean_bodies": 2,
+    "unplanted_error_bodies": 0,
+    "unplanted_errors_by_rule": {},
+    "unplanted_errors": []
+  },
+  "bodies": {
+    "linkedin": "A 1% character error rate may result in an error rate of 5% or worse if context is ignored during processing.\n\nModern systems often use feature extraction to represent characters as vectors by identifying loops and line intersections. Software can also perform pre-processing tasks like de-skewing and binarization to enhance recognition success. Binarization is a necessary step for most commercial algorithms because they are designed to function specifically on black-and-white images.\n\nSome software uses a two-pass approach where the second pass uses high-confidence results from the first to improve recognition of distorted or low-quality text. Iterative OCR enhances accuracy by cropping pages into sections and applying variable confidence thresholds. Users can set confidence thresholds in most OCR programs to trigger manual review when the software's performance falls below a specific level.\n\nOptical character recognition focuses on typewritten text by processing one character at a time.",
+    "thread": "The New York Times uses a tool called Document Helper to process 5,400 pages per hour.\n\nCommercial software for recognizing Latin-script typewritten text shows accuracy levels between 81% and 99%.\n\nHuman review or Data Dictionary Authentication can be used to reach 100% accuracy in OCR.\n\nSome OCR systems claim to capture as much as 99.91% of data.\n\nBinarization is a necessary step for most commercial algorithms because they are designed to function specifically on black-and-white images.\n\nSoftware often performs pre-processing tasks like de-skewing, despeckling, and binarization to enhance recognition success.\n\nOCR technology has evolved from early telegraphic and mechanical experiments into a ubiquitous digital tool for automating data entry and accessibility."
+  },
+  "inventory": {
+    "claims": [
+      {
+        "id": "c0",
+        "kind": "fact",
+        "text": "OCR technology converts images of various text types into machine-readable formats from sources like scans, photos, or video overlays.",
+        "verbatim": null
+      },
+      {
+        "id": "c1",
+        "kind": "stat",
+        "text": "In 1914, Emanuel Goldberg created a device that translated characters into telegraph code.",
+        "verbatim": "1914"
+      },
+      {
+        "id": "c2",
+        "kind": "fact",
+        "text": "Edmund Fournier d'Albe invented the Optophone, which used tones to represent characters as it scanned a page.",
+        "verbatim": null
+      },
+      {
+        "id": "c3",
+        "kind": "stat",
+        "text": "Emanuel Goldberg received US Patent number 1,838,389 in 1931 for a microfilm search system.",
+        "verbatim": "1931"
+      },
+      {
+        "id": "c4",
+        "kind": "stat",
+        "text": "Ray Kurzweil's reading machine for the blind, which used a flatbed scanner and speech synthesis, was introduced on January 13, 1976.",
+        "verbatim": "January 13, 1976"
+      },
+      {
+        "id": "c5",
+        "kind": "fact",
+        "text": "While Ray Kurzweil is often associated with omni-font OCR, other companies like CompuScan utilized the technology during the 1960s and 1970s.",
+        "verbatim": null
+      },
+      {
+        "id": "c6",
+        "kind": "fact",
+        "text": "OCR software is utilized for tasks including automated license plate identification, passport processing, and bypassing CAPTCHA systems.",
+        "verbatim": null
+      },
+      {
+        "id": "c7",
+        "kind": "fact",
+        "text": "Modern OCR systems support a wide range of writing systems such as Latin, Cyrillic, Arabic, Hebrew, Indic, Bengali, Devanagari, Tamil, Chinese, Japanese, and Korean.",
+        "verbatim": null
+      },
+      {
+        "id": "c8",
+        "kind": "fact",
+        "text": "Optical character recognition focuses on typewritten text by processing one character at a time.",
+        "verbatim": null
+      },
+      {
+        "id": "c9",
+        "kind": "fact",
+        "text": "Optical word recognition processes typewritten text one word at a time, provided the language uses spaces as dividers.",
+        "verbatim": null
+      },
+      {
+        "id": "c10",
+        "kind": "fact",
+        "text": "Intelligent character recognition utilizes machine learning to process handwritten printscript or cursive text on a character-by-character basis.",
+        "verbatim": null
+      },
+      {
+        "id": "c11",
+        "kind": "fact",
+        "text": "Intelligent word recognition is designed for handwritten text and is particularly useful for cursive scripts where individual glyphs are not clearly separated.",
+        "verbatim": null
+      },
+      {
+        "id": "c12",
+        "kind": "fact",
+        "text": "OCR is typically an offline process, though cloud-based APIs exist for online usage.",
+        "verbatim": null
+      },
+      {
+        "id": "c13",
+        "kind": "fact",
+        "text": "Handwriting recognition can incorporate motion data like pen pressure and stroke order to improve accuracy, a method often called dynamic or real-time character recognition.",
+        "verbatim": null
+      },
+      {
+        "id": "c14",
+        "kind": "fact",
+        "text": "Software often performs pre-processing tasks like de-skewing, despeckling, and binarization to enhance recognition success.",
+        "verbatim": null
+      },
+      {
+        "id": "c15",
+        "kind": "fact",
+        "text": "Binarization is a necessary step for most commercial algorithms because they are designed to function specifically on black-and-white images.",
+        "verbatim": null
+      },
+      {
+        "id": "c16",
+        "kind": "fact",
+        "text": "Layout analysis is a critical step for identifying distinct blocks such as tables or multi-column paragraphs.",
+        "verbatim": null
+      },
+      {
+        "id": "c17",
+        "kind": "fact",
+        "text": "Script recognition is required in multilingual documents to ensure the correct OCR method is applied to the specific script identified.",
+        "verbatim": null
+      },
+      {
+        "id": "c18",
+        "kind": "fact",
+        "text": "Segmentation for fixed-pitch fonts is straightforward, whereas proportional fonts require more complex techniques to handle varying whitespace.",
+        "verbatim": null
+      },
+      {
+        "id": "c19",
+        "kind": "fact",
+        "text": "Matrix matching compares input images to stored glyphs pixel-by-pixel, making it effective for typewritten text but less reliable for new fonts.",
+        "verbatim": null
+      },
+      {
+        "id": "c20",
+        "kind": "fact",
+        "text": "Feature extraction identifies components like loops and line intersections to represent characters as vectors, a method commonly used in modern software.",
+        "verbatim": null
+      },
+      {
+        "id": "c21",
+        "kind": "fact",
+        "text": "Some software uses a two-pass approach, where the second pass uses high-confidence results from the first to improve recognition of distorted or low-quality text.",
+        "verbatim": null
+      },
+      {
+        "id": "c22",
+        "kind": "fact",
+        "text": "Tesseract 5 utilizes an LSTM-based engine for recognition.",
+        "verbatim": null
+      },
+      {
+        "id": "c23",
+        "kind": "stat",
+        "text": "PaddleOCR is a multilingual toolkit that supports more than 80 languages.",
+        "verbatim": "over 80 languages"
+      },
+      {
+        "id": "c24",
+        "kind": "fact",
+        "text": "Iterative OCR enhances accuracy by cropping pages into sections and applying variable confidence thresholds.",
+        "verbatim": null
+      },
+      {
+        "id": "c25",
+        "kind": "fact",
+        "text": "ALTO is an XML schema for storing OCR results that is maintained by the United States Library of Congress.",
+        "verbatim": null
+      },
+      {
+        "id": "c26",
+        "kind": "fact",
+        "text": "Constraining OCR output with a lexicon can improve accuracy, though it may cause issues with words not found in the list, such as proper nouns.",
+        "verbatim": null
+      },
+      {
+        "id": "c27",
+        "kind": "fact",
+        "text": "Near-neighbor analysis uses word co-occurrence frequencies to identify and correct potential OCR errors.",
+        "verbatim": null
+      },
+      {
+        "id": "c28",
+        "kind": "stat",
+        "text": "The New York Times uses a tool called Document Helper to process up to 5,400 pages per hour.",
+        "verbatim": "5,400 pages per hour"
+      },
+      {
+        "id": "c29",
+        "kind": "fact",
+        "text": "Specialized fonts like OCR-A, OCR-B, and MICR are designed with specific dimensions to increase transcription accuracy for bank checks.",
+        "verbatim": null
+      },
+      {
+        "id": "c30",
+        "kind": "fact",
+        "text": "Crowdsourcing platforms like Amazon Mechanical Turk and reCAPTCHA are used to perform character recognition with higher accuracy than automated systems.",
+        "verbatim": null
+      },
+      {
+        "id": "c31",
+        "kind": "stat",
+        "text": "The Information Science Research Institute managed the Annual Test of OCR Accuracy between 1992 and 1996.",
+        "verbatim": "1992 to 1996"
+      },
+      {
+        "id": "c32",
+        "kind": "stat",
+        "text": "Commercial software for recognizing Latin-script typewritten text shows accuracy levels between 81% and 99%.",
+        "verbatim": "81% to 99%"
+      },
+      {
+        "id": "c33",
+        "kind": "fact",
+        "text": "Human review or Data Dictionary Authentication can be used to reach 100% accuracy in OCR.",
+        "verbatim": null
+      },
+      {
+        "id": "c34",
+        "kind": "fact",
+        "text": "The MNIST database serves as a common testing ground for systems designed to identify handwritten digits.",
+        "verbatim": null
+      },
+      {
+        "id": "c35",
+        "kind": "stat",
+        "text": "The method of measuring accuracy can drastically change the reported success rate, as a 1% character error rate might translate to a 5% or worse word-level error rate if context is ignored.",
+        "verbatim": "1% (99% accuracy) may result in an error rate of 5% or worse"
+      },
+      {
+        "id": "c36",
+        "kind": "fact",
+        "text": "OCR technology often struggles to distinguish between the characters 'long s' and 'f'.",
+        "verbatim": null
+      },
+      {
+        "id": "c37",
+        "kind": "fact",
+        "text": "Cursive script recognition is generally less accurate than hand-printed text recognition.",
+        "verbatim": null
+      },
+      {
+        "id": "c38",
+        "kind": "stat",
+        "text": "It is difficult to achieve over 98% accuracy in recognizing cursive handwriting based solely on the shapes of individual characters.",
+        "verbatim": "greater than 98%"
+      },
+      {
+        "id": "c39",
+        "kind": "fact",
+        "text": "Users can set confidence thresholds in most OCR programs to trigger manual review when the software's performance falls below a specific level.",
+        "verbatim": null
+      },
+      {
+        "id": "c40",
+        "kind": "fact",
+        "text": "The term 'scanno' is sometimes used to describe an error resulting from an OCR scan.",
+        "verbatim": null
+      },
+      {
+        "id": "c41",
+        "kind": "stat",
+        "text": "The Unicode Standard added support for OCR characters in June 1993 with version 1.1.",
+        "verbatim": "June 1993, with the release of version 1.1"
+      },
+      {
+        "id": "c42",
+        "kind": "stat",
+        "text": "Some OCR systems claim to capture as much as 99.91% of data.",
+        "verbatim": "99.91%"
+      },
+      {
+        "id": "c43",
+        "kind": "stat",
+        "text": "In a 2019 test, The New York Times processed 900 pages of documents using OCR in less than 10 minutes.",
+        "verbatim": "900 Pages"
+      },
+      {
+        "id": "c44",
+        "kind": "stat",
+        "text": "Emanuel Goldberg was issued a patent for a statistical machine in 1931.",
+        "verbatim": "US1838389A"
+      },
+      {
+        "id": "c45",
+        "kind": "stat",
+        "text": "E. E. F. d'Albe published research on a type-reading optophone in 1914.",
+        "verbatim": "1914"
+      },
+      {
+        "id": "c46",
+        "kind": "fact",
+        "text": "OCR technology can be utilized to improve machine translation performance for languages with limited digital resources.",
+        "verbatim": null
+      },
+      {
+        "id": "c47",
+        "kind": "stat",
+        "text": "The Unicode standard includes a designated block for optical character recognition symbols ranging from 2440 to 245F.",
+        "verbatim": "2440-245F"
+      }
+    ],
+    "hook_candidates": [
+      "Your smartphone camera can translate foreign signs in real-time using optical character recognition.",
+      "Early reading machines for the blind converted printed letters into audible tones.",
+      "Before it was a digital convenience, OCR was patented as a way to search microfilm archives.",
+      "OCR technology is frequently used to test the strength of anti-bot systems like CAPTCHA.",
+      "The same technology that reads your bank statement can also identify your car's license plate.",
+      "Modern OCR does more than just look at shapes; it can analyze the motion and direction of a pen to recognize handwriting.",
+      "Binarization is the secret to why most commercial OCR software requires black-and-white images to function.",
+      "Some OCR software uses a two-pass system, learning from its own high-confidence guesses to decipher low-quality scans."
+    ],
+    "voice_samples": [
+      "Early versions needed to be trained with images of each character, and worked on one font at a time.",
+      "In 1914, Emanuel Goldberg developed a machine that read characters and converted them into standard telegraph code.",
+      "The device included a CCD-type flatbed scanner and a text-to-speech synthesizer.",
+      "OCR engines have been developed into software applications specializing in various subjects such as receipts, invoices, checks, and legal billing documents.",
+      "Optical character recognition (OCR) \u2013 targets typewritten text, one glyph or character at a time.",
+      "Instead of merely using the shapes of glyphs and words, this technique is able to capture motion, such as the order in which segments are drawn, the direction, and the pattern of putting the pen down and lifting it."
+    ],
+    "thesis": "Optical character recognition technology has evolved from early telegraphic and mechanical experiments into a ubiquitous digital tool for automating data entry and accessibility."
+  }
+}

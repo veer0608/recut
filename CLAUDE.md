@@ -200,6 +200,21 @@ rewriting a sentence that copies, over-reaches or misquotes is the same model pr
 the same phrasing from the same claims. An overall repair rate averages those into a
 number describing neither, which is why the figure is per rule.
 
+**What would move the copying severity, written down before v11 reported.** An error
+does two separate things: it spends a regeneration, and it makes `clean` false, which
+gates approval and drives the badge. The repair measurement only bears on the first.
+
+- If copying's repair clear rate at 15 sources holds near the 1-in-6 seen so far, the
+  regeneration is the part that is not working. The answer is **not** to demote to a
+  notice, which would also give up the gate. It is to keep copying an error and skip
+  the repair for it: `pipeline.py` would only retry when some non-copying error is
+  present. The human still sees it, approval is still blocked, and no call is spent on
+  a rewrite that returns the same run reworded.
+- If it clears above roughly a third, the retry is earning its call and nothing changes.
+- Demoting back to a notice needs a different argument entirely, about whether copying
+  should gate approval at all. That is a product decision and this measurement does not
+  speak to it.
+
 Only **1 repair in 9 ended clean**. The `copying` case is the pointed one: promoted to an
 error the same day this was written, it spends a regeneration on roughly two article
 drafts in five and has cleared one of six. Small n, articles only, and it wants the next
