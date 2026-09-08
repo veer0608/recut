@@ -1,0 +1,191 @@
+{
+  "id": "art-willison",
+  "judged_by_model": false,
+  "kind": "article",
+  "ref": "https://simonwillison.net/2025/Sep/6/",
+  "title": "Simon Willison\u2019s Weblog",
+  "segments": 30,
+  "chars": 6007,
+  "extracted_claims": 9,
+  "dropped_unanchored": 0,
+  "demoted_quotes": 1,
+  "targets": [
+    "linkedin",
+    "thread"
+  ],
+  "verifier_errors": {
+    "linkedin": [
+      "[error/entity] 'Using LLM-generated': name does not appear in the source",
+      "[error/copying] 'a mixture-of-experts configuration with 384 experts': 8 consecutive words copied from the source without quoting"
+    ],
+    "thread": [
+      "[error/intensity] 'massive': the source never says 'massive(?:ly)?'; do not add force it did not use",
+      "[error/copying] 'to pay \"at least\" a staggering $1.5 billion, plus interest to': 12 consecutive words copied from the source without quoting"
+    ]
+  },
+  "format_violations": {},
+  "repaired": [
+    "linkedin"
+  ],
+  "repair_attempted": [
+    "linkedin",
+    "thread"
+  ],
+  "repair_detail": {
+    "linkedin": {
+      "kept": true,
+      "first_pass_errors": [
+        "[error/entity] 'United States': name does not appear in the source",
+        "[error/entity] \"Moonshot AI's Kimi-K2-Instruct-0905\": name does not appear in the source",
+        "[error/intensity] 'massive': the source never says 'massive(?:ly)?'; do not add force it did not use",
+        "[error/copying] '1 trillion parameters in a mixture-of-experts configuration with 384 experts, 32B activated parameters': 15 consecutive words copied from the source without quoting"
+      ],
+      "repair_errors": [
+        "[error/entity] 'Using LLM-generated': name does not appear in the source",
+        "[error/copying] 'a mixture-of-experts configuration with 384 experts': 8 consecutive words copied from the source without quoting"
+      ],
+      "cleared": [
+        "[copying] 1 trillion parameters in a mixture-of-experts configuration with 384 experts, 32B activated parameters",
+        "[entity] Moonshot AI's Kimi-K2-Instruct-0905",
+        "[entity] United States",
+        "[intensity] massive"
+      ]
+    },
+    "thread": {
+      "kept": false,
+      "first_pass_errors": [
+        "[error/intensity] 'massive': the source never says 'massive(?:ly)?'; do not add force it did not use",
+        "[error/copying] 'to pay \"at least\" a staggering $1.5 billion, plus interest to': 12 consecutive words copied from the source without quoting"
+      ],
+      "repair_errors": [
+        "[error/entity] 'United States': name does not appear in the source",
+        "[error/entity] \"Moonshot AI's Kimi-K2-Instruct-0905\": name does not appear in the source",
+        "[error/intensity] 'depends entirely': the source never says 'depends entirely'; do not add force it did not use",
+        "[error/copying] 'a mixture-of-experts configuration with 384 experts': 8 consecutive words copied from the source without quoting"
+      ],
+      "cleared": [
+        "[copying] to pay \"at least\" a staggering $1.5 billion, plus interest to",
+        "[intensity] massive"
+      ]
+    }
+  },
+  "claim_utilisation": 1.0,
+  "judged": {},
+  "judged_claims": 0,
+  "judged_unsupported": 0,
+  "injections": {
+    "planted": 10,
+    "caught": 10,
+    "recall": 1.0,
+    "recall_by_rule": {
+      "number": 1.0,
+      "quote": 1.0,
+      "entity": 1.0,
+      "intensity": 1.0,
+      "citation": 1.0
+    },
+    "missed": [],
+    "clean_bodies": 2,
+    "unplanted_error_bodies": 2,
+    "unplanted_errors_by_rule": {
+      "entity": 1,
+      "intensity": 1
+    },
+    "unplanted_errors": [
+      {
+        "target": "linkedin",
+        "rules": [
+          "entity"
+        ],
+        "spans": [
+          "[error/entity] 'Using LLM-generated': name does not appear in the source"
+        ]
+      },
+      {
+        "target": "thread",
+        "rules": [
+          "intensity"
+        ],
+        "spans": [
+          "[error/intensity] 'massive': the source never says 'massive(?:ly)?'; do not add force it did not use"
+        ]
+      }
+    ]
+  },
+  "bodies": {
+    "linkedin": "A $3,000 per book settlement for training AI models is a discount compared to the potential maximum penalty of $150,000 per book. Anthropic agreed to pay at least $1.5 billion plus interest to resolve a class-action lawsuit regarding pirated books.\n\nIt appears permissible to purchase physical books, scan them, and train models on the resulting digital files. Anthropic noted that the specific digital copies involved in the agreement were not utilized to train their commercially available models.\n\nData modeling effectiveness depends on the specific questions one intends to address. Using LLM-generated summaries for image retrieval can improve recall compared to relying solely on CLIP embeddings.\n\nNewer models are increasing their context window capacity. One system now features a 256,000 token context window, which doubles the capacity of its predecessor. This system uses a mixture-of-experts configuration with 384 experts and 32 billion activated parameters.\n\nThe legal landscape for AI training remains unsettled.",
+    "thread": "Anthropic agreed to pay \"at least\" a staggering $1.5 billion, plus interest to settle a lawsuit over using pirated books for training.\n\nThat payout works out to \"approximately $3,000 per book or work\" which sounds like a lot until you consider the alternative.\n\nThe maximum penalty could have reached \"$150,000 per book, so $3,000 per book\" is actually a discount for the company.\n\nAnthropic noted that the specific files involved in this agreement were not used to train their commercial models.\n\nIt appears legal in the USA to buy physical books, scan them, and train models on the resulting files.\n\nThe legal landscape for AI training remains complex and unsettled as companies navigate these massive settlements and data modeling challenges."
+  },
+  "inventory": {
+    "claims": [
+      {
+        "id": "c0",
+        "kind": "stat",
+        "text": "Anthropic agreed to pay a minimum of $1.5 billion plus interest to resolve a class-action lawsuit regarding the use of pirated books for training.",
+        "verbatim": "at least\u201d a staggering $1.5 billion, plus interest"
+      },
+      {
+        "id": "c1",
+        "kind": "stat",
+        "text": "The settlement payouts are estimated to be around $3,000 for each individual work.",
+        "verbatim": "approximately $3,000 per book or work"
+      },
+      {
+        "id": "c2",
+        "kind": "stat",
+        "text": "The author suggests that a $3,000 per book settlement is a discount compared to the potential maximum penalty of $150,000 per book.",
+        "verbatim": "$150,000 per book, so $3,000 per book"
+      },
+      {
+        "id": "c3",
+        "kind": "opinion",
+        "text": "It appears legally permissible in the United States to purchase physical books, scan them, and train AI models on the resulting digital files.",
+        "verbatim": null
+      },
+      {
+        "id": "c4",
+        "kind": "fact",
+        "text": "Anthropic stated that the specific digital book copies involved in the agreement were not utilized to train their commercially available AI models.",
+        "verbatim": null
+      },
+      {
+        "id": "c5",
+        "kind": "opinion",
+        "text": "IanCal argues that the effectiveness of data modeling is entirely dependent on the specific questions one intends to address.",
+        "verbatim": null
+      },
+      {
+        "id": "c6",
+        "kind": "stat",
+        "text": "Moonshot AI's Kimi-K2-Instruct-0905 model features a 256,000 token context window, doubling the capacity of its predecessor.",
+        "verbatim": "128,000 to 256,000 tokens"
+      },
+      {
+        "id": "c7",
+        "kind": "stat",
+        "text": "The Kimi-K2-Instruct-0905 model is a mixture-of-experts system containing 1 trillion parameters, 384 experts, and 32 billion activated parameters.",
+        "verbatim": "1 trillion parameters in a mixture-of-experts configuration with 384 experts, 32B activated parameters"
+      },
+      {
+        "id": "c8",
+        "kind": "opinion",
+        "text": "Using LLM-generated summaries for image retrieval can significantly improve recall compared to relying solely on CLIP embeddings.",
+        "verbatim": null
+      }
+    ],
+    "hook_candidates": [
+      "A $1.5 billion settlement for pirated books is actually a discount for AI companies.",
+      "It is currently legal to buy physical books, destroy them, and use the scans to train AI.",
+      "Data modeling is not a universal solution because its success depends entirely on the questions you ask.",
+      "The newest AI model from Moonshot AI uses a massive 1 trillion parameter mixture-of-experts configuration.",
+      "LLM-generated summaries can outperform CLIP embeddings for image search by a wide margin."
+    ],
+    "voice_samples": [
+      "It's wild to me that a $1.5 billion settlement can feel like a win for Anthropic, but given that it's undisputed that they downloaded pirated books (as did Meta and likely many other research teams) the maximum allowed penalty was $150,000 per book, so $3,000 per book is actually a significant discount.",
+      "To be clear: it appears it is legal, at least in the USA, to buy a used copy of a physical book (used = the author gets nothing), chop the spine off, scan the pages, discard the paper copy and then train on the scanned content.",
+      "RDF has the same problems as the SQL schemas with information scattered.",
+      "I am once again shocked at how much better image retrieval performance you can get if you embed highly opinionated summaries of an image, a summary that came out of a visual language model, than using CLIP embeddings themselves."
+    ],
+    "thesis": "The legal landscape for AI training on copyrighted materials remains complex and unsettled, as evidenced by recent massive settlements and ongoing challenges in data modeling."
+  }
+}

@@ -42,7 +42,5 @@ repurposed it, and the reader is publishing someone else's sentence under their 
 name. Measured on a golden set, 80 percent of outputs contained a run like this and
 the worst was 33 words long, so this is the common failure, not a rare one.
 
-The exception is a `quote` claim, where copying is the point: put those words in
-quotation marks so they read as a quotation. Everywhere else, take the fact and build
-a new sentence around it. Changing "not" to "rather than" is not building a new
-sentence.
+Take the fact and build a new sentence around it. Changing "not" to "rather than" is
+not building a new sentence.

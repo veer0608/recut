@@ -38,6 +38,8 @@ renderer can actually do, so none of them are negotiable.
 
 Cite every claim id you used in `claim_ids`. If you write a number in narration it
 must come from a `stat` claim and carry that claim's exact value, written as words.
+If you quote anyone, the words must be a `quote` claim's `verbatim` text, copied
+exactly.
 
 Reply with a single JSON object and nothing else:
 

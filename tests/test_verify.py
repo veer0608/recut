@@ -375,6 +375,23 @@ class TestQuoteClaimsAreQuotableAtAll:
         rendered = render_claims(self._claims("the structure depends on the questions"), doc)
         assert 'exact words: "the structure depends on the questions"' in rendered
 
+    def test_no_prompt_tells_a_generator_to_quote_a_claim_s_restated_text(self):
+        """_faithfulness.md and linkedin.md gave opposite instructions in one prompt.
+
+        The shared block said to put "those words" in quotation marks for a quote
+        claim, and a claim's text is a restatement by construction; the per-target
+        files said quotation marks must hold a quote claim's verbatim. Both reach
+        the model together through {{faithfulness}}, in all five targets.
+        """
+        from recut.llm import PROMPTS
+
+        shared = (PROMPTS / "_faithfulness.md").read_text(encoding="utf-8")
+        assert "quotation marks" not in shared
+
+        for name in ("article", "linkedin", "newsletter", "thread", "video"):
+            body = (PROMPTS / f"{name}.md").read_text(encoding="utf-8")
+            assert "verbatim" in body, f"{name} has no rule about what may be quoted"
+
     def test_a_quote_claim_without_verbatim_shows_the_generator_no_words(self):
         from recut.extract import render_claims
         from recut.ingest.markdown import ingest_text

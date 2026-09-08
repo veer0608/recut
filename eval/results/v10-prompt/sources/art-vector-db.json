@@ -1,0 +1,195 @@
+{
+  "id": "art-vector-db",
+  "judged_by_model": false,
+  "kind": "article",
+  "ref": "https://en.wikipedia.org/wiki/Vector_database",
+  "title": "Vector database - Wikipedia",
+  "segments": 14,
+  "chars": 13607,
+  "extracted_claims": 18,
+  "dropped_unanchored": 0,
+  "demoted_quotes": 0,
+  "targets": [
+    "linkedin",
+    "thread"
+  ],
+  "verifier_errors": {
+    "linkedin": [],
+    "thread": []
+  },
+  "format_violations": {},
+  "repaired": [
+    "linkedin"
+  ],
+  "repair_attempted": [
+    "linkedin"
+  ],
+  "repair_detail": {
+    "linkedin": {
+      "kept": true,
+      "first_pass_errors": [
+        "[error/copying] 'dimensions ranging from a few hundred to tens of thousands': 10 consecutive words copied from the source without quoting"
+      ],
+      "repair_errors": [],
+      "cleared": [
+        "[copying] dimensions ranging from a few hundred to tens of thousands"
+      ]
+    }
+  },
+  "claim_utilisation": 0.7222222222222222,
+  "judged": {},
+  "judged_claims": 0,
+  "judged_unsupported": 0,
+  "injections": {
+    "planted": 10,
+    "caught": 10,
+    "recall": 1.0,
+    "recall_by_rule": {
+      "number": 1.0,
+      "quote": 1.0,
+      "entity": 1.0,
+      "intensity": 1.0,
+      "citation": 1.0
+    },
+    "missed": [],
+    "clean_bodies": 2,
+    "unplanted_error_bodies": 0,
+    "unplanted_errors_by_rule": {},
+    "unplanted_errors": []
+  },
+  "bodies": {
+    "linkedin": "Data points can be mapped as coordinates within spaces containing many thousands of dimensions to enable semantic retrieval. Unlike traditional systems that rely on exact matching, these databases use approximate nearest neighbor algorithms to find related items.\n\nMachine learning processes generate these feature vectors for various formats like images, audio, and text. Techniques such as Hierarchical Navigable Small World graphs are often used for these similarity searches, with recent benchmarks showing these implementations are among the most effective.\n\nRetrieval-augmented generation is a common application where these databases provide context to large language models. The market for these systems has seen recent activity, including $18 million in seed funding for Chroma and $6 million for SurrealDB. Other vendors like Aerospike have also received recognition for their work in this space.\n\nVector databases organize information as mathematical embeddings to support modern search workflows.\n\n#databases #ai #machinelearning",
+    "thread": "Data points representing audio, text, or images can be converted into mathematical coordinates that span a few hundred to tens of thousands of dimensions.\n\nThese high-dimensional spaces allow machine learning methods to position semantically related items near one another.\n\nUnlike traditional systems that search for exact matches, these specialized databases frequently use approximate nearest neighbor algorithms to find similar items.\n\nTechniques like inverted files, product quantization, and Hierarchical Navigable Small World graphs are often used to navigate these complex data structures.\n\nRecent performance benchmarks suggest that implementations based on HNSW are among the most effective for similarity search.\n\nDevelopers often use these systems for retrieval-augmented generation to provide large language models with specific context for their responses.\n\nThe market reflects this activity, with companies like Chroma raising $18 million and Aerospike securing $109 million in funding.\n\nVector databases are shifting how applications manage high-dimensional features by prioritizing semantic retrieval over traditional exact matching."
+  },
+  "inventory": {
+    "claims": [
+      {
+        "id": "c0",
+        "kind": "fact",
+        "text": "Vector databases are designed to store and retrieve data embeddings within a vector space.",
+        "verbatim": null
+      },
+      {
+        "id": "c1",
+        "kind": "fact",
+        "text": "These systems frequently utilize approximate nearest neighbor algorithms to facilitate semantic searching, which differs from the exact matching methods used by traditional databases.",
+        "verbatim": null
+      },
+      {
+        "id": "c2",
+        "kind": "stat",
+        "text": "Vector embeddings represent data mathematically in spaces with dimensions ranging from a few hundred to tens of thousands.",
+        "verbatim": "a few hundred to tens of thousands"
+      },
+      {
+        "id": "c3",
+        "kind": "fact",
+        "text": "Various data formats, including audio, images, and text, can be converted into vector representations.",
+        "verbatim": null
+      },
+      {
+        "id": "c4",
+        "kind": "fact",
+        "text": "Machine learning methods, such as deep learning or word embeddings, are used to generate feature vectors where semantically related items are positioned near one another.",
+        "verbatim": null
+      },
+      {
+        "id": "c5",
+        "kind": "fact",
+        "text": "Vector retrieval workflows can incorporate lexical search or metadata filtering.",
+        "verbatim": null
+      },
+      {
+        "id": "c6",
+        "kind": "fact",
+        "text": "Common techniques for similarity search include inverted files, product quantization, locality-sensitive hashing, and Hierarchical Navigable Small World graphs.",
+        "verbatim": null
+      },
+      {
+        "id": "c7",
+        "kind": "fact",
+        "text": "Recent performance benchmarks indicate that implementations based on HNSW are among the most effective.",
+        "verbatim": null
+      },
+      {
+        "id": "c8",
+        "kind": "fact",
+        "text": "Retrieval-augmented generation is a common use-case where vector databases provide context to large language models to refine their responses.",
+        "verbatim": null
+      },
+      {
+        "id": "c9",
+        "kind": "fact",
+        "text": "A vector database is a type of database that stores data as high-dimensional vectors, which are mathematical representations of features or attributes.",
+        "verbatim": null
+      },
+      {
+        "id": "c10",
+        "kind": "fact",
+        "text": "Aerospike received recognition from an independent research firm as a notable vendor in the vector database market.",
+        "verbatim": null
+      },
+      {
+        "id": "c11",
+        "kind": "stat",
+        "text": "Aerospike secured $109 million in funding for its real-time database platform to address the AI market growth.",
+        "verbatim": "$109M"
+      },
+      {
+        "id": "c12",
+        "kind": "stat",
+        "text": "Chroma, an open-source vector database for LLMs, raised $18 million in seed funding at a valuation of $75 million.",
+        "verbatim": "$18 million"
+      },
+      {
+        "id": "c13",
+        "kind": "stat",
+        "text": "Zilliz successfully raised $60 million and relocated its operations to San Francisco.",
+        "verbatim": "$60M"
+      },
+      {
+        "id": "c14",
+        "kind": "fact",
+        "text": "Weaviate is an open-source vector database that combines vector search with structured filtering while maintaining cloud-native scalability and fault tolerance.",
+        "verbatim": null
+      },
+      {
+        "id": "c15",
+        "kind": "stat",
+        "text": "SurrealDB obtained $6 million in funding for its database-as-a-service offering.",
+        "verbatim": "$6M"
+      },
+      {
+        "id": "c16",
+        "kind": "opinion",
+        "text": "The popularity of vector databases is currently increasing as the AI hype cycle reaches a high point.",
+        "verbatim": null
+      },
+      {
+        "id": "c17",
+        "kind": "stat",
+        "text": "Paul Sawers authored an article on April 20, 2024, regarding the rise of vector databases.",
+        "verbatim": "Sawers, Paul (2024-04-20)"
+      }
+    ],
+    "hook_candidates": [
+      "Traditional databases look for exact matches, but vector databases look for meaning.",
+      "Your data's meaning can be mapped as a coordinate in a space with tens of thousands of dimensions.",
+      "Retrieval-augmented generation relies on vector databases to give large language models a sense of domain-specific context.",
+      "Finding similar items in massive datasets is often achieved by plotting them as points in high-dimensional space.",
+      "HNSW graphs are currently among the top-performing methods for searching through high-dimensional vector data.",
+      "Vector databases are fundamentally changing how modern applications handle high-dimensional data for AI.",
+      "The rise of generative AI has triggered a surge in specialized database technologies designed to store mathematical feature representations.",
+      "From established players like Oracle to startups like Chroma, the database landscape is rapidly adapting to support vector-based search."
+    ],
+    "voice_samples": [
+      "Vector embeddings are mathematical representations of data in a high-dimensional space.",
+      "The goal is that semantically similar data items receive feature vectors close to each other.",
+      "In recent benchmarks, HNSW-based implementations have been among the best performers.",
+      "An especially common use-case for vector databases is in retrieval-augmented generation (RAG), a method to improve domain-specific responses of large language models.",
+      "A vector database is a type of database that stores data as high-dimensional vectors, which are mathematical representations of features or attributes.",
+      "Weaviate is an open-source vector database that stores both objects and vectors, allowing for the combination of vector search with structured filtering with the fault tolerance and scalability of a cloud-native database."
+    ],
+    "thesis": "Vector databases are specialized storage systems that enable semantic retrieval by organizing data as high-dimensional mathematical embeddings."
+  }
+}
