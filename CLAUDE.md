@@ -133,10 +133,17 @@ both directions, so severities here were set by measurement, not taste:
 - **entity** is an error only when a *word* of the name is absent from the source. A phrase
   that is absent but built from present words ("Western Roman") is a notice: a missing word is
   strong evidence of invention, a missing phrase is not.
-- **copying** is a notice on purpose, for now, and the rate it fires at has moved. 80% of
-  artifacts across v1 and v2 carried an 8+ word verbatim run; after the `extract.md` fix it is
-  37% overall and 14% on markdown (`z=+2.85, p=0.004`). A gate at 80% would have sent four
-  drafts in five back for repair. Promote it once a repeat holds, not on one run.
+- **copying** is an error since v6, and was a notice before it. 80% of artifacts across v1
+  and v2 carried an 8+ word verbatim run; a gate there sends four drafts in five back for
+  repair, which is an outage rather than a gate. After the `extract.md` fix v4 measured 37%
+  and v6 measured 23% across all fifteen sources. The two do not differ (`z=1.13, p=0.26`)
+  and pre-fix against post-fix pooled is 80% to 30% (`z=5.50`), so it was promoted on the
+  repeat and not on v4 alone. It costs a regeneration on about one draft in four, and two in
+  five of the articles, which stay the hard case at 39% against markdown's 14%.
+- **Promoting it put copying in front of `inject.score`,** which counts a clean body raising
+  any error as a false positive. Copying is never planted and a body that reproduced the
+  source really did reproduce it, so the false-positive scorer excludes the rule by name.
+  Without that, the metric would have risen every time the copying rule worked.
 - **copying also needs `MIN_COPIED_PROSE` words that carry meaning** before it counts. The
   generator prompts require a figure to match its `stat` claim exactly, so a run of them drags
   its connecting words along: "from 9.0 to 5.6 and tokens from 13,024 to 8,576" is fourteen

@@ -258,11 +258,16 @@ class TestCopying:
         assert length == 15
         assert span.startswith("Reconcile against receipts")
 
-    def test_it_is_a_notice_until_the_prompt_fix_is_measured(self):
-        # Deliberately not an error yet: at an 80% hit rate a gate would send
-        # four drafts in five back for repair before the prompt has had a chance
-        # to change the behaviour it is punishing.
-        assert check_copying(self.SRC, self.SRC)[0].severity == "notice"
+    def test_it_is_an_error_now_the_fix_has_been_measured_twice(self):
+        # A notice while 80% of artifacts carried a run, because a gate there is
+        # an outage rather than a gate. v4 measured 37% and v6 23% across all
+        # fifteen sources, and the two do not differ (p=0.26), so the rate the
+        # gate would fire at is now known rather than hoped for.
+        assert check_copying(self.SRC, self.SRC)[0].severity == "error"
+
+    def test_the_severity_is_still_the_caller_s_to_override(self):
+        # measure_copying scans stored bodies to count runs, not to gate them.
+        assert check_copying(self.SRC, self.SRC, "notice")[0].severity == "notice"
 
     def test_a_short_source_cannot_trigger_it(self):
         assert check_copying("a b c", "a b c") == []

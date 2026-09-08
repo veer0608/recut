@@ -169,12 +169,22 @@ def score(
                     }
                 )
 
-    false_positives = [
-        {"target": a.target, "spans": [str(w) for w in a.errors]}
-        for a in artifacts
-        if verify(
+    # A false positive here means the verifier claimed a fabrication in a body that
+    # had none planted. Copying is not a fabrication and is never planted: a clean
+    # body reproducing the source really did reproduce it, and counting that as a
+    # false alarm would make this number fall every time the copying rule works.
+    # It became an error rather than a notice once v6 confirmed the rate, which is
+    # what put it in front of this scorer at all.
+    fabrication_errors = [
+        (a, [w for w in verify(
             Artifact(target=a.target, body=a.body, claim_ids=a.claim_ids), document, claims
-        ).errors
+        ).errors if w.rule != "copying"])
+        for a in artifacts
+    ]
+    false_positives = [
+        {"target": a.target, "spans": [str(w) for w in errors]}
+        for a, errors in fabrication_errors
+        if errors
     ]
 
     per_rule = {rule: sum(hits) / len(hits) for rule, hits in caught.items() if hits}

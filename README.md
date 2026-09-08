@@ -202,11 +202,12 @@ the source excuses "necessary" in the output.
 The copying rule asks a different question from the others. Every word it flags is
 supported by the source, and that is the problem: reproducing someone else's sentence
 unchanged under your own name is a different kind of wrong, and a tool that rewrites
-for a living should notice when it did not rewrite. It is a notice rather than an
-error on purpose. **80% of artifacts across both eval runs carried an eight word
-verbatim run**, so gating on it would send four drafts in five back for repair before
-the prompt work that should fix it has had a chance to. It gets promoted when a run
-measures the rate down, not before.
+for a living should notice when it did not rewrite. It was a notice rather than an
+error for as long as **80% of artifacts across the first two eval runs carried an eight
+word verbatim run**, because gating there sends four drafts in five back for repair.
+Two runs after the prompt fix now measure it at **37% and 23%**, figures that do not
+differ from each other, so it is an error: the rate the gate fires at is known rather
+than hoped for.
 
 A failure triggers exactly one regeneration with the offending span named. A second
 failure is surfaced to the user, not hidden. Silently shipping an unanchored figure

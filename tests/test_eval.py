@@ -14,6 +14,7 @@ from run_eval import aggregate, clear_stale, load_sources  # noqa: E402
 
 from recut.ingest.markdown import ingest_text  # noqa: E402
 from recut.models import Artifact, Claim, ClaimSet  # noqa: E402
+from recut.verify import verify  # noqa: E402
 
 from .test_pipeline import ScriptedLLM  # noqa: E402
 
@@ -82,6 +83,18 @@ class TestInjection:
 
     def test_a_clean_body_produces_no_false_positive(self, clean_artifact, document, claims):
         assert score([clean_artifact], document, claims)["false_positive_bodies"] == 0
+
+    def test_copying_is_not_scored_as_a_fabrication_false_positive(self, document, claims):
+        # Copying became an error once v6 confirmed the rate, which put it in front
+        # of this scorer. It is never planted, and a body reproducing the source
+        # really did reproduce it. Counting that here would make the false-positive
+        # rate rise every time the copying rule did its job.
+        copied = Artifact(target="linkedin", body=SOURCE.strip(), claim_ids=[])
+        # Vacuous unless the rule actually fires on this body.
+        fired = verify(copied, document, claims).errors
+        assert [w.rule for w in fired] == ["copying"]
+        result = score([copied], document, claims)
+        assert result["false_positive_bodies"] == 0
 
     def test_credit_needs_the_right_rule_to_fire(self, document, claims):
         # A body whose entity rule fires for an unrelated reason must not be scored

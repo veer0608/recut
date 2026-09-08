@@ -433,13 +433,23 @@ def longest_copied_run(body: str, source: str) -> tuple[int, str]:
     return best_len, best_span
 
 
-def check_copying(body: str, source: str, severity: str = "notice") -> list[Warning]:
+def check_copying(body: str, source: str, severity: str = "error") -> list[Warning]:
     """Is the output reproducing the source rather than repurposing it?
 
     Not a factual error, which is why it sits apart from the other rules: every
     word is supported, and that is exactly the problem. Publishing someone else's
     sentence unchanged under your own name is a different kind of wrong, and a
     tool that rewrites for a living should notice when it did not rewrite.
+
+    An error since the rate came down and stayed down. It was a notice while 80%
+    of artifacts carried an 8+ word run, because a gate there sends four drafts
+    in five back for repair and that is not a gate, it is an outage. After the
+    extract.md fix v4 measured 37% and v6 measured 23% on all fifteen sources;
+    the two do not differ (z=1.13, p=0.26) and pre-fix against post-fix pooled is
+    80% to 30%, z=5.50. The rule was promoted on the repeat, not on v4 alone.
+
+    The cost is a regeneration on roughly one draft in four, and two in five of
+    the articles, which remain the hard case at 39% against markdown's 14%.
     """
     length, span = longest_copied_run(body, source)
     if length < MIN_COPIED_RUN:
