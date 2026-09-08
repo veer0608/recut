@@ -141,6 +141,20 @@ def aggregate(results: list[dict], failures: list[dict], run: dict) -> dict:
     # no opinion on entailment, so it must not produce a rate that looks like one.
     judged_run = all(r.get("judged_by_model", True) for r in results) and bool(results)
 
+    # Window size moves the rate, because support is existential per window: a
+    # sentence needing two distant paragraphs is supported when one window holds
+    # both and not when none does. Sources judged at different sizes are not the
+    # same measurement, and mixing them produces a number that means nothing in
+    # particular. Enforced here rather than remembered, like the abandonment
+    # rule, because the mix is invisible in the output unless something looks.
+    sizes = {
+        v["window_chars"]
+        for r in results
+        for v in r.get("judged", {}).values()
+        if isinstance(v, dict) and v.get("window_chars")
+    }
+    one_instrument = len(sizes) <= 1
+
     judged_claims = sum(r["judged_claims"] for r in results)
     judged_unsupported = sum(r["judged_unsupported"] for r in results)
     planted = sum(r["injections"]["planted"] for r in results)
@@ -157,13 +171,15 @@ def aggregate(results: list[dict], failures: list[dict], run: dict) -> dict:
             by_rule.setdefault(rule, []).append(value)
 
     headline = (judged_unsupported / judged_claims) if judged_claims else None
-    if not judged_run:
+    if not judged_run or not one_instrument:
         headline = None
 
     return {
         "run": run,
         "complete": complete,
         "judged_by_model": judged_run,
+        "judge_window_chars": sorted(sizes),
+        "one_instrument": one_instrument,
         "sources_attempted": len(results) + len(failures),
         "sources_completed": len(results),
         "failures": failures,

@@ -197,6 +197,55 @@ class TestAbandonmentRule:
         assert report["format_compliance"] == 1.0
 
 
+class TestOneInstrument:
+    """A rate must come from one measurement, not two.
+
+    Window size moves the rate, because support is existential per window: a
+    sentence needing two distant paragraphs is supported when one window holds
+    both and not when none does. Halving the window to fit a nearly spent token
+    budget would have judged one source of a run on a different instrument from
+    the other fourteen, and nothing in the output would have shown it.
+    """
+
+    def _result(self, source_id, window_chars, judged=10, unsupported=1):
+        return {
+            "id": source_id,
+            "judged_by_model": True,
+            "targets": ["linkedin"],
+            "format_violations": {},
+            "claim_utilisation": 0.5,
+            "judged_claims": judged,
+            "judged_unsupported": unsupported,
+            "judged": {"linkedin": {"claims": judged, "unsupported": unsupported,
+                                    "window_chars": window_chars}},
+            "injections": {"planted": 5, "caught": 5, "clean_bodies": 1,
+                           "false_positive_bodies": 0, "recall_by_rule": {"number": 1.0}},
+        }
+
+    def test_one_window_size_publishes_a_rate(self):
+        report = aggregate([self._result("a", 12000), self._result("b", 12000)], [], {})
+        assert report["one_instrument"] is True
+        assert report["unsupported_claim_rate"] == pytest.approx(0.1)
+
+    def test_two_window_sizes_withhold_the_rate(self):
+        report = aggregate([self._result("a", 12000), self._result("b", 6000)], [], {})
+        assert report["one_instrument"] is False
+        assert report["unsupported_claim_rate"] is None
+
+    def test_the_sizes_used_are_recorded_so_the_mix_is_visible(self):
+        report = aggregate([self._result("a", 12000), self._result("b", 6000)], [], {})
+        assert report["judge_window_chars"] == [6000, 12000]
+
+    def test_older_results_without_the_field_do_not_trip_it(self):
+        # v1 and v2 were judged before the field existed. An absent size is
+        # unknown, not a second instrument.
+        old = self._result("a", 12000)
+        del old["judged"]["linkedin"]["window_chars"]
+        report = aggregate([old, self._result("b", 12000)], [], {})
+        assert report["one_instrument"] is True
+        assert report["unsupported_claim_rate"] is not None
+
+
 class TestUnjudgedRun:
     """--no-judge measures the deterministic layer and must claim nothing more.
 

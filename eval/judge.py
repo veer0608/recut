@@ -104,6 +104,16 @@ _SENTENCE_SPLIT = re.compile(r"(?<=[.!?])\s+(?=[A-Z\"'“])")
 # roughly 20k, which is how a judge that had never been windowed came to fail
 # the four largest sources in the golden set and nothing else. Sources are
 # capped near 40k, so no source needs more than four passes at this size.
+# Not a performance knob. Support is existential per window, so a sentence
+# needing facts from two distant paragraphs is supported when one window holds
+# both and unsupported when none does. Window size therefore moves the rate,
+# and smaller windows move it upward.
+#
+# This was briefly halved to 6000 so a first request would fit inside a nearly
+# spent token budget. That would have judged one source of a run on a different
+# instrument from the other fourteen, which is a worse problem than the one it
+# solved. If a window will not fit the budget, the answer is to wait for budget,
+# not to change what is being measured.
 JUDGE_WINDOW_CHARS = 12000
 
 # One reply carries one verdict per sentence, so its length grows with the
@@ -291,6 +301,9 @@ def judge(body: str, document: Document, llm: LLM, cache: Path | None = None) ->
     return {
         "sentences": len(sentences),
         "windows": len(panes),
+        # The size, not just the count. Two runs judged at different sizes are
+        # not the same measurement, and a count alone does not reveal the mix.
+        "window_chars": JUDGE_WINDOW_CHARS,
         "claims": claims,
         "unsupported": unsupported,
         "rate": (unsupported / claims) if claims else None,
