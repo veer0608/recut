@@ -102,6 +102,14 @@ _SENTENCE_SPLIT = re.compile(r"(?<=[.!?])\s+(?=[A-Z\"'“])")
 # capped near 40k, so no source needs more than four passes at this size.
 JUDGE_WINDOW_CHARS = 12000
 
+# One reply carries one verdict per sentence, so its length grows with the
+# number of sentences asked about. Groq truncated a verdict list mid-object
+# on the largest source and the repair retry hit the same ceiling, because no
+# rewording makes a reply shorter. Batching is safe in a way that windowing
+# the source was not: verdicts are independent per sentence, so asking about
+# twelve at a time and asking about thirty give the same answers.
+JUDGE_SENTENCES_PER_CALL = 12
+
 
 class _Verdict(BaseModel):
     n: int
@@ -159,18 +167,23 @@ def judge(body: str, document: Document, llm: LLM) -> dict:
     for pane in panes:
         if not open_indexes:
             break
-        numbered = "\n".join(f"{i}. {sentences[i - 1]}" for i in open_indexes)
-        prompt = PROMPT.format(source=render_source(pane), sentences=numbered)
-        response = llm.structured(prompt, _Response)
+        rendered = render_source(pane)
 
-        for verdict in response.verdicts:
-            if verdict.n not in open_indexes:
-                continue
-            previous = by_index.get(verdict.n)
-            # Never downgrade. One window saying "supported" outranks another
-            # saying it could not find it, which is the point of windowing.
-            if previous is None or previous.verdict.strip().lower() != "supported":
-                by_index[verdict.n] = verdict
+        for batch_start in range(0, len(open_indexes), JUDGE_SENTENCES_PER_CALL):
+            batch = open_indexes[batch_start : batch_start + JUDGE_SENTENCES_PER_CALL]
+            numbered = "\n".join(f"{i}. {sentences[i - 1]}" for i in batch)
+            response = llm.structured(
+                PROMPT.format(source=rendered, sentences=numbered), _Response
+            )
+
+            for verdict in response.verdicts:
+                if verdict.n not in batch:
+                    continue
+                previous = by_index.get(verdict.n)
+                # Never downgrade. One window saying "supported" outranks another
+                # saying it could not find it, which is the point of windowing.
+                if previous is None or previous.verdict.strip().lower() != "supported":
+                    by_index[verdict.n] = verdict
 
         open_indexes = [
             index
@@ -178,6 +191,7 @@ def judge(body: str, document: Document, llm: LLM) -> dict:
             if (by_index[index].verdict.strip().lower() if index in by_index else "")
             not in ("supported", "not_a_claim")
         ]
+
     verdicts = []
     claims = 0
     unsupported = 0

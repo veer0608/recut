@@ -339,6 +339,82 @@ class TestJudgeWindowing:
         assert judge("Something about the first topic is asserted.", wide, llm)["windows"] > 1
 
 
+class TestJudgeBatching:
+    """A verdict list long enough to be truncated, asked for in pieces.
+
+    Groq cut a reply off mid-object on the largest source and the repair retry
+    hit the same ceiling, because no rewording makes a reply shorter. Splitting
+    the sentence list cannot change the metric the way splitting the source
+    could: verdicts are independent per sentence.
+    """
+
+    @pytest.fixture
+    def small_batch(self, monkeypatch):
+        import judge as judge_mod
+
+        monkeypatch.setattr(judge_mod, "JUDGE_SENTENCES_PER_CALL", 3)
+
+    @pytest.fixture
+    def doc(self):
+        from recut.ingest.markdown import ingest_text
+
+        return ingest_text("# S" + chr(10) + chr(10) + "The source says a thing about it.", source_ref="s")
+
+    def _body(self, n):
+        return " ".join(f"Sentence number {i} asserts something checkable here." for i in range(1, n + 1))
+
+    def test_every_sentence_is_judged_across_batches(self, doc, small_batch):
+        # Seven sentences at three per call: three calls, none skipped.
+        replies = [
+            json.dumps({"verdicts": [{"n": n, "verdict": "supported", "why": "y"} for n in ns]})
+            for ns in ([1, 2, 3], [4, 5, 6], [7])
+        ]
+        result = judge(self._body(7), doc, ScriptedLLM(replies))
+        assert result["sentences"] == 7
+        assert result["claims"] == 7
+        assert result["unjudged"] == 0
+
+    def test_a_verdict_for_a_sentence_outside_the_batch_is_ignored(self, doc, small_batch):
+        # A judge that renumbers or hallucinates an index must not have it
+        # applied to whatever sentence happens to hold that number.
+        replies = [
+            json.dumps({"verdicts": [
+                {"n": 1, "verdict": "supported", "why": "y"},
+                {"n": 2, "verdict": "supported", "why": "y"},
+                {"n": 3, "verdict": "supported", "why": "y"},
+                {"n": 99, "verdict": "unsupported", "why": "not asked about"},
+            ]}),
+            json.dumps({"verdicts": [{"n": 4, "verdict": "unsupported", "why": "n"}]}),
+        ]
+        result = judge(self._body(4), doc, ScriptedLLM(replies))
+        assert result["claims"] == 4
+        assert result["unsupported"] == 1
+
+    def test_batching_gives_the_same_answer_as_one_call(self, doc, monkeypatch):
+        import judge as judge_mod
+
+        body = self._body(6)
+        verdicts = [{"n": n, "verdict": "supported" if n % 2 else "unsupported", "why": "y"}
+                    for n in range(1, 7)]
+
+        monkeypatch.setattr(judge_mod, "JUDGE_SENTENCES_PER_CALL", 100)
+        whole = judge(body, doc, ScriptedLLM([json.dumps({"verdicts": verdicts})]))
+
+        monkeypatch.setattr(judge_mod, "JUDGE_SENTENCES_PER_CALL", 2)
+        split = judge(body, doc, ScriptedLLM([
+            json.dumps({"verdicts": verdicts[0:2]}),
+            json.dumps({"verdicts": verdicts[2:4]}),
+            json.dumps({"verdicts": verdicts[4:6]}),
+        ]))
+        assert (whole["claims"], whole["unsupported"]) == (split["claims"], split["unsupported"])
+
+    def test_a_sentence_no_batch_answered_is_not_counted_as_fine(self, doc, small_batch):
+        replies = [json.dumps({"verdicts": [{"n": 1, "verdict": "supported", "why": "y"}]})]
+        result = judge(self._body(3), doc, ScriptedLLM(replies))
+        assert result["unjudged"] == 2
+        assert result["claims"] == 1
+
+
 class TestJudgeSeparation:
     """Nothing grades its own work, and the eval can still run when a quota goes.
 
