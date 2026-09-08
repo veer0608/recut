@@ -219,8 +219,21 @@ rewriting a sentence is where it struggles. It struggles less than two sources s
 claims, in `art-ocr`. It had been zero across v1, v2, v4 and v6, 1,586 claims, so the
 corollary the design rests on is rare rather than dormant. `demoted_quotes` is **0**, and
 the reason matters more than the number: v11 produced **2 quote claims in 405** and both
-carried `verbatim`. The demotion had nothing to catch, so it stays largely untested
-against real extractions and its denominator is far smaller than it looked.
+carried `verbatim`. The demotion had nothing to catch.
+
+**Quote claims are rare, and that is the shape of the risk.** Across every run that stored
+an inventory: v4 2 of 414, v6 3 of 404, v11 2 of 405, so about 0.5%. Only two sources in
+the golden set ever produce one, `art-retrieval` every time and `art-willison` once. So
+the fabricated-quotation failure is **low frequency and worst-case severity**: a direct
+quotation invented and attributed to a named person, on roughly one claim in two hundred.
+That proportion is the argument for the guard being a deterministic relabel in
+`extract.py` costing nothing, rather than prompt work costing calls and attention on
+every generation. It also means the guard will stay nearly untested by the eval: at two
+or three quote claims a run, absence of demotions is not evidence it works.
+
+(v1 and v2 cannot be counted here at all: they predate storing the inventory, which was
+added when the copying investigation found the runs that would have answered it had
+thrown it away. The same gap, a second time.)
 
 ## The eval, and the abandonment rule
 
