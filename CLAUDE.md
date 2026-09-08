@@ -189,13 +189,21 @@ both directions, so severities here were set by measurement, not taste:
   sentence further along the body.
 
 **What the repair retry buys is now measured, not assumed.** `_repair_stats` aggregates
-`repair_detail` into attempted / kept / reduced / fully_cleared plus
-`still_failing_by_rule`. `kept` is the pipeline's own decision and a tie satisfies it;
-`reduced` is the stricter question. First reading, across four small runs and nine
-repairs: **1 of 9 ended clean**, and **`copying` survived its own repair 5 times out of
-5**. That is a regeneration per affected draft buying nothing on articles, which is the
-case against having promoted `copying` to an error the same day. Small n, articles only,
-and it wants the next full run before anything moves on it.
+`repair_detail` into attempted / kept / reduced / fully_cleared, plus `cleared_by_rule`
+counted per error rather than per body. `kept` is the pipeline's own decision and a tie
+satisfies it; `reduced` is the stricter question.
+
+**The repair is not one mechanism working unevenly. It is two outcomes.** Over the first
+four runs it clears `entity` 8 times in 11, and `quote` 1 in 7, `copying` 1 in 6,
+`intensity` 2 in 7. Deleting an invented name is something a regeneration can do;
+rewriting a sentence that copies, over-reaches or misquotes is the same model producing
+the same phrasing from the same claims. An overall repair rate averages those into a
+number describing neither, which is why the figure is per rule.
+
+Only **1 repair in 9 ended clean**. The `copying` case is the pointed one: promoted to an
+error the same day this was written, it spends a regeneration on roughly two article
+drafts in five and has cleared one of six. Small n, articles only, and it wants the next
+full run before anything moves on it.
 
 ## The eval, and the abandonment rule
 

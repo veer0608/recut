@@ -184,6 +184,16 @@ def clear_stale(sources_dir: Path, ids: set[str] | None = None) -> int:
     return len(stale)
 
 
+def _rule_counts(errors: list[str]) -> dict[str, int]:
+    """Rule name to how many times it appears in a list of rendered warnings."""
+    out: dict[str, int] = {}
+    for entry in errors:
+        if "/" in entry:
+            rule = entry.split("/")[1].split("]")[0]
+            out[rule] = out.get(rule, 0) + 1
+    return out
+
+
 def _repair_stats(results: list[dict]) -> dict:
     """What the one repair retry actually bought, per run.
 
@@ -201,6 +211,8 @@ def _repair_stats(results: list[dict]) -> dict:
     """
     attempted = kept = reduced = fully_cleared = 0
     persistent: dict[str, int] = {}
+    seen: dict[str, int] = {}
+    gone: dict[str, int] = {}
     for result in results:
         for detail in (result.get("repair_detail") or {}).values():
             attempted += 1
@@ -212,10 +224,16 @@ def _repair_stats(results: list[dict]) -> dict:
                 reduced += 1
             if not after:
                 fully_cleared += 1
-            before_rules = {e.split("/")[1].split("]")[0] for e in before if "/" in e}
-            after_rules = {e.split("/")[1].split("]")[0] for e in after if "/" in e}
-            for rule in before_rules & after_rules:
+            before_rules = _rule_counts(before)
+            after_rules = _rule_counts(after)
+            for rule in set(before_rules) & set(after_rules):
                 persistent[rule] = persistent.get(rule, 0) + 1
+            # Per error rather than per body, because a draft with two invented
+            # names and one copied run is three separate things to fix and the
+            # repair can manage some and not others.
+            for rule, count in before_rules.items():
+                seen[rule] = seen.get(rule, 0) + count
+                gone[rule] = gone.get(rule, 0) + max(0, count - after_rules.get(rule, 0))
     return {
         "attempted": attempted,
         "kept": kept,
@@ -223,6 +241,15 @@ def _repair_stats(results: list[dict]) -> dict:
         "fully_cleared": fully_cleared,
         "reduced_rate": (reduced / attempted) if attempted else None,
         "still_failing_by_rule": dict(sorted(persistent.items())),
+        # The repair is not one mechanism working unevenly, it is two outcomes.
+        # It removes invented names well and rewrites sentences badly: over the
+        # first four runs entity cleared 8 of 11, while quote cleared 1 of 7,
+        # copying 1 of 6 and intensity 2 of 7. An overall repair rate averages
+        # those into a number describing neither.
+        "cleared_by_rule": {
+            rule: {"seen": seen[rule], "cleared": gone[rule], "rate": gone[rule] / seen[rule]}
+            for rule in sorted(seen)
+        },
     }
 
 
@@ -445,8 +472,11 @@ def main(argv: list[str] | None = None) -> int:
             f"{rep['reduced_error_count']} reduced the count, "
             f"{rep['fully_cleared']} cleared it"
         )
-        for rule, count in rep["still_failing_by_rule"].items():
-            print(f"{DIM}            {rule:<10} survived the repair {count} time(s){OFF}")
+        for rule, stat in rep["cleared_by_rule"].items():
+            print(
+                f"{DIM}            {rule:<10} repair cleared {stat['cleared']}/{stat['seen']}"
+                f" ({stat['rate']:.0%}){OFF}"
+            )
     print(f"format      {_pct(report['format_compliance'])} compliant")
     print(f"utilisation {_pct(report['claim_utilisation'])} of extracted claims used")
 

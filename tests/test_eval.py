@@ -747,6 +747,27 @@ def test_a_kept_repair_that_only_tied_is_not_counted_as_reducing():
     assert rep["fully_cleared"] == 0
 
 
+def test_repair_effectiveness_is_counted_per_error_not_per_body():
+    """A draft with two invented names and one copied run is three things to fix.
+
+    Counting per body would score the repair as having failed on that draft even
+    if it removed both names, and would hide that entity clears at 73% while
+    copying clears at 17%. An overall rate averages two different mechanisms.
+    """
+    detail = {"linkedin": {
+        "kept": True,
+        "first_pass_errors": [
+            "[error/entity] 'A': x", "[error/entity] 'B': x", "[error/copying] 'C': x",
+        ],
+        "repair_errors": ["[error/copying] 'C reworded': x"],
+        "spans_changed": [],
+    }}
+    rep = aggregate([_result(detail)], [], {"at": "x"})["repair"]
+    assert rep["cleared_by_rule"]["entity"] == {"seen": 2, "cleared": 2, "rate": 1.0}
+    assert rep["cleared_by_rule"]["copying"] == {"seen": 1, "cleared": 0, "rate": 0.0}
+    assert rep["still_failing_by_rule"] == {"copying": 1}
+
+
 def test_a_rule_that_survives_its_own_repair_is_named():
     # The question copying-as-an-error raises: is the retry spending a call to
     # produce the same copied run?
