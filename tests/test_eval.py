@@ -497,6 +497,28 @@ class TestJudgeSeparation:
             judge_llm, monkeypatch
         ) == set()
 
+    def test_this_project_does_not_share_a_model_with_reruns(self):
+        """Free-tier quota is per model, so a shared model is a shared budget.
+
+        The sibling `reruns` benchmark runs a daily measurement against these.
+        Sharing one meant a judge probed alive and was spent minutes later
+        because something else had been through it, which cost two days of
+        misdiagnosis. Hard-coded rather than read from that repo: this must fail
+        when someone widens recut's ladder, not when reruns happens to be
+        checked out.
+        """
+        from judge import JUDGE_GROQ_MODEL
+        from run_eval import GENERATOR_GROQ_MODEL
+
+        from recut.llm import GEMINI_MODELS, GROQ_MODEL
+
+        reruns = {
+            "gemini-3.7-flash", "gemini-3.6-flash", "gemini-3.5-flash",
+            "openai/gpt-oss-20b",
+        }
+        ours = {*GEMINI_MODELS, GROQ_MODEL, GENERATOR_GROQ_MODEL, JUDGE_GROQ_MODEL}
+        assert ours & reruns == set()
+
     def test_the_two_pins_are_not_the_same_string(self):
         # run_eval refuses to start if these ever converge. Asserting it here
         # means a rename cannot make that check vacuously true.

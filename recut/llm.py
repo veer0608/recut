@@ -30,13 +30,23 @@ GROQ_URL = "https://api.groq.com/openai/v1/chat/completions"
 # gemini-3.8-flash at 20 requests per day, which one run of this pipeline exhausts.
 # Pinned ids in descending order of daily allowance. Free-tier quota is per model,
 # so a 429 on one says nothing about the next.
+# Pinned so this project competes with nothing else on this machine. Free-tier
+# quota is per model on both providers, and the sibling `reruns` benchmark runs
+# a daily measurement against gemini-3.7-flash, gemini-3.6-flash and Groq's
+# openai/gpt-oss-20b. Sharing those meant one busy afternoon took out both
+# projects at once and looked like bad luck for two days: a judge probed alive
+# and was spent minutes later because something else had been through it.
+#
+# So recut deliberately walks the models reruns does not, and pays for it in
+# depth: two Gemini models rather than four. A shallower ladder that is ours
+# beats a longer one we are sharing.
 GEMINI_MODELS = (
     "gemini-3.1-flash-lite",
-    "gemini-3.6-flash",
-    "gemini-3.7-flash",
     "gemini-3-flash-preview",
 )
-GROQ_MODEL = "openai/gpt-oss-120b"
+# Not openai/gpt-oss-20b, which is reruns'. Not openai/gpt-oss-120b either: that
+# is the eval judge, and a generator reaching it would be grading its own work.
+GROQ_MODEL = "qwen/qwen3.6-27b"
 
 PROMPTS = Path(__file__).parent / "prompts"
 

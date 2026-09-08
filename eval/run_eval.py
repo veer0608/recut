@@ -22,7 +22,7 @@ from dotenv import load_dotenv
 
 from recut.extract import extract
 from recut.ingest import ingest
-from recut.llm import GEMINI_MODELS, LLM, LLMError
+from recut.llm import GEMINI_MODELS, GROQ_MODEL, LLM, LLMError
 from recut.models import Artifact, ClaimSet, Document
 from recut.pipeline import applicable, repurpose
 
@@ -38,8 +38,9 @@ from judge import (  # noqa: E402
 
 # The generators' fallback, deliberately not the judge's model. They walk Gemini
 # first and reach this only when Gemini's daily budget is gone, which is exactly
-# the case that wiped a whole run when the fallback was taken away.
-GENERATOR_GROQ_MODEL = "openai/gpt-oss-20b"
+# the case that wiped a whole run when the fallback was taken away. Also not
+# openai/gpt-oss-20b, which the sibling reruns benchmark measures against daily.
+GENERATOR_GROQ_MODEL = GROQ_MODEL
 
 HERE = Path(__file__).resolve().parent
 GOLDEN = HERE / "golden" / "sources.yaml"
