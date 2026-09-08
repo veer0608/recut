@@ -66,16 +66,23 @@ def repurpose(
             retry = verify(
                 build(document, claims, llm, note=repair_note(artifact)), document, claims
             )
-            # Did the retry clear what it was actually asked to clear? Counting
-            # errors treats every rule as interchangeable, and it kept a draft
-            # that put an invented direct quotation in a named person's mouth:
-            # art-willison/linkedin in v6 tied on count, so the first pass won and
-            # the fabricated quote shipped. The repair note names specific spans.
-            # Whether those spans are gone is the question it was sent to answer.
+            # Prefer the retry unless it is worse. Counting errors alone treats
+            # every rule as interchangeable and kept a draft that put an invented
+            # direct quotation in a named person's mouth: art-willison/linkedin in
+            # v6 tied on count, so the first pass won and the fabricated quote
+            # shipped. A tie now goes to the repair, which was written knowing what
+            # was wrong with the draft before it.
+            #
+            # `moved` is NOT proof the fault was fixed. It compares span strings,
+            # and a model rewords the same fault every time it regenerates: the one
+            # quotation above came back as three different spans across v6, v7 and
+            # v8. So it is nearly always true, and the rule it guards is in practice
+            # "no worse on count". Named for what it observes rather than for what
+            # it would be convenient to claim.
             asked = {(w.rule, w.span) for w in artifact.errors}
-            cleared = asked - {(w.rule, w.span) for w in retry.errors}
+            moved = asked - {(w.rule, w.span) for w in retry.errors}
             keep_retry = len(retry.errors) < len(artifact.errors) or (
-                bool(cleared) and len(retry.errors) <= len(artifact.errors)
+                bool(moved) and len(retry.errors) <= len(artifact.errors)
             )
             first_pass = [str(w) for w in artifact.errors]
             retry_errors = [str(w) for w in retry.errors]
@@ -88,8 +95,8 @@ def repurpose(
             artifact.meta["repair_attempted"] = True
             artifact.meta["first_pass_errors"] = first_pass
             artifact.meta["repair_errors"] = retry_errors
-            artifact.meta["repair_cleared"] = sorted(
-                f"[{rule}] {span}" for rule, span in cleared
+            artifact.meta["repair_spans_changed"] = sorted(
+                f"[{rule}] {span}" for rule, span in moved
             )
         _carry_provenance(artifact, document, claims)
         artifacts.append(artifact)

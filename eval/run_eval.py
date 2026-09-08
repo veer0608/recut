@@ -115,7 +115,7 @@ def run_source(
                 "kept": a.meta.get("repaired"),
                 "first_pass_errors": a.meta.get("first_pass_errors", []),
                 "repair_errors": a.meta.get("repair_errors", []),
-                "cleared": a.meta.get("repair_cleared", []),
+                "spans_changed": a.meta.get("repair_spans_changed", []),
             }
             for a in artifacts
             if a.meta.get("repair_attempted")

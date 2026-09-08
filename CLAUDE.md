@@ -138,9 +138,15 @@ the two are not always the same word: the `vidsmith` target loads `prompts/video
 `{{faithfulness}}` includes the shared `_faithfulness.md` block, which is shared rather than
 copied so one target cannot drift to a weaker standard.
 
-**A repair is judged on what it cleared, not on how many errors are left.**
-`pipeline.py` sends the offending spans in the repair note, so the question is
-whether those spans are gone; the retry is kept when it clears one and ends no worse.
+**A tie goes to the repair.** `pipeline.py` keeps the retry unless it is worse on
+error count. Counting alone treated every rule as interchangeable and kept a draft that
+tied; the repair was written knowing what was wrong with the draft before it, so it wins
+a tie. `repair_spans_changed` is **not** proof a fault was fixed: it differences span
+strings, and a model rewords the same fault every regeneration, so the one invented
+quotation below came back as three different spans across v6, v7 and v8. That guard is
+therefore nearly always true and the rule reduces in practice to "no worse on count".
+The field is named for what it observes. This paragraph used to claim the retry was
+verified against the spans it was asked to clear, which the code never did.
 Counting errors treated every rule as interchangeable and cost a real output:
 `art-willison/linkedin` in v6 tied on count, so the first pass won, and the first pass
 was the draft reading `IanCal argues that "the effectiveness of data modeling is

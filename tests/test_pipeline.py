@@ -164,15 +164,28 @@ class TestRepurpose:
         # split the plain count comparison would have decided it.
         assert len(meta["first_pass_errors"]) == len(meta["repair_errors"]) == 1
         assert meta["repaired"] is True
-        assert any("data modeling" in c for c in meta["repair_cleared"])
+        assert any("data modeling" in c for c in meta["repair_spans_changed"])
         assert "data modeling" not in artifacts[0].body
+
+    def test_a_reworded_but_identical_fault_still_wins_the_tie(self):
+        """Pins the real behaviour rather than the one the docs used to claim.
+
+        repair_spans_changed differences span strings, so the same fault reworded
+        reads as changed. The rule is "a tie goes to the repair", not "the named
+        span was verified gone", and nothing in the code checks the latter.
+        """
+        asked = {("quote", "data modeling depends entirely on the questions.")}
+        retry = {("quote", "data modeling entities depend entirely on the questions.")}
+        moved = asked - retry
+        assert moved, "a reworded span reads as moved; this is the documented weakness"
+        assert bool(moved) and len(retry) <= len(asked)
 
     def test_a_repair_that_clears_nothing_leaves_the_first_pass_standing(self, document):
         bad = self._reply("Merchant names are wrong on 91% of statements. " * 8)
         llm = ScriptedLLM([EXTRACT_REPLY, bad, bad])
         _, artifacts = repurpose(document, ["linkedin"], llm)
         assert artifacts[0].meta["repaired"] is False
-        assert artifacts[0].meta["repair_cleared"] == []
+        assert artifacts[0].meta["repair_spans_changed"] == []
 
     def test_a_refused_repair_still_records_that_it_ran(self, document):
         """A repair that was attempted and rejected used to look like no repair.
