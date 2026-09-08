@@ -160,17 +160,24 @@ def _utilisation(artifacts: list[Artifact], claims: ClaimSet) -> float | None:
     return len(used) / len(claims.claims)
 
 
-def clear_stale(sources_dir: Path) -> int:
+def clear_stale(sources_dir: Path, ids: set[str] | None = None) -> int:
     """Remove a previous attempt's per-source files. Returns how many went.
 
     Only the two names this harness writes, and only in the run's own sources/
     directory. `partial/` is deliberately untouched: those are per-window judge
     crumbs, and discarding them is what --fresh is not for.
+
+    `ids` limits it to the sources this run will actually regenerate. Without that
+    limit, `--fresh --only art-willison` cleared all fifteen and regenerated one,
+    destroying fourteen sources' stored bodies to refresh a single source. Those
+    bodies are what rejudge.py and measure_copying read, and they cost a full run
+    to produce. A run only ever clears what it is about to rewrite.
     """
     stale = sorted(
         p
         for pattern in ("*.json", "*.error.txt")
         for p in sources_dir.glob(pattern)
+        if ids is None or p.name.split(".")[0] in ids
     )
     for path in stale:
         path.unlink()
@@ -222,9 +229,12 @@ def aggregate(results: list[dict], failures: list[dict], run: dict) -> dict:
     # would weight a source with three artifacts the same as one with thirty.
     fp_by_rule: dict[str, int] = {}
     for result in results:
-        by_name = result["injections"].get("unplanted_errors_by_rule") or result[
-            "injections"
-        ].get("false_positives_by_rule", {})
+        injections = result["injections"]
+        by_name = (
+            injections["unplanted_errors_by_rule"]
+            if "unplanted_errors_by_rule" in injections
+            else injections.get("false_positives_by_rule", {})
+        )
         for rule, count in by_name.items():
             fp_by_rule[rule] = fp_by_rule.get(rule, 0) + count
 
@@ -287,15 +297,17 @@ def main(argv: list[str] | None = None) -> int:
     # which: v6 finished 15/15 next to 15 error files from the Groq per-day wall
     # half an hour earlier. Only this run's own per-source files are removed;
     # partial/ holds per-window judge crumbs that are the point of resuming.
-    if args.fresh:
-        cleared = clear_stale(out_dir / "sources")
-        if cleared:
-            print(f"{DIM}cleared {cleared} file(s) from a previous {args.run}{OFF}")
-
     sources = load_sources()
     if args.only:
         wanted = {s.strip() for s in args.only.split(",")}
         sources = [s for s in sources if s["id"] in wanted]
+
+    # After --only, never before it: clearing is scoped to the sources this run is
+    # about to rewrite, so a one-source refresh cannot take the other fourteen.
+    if args.fresh:
+        cleared = clear_stale(out_dir / "sources", {s["id"] for s in sources})
+        if cleared:
+            print(f"{DIM}cleared {cleared} file(s) from a previous {args.run}{OFF}")
 
     targets = [t.strip() for t in args.targets.split(",") if t.strip()]
 

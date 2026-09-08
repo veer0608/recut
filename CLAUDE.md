@@ -19,6 +19,11 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 .venv/Scripts/python -m uvicorn recut.api:app --port 8078   # API + page at /
 ```
 
+**`--fresh` clears only the sources the run will rewrite.** It used to clear the whole
+directory before `--only` had narrowed anything, so `--fresh --only art-willison`
+destroyed fourteen sources' stored bodies to regenerate one. Those bodies are what
+`rejudge.py` and `measure_copying` read and they cost a full run to produce.
+
 `recut build` renders drafts a human approved in the review queue and nothing else.
 The draft carries the emitted files through the queue, which is what makes this possible
 at all: before that column existed an approved vidsmith draft had nothing to render.

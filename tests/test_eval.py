@@ -718,6 +718,45 @@ def test_fresh_clears_a_previous_attempts_files(tmp_path):
     assert list(sources.iterdir()) == []
 
 
+def test_fresh_only_clears_the_sources_the_run_will_rewrite(tmp_path):
+    """--fresh --only art-willison must not destroy the other fourteen.
+
+    It did. clear_stale ran before --only was parsed and took no filter, so
+    refreshing one source deleted every stored body in the run: the bodies
+    rejudge.py and measure_copying read, and which cost a full run to produce.
+    """
+    sources = tmp_path / "sources"
+    sources.mkdir()
+    for name in ("art-willison", "md-citerag", "yt-rome"):
+        (sources / f"{name}.json").write_text("{}", encoding="utf-8")
+    (sources / "art-willison.error.txt").write_text("Traceback", encoding="utf-8")
+
+    assert clear_stale(sources, {"art-willison"}) == 2
+    assert sorted(p.name for p in sources.iterdir()) == ["md-citerag.json", "yt-rome.json"]
+
+
+def test_a_hyphenated_source_id_is_matched_whole(tmp_path):
+    # Ids carry hyphens and the two file names carry different suffixes, so the
+    # id is the part before the first dot in both cases.
+    sources = tmp_path / "sources"
+    sources.mkdir()
+    (sources / "art-bank-statement.json").write_text("{}", encoding="utf-8")
+    (sources / "art-bank-statement.error.txt").write_text("t", encoding="utf-8")
+    (sources / "art-double-entry.json").write_text("{}", encoding="utf-8")
+
+    assert clear_stale(sources, {"art-bank-statement"}) == 2
+    assert [p.name for p in sources.iterdir()] == ["art-double-entry.json"]
+
+
+def test_no_filter_still_clears_everything(tmp_path):
+    sources = tmp_path / "sources"
+    sources.mkdir()
+    for name in ("a", "b"):
+        (sources / f"{name}.json").write_text("{}", encoding="utf-8")
+    assert clear_stale(sources) == 2
+    assert list(sources.iterdir()) == []
+
+
 def test_fresh_keeps_the_per_window_crumbs(tmp_path):
     """partial/ is what makes a walled run resumable. --fresh must not touch it."""
     sources = tmp_path / "sources"
