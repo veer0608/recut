@@ -805,6 +805,54 @@ def test_a_run_with_no_repairs_reports_zero_not_none():
     assert rep["reduced_rate"] is None
 
 
+class TestInventoryCache:
+    """Extraction was 49 of v11's 98 calls and depends on almost nothing that a
+    normal iteration changes. The cache is only safe if it invalidates on the
+    things it does depend on, so those are the tests."""
+
+    def _key(self, **kw):
+        import run_eval
+
+        return run_eval._inventory_key(kw.get("ref", "r"), kw.get("models", ["m1"]))
+
+    def test_the_same_inputs_give_the_same_key(self):
+        assert self._key() == self._key()
+
+    def test_a_different_source_is_a_different_key(self):
+        assert self._key(ref="a") != self._key(ref="b")
+
+    def test_a_different_model_ladder_is_a_different_key(self):
+        # An inventory from another model is another instrument, the same argument
+        # the judge's comparability rule makes.
+        assert self._key(models=["m1"]) != self._key(models=["m2"])
+
+    def test_editing_the_extraction_prompt_invalidates_every_entry(self, tmp_path, monkeypatch):
+        import run_eval
+        from recut import llm as llm_mod
+
+        prompts = tmp_path / "prompts"
+        prompts.mkdir()
+        (prompts / "extract.md").write_text("first", encoding="utf-8")
+        (prompts / "_faithfulness.md").write_text("shared", encoding="utf-8")
+        monkeypatch.setattr(run_eval, "PROMPTS", prompts)
+        before = run_eval._inventory_key("r", ["m1"])
+        (prompts / "extract.md").write_text("second", encoding="utf-8")
+        after = run_eval._inventory_key("r", ["m1"])
+        assert before != after, "editing extract.md must not reuse an old inventory"
+
+    def test_the_shared_faithfulness_block_is_in_the_key_too(self, tmp_path, monkeypatch):
+        import run_eval
+
+        prompts = tmp_path / "prompts"
+        prompts.mkdir()
+        (prompts / "extract.md").write_text("same", encoding="utf-8")
+        (prompts / "_faithfulness.md").write_text("first", encoding="utf-8")
+        monkeypatch.setattr(run_eval, "PROMPTS", prompts)
+        before = run_eval._inventory_key("r", ["m1"])
+        (prompts / "_faithfulness.md").write_text("second", encoding="utf-8")
+        assert before != run_eval._inventory_key("r", ["m1"])
+
+
 def test_fresh_only_clears_the_sources_the_run_will_rewrite(tmp_path):
     """--fresh --only art-willison must not destroy the other fourteen.
 

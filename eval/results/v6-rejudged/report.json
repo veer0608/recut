@@ -1,12 +1,12 @@
 {
   "run": {
-    "at": "2026-09-08T19:22:12+00:00",
+    "at": "2026-09-08T19:26:08+00:00",
     "rejudged_from": "v6",
     "judge_provider": "groq",
     "judge_models": [
       "openai/gpt-oss-120b"
     ],
-    "model_calls": 2
+    "model_calls": 0
   },
   "complete": false,
   "judged_by_model": true,
@@ -19,55 +19,55 @@
   "failures": [
     {
       "id": "art-double-entry",
-      "error": "LLMError: every provider failed:\n  groq 429 [per-day quota]: {\"error\":{\"message\":\"Rate limit reached for model `openai/gpt-oss-120b` in organization `org_01kyw0066geyf9hjwgs1z5dpbe` service tier `on_demand` on tokens per day (TPD): Limit 200000, Used 196225, Requested 3844. Please try again in 29.808s. Need more tokens? Upgrade to Dev Tier today at https://co"
+      "error": "LLMError: every provider failed:\n  groq 429 [per-day quota]: {\"error\":{\"message\":\"Rate limit reached for model `openai/gpt-oss-120b` in organization `org_01kyw0066geyf9hjwgs1z5dpbe` service tier `on_demand` on tokens per day (TPD): Limit 200000, Used 198476, Requested 3766. Please try again in 16m8.544s. Need more tokens? Upgrade to Dev Tier today at https://"
     },
     {
       "id": "art-ocr",
-      "error": "LLMError: every provider failed:\n  groq 429 [per-day quota]: {\"error\":{\"message\":\"Rate limit reached for model `openai/gpt-oss-120b` in organization `org_01kyw0066geyf9hjwgs1z5dpbe` service tier `on_demand` on tokens per day (TPD): Limit 200000, Used 200000, Requested 2800. Please try again in 20m9.6s. Need more tokens? Upgrade to Dev Tier today at https://co"
+      "error": "not selected by --only"
     },
     {
       "id": "art-reconciliation",
-      "error": "LLMError: every provider failed:\n  groq 429 [per-day quota]: {\"error\":{\"message\":\"Rate limit reached for model `openai/gpt-oss-120b` in organization `org_01kyw0066geyf9hjwgs1z5dpbe` service tier `on_demand` on tokens per day (TPD): Limit 200000, Used 199868, Requested 2220. Please try again in 15m2.016s. Need more tokens? Upgrade to Dev Tier today at https://"
+      "error": "not selected by --only"
     },
     {
       "id": "art-retrieval",
-      "error": "LLMError: every provider failed:\n  groq 429 [per-day quota]: {\"error\":{\"message\":\"Rate limit reached for model `openai/gpt-oss-120b` in organization `org_01kyw0066geyf9hjwgs1z5dpbe` service tier `on_demand` on tokens per day (TPD): Limit 200000, Used 199861, Requested 3153. Please try again in 21m42.048s. Need more tokens? Upgrade to Dev Tier today at https:/"
+      "error": "not selected by --only"
     },
     {
       "id": "art-vector-db",
-      "error": "LLMError: every provider failed:\n  groq 429 [per-day quota]: {\"error\":{\"message\":\"Rate limit reached for model `openai/gpt-oss-120b` in organization `org_01kyw0066geyf9hjwgs1z5dpbe` service tier `on_demand` on tokens per day (TPD): Limit 200000, Used 199859, Requested 1738. Please try again in 11m29.904s. Need more tokens? Upgrade to Dev Tier today at https:/"
+      "error": "not selected by --only"
     },
     {
       "id": "md-citerag",
-      "error": "LLMError: every provider failed:\n  groq 429 [per-day quota]: {\"error\":{\"message\":\"Rate limit reached for model `openai/gpt-oss-120b` in organization `org_01kyw0066geyf9hjwgs1z5dpbe` service tier `on_demand` on tokens per day (TPD): Limit 200000, Used 199722, Requested 5573. Please try again in 38m7.44s. Need more tokens? Upgrade to Dev Tier today at https://c"
+      "error": "not selected by --only"
     },
     {
       "id": "md-geojit",
-      "error": "LLMError: every provider failed:\n  groq 429 [per-day quota]: {\"error\":{\"message\":\"Rate limit reached for model `openai/gpt-oss-120b` in organization `org_01kyw0066geyf9hjwgs1z5dpbe` service tier `on_demand` on tokens per day (TPD): Limit 200000, Used 199720, Requested 3733. Please try again in 24m51.696s. Need more tokens? Upgrade to Dev Tier today at https:/"
+      "error": "not selected by --only"
     },
     {
       "id": "md-moneytrail",
-      "error": "LLMError: every provider failed:\n  groq 429 [per-day quota]: {\"error\":{\"message\":\"Rate limit reached for model `openai/gpt-oss-120b` in organization `org_01kyw0066geyf9hjwgs1z5dpbe` service tier `on_demand` on tokens per day (TPD): Limit 200000, Used 199582, Requested 4189. Please try again in 27m9.072s. Need more tokens? Upgrade to Dev Tier today at https://"
+      "error": "not selected by --only"
     },
     {
       "id": "md-n8n",
-      "error": "LLMError: every provider failed:\n  groq 429 [per-day quota]: {\"error\":{\"message\":\"Rate limit reached for model `openai/gpt-oss-120b` in organization `org_01kyw0066geyf9hjwgs1z5dpbe` service tier `on_demand` on tokens per day (TPD): Limit 200000, Used 199443, Requested 4103. Please try again in 25m31.871999999s. Need more tokens? Upgrade to Dev Tier today at h"
+      "error": "not selected by --only"
     },
     {
       "id": "md-reruns",
-      "error": "LLMError: every provider failed:\n  groq 429 [per-day quota]: {\"error\":{\"message\":\"Rate limit reached for model `openai/gpt-oss-120b` in organization `org_01kyw0066geyf9hjwgs1z5dpbe` service tier `on_demand` on tokens per day (TPD): Limit 200000, Used 199303, Requested 4008. Please try again in 23m50.352s. Need more tokens? Upgrade to Dev Tier today at https:/"
+      "error": "not selected by --only"
     },
     {
       "id": "md-schemablind",
-      "error": "LLMError: every provider failed:\n  groq 429 [per-day quota]: {\"error\":{\"message\":\"Rate limit reached for model `openai/gpt-oss-120b` in organization `org_01kyw0066geyf9hjwgs1z5dpbe` service tier `on_demand` on tokens per day (TPD): Limit 200000, Used 199164, Requested 4140. Please try again in 23m47.328s. Need more tokens? Upgrade to Dev Tier today at https:/"
+      "error": "not selected by --only"
     },
     {
       "id": "md-vidsmith",
-      "error": "LLMError: every provider failed:\n  groq 429 [per-day quota]: {\"error\":{\"message\":\"Rate limit reached for model `openai/gpt-oss-120b` in organization `org_01kyw0066geyf9hjwgs1z5dpbe` service tier `on_demand` on tokens per day (TPD): Limit 200000, Used 199025, Requested 4143. Please try again in 22m48.576s. Need more tokens? Upgrade to Dev Tier today at https:/"
+      "error": "not selected by --only"
     },
     {
       "id": "yt-rome",
-      "error": "LLMError: every provider failed:\n  groq 429 [per-day quota]: {\"error\":{\"message\":\"Rate limit reached for model `openai/gpt-oss-120b` in organization `org_01kyw0066geyf9hjwgs1z5dpbe` service tier `on_demand` on tokens per day (TPD): Limit 200000, Used 199022, Requested 1507. Please try again in 3m48.528s. Need more tokens? Upgrade to Dev Tier today at https://"
+      "error": "not selected by --only"
     }
   ],
   "unsupported_claim_rate": null,

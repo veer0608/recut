@@ -11,6 +11,7 @@ ones, and publishing it would be worse than publishing nothing.
 from __future__ import annotations
 
 import argparse
+import hashlib
 import json
 import sys
 import traceback
@@ -20,9 +21,9 @@ from pathlib import Path
 import yaml
 from dotenv import load_dotenv
 
-from recut.extract import extract
+from recut.extract import WINDOW_CHARS, extract
 from recut.ingest import ingest
-from recut.llm import GEMINI_MODELS, GROQ_MODEL, LLM, LLMError
+from recut.llm import GEMINI_MODELS, GROQ_MODEL, LLM, LLMError, PROMPTS
 from recut.models import Artifact, ClaimSet, Document
 from recut.pipeline import applicable, repurpose
 
@@ -45,6 +46,8 @@ GENERATOR_GROQ_MODEL = GROQ_MODEL
 HERE = Path(__file__).resolve().parent
 GOLDEN = HERE / "golden" / "sources.yaml"
 RESULTS = HERE / "results"
+# In the key so a window-size change cannot silently reuse a differently sliced run.
+WINDOW_CHARS_TAG = str(WINDOW_CHARS)
 
 GREEN, RED, YELLOW, DIM, OFF = "\033[32m", "\033[31m", "\033[33m", "\033[2m", "\033[0m"
 
@@ -66,11 +69,14 @@ def run_source(
     llm: LLM,
     judge_llm: LLM | None,
     seed: int,
+    fresh_inventory: bool = False,
 ) -> dict:
     """Everything measured for one source. Raises if the source cannot complete."""
     document = ingest(entry["ref"])
     wanted = [t for t in targets if t in applicable(document)] or applicable(document)
-    claims = repurpose_claims = extract(document, llm)
+    claims = repurpose_claims = cached_extract(
+        document, llm, entry["ref"], use_cache=not fresh_inventory
+    )
     _, artifacts = repurpose(document, wanted, llm, claims=claims)
 
     judged = {}
@@ -182,6 +188,62 @@ def clear_stale(sources_dir: Path, ids: set[str] | None = None) -> int:
     for path in stale:
         path.unlink()
     return len(stale)
+
+
+CACHE = HERE / ".cache"
+
+
+def _inventory_key(ref: str, model_ids: list[str]) -> str:
+    """What an inventory actually depends on: the source, the prompt, the model.
+
+    Not the generator prompts, not the verifier severities, not the targets, not
+    pipeline.py. Extraction was 49 of v11's 98 calls and four of the five runs made
+    on 2026-09-08 changed none of its inputs and paid for all of it again.
+
+    extract.md is hashed rather than versioned, so editing the prompt invalidates
+    every entry without anyone remembering to. The model ladder is in the key for
+    the same reason it is in the judge's comparability rule: an inventory from a
+    different model is a different instrument.
+    """
+    prompt = (PROMPTS / "extract.md").read_text(encoding="utf-8")
+    shared = (PROMPTS / "_faithfulness.md").read_text(encoding="utf-8")
+    material = "|".join([ref, prompt, shared, WINDOW_CHARS_TAG, *model_ids])
+    return hashlib.sha256(material.encode()).hexdigest()[:16]
+
+
+def cached_extract(document: Document, llm: LLM, ref: str, use_cache: bool) -> ClaimSet:
+    """extract(), but only once per (source, extraction prompt, model ladder).
+
+    Eval-only. In production every source is new, so this saves nothing there and
+    is not wired into pipeline.repurpose.
+    """
+    if not use_cache:
+        return extract(document, llm)
+    key = _inventory_key(ref, list(GEMINI_MODELS) + [GENERATOR_GROQ_MODEL])
+    hit = CACHE / f"inv-{key}.json"
+    if hit.exists():
+        stored = json.loads(hit.read_text(encoding="utf-8"))
+        claims = ClaimSet.model_validate(stored["claims"])
+        # The counters are diagnostics that do not survive model_dump, so they are
+        # stored beside the ClaimSet and put back by hand. See extract.py.
+        claims.__dict__["_dropped"] = stored.get("dropped", 0)
+        claims.__dict__["_demoted_quotes"] = stored.get("demoted_quotes", 0)
+        return claims
+    claims = extract(document, llm)
+    CACHE.mkdir(exist_ok=True)
+    hit.write_text(
+        json.dumps(
+            {
+                "ref": ref,
+                "claims": claims.model_dump(),
+                "dropped": claims.__dict__.get("_dropped", 0),
+                "demoted_quotes": claims.__dict__.get("_demoted_quotes", 0),
+            },
+            indent=2,
+        ),
+        encoding="utf-8",
+    )
+    return claims
 
 
 def _rule_counts(errors: list[str]) -> dict[str, int]:
@@ -360,6 +422,11 @@ def main(argv: list[str] | None = None) -> int:
     parser.add_argument("--env", default=".env")
     parser.add_argument("--fresh", action="store_true", help="ignore existing checkpoints")
     parser.add_argument(
+        "--fresh-inventory",
+        action="store_true",
+        help="re-extract even when a cached inventory matches; use when testing extraction",
+    )
+    parser.add_argument(
         "--no-judge",
         action="store_true",
         help="generate and score deterministically, skip the judge. Cheap, and "
@@ -425,7 +492,9 @@ def main(argv: list[str] | None = None) -> int:
                 continue
 
         try:
-            result = run_source(entry, targets, llm, judge_llm, args.seed)
+            result = run_source(
+                entry, targets, llm, judge_llm, args.seed, args.fresh_inventory
+            )
         except Exception as exc:  # noqa: BLE001 - a failure here is data, not a crash
             failures.append(
                 {"id": entry["id"], "error": f"{type(exc).__name__}: {exc}"[:900]}

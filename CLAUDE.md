@@ -40,6 +40,7 @@ the text was written and verified and only the render failed.
 
 ```bash
 .venv/Scripts/python eval/run_eval.py --run v3 --fresh --targets linkedin,thread   # 20-30 min, ~120 calls
+.venv/Scripts/python eval/run_eval.py --run v3 --fresh --fresh-inventory           # re-extract too, when testing extraction
 .venv/Scripts/python eval/tune_intensity.py                # re-derives rule precision from checkpoints, no calls
 .venv/Scripts/python eval/measure_copying.py --runs v1,v2   # copying rate over stored bodies, no calls
 .venv/Scripts/python eval/run_eval.py --run v6 --no-judge   # generate and score deterministically, ~a third the cost
@@ -48,6 +49,19 @@ the text was written and verified and only the render failed.
 
 Install: `python -m venv .venv && .venv/Scripts/python -m pip install -e ".[web,api,dev]"`, then copy
 `.env.example` to `.env` and add a Gemini or Groq key. Either alone is enough.
+
+**The claim inventory is cached, and that is half the budget.** Extraction was 49 of
+v11's 98 calls, and it depends on the source, `extract.md`, `_faithfulness.md`, the model
+ladder and `WINDOW_CHARS` -- not on generator prompts, verifier severities, targets or
+`pipeline.py`. Four of the five runs on 2026-09-08 changed none of its inputs and paid
+for all of it again. `cached_extract` keys on exactly those inputs under `eval/.cache/`,
+so editing the extraction prompt invalidates every entry without anyone remembering to,
+and `--fresh-inventory` forces a re-extract when extraction itself is what changed.
+
+Eval-only, deliberately: in production every source is new, so this saves nothing there
+and is not wired into `pipeline.repurpose`. The stored entry carries `_dropped` and
+`_demoted_quotes` beside the `ClaimSet`, because those are diagnostics that do not
+survive `model_dump` and would otherwise come back as zero.
 
 ## The one rule the whole design rests on
 
