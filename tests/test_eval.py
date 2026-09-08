@@ -84,6 +84,24 @@ class TestInjection:
     def test_a_clean_body_produces_no_false_positive(self, clean_artifact, document, claims):
         assert score([clean_artifact], document, claims)["false_positive_bodies"] == 0
 
+    def test_a_false_positive_says_which_rule_cried_wolf(self, document, claims):
+        # Recall was per rule from the start. This direction was only a body count,
+        # so when v4 and v6 differed by two bodies out of thirty there was nothing
+        # on disk to say which rule moved.
+        noisy = Artifact(target="linkedin", body="Adyen Holdings said so.", claim_ids=[])
+        result = score([noisy], document, claims)
+        assert result["false_positive_bodies"] == 1
+        assert result["false_positives_by_rule"] == {"entity": 1}
+        assert result["false_positives"][0]["rules"] == ["entity"]
+
+    def test_a_rule_firing_twice_in_one_body_counts_once(self, document, claims):
+        # Kept commensurable with false_positive_bodies, which is a body count.
+        twice = Artifact(
+            target="linkedin", body="Adyen Holdings and Stripe Payments said so.", claim_ids=[]
+        )
+        result = score([twice], document, claims)
+        assert result["false_positives_by_rule"] == {"entity": 1}
+
     def test_copying_is_not_scored_as_a_fabrication_false_positive(self, document, claims):
         # Copying became an error once v6 confirmed the rate, which put it in front
         # of this scorer. It is never planted, and a body reproducing the source

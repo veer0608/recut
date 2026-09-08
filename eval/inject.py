@@ -182,10 +182,26 @@ def score(
         for a in artifacts
     ]
     false_positives = [
-        {"target": a.target, "spans": [str(w) for w in errors]}
+        {
+            "target": a.target,
+            "rules": sorted({w.rule for w in errors}),
+            "spans": [str(w) for w in errors],
+        }
         for a, errors in fabrication_errors
         if errors
     ]
+
+    # Which rule cried wolf, not just how many bodies it happened in. Recall was
+    # per rule from the start, "because an overall number hides a rule that has
+    # quietly stopped working", and the same argument applies in this direction:
+    # v4 and v6 differed by two bodies out of thirty and nothing on disk said
+    # whether that was intensity, entity, or something new. Counted per body, so
+    # a rule firing twice in one body counts once and the figures stay
+    # commensurable with false_positive_bodies.
+    fp_by_rule: dict[str, int] = {}
+    for _, errors in fabrication_errors:
+        for rule in {w.rule for w in errors}:
+            fp_by_rule[rule] = fp_by_rule.get(rule, 0) + 1
 
     per_rule = {rule: sum(hits) / len(hits) for rule, hits in caught.items() if hits}
     total = sum(sum(h) for h in caught.values())
@@ -199,5 +215,6 @@ def score(
         "missed": missed,
         "clean_bodies": len(artifacts),
         "false_positive_bodies": len(false_positives),
+        "false_positives_by_rule": dict(sorted(fp_by_rule.items())),
         "false_positives": false_positives,
     }

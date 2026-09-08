@@ -187,6 +187,13 @@ def aggregate(results: list[dict], failures: list[dict], run: dict) -> dict:
         for rule, value in result["injections"]["recall_by_rule"].items():
             by_rule.setdefault(rule, []).append(value)
 
+    # Summed rather than averaged: these are body counts, and a mean over sources
+    # would weight a source with three artifacts the same as one with thirty.
+    fp_by_rule: dict[str, int] = {}
+    for result in results:
+        for rule, count in result["injections"].get("false_positives_by_rule", {}).items():
+            fp_by_rule[rule] = fp_by_rule.get(rule, 0) + count
+
     headline = (judged_unsupported / judged_claims) if judged_claims else None
     if not judged_run or not one_instrument:
         headline = None
@@ -211,6 +218,7 @@ def aggregate(results: list[dict], failures: list[dict], run: dict) -> dict:
             rule: sum(v) / len(v) for rule, v in by_rule.items() if v
         },
         "verifier_false_positive_rate": (fp_bodies / bodies) if bodies else None,
+        "verifier_false_positives_by_rule": dict(sorted(fp_by_rule.items())),
         "format_compliance": (1 - violations / artifacts) if artifacts else None,
         "claim_utilisation": (sum(utilisations) / len(utilisations)) if utilisations else None,
         "artifacts": artifacts,
@@ -335,6 +343,9 @@ def main(argv: list[str] | None = None) -> int:
     )
     for rule, value in sorted(report["verifier_recall_by_rule"].items()):
         print(f"            {rule:<10} {_pct(value)}")
+    for rule, count in report["verifier_false_positives_by_rule"].items():
+        print(f"{DIM}            {rule:<10} cried wolf on {count} clean bod"
+              f"{'y' if count == 1 else 'ies'}{OFF}")
     print(f"format      {_pct(report['format_compliance'])} compliant")
     print(f"utilisation {_pct(report['claim_utilisation'])} of extracted claims used")
 
