@@ -1,0 +1,101 @@
+{
+  "id": "yt-rome",
+  "judged_by_model": false,
+  "kind": "youtube",
+  "ref": "https://www.youtube.com/watch?v=0PkBP0dk4Lw",
+  "title": "Why Rome Never Really Fell made with vidsmith",
+  "segments": 10,
+  "chars": 2174,
+  "extracted_claims": 7,
+  "dropped_unanchored": 0,
+  "targets": [
+    "linkedin",
+    "thread"
+  ],
+  "verifier_errors": {
+    "linkedin": [],
+    "thread": []
+  },
+  "format_violations": {},
+  "repaired": [
+    "linkedin"
+  ],
+  "claim_utilisation": 1.0,
+  "judged": {},
+  "judged_claims": 0,
+  "judged_unsupported": 0,
+  "injections": {
+    "planted": 10,
+    "caught": 10,
+    "recall": 1.0,
+    "recall_by_rule": {
+      "number": 1.0,
+      "quote": 1.0,
+      "entity": 1.0,
+      "intensity": 1.0,
+      "citation": 1.0
+    },
+    "missed": [],
+    "clean_bodies": 2,
+    "false_positive_bodies": 0,
+    "false_positives": []
+  },
+  "bodies": {
+    "linkedin": "Farmers often left their land by 450 to find security with local warlords, which lowered the tax revenue the empire could collect. This shift highlights that the collapse of the Roman Empire was a gradual process of internal decay rather than a single event triggered by outside forces.\n\nPopular ideas that the state ended abruptly in 476 due to barbarian incursions are inaccurate. The government struggled to function because it lacked the funds to cover its expenses. Emperors worsened this instability by mixing base metals into silver currency, which caused high inflation.\n\nCentral imperial authority weakened as local commanders prioritized private security arrangements. The vast geographic size of the empire also made it impossible to defend against rapid incursions. Political corruption and frequent civil wars between generals seeking power furthered the decline of the state.\n\nDo not look for a sudden ending when empires crumble.",
+    "thread": "The popular belief that Rome ended abruptly due to a barbarian invasion in 476 is inaccurate.\n\nThe empire suffered from a long process of internal systemic decay rather than a single dramatic event.\n\nEmperors contributed to economic instability by diluting silver currency with base metals to cover military costs, leading to high inflation.\n\nThe Western Roman government struggled to function because it lacked the funds to pay its expenses.\n\nThe vast geographic extent of the Roman Empire made it impossible to defend against rapid incursions.\n\nLocal commanders often prioritized private security arrangements over central imperial authority.\n\nBy 450, farmers often abandoned their land to seek protection from local warlords, which reduced the tax revenue available to the empire.\n\nInternal political corruption and frequent civil wars caused by generals seeking power contributed to the decline of the state.\n\nThe collapse of the Roman Empire was not a singular event caused by external invasion, but a gradual process of internal systemic decay."
+  },
+  "inventory": {
+    "claims": [
+      {
+        "id": "c0",
+        "kind": "fact",
+        "text": "The popular belief that Rome ended abruptly due to a barbarian invasion in 476 is inaccurate."
+      },
+      {
+        "id": "c1",
+        "kind": "fact",
+        "text": "The Western Roman government struggled to function because it lacked the funds to pay its expenses."
+      },
+      {
+        "id": "c2",
+        "kind": "fact",
+        "text": "Emperors contributed to economic instability by diluting silver currency with base metals to cover military costs, leading to high inflation."
+      },
+      {
+        "id": "c3",
+        "kind": "fact",
+        "text": "The vast geographic extent of the Roman Empire made it impossible to defend against rapid incursions."
+      },
+      {
+        "id": "c4",
+        "kind": "fact",
+        "text": "Local commanders often prioritized private security arrangements over central imperial authority."
+      },
+      {
+        "id": "c5",
+        "kind": "fact",
+        "text": "Internal political corruption and frequent civil wars caused by generals seeking power contributed to the decline of the state."
+      },
+      {
+        "id": "c6",
+        "kind": "narrative",
+        "text": "By 450, farmers often abandoned their land to seek protection from local warlords, which reduced the tax revenue available to the empire."
+      }
+    ],
+    "hook_candidates": [
+      "The fall of Rome was not a sudden catastrophe, but a long, quiet rot from within.",
+      "Barbarian invasions were not the primary cause of Rome's collapse.",
+      "Roman citizens stopped using imperial currency because runaway inflation made it worthless.",
+      "The Roman Empire became impossible to defend simply because it was too large.",
+      "Local warlords often provided better protection to citizens than the Roman emperor could."
+    ],
+    "voice_samples": [
+      "Rome did not vanish in a single dramatic afternoon.",
+      "That simple narrative is completely wrong.",
+      "First came the slow poison of currency devaluation.",
+      "Central authority meant nothing when a general three provinces away protected you better than the distant emperor.",
+      "Do not look for a sudden ending when empires crumble."
+    ],
+    "thesis": "The collapse of the Roman Empire was not a singular event caused by external invasion, but a gradual process of internal systemic decay."
+  }
+}

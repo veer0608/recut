@@ -1,0 +1,213 @@
+{
+  "id": "art-retrieval",
+  "judged_by_model": false,
+  "kind": "article",
+  "ref": "https://en.wikipedia.org/wiki/Retrieval-augmented_generation",
+  "title": "Retrieval-augmented generation - Wikipedia",
+  "segments": 26,
+  "chars": 14498,
+  "extracted_claims": 29,
+  "dropped_unanchored": 0,
+  "targets": [
+    "linkedin",
+    "thread"
+  ],
+  "verifier_errors": {
+    "linkedin": [],
+    "thread": []
+  },
+  "format_violations": {},
+  "repaired": [],
+  "claim_utilisation": 0.41379310344827586,
+  "judged": {},
+  "judged_claims": 0,
+  "judged_unsupported": 0,
+  "injections": {
+    "planted": 10,
+    "caught": 10,
+    "recall": 1.0,
+    "recall_by_rule": {
+      "number": 1.0,
+      "quote": 1.0,
+      "entity": 1.0,
+      "intensity": 1.0,
+      "citation": 1.0
+    },
+    "missed": [],
+    "clean_bodies": 2,
+    "false_positive_bodies": 0,
+    "false_positives": []
+  },
+  "bodies": {
+    "linkedin": "A single factual error by an AI chatbot once contributed to a $100 billion decline in a company's stock value.\n\nRetrieval-augmented generation attempts to address these issues by grounding model responses in external data rather than relying on static training sets. This technique allows models to incorporate information not present in their initial training data.\n\n\"RAG is a way of improving LLM performance, in essence by blending the LLM process with a web search or other document look-up process to help LLMs stick to the facts.\"\n\nProviding sources within responses allows users to verify information, yet the method is not a complete solution. \"It is not a direct solution because the LLM can still hallucinate around the source material in its response.\"\n\nModels may still misinterpret context or struggle to identify when they lack sufficient information to answer reliably. Developers can use techniques like late interaction or hybrid vector approaches to refine retrieval, but these systems do not entirely remove the requirement for frequent model retraining.\n\nRetrieval-augmented generation remains an active area of study for improving model transparency.",
+    "thread": "A single factual error by an AI chatbot once wiped $100 billion off a company's market value.\n\nRetrieval-augmented generation was introduced in a 2020 research paper to help models incorporate external data not found in their initial training.\n\nProviding sources within model responses allows users to verify the accuracy of the information.\n\nThis technique reduces the financial and computational requirements associated with retraining models on new information.\n\nHowever, RAG is not a complete solution for LLM hallucinations because models can still generate false information around the provided source material.\n\nModels may struggle to identify when they lack sufficient information to answer reliably, often because they cannot assess their own knowledge limitations.\n\nGrounding responses in external data improves accuracy and transparency, but it does not replace the need for critical human verification."
+  },
+  "inventory": {
+    "claims": [
+      {
+        "id": "c0",
+        "kind": "fact",
+        "text": "Retrieval-augmented generation enables large language models to incorporate information from external sources that was not present in their initial training data."
+      },
+      {
+        "id": "c1",
+        "kind": "stat",
+        "text": "The retrieval-augmented generation technique was introduced in a 2020 research paper."
+      },
+      {
+        "id": "c2",
+        "kind": "quote",
+        "text": "Ars Technica describes RAG as a method for blending the language model process with document look-up to help models stay factual."
+      },
+      {
+        "id": "c3",
+        "kind": "fact",
+        "text": "Using RAG can help mitigate AI hallucinations, such as the invention of nonexistent legal cases or policies."
+      },
+      {
+        "id": "c4",
+        "kind": "fact",
+        "text": "RAG reduces the financial and computational requirements associated with retraining models on new information."
+      },
+      {
+        "id": "c5",
+        "kind": "fact",
+        "text": "Providing sources within model responses allows users to verify the accuracy of the information."
+      },
+      {
+        "id": "c6",
+        "kind": "stat",
+        "text": "A Google error regarding the James Webb Space Telescope led to a stock value decrease of $100 billion."
+      },
+      {
+        "id": "c7",
+        "kind": "narrative",
+        "text": "Models may still produce misinformation if they misinterpret the context of correctly retrieved source material."
+      },
+      {
+        "id": "c8",
+        "kind": "fact",
+        "text": "Prompt stuffing involves inserting relevant context into the input to encourage the model to prioritize new information over its pre-existing training knowledge."
+      },
+      {
+        "id": "c9",
+        "kind": "fact",
+        "text": "Data for RAG is typically converted into numerical vector embeddings and stored in a database to facilitate retrieval."
+      },
+      {
+        "id": "c10",
+        "kind": "fact",
+        "text": "RAG has been explored in healthcare to ground model outputs in medical knowledge, though it faces ongoing challenges regarding ethics and clinical reliability."
+      },
+      {
+        "id": "c11",
+        "kind": "fact",
+        "text": "Text can be represented as dense vectors, which capture meaning, or sparse vectors, which identify specific words."
+      },
+      {
+        "id": "c12",
+        "kind": "fact",
+        "text": "Retrieval performance can be enhanced by using dot products for similarity scoring and approximate nearest neighbor searches for efficiency."
+      },
+      {
+        "id": "c13",
+        "kind": "fact",
+        "text": "Late Interactions can potentially improve search relevance by allowing for more precise word comparisons after the initial retrieval."
+      },
+      {
+        "id": "c14",
+        "kind": "fact",
+        "text": "Hybrid approaches may combine dense and sparse vectors to leverage the computational efficiency of sparse dot products."
+      },
+      {
+        "id": "c15",
+        "kind": "fact",
+        "text": "Techniques like the Inverse Cloze Task can help models learn retrieval patterns by predicting masked text within documents."
+      },
+      {
+        "id": "c16",
+        "kind": "fact",
+        "text": "Supervised retriever optimization involves minimizing the KL divergence between the retriever's selections and the generator's likelihood distribution."
+      },
+      {
+        "id": "c17",
+        "kind": "stat",
+        "text": "Redesigning language models to incorporate a retriever allows a network that is 25 times smaller to achieve comparable perplexity."
+      },
+      {
+        "id": "c18",
+        "kind": "fact",
+        "text": "The Retro model is trained from scratch, which incurs higher training costs compared to the original RAG scheme."
+      },
+      {
+        "id": "c19",
+        "kind": "fact",
+        "text": "Retro++ was developed as a more reproducible version of Retro that incorporates in-context RAG."
+      },
+      {
+        "id": "c20",
+        "kind": "fact",
+        "text": "Combining vector searches with traditional full-text searches can help recover key facts that semantic searches might otherwise miss."
+      },
+      {
+        "id": "c21",
+        "kind": "quote",
+        "text": "RAG is not a complete solution for LLM hallucinations because models can still generate false information around the provided source material."
+      },
+      {
+        "id": "c22",
+        "kind": "fact",
+        "text": "RAG does not entirely remove the requirement for frequent model retraining."
+      },
+      {
+        "id": "c23",
+        "kind": "fact",
+        "text": "Models may struggle to identify when they lack sufficient information to answer reliably, often because they cannot assess their own knowledge limitations."
+      },
+      {
+        "id": "c24",
+        "kind": "fact",
+        "text": "RAG systems may misinterpret retrieved data, leading to errors where models merge outdated and updated information or draw incorrect conclusions."
+      },
+      {
+        "id": "c25",
+        "kind": "stat",
+        "text": "The academic paper titled Retrieval-Augmented Generation for Knowledge-Intensive NLP Tasks was published in 2020."
+      },
+      {
+        "id": "c26",
+        "kind": "fact",
+        "text": "Retrieval-augmented generation is a method used to potentially reduce the frequency of hallucinations in language models."
+      },
+      {
+        "id": "c27",
+        "kind": "stat",
+        "text": "A systematic review published in 2025 examined the application of retrieval-augmented generation within the healthcare sector."
+      },
+      {
+        "id": "c28",
+        "kind": "fact",
+        "text": "ColBERT is a specific approach for passage searching that utilizes late interaction over BERT."
+      }
+    ],
+    "hook_candidates": [
+      "A single factual error by an AI chatbot once wiped $100 billion off a company's market value.",
+      "Large language models can be tricked by book titles into stating historical falsehoods.",
+      "Retrieval-augmented generation allows AI to cite its sources, finally making it possible for users to verify the claims they read.",
+      "Instead of retraining AI models from scratch, developers can now simply update an external database to keep the system current.",
+      "Prompt stuffing is a technique used to force AI models to prioritize new information over their original training.",
+      "Retrieval-augmented generation does not actually stop large language models from hallucinating.",
+      "A language model redesigned to work with a retriever can be 25 times smaller while maintaining the same performance.",
+      "Retrieval systems can sometimes lead models to merge outdated and current information into a single, misleading answer."
+    ],
+    "voice_samples": [
+      "The LLM did not \"know\" or \"understand\" the context of the title, generating a false statement.",
+      "This error contributed to a $100 billion decline in Google's stock value.",
+      "RAG is used to prevent these errors, but it does not solve all the problems.",
+      "Typically, the data to be referenced is converted into LLM embeddings, numerical representations in the form of a large vector space.",
+      "Beyond efficiency gains, RAG also allows LLMs to include sources in their responses, so users can verify the cited sources.",
+      "RAG does not prevent hallucinations in LLMs."
+    ],
+    "thesis": "Retrieval-augmented generation improves the accuracy and transparency of large language models by grounding their responses in external, verifiable data sources rather than relying solely on static training sets."
+  }
+}

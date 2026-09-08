@@ -1,0 +1,41 @@
+{
+  "run": {
+    "at": "2026-09-08T17:09:32+00:00",
+    "seed": 0,
+    "targets": [
+      "linkedin",
+      "thread"
+    ],
+    "judge_provider": null,
+    "judge_models": [],
+    "generator_models": [
+      "gemini-3.1-flash-lite",
+      "gemini-3-flash-preview",
+      "qwen/qwen3.6-27b"
+    ],
+    "model_calls": 92
+  },
+  "complete": true,
+  "judged_by_model": false,
+  "judge_window_chars": [],
+  "one_instrument": true,
+  "sources_attempted": 15,
+  "sources_completed": 15,
+  "failures": [],
+  "unsupported_claim_rate": null,
+  "unsupported_claim_rate_provisional": null,
+  "judged_claims": 0,
+  "judged_unsupported": 0,
+  "verifier_recall_on_injections": 1.0,
+  "verifier_recall_by_rule": {
+    "number": 1.0,
+    "quote": 1.0,
+    "entity": 1.0,
+    "intensity": 1.0,
+    "citation": 1.0
+  },
+  "verifier_false_positive_rate": 0.16666666666666666,
+  "format_compliance": 1.0,
+  "claim_utilisation": 0.5009461357513898,
+  "artifacts": 30
+}

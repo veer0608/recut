@@ -1,0 +1,298 @@
+{
+  "id": "md-citerag",
+  "judged_by_model": false,
+  "kind": "markdown",
+  "ref": "C:\\Users\\veera\\claude\\citerag\\README.md",
+  "title": "CiteRAG",
+  "segments": 95,
+  "chars": 28402,
+  "extracted_claims": 46,
+  "dropped_unanchored": 0,
+  "targets": [
+    "linkedin",
+    "thread"
+  ],
+  "verifier_errors": {
+    "linkedin": [],
+    "thread": []
+  },
+  "format_violations": {},
+  "repaired": [],
+  "claim_utilisation": 0.17391304347826086,
+  "judged": {},
+  "judged_claims": 0,
+  "judged_unsupported": 0,
+  "injections": {
+    "planted": 10,
+    "caught": 10,
+    "recall": 1.0,
+    "recall_by_rule": {
+      "number": 1.0,
+      "quote": 1.0,
+      "entity": 1.0,
+      "intensity": 1.0,
+      "citation": 1.0
+    },
+    "missed": [],
+    "clean_bodies": 2,
+    "false_positive_bodies": 0,
+    "false_positives": []
+  },
+  "bodies": {
+    "linkedin": "Increasing the re-rank pool depth from 20 to 50 candidates resulted in a recall decrease of 0.033 because the added distractors outweighed the benefit of surfacing additional potential matches.\n\nMost RAG systems rely on retrieval, yet many developers skip quantitative evaluation. Using Berkshire Hathaway reports as a challenging corpus reveals that naive approaches often fail on complex tables and repetitive boilerplate.\n\nAdding a re-ranker improved the mean reciprocal rank from 0.302 to 0.365, but the recall improvement was a more modest 0.033. Meanwhile, hybrid retrieval provided the largest single performance improvement, raising recall at 5 by 0.133.\n\nTesting showed that table-aware ingestion introduced near-duplicate chunks that displaced relevant narrative content, resulting in a recall decrease of 0.067. Even when a model fails to generate citations, the system can attempt to reconstruct provenance by matching figures from the answer to retrieved passages.\n\nRigorous testing often exposes that your intuition about the best retrieval strategy is wrong.",
+    "thread": "Increasing the re-rank pool depth from 20 to 50 candidates resulted in a recall decrease of 0.033 because the added distractors outweighed the benefit of surfacing additional potential matches.\n\nMost RAG tutorials ignore the most important part of the stack: proving your retrieval actually works with hard numbers.\n\nUsing Berkshire Hathaway reports as a data source exposes the specific failures of naive RAG systems, like splitting tables mid-row.\n\nHybrid retrieval, which fuses dense embeddings with lexical search, provided the largest single performance improvement, raising recall at 5 by +0.133.\n\nTable-aware ingestion was rejected after testing because it introduced near-duplicate chunks that displaced relevant narrative content, resulting in a recall decrease of \u22120.067.\n\nRAG systems should prioritize objective retrieval evaluation over simple generation quality to ensure factual accuracy and system reliability."
+  },
+  "inventory": {
+    "claims": [
+      {
+        "id": "c0",
+        "kind": "fact",
+        "text": "The CiteRAG system provides a retrieval-augmented generation framework that cites specific source passages and page numbers for its answers."
+      },
+      {
+        "id": "c1",
+        "kind": "fact",
+        "text": "The project includes a golden-question evaluation harness designed to measure retrieval performance quantitatively."
+      },
+      {
+        "id": "c2",
+        "kind": "fact",
+        "text": "The corpus consists of Berkshire Hathaway annual reports from 2021 through 2023, which are used as a challenging retrieval target due to their complex financial tables and repetitive boilerplate."
+      },
+      {
+        "id": "c3",
+        "kind": "fact",
+        "text": "The system utilizes SQLite with the sqlite-vec extension for its vector store to maintain a local, zero-infrastructure architecture."
+      },
+      {
+        "id": "c4",
+        "kind": "stat",
+        "text": "The default embedding model used is bge-small-en-v1.5, which is a 384-dimensional local model."
+      },
+      {
+        "id": "c5",
+        "kind": "fact",
+        "text": "The system's local LLM option, Qwen2.5-0.5B-Instruct, can run on a CPU and does not require an API key."
+      },
+      {
+        "id": "c6",
+        "kind": "fact",
+        "text": "The retrieval and evaluation components of the system do not require an LLM to function."
+      },
+      {
+        "id": "c7",
+        "kind": "fact",
+        "text": "If a model fails to generate citations for its claims, the system attempts to reconstruct provenance by matching figures from the answer to retrieved passages."
+      },
+      {
+        "id": "c8",
+        "kind": "stat",
+        "text": "The first run of the seed script downloads the bge-small embedding model, which is approximately 130 megabytes in size."
+      },
+      {
+        "id": "c9",
+        "kind": "fact",
+        "text": "The CiteRAG system identifies claims for inference by looking for decimals, percentage signs, or sequences of three or more digits, while intentionally ignoring bare years and date components."
+      },
+      {
+        "id": "c10",
+        "kind": "stat",
+        "text": "In a test case, a local model correctly attributed a 41.4% interest stake in Pilot Travel Centers to three specific source pages by identifying the matching percentage figure."
+      },
+      {
+        "id": "c11",
+        "kind": "fact",
+        "text": "The chunking strategy is isolated to allow for independent swapping and unit testing, starting with a naive fixed-size window of 500 tokens and 50 tokens of overlap."
+      },
+      {
+        "id": "c12",
+        "kind": "fact",
+        "text": "System ingestion is designed to be idempotent, ensuring that deterministic identifiers allow re-ingestion to replace previous data rows while capturing empty or scanned pages."
+      },
+      {
+        "id": "c13",
+        "kind": "stat",
+        "text": "The initial baseline recall at 5 for the retrieval system was 0.367."
+      },
+      {
+        "id": "c14",
+        "kind": "stat",
+        "text": "Implementing structure-aware, page-bounded chunking improved recall from 0.367 to 0.467."
+      },
+      {
+        "id": "c15",
+        "kind": "stat",
+        "text": "Adding a re-ranker increased the mean reciprocal rank from 0.302 to 0.365, even though the recall improvement was a more modest 0.033."
+      },
+      {
+        "id": "c16",
+        "kind": "stat",
+        "text": "Hybrid retrieval, which fuses dense embeddings with lexical search, provided the largest single performance improvement, raising recall at 5 by 0.133."
+      },
+      {
+        "id": "c17",
+        "kind": "stat",
+        "text": "Table-aware ingestion was rejected after testing because it introduced near-duplicate chunks that displaced relevant narrative content, resulting in a recall decrease of 0.067."
+      },
+      {
+        "id": "c18",
+        "kind": "stat",
+        "text": "Increasing the re-rank pool depth from 20 to 50 candidates resulted in a recall decrease of 0.033 because the added distractors outweighed the benefit of surfacing additional potential matches."
+      },
+      {
+        "id": "c19",
+        "kind": "stat",
+        "text": "Increasing the evaluation set from 30 to 60 questions reduced the margin of error for each question from \u00b10.033 to \u00b10.017."
+      },
+      {
+        "id": "c20",
+        "kind": "fact",
+        "text": "The 60-question evaluation set was intentionally weighted toward failure modes including equity-holdings table lookups, facts varying by year, and questions phrased differently than the source document."
+      },
+      {
+        "id": "c21",
+        "kind": "stat",
+        "text": "Using the bge-reranker-large model achieved a recall@5 of 0.850, though it incurred a latency of 45 seconds per query on a CPU."
+      },
+      {
+        "id": "c22",
+        "kind": "fact",
+        "text": "Three test drafts were excluded because their answer substrings appeared on too many pages to serve as valid ground truth."
+      },
+      {
+        "id": "c23",
+        "kind": "fact",
+        "text": "The system previously failed to distinguish between physical PDF page indices and the page numbers printed on the documents, necessitating a fix to extract printed labels during ingest."
+      },
+      {
+        "id": "c24",
+        "kind": "narrative",
+        "text": "Hybrid dense and BM2023 fair value data for Apple was cited as an example of a retrieval failure where the correct chunk was present but ranked too low."
+      },
+      {
+        "id": "c25",
+        "kind": "fact",
+        "text": "The re-ranker configuration is the current default because it provides the best scoring results, despite adding a 1.1GB cross-encoder and per-query latency."
+      },
+      {
+        "id": "c26",
+        "kind": "stat",
+        "text": "Expanding the golden set to 60 questions revealed that the 'never-retrieved' bucket accounted for 45% of all failures, whereas the 30-question set had incorrectly suggested query rewriting was low-value."
+      },
+      {
+        "id": "c27",
+        "kind": "fact",
+        "text": "The pdfplumber tool sometimes combines words into single tokens, which hinders FTS5 index matching."
+      },
+      {
+        "id": "c28",
+        "kind": "fact",
+        "text": "BM25 retrieval failed to find company-name queries in holdings tables because it was structurally blind to the data, while dense retrieval methods saw only digits."
+      },
+      {
+        "id": "c29",
+        "kind": "fact",
+        "text": "Query rewriting techniques cannot resolve issues where tokens are incorrectly welded together."
+      },
+      {
+        "id": "c30",
+        "kind": "fact",
+        "text": "Ingest-time token splitting at case boundaries can repair both lexical and dense retrieval paths."
+      },
+      {
+        "id": "c31",
+        "kind": "stat",
+        "text": "All-lowercase welded tokens represent approximately 10.2 percent of all alphabetic tokens."
+      },
+      {
+        "id": "c32",
+        "kind": "fact",
+        "text": "Using maximum-likelihood dynamic programming to re-space long tokens can reduce the frequency of welded tokens."
+      },
+      {
+        "id": "c33",
+        "kind": "stat",
+        "text": "Initial attempts to segment tokens using vocabulary-based re-spacing reduced welded tokens from 10.2 percent to 5.4 percent."
+      },
+      {
+        "id": "c34",
+        "kind": "fact",
+        "text": "A bug in the initial segmentation logic caused it to ignore welded tokens starting with a capital letter, which is where many entity names appear."
+      },
+      {
+        "id": "c35",
+        "kind": "fact",
+        "text": "Measurement errors in ground truth, such as stripping whitespace or misinterpreting commas, can lead to false hits and false misses in retrieval evaluation."
+      },
+      {
+        "id": "c36",
+        "kind": "stat",
+        "text": "The default retrieval path maintains a performance metric of 0.683."
+      },
+      {
+        "id": "c37",
+        "kind": "stat",
+        "text": "The bge-reranker-base model provides a marginal recall improvement of 0.017, which equates to one question."
+      },
+      {
+        "id": "c38",
+        "kind": "stat",
+        "text": "Using the bge-reranker-large model improves recall by 0.083, or five questions, compared to the base model."
+      },
+      {
+        "id": "c39",
+        "kind": "stat",
+        "text": "The bge-reranker-large model increases MRR from 0.590 to 0.674."
+      },
+      {
+        "id": "c40",
+        "kind": "fact",
+        "text": "The project continues to use the base reranker model because the large model requires 45 seconds per query on a CPU, which is too slow for a functional demonstration."
+      },
+      {
+        "id": "c41",
+        "kind": "fact",
+        "text": "Citations are generated by reading the printed page label directly from the document and storing it alongside the physical PDF index."
+      },
+      {
+        "id": "c42",
+        "kind": "stat",
+        "text": "Approximately 98% of document chunks are successfully assigned a printed page label."
+      },
+      {
+        "id": "c43",
+        "kind": "fact",
+        "text": "The evaluation harness uses the physical PDF index for page matching because the expected page numbers in the golden set are often inconsistent or off by one."
+      },
+      {
+        "id": "c44",
+        "kind": "fact",
+        "text": "The source code for this project is released under the MIT license."
+      },
+      {
+        "id": "c45",
+        "kind": "fact",
+        "text": "The repository does not redistribute Berkshire Hathaway annual reports, instead downloading them from the company website during setup."
+      }
+    ],
+    "hook_candidates": [
+      "Most RAG tutorials ignore the most important part of the stack: proving your retrieval actually works with hard numbers.",
+      "Using Berkshire Hathaway reports as a data source exposes the specific failures of naive RAG systems, like splitting tables mid-row.",
+      "You can build a fully local RAG system that cites its sources without needing any external API keys or expensive infrastructure.",
+      "When an LLM fails to cite its sources, you can still verify its accuracy by programmatically matching its output figures to your document chunks.",
+      "Vector search doesn't always need a heavy database like Postgres; SQLite can handle the workload entirely locally.",
+      "The most effective way to improve RAG performance is often a simple keyword index, not a more complex model.",
+      "Adding more data to your re-ranker can actually make your search results worse.",
+      "If your RAG system doesn't have a regression gate, you are likely breaking your search without knowing it."
+    ],
+    "voice_samples": [
+      "Diagnosis: the corpus is full of exact tokens \u2014 dollar amounts, tickers, years \u2014 that dense embeddings blur; a keyword index nails them.",
+      "The 30-question set pointed at the wrong lever.",
+      "Nothing about the system changed between those two measurements.",
+      "Reading those 10 failures instead of trusting the bucket label found the real cause.",
+      "Then running the actual app found a bug the metric had hidden.",
+      "That reading was wrong."
+    ],
+    "thesis": "RAG systems should prioritize objective retrieval evaluation over simple generation quality to ensure factual accuracy and system reliability."
+  }
+}
