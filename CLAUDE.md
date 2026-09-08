@@ -115,10 +115,30 @@ is enforced in `aggregate()`, not left to discipline, because a partial run tend
 only the markdown sources, which score roughly three times better than articles. A partial rate
 is a rate over the easy half.
 
-Two metrics, deliberately separate. The judge (`eval/judge.py`) is pinned to a **different model
-ladder** than the generators so nothing grades its own work. `eval/inject.py` plants known
-fabrications so the deterministic layer gets a score whose truth is known by construction: an
-unvalidated judge is a number with nothing behind it.
+Two metrics, deliberately separate. The judge (`eval/judge.py`) runs on Groq
+`openai/gpt-oss-120b` and the generators walk Gemini before falling back to Groq
+`qwen/qwen3.6-27b`, so nothing grades its own work. Both sides are pinned by name and
+`run_eval` refuses to start if the two strings ever match: this used to be two Gemini
+ladders that the generators could fall through into, which held by luck.
+
+Full provider separation was tried and reverted the same day. Pinning generators to
+Gemini alone was the stronger claim and cost them their fallback, and a fresh run then
+failed 15 of 15 sources at extraction when Gemini's daily budget went. With two
+providers, both halves cannot be single-provider and independently fault-tolerant at
+once, and an eval that cannot run measures nothing.
+
+The judge is **windowed** at `JUDGE_WINDOW_CHARS`, because Groq returns 413 above
+roughly 20k where Gemini took 35k. Window size is not a performance knob: support is
+existential per window, so a sentence needing two distant paragraphs is supported when
+one window holds both and not when none does. Smaller windows move the rate upward,
+which is why `aggregate()` withholds the headline when a run mixes sizes.
+
+`eval/inject.py` plants known fabrications so the deterministic layer gets a score whose
+truth is known by construction: an unvalidated judge is a number with nothing behind it.
+
+`eval/rejudge.py` re-scores a finished run's stored bodies when the judge changes, at
+the cost of judging and no generation. A rate is only comparable to another rate the
+same judge produced.
 
 `claim_utilisation` is **not** recall. It is the share of extracted claims some output used.
 Recall would need a hand-labelled inventory the golden set does not have.
@@ -136,10 +156,24 @@ while markdown regressed (8.9% to 15.0%).
   smallest free-tier allowance: `gemini-flash-latest` resolved to `gemini-3.8-flash` at 20
   requests per day. `llm.py` pins ids and walks a ladder because quota is **per model**, so a
   429 on one says nothing about the next.
+- **The models are pinned so this project competes with nothing else on this machine.**
+  `reruns` measures daily against `gemini-3.7-flash`, `-3.6`, `-3.5` and Groq
+  `openai/gpt-oss-20b`; `vidsmith` sits on `gemini-3.5-flash-lite`. recut walks
+  `gemini-3.1-flash-lite` then `gemini-3-flash-preview`, falls back to `qwen/qwen3.6-27b`,
+  and judges on `openai/gpt-oss-120b`. Sharing one cost two days: a judge probed alive and
+  was spent minutes later because something else had been through it. Scheduled tasks
+  compete too, so stagger them.
 - **Branch a 429 on the quota it names, not the status code.** Gemini's body carries a `quotaId`
-  like `...PerDayPerProjectPerModel...`; Groq's says tokens per minute. Per-minute is retried,
-  per-day moves on. Treating all 429s alike either abandons a run over a blip or sleeps through
-  a wall until tomorrow.
+  like `...PerDayPerProjectPerModel...`; Groq's says tokens per minute or per day.
+  Per-minute is retried, per-day moves on, and a 429 that names **nothing** is retried
+  rather than believed: that default once cost a judged run ten of fifteen sources while
+  every model still answered. `_raise_for` puts the kind at the front of the message,
+  `[per-day quota]`, because Groq names it around character 200 and every layer truncates.
+- **Groq's tokens-per-day is a trailing window, not a calendar tally.** `Used` moves in
+  both directions on its own as spend ages out, so a rising number is not evidence of
+  another process. A small probe also succeeds while the day's budget is gone: at
+  `Used 199999/200000` a five-token probe still passed. Only the real request answers it.
+  The judge is paced under a ceiling (`tokens_per_minute`) so windowing does not burst.
 - **Groq caps a request at 8000 tokens per minute**, which is one reason extraction is windowed
   at ~6000 chars. The other is that long inputs make models quietly drop claims from the middle.
 - Groq rejects urllib's default User-Agent with a 403 that reads exactly like a bad key.

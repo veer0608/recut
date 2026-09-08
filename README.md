@@ -281,8 +281,9 @@ to editorialise.
 ### How the number is produced
 
 - **Primary metric, `unsupported_claim_rate`**: each output is split into sentences
-  and judged against the source by a model pinned to a *different* ladder than the
-  generators, so nothing grades its own work. Sentences that assert nothing checkable
+  and judged against the source by a model on a *different provider* from the
+  generators, so nothing grades its own work. Both sides are pinned by name and the
+  run refuses to start if the two ever match. Sentences that assert nothing checkable
   are excluded from the denominator rather than counted as passes.
 - **Judge validation**: an unvalidated judge is a number with nothing behind it, so
   the same run scores the deterministic verifier on fabrications planted by
@@ -339,9 +340,11 @@ is the whole reason repeats are needed.
 ### Known limits of this measurement
 
 - One video source. The 0.0% on it means nothing yet.
-- The judge and the generators share a provider and could in principle share a model
-  when the pinned ladders both fall through. The run records provider, not model, so
-  no-overlap is designed for but not proven.
+- Numbers from the current judge are not comparable to the 15.5% and 10.0% above,
+  which a different judge produced. `eval/rejudge.py` re-scores a finished run's stored
+  bodies to put them on one scale, and until that is complete the two cannot be set
+  beside each other. Partial evidence suggests the current judge is uniformly more
+  lenient, which would make a lower figure a change of scale rather than an improvement.
 - Sources are capped near 40k characters. Behaviour on book-length input is unmeasured.
 
 ## Setup
