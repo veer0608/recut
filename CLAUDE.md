@@ -235,6 +235,20 @@ or three quote claims a run, absence of demotions is not evidence it works.
 added when the copying investigation found the runs that would have answered it had
 thrown it away. The same gap, a second time.)
 
+**A stored claim with no `verbatim` before v11 means nothing.** The inventory kept only
+`id`, `kind` and `text` until the field was added chasing the art-willison quotation, so
+`verbatim: null` in v4 or v6 records that nobody wrote it down, not that extraction left
+it empty. Only v11 onward can be read that way. This is the third question this repo has
+asked of a run that had thrown the answer away.
+
+**The quote path itself is healthy where the words exist.** `art-retrieval` carries a
+quote claim in every run and has never raised a quote error, in v4, v6 or v11. In v11
+both its claims carry `verbatim` and the thread output quotes that string exactly rather
+than the restated `text` beside it, which is the behaviour the target prompts specify.
+That is the mechanism working, not evidence that today's changes improved anything:
+`art-retrieval` was already clean before them, and `art-willison` was a claim with
+nothing to quote.
+
 ## The eval, and the abandonment rule
 
 `eval/run_eval.py` publishes one number or none. If any golden source fails,
