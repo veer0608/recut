@@ -1,0 +1,158 @@
+{
+  "id": "art-double-entry",
+  "kind": "article",
+  "ref": "https://en.wikipedia.org/wiki/Double-entry_bookkeeping",
+  "title": "Double-entry bookkeeping - Wikipedia",
+  "segments": 34,
+  "chars": 18479,
+  "extracted_claims": 41,
+  "dropped_unanchored": 0,
+  "targets": [
+    "linkedin",
+    "thread"
+  ],
+  "verifier_errors": {
+    "linkedin": [],
+    "thread": []
+  },
+  "format_violations": {},
+  "repaired": [
+    "linkedin"
+  ],
+  "claim_utilisation": 0.2682926829268293,
+  "judged": {
+    "linkedin": {
+      "sentences": 7,
+      "claims": 7,
+      "unsupported": 1,
+      "rate": 0.14285714285714285,
+      "unjudged": 0,
+      "verdicts": [
+        {
+          "n": 1,
+          "sentence": "In the late sixteenth-century, numbers still carried the pejorative connotations associated with necromancy.",
+          "verdict": "supported",
+          "why": "Footnote 17 states numbers still had pejorative necromancy connotations in the late 16th century."
+        },
+        {
+          "n": 2,
+          "sentence": "Double-entry bookkeeping helped confer cultural authority on numbers by means of the balance.",
+          "verdict": "supported",
+          "why": "Footnote 17 says double\u2011entry bookkeeping conferred cultural authority on numbers by means of the balance."
+        },
+        {
+          "n": 3,
+          "sentence": "For late sixteenth-century readers, the balance conjured up both the scales of justice and the symmetry of God's world.",
+          "verdict": "supported",
+          "why": "Footnote 17 and s8 note the balance evoked scales of justice and God's symmetry for late\u201116th\u2011century readers."
+        },
+        {
+          "n": 4,
+          "sentence": "This methodical system requires every financial transaction to be recorded with equal and opposite debits and credits.",
+          "verdict": "supported",
+          "why": "s1 defines double\u2011entry as recording each transaction with equal and opposite debits and credits."
+        },
+        {
+          "n": 5,
+          "sentence": "By convention, debits are posted on the left-hand side of a ledger account, and credits are posted on the right-hand side.",
+          "verdict": "supported",
+          "why": "s16 explicitly says debits are posted on the left, credits on the right by convention."
+        },
+        {
+          "n": 6,
+          "sentence": "Luca Pacioli is often called the father of accounting because he was the first to publish a detailed description of the double-entry system in his 1494 mathematics textbook, Summa de arithmetica, geometria, proportioni et proportionalit\u00e0.",
+          "verdict": "supported",
+          "why": "s7 says Pacioli is called the father of accounting because he first published a detailed description in his 1494 textbook."
+        },
+        {
+          "n": 7,
+          "sentence": "Accounting systems have evolved from the Farolfi firm's ledger of 1299\u20131300 to modern requirements for public companies.",
+          "verdict": "unsupported",
+          "why": "Source gives separate historical and modern facts but does not state an explicit evolution from the Farolfi ledger to present public\u2011company requirements."
+        }
+      ]
+    },
+    "thread": {
+      "sentences": 7,
+      "claims": 7,
+      "unsupported": 0,
+      "rate": 0.0,
+      "unjudged": 0,
+      "verdicts": [
+        {
+          "n": 1,
+          "sentence": "In the late sixteenth-century, numbers still carried the pejorative connotations associated with necromancy.",
+          "verdict": "supported",
+          "why": "s8 directly states numbers had pejorative necromancy connotations in the late 16th\u202fcentury"
+        },
+        {
+          "n": 2,
+          "sentence": "Double-entry bookkeeping helped confer cultural authority on numbers by means of the balance.",
+          "verdict": "supported",
+          "why": "s8 says double\u2011entry bookkeeping conferred cultural authority on numbers by means of the balance"
+        },
+        {
+          "n": 3,
+          "sentence": "For late sixteenth-century readers, the balance conjured up both the scales of justice and the symmetry of God's world.",
+          "verdict": "supported",
+          "why": "s8 notes the balance evoked scales of justice and God's symmetry for late\u201116th\u2011century readers"
+        },
+        {
+          "n": 4,
+          "sentence": "The earliest extant European accounting records following the modern double-entry system come from Amatino Manucci, a Florentine merchant at the end of the 13th century.",
+          "verdict": "supported",
+          "why": "s5 says the earliest extant European double\u2011entry records are Manucci\u2019s at the end of the 13th\u202fcentury"
+        },
+        {
+          "n": 5,
+          "sentence": "The Farolfi firm's ledger of 1299\u20131300 provides evidence of full double-entry bookkeeping.",
+          "verdict": "supported",
+          "why": "s5 states the Farolfi firm\u2019s 1299\u20131300 ledger evidences full double\u2011entry bookkeeping"
+        },
+        {
+          "n": 6,
+          "sentence": "Luca Pacioli first codified the double-entry system in his 1494 mathematics textbook, Summa de arithmetica, geometria, proportioni et proportionalit\u00e0.",
+          "verdict": "supported",
+          "why": "s7 records that Pacioli first codified the system in his 1494 textbook Summa de arithmetica..."
+        },
+        {
+          "n": 7,
+          "sentence": "Double-entry bookkeeping is a methodical system of recording financial transactions that ensures accuracy and balance through the use of equal and opposite debits and credits.",
+          "verdict": "supported",
+          "why": "s1 defines double\u2011entry as equal\u2011and\u2011opposite debits/credits and its purpose to maintain accuracy and balance"
+        }
+      ]
+    }
+  },
+  "judged_claims": 14,
+  "judged_unsupported": 1,
+  "injections": {
+    "planted": 10,
+    "caught": 10,
+    "recall": 1.0,
+    "recall_by_rule": {
+      "number": 1.0,
+      "quote": 1.0,
+      "entity": 1.0,
+      "intensity": 1.0,
+      "citation": 1.0
+    },
+    "missed": [],
+    "clean_bodies": 2,
+    "false_positive_bodies": 0,
+    "false_positives": []
+  },
+  "bodies": {
+    "linkedin": "In the late sixteenth-century, numbers still carried the pejorative connotations associated with necromancy.\n\nDouble-entry bookkeeping helped confer cultural authority on numbers by means of the balance. For late sixteenth-century readers, the balance conjured up both the scales of justice and the symmetry of God's world.\n\nThis methodical system requires every financial transaction to be recorded with equal and opposite debits and credits. By convention, debits are posted on the left-hand side of a ledger account, and credits are posted on the right-hand side.\n\nLuca Pacioli is often called the father of accounting because he was the first to publish a detailed description of the double-entry system in his 1494 mathematics textbook, Summa de arithmetica, geometria, proportioni et proportionalit\u00e0.\n\nAccounting systems have evolved from the Farolfi firm's ledger of 1299\u20131300 to modern requirements for public companies.",
+    "thread": "In the late sixteenth-century, numbers still carried the pejorative connotations associated with necromancy.\n\nDouble-entry bookkeeping helped confer cultural authority on numbers by means of the balance.\n\nFor late sixteenth-century readers, the balance conjured up both the scales of justice and the symmetry of God's world.\n\nThe earliest extant European accounting records following the modern double-entry system come from Amatino Manucci, a Florentine merchant at the end of the 13th century.\n\nThe Farolfi firm's ledger of 1299\u20131300 provides evidence of full double-entry bookkeeping.\n\nLuca Pacioli first codified the double-entry system in his 1494 mathematics textbook, Summa de arithmetica, geometria, proportioni et proportionalit\u00e0.\n\nDouble-entry bookkeeping is a methodical system of recording financial transactions that ensures accuracy and balance through the use of equal and opposite debits and credits."
+  },
+  "judged_by_model": true,
+  "rejudged": {
+    "from": 14,
+    "provider": "groq",
+    "models": [
+      "openai/gpt-oss-120b"
+    ],
+    "source_char_drift": 0
+  }
+}

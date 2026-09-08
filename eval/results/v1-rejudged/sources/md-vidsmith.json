@@ -1,0 +1,193 @@
+{
+  "id": "md-vidsmith",
+  "kind": "markdown",
+  "ref": "C:\\Users\\veera\\claude\\vidsmith\\README.md",
+  "title": "vidsmith",
+  "segments": 141,
+  "chars": 29674,
+  "extracted_claims": 43,
+  "dropped_unanchored": 0,
+  "targets": [
+    "linkedin",
+    "thread"
+  ],
+  "verifier_errors": {
+    "linkedin": [],
+    "thread": []
+  },
+  "format_violations": {},
+  "repaired": [],
+  "claim_utilisation": 0.23255813953488372,
+  "judged": {
+    "linkedin": {
+      "sentences": 11,
+      "windows": 3,
+      "claims": 11,
+      "unsupported": 1,
+      "rate": 0.09090909090909091,
+      "unjudged": 0,
+      "verdicts": [
+        {
+          "n": 1,
+          "sentence": "Nothing transcribed the audio to place those captions: the speech engine reports when each word starts and stops.",
+          "verdict": "supported",
+          "why": "Matches s3 stating nothing transcribed and engine reports word timings"
+        },
+        {
+          "n": 2,
+          "sentence": "Most tools generate speech, then run Whisper over that speech to find out where the words landed. vidsmith never does that.",
+          "verdict": "supported",
+          "why": "Exact wording in s10"
+        },
+        {
+          "n": 3,
+          "sentence": "It uses the speech engine's WordBoundary events to determine word timings for captions and video cuts.",
+          "verdict": "supported",
+          "why": "s10 describes WordBoundary events used for timings, s3 notes they decide cuts"
+        },
+        {
+          "n": 4,
+          "sentence": "This prevents drift and ensures accuracy.",
+          "verdict": "supported",
+          "why": "s10 says there is nothing to drift and no transcription errors, implying prevention of drift and accuracy"
+        },
+        {
+          "n": 5,
+          "sentence": "Scenes are split into shots at sentence boundaries to prevent the artificial look of long, unbroken takes.",
+          "verdict": "supported",
+          "why": "s40 explains scenes split into shots at sentence boundaries to avoid long takes"
+        },
+        {
+          "n": 6,
+          "sentence": "If a sentence exceeds the maximum shot duration, it is broken at the last comma.",
+          "verdict": "supported",
+          "why": "s42 states sentences longer than max_shot_seconds are broken at last comma"
+        },
+        {
+          "n": 7,
+          "sentence": "ffmpeg is the only non-Python dependency required for vidsmith.",
+          "verdict": "supported",
+          "why": "s8 and s13 declare ffmpeg as the only non-Python dependency"
+        },
+        {
+          "n": 8,
+          "sentence": "A demo build takes 62s to build and produces 32.7s of picture.",
+          "verdict": "supported",
+          "why": "s7 shows 32.7s picture, 62s build time"
+        },
+        {
+          "n": 9,
+          "sentence": "The generated music bed is loudness-normalised and ducks 8 dB when speech is detected.",
+          "verdict": "supported",
+          "why": "s55 notes bed is loudness\u2011normalised and ducks 8\u202fdB during speech"
+        },
+        {
+          "n": 10,
+          "sentence": "AI image generation is intentionally not wired into vidsmith because free-tier image models return \"RESOURCE_EXHAUSTED\" errors.",
+          "verdict": "supported",
+          "why": "source says AI image generation is not wired in on purpose and free\u2011tier models return RESOURCE_EXHAUSTED"
+        },
+        {
+          "n": 11,
+          "sentence": "Commercial licenses for vidsmith cost $49 for one person or $299 for one company.",
+          "verdict": "unsupported",
+          "why": "source provides no information about commercial license pricing"
+        }
+      ]
+    },
+    "thread": {
+      "sentences": 9,
+      "windows": 3,
+      "claims": 9,
+      "unsupported": 2,
+      "rate": 0.2222222222222222,
+      "unjudged": 0,
+      "verdicts": [
+        {
+          "n": 1,
+          "sentence": "Nothing transcribed the audio to place those captions: the speech engine reports when each word starts and stops.",
+          "verdict": "supported",
+          "why": "source s3 explicitly says nothing transcribed, engine reports word timings"
+        },
+        {
+          "n": 2,
+          "sentence": "Most tools generate speech, then run Whisper over that speech to find out where the words landed.",
+          "verdict": "supported",
+          "why": "source s10 contains identical sentence"
+        },
+        {
+          "n": 3,
+          "sentence": "That approach is prone to drift.",
+          "verdict": "unsupported",
+          "why": "Source makes no claim about any approach being prone to drift."
+        },
+        {
+          "n": 4,
+          "sentence": "By using WordBoundary events directly, timing is locked to the source.",
+          "verdict": "supported",
+          "why": "source s10 explains timings come directly from WordBoundary events"
+        },
+        {
+          "n": 5,
+          "sentence": "Punctuation is stitched back onto the text because those events drop it.",
+          "verdict": "supported",
+          "why": "source s11 says punctuation is dropped and stitched back"
+        },
+        {
+          "n": 6,
+          "sentence": "Scenes are split into shots at sentence boundaries to prevent the artificial look of long, unbroken takes.",
+          "verdict": "supported",
+          "why": "source s40 describes splitting scenes into shots at sentence boundaries to avoid long takes"
+        },
+        {
+          "n": 7,
+          "sentence": "If a sentence exceeds the maximum shot duration, it is broken at the last comma.",
+          "verdict": "supported",
+          "why": "source s42 states sentences longer than max_shot_seconds are broken at last comma"
+        },
+        {
+          "n": 8,
+          "sentence": "A scene is not a shot.",
+          "verdict": "supported",
+          "why": "source s40 explicitly says a scene is not a shot"
+        },
+        {
+          "n": 9,
+          "sentence": "Caption timing should be derived directly from the speech engine's WordBoundary events rather than through post-generation transcription to ensure accuracy and prevent drift.",
+          "verdict": "unsupported",
+          "why": "Source mentions Polly provides word timings but does not state that captions must be derived from WordBoundary events instead of transcription, nor mentions drift."
+        }
+      ]
+    }
+  },
+  "judged_claims": 20,
+  "judged_unsupported": 3,
+  "injections": {
+    "planted": 8,
+    "caught": 8,
+    "recall": 1.0,
+    "recall_by_rule": {
+      "number": 1.0,
+      "quote": 1.0,
+      "entity": 1.0,
+      "citation": 1.0
+    },
+    "missed": [],
+    "clean_bodies": 2,
+    "false_positive_bodies": 0,
+    "false_positives": []
+  },
+  "bodies": {
+    "linkedin": "Nothing transcribed the audio to place those captions: the speech engine reports when each word starts and stops.\n\nMost tools generate speech, then run Whisper over that speech to find out where the words landed. vidsmith never does that. It uses the speech engine's WordBoundary events to determine word timings for captions and video cuts. This prevents drift and ensures accuracy.\n\nScenes are split into shots at sentence boundaries to prevent the artificial look of long, unbroken takes. If a sentence exceeds the maximum shot duration, it is broken at the last comma.\n\nffmpeg is the only non-Python dependency required for vidsmith. A demo build takes 62s to build and produces 32.7s of picture. The generated music bed is loudness-normalised and ducks 8 dB when speech is detected.\n\nAI image generation is intentionally not wired into vidsmith because free-tier image models return \"RESOURCE_EXHAUSTED\" errors.\n\nCommercial licenses for vidsmith cost $49 for one person or $299 for one company.",
+    "thread": "Nothing transcribed the audio to place those captions: the speech engine reports when each word starts and stops.\n\nMost tools generate speech, then run Whisper over that speech to find out where the words landed. That approach is prone to drift.\n\nBy using WordBoundary events directly, timing is locked to the source. Punctuation is stitched back onto the text because those events drop it.\n\nScenes are split into shots at sentence boundaries to prevent the artificial look of long, unbroken takes.\n\nIf a sentence exceeds the maximum shot duration, it is broken at the last comma. A scene is not a shot.\n\nCaption timing should be derived directly from the speech engine's WordBoundary events rather than through post-generation transcription to ensure accuracy and prevent drift."
+  },
+  "judged_by_model": true,
+  "rejudged": {
+    "from": 19,
+    "provider": "groq",
+    "models": [
+      "openai/gpt-oss-120b"
+    ],
+    "source_char_drift": 0
+  }
+}

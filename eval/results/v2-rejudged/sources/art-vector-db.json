@@ -1,0 +1,170 @@
+{
+  "id": "art-vector-db",
+  "kind": "article",
+  "ref": "https://en.wikipedia.org/wiki/Vector_database",
+  "title": "Vector database - Wikipedia",
+  "segments": 14,
+  "chars": 13607,
+  "extracted_claims": 17,
+  "dropped_unanchored": 0,
+  "targets": [
+    "linkedin",
+    "thread"
+  ],
+  "verifier_errors": {
+    "linkedin": [],
+    "thread": []
+  },
+  "format_violations": {},
+  "repaired": [
+    "thread"
+  ],
+  "claim_utilisation": 0.7647058823529411,
+  "judged": {
+    "linkedin": {
+      "sentences": 8,
+      "claims": 8,
+      "unsupported": 1,
+      "rate": 0.125,
+      "unjudged": 0,
+      "verdicts": [
+        {
+          "n": 1,
+          "sentence": "The number of dimensions in vector embeddings ranges from a few hundred to tens of thousands.",
+          "verdict": "supported",
+          "why": "s2 states dimensions range from a few hundred to tens of thousands"
+        },
+        {
+          "n": 2,
+          "sentence": "These mathematical representations of data allow vector databases to store and retrieve information in vector space.",
+          "verdict": "supported",
+          "why": "s1 defines vector DBs store/retrieve embeddings in vector space and s2 defines embeddings as mathematical representations"
+        },
+        {
+          "n": 3,
+          "sentence": "Systems typically implement approximate nearest neighbor algorithms to enable users to search for semantically similar records.",
+          "verdict": "supported",
+          "why": "s1 says vector databases typically implement approximate nearest neighbor algorithms for semantic similarity search"
+        },
+        {
+          "n": 4,
+          "sentence": "Retrieval-augmented generation is a common use-case for these databases to improve domain-specific responses of large language models.",
+          "verdict": "supported",
+          "why": "s10 describes retrieval\u2011augmented generation as an especially common use\u2011case"
+        },
+        {
+          "n": 5,
+          "sentence": "Retrieval can also be combined with metadata filtering or lexical search to support hybrid workflows.",
+          "verdict": "supported",
+          "why": "s4 notes vector retrieval can be combined with metadata filtering or lexical search for hybrid workflows"
+        },
+        {
+          "n": 6,
+          "sentence": "Recent funding activity includes companies like Aerospike, which raised $109M for its real-time database platform, and Zilliz, which raised $60M.",
+          "verdict": "supported",
+          "why": "s14 reports Aerospike raised $109M; s48 reports Zilliz raised $60M"
+        },
+        {
+          "n": 7,
+          "sentence": "Weaviate is an open-source option that stores both objects and vectors to allow for vector search combined with structured filtering.",
+          "verdict": "supported",
+          "why": "s81 describes Weaviate as open\u2011source, storing objects and vectors to enable vector search with structured filtering"
+        },
+        {
+          "n": 8,
+          "sentence": "Vector databases are experiencing a surge in popularity as the AI hype cycle reaches its peak.",
+          "verdict": "unsupported",
+          "why": "source only cites an article title about hype cycle; it does not explicitly state a surge in popularity"
+        }
+      ]
+    },
+    "thread": {
+      "sentences": 8,
+      "claims": 8,
+      "unsupported": 0,
+      "rate": 0.0,
+      "unjudged": 0,
+      "verdicts": [
+        {
+          "n": 1,
+          "sentence": "Vector embeddings are mathematical representations of data in a high-dimensional space, with dimensions ranging from a few hundred to tens of thousands.",
+          "verdict": "supported",
+          "why": "Matches s2 description of embeddings and dimension range"
+        },
+        {
+          "n": 2,
+          "sentence": "These embeddings are computed from raw data using machine learning methods like word embeddings, deep learning networks, or feature extraction algorithms.",
+          "verdict": "supported",
+          "why": "Matches s3 wording about computing vectors via feature extraction, word embeddings, deep learning"
+        },
+        {
+          "n": 3,
+          "sentence": "To search for semantically similar records, these databases typically implement approximate nearest neighbor algorithms.",
+          "verdict": "supported",
+          "why": "s1 states vector DBs typically implement approximate nearest neighbor for semantic similarity"
+        },
+        {
+          "n": 4,
+          "sentence": "Common techniques for similarity search on these high-dimensional vectors include HNSW graphs, LSH and sketching, product quantization, and inverted files.",
+          "verdict": "supported",
+          "why": "s5\u2011s6 list HNSW, LSH/sketching, product quantization, inverted files as common techniques"
+        },
+        {
+          "n": 5,
+          "sentence": "In recent benchmarks, HNSW-based implementations have been among the best performers.",
+          "verdict": "supported",
+          "why": "Exact sentence appears in s8 about HNSW benchmarks"
+        },
+        {
+          "n": 6,
+          "sentence": "Retrieval-augmented generation is a common use-case for these systems to improve domain-specific responses of large language models.",
+          "verdict": "supported",
+          "why": "s10 calls RAG a common use\u2011case to improve domain\u2011specific LLM responses"
+        },
+        {
+          "n": 7,
+          "sentence": "Vector retrieval can be combined with metadata filtering or lexical search to support filtered and hybrid retrieval workflows.",
+          "verdict": "supported",
+          "why": "s4 says vector retrieval can be combined with metadata filtering or lexical search"
+        },
+        {
+          "n": 8,
+          "sentence": "Vector databases enable semantic search and retrieval-augmented generation by managing high-dimensional data embeddings.",
+          "verdict": "supported",
+          "why": "s1 and s9 list semantic search and RAG as use\u2011cases; s2 defines high\u2011dimensional embeddings stored by vector DBs"
+        }
+      ]
+    }
+  },
+  "judged_claims": 16,
+  "judged_unsupported": 1,
+  "injections": {
+    "planted": 10,
+    "caught": 10,
+    "recall": 1.0,
+    "recall_by_rule": {
+      "number": 1.0,
+      "quote": 1.0,
+      "entity": 1.0,
+      "intensity": 1.0,
+      "citation": 1.0
+    },
+    "missed": [],
+    "clean_bodies": 2,
+    "false_positive_bodies": 0,
+    "false_positives": []
+  },
+  "bodies": {
+    "linkedin": "The number of dimensions in vector embeddings ranges from a few hundred to tens of thousands. \n\nThese mathematical representations of data allow vector databases to store and retrieve information in vector space. Systems typically implement approximate nearest neighbor algorithms to enable users to search for semantically similar records. \n\nRetrieval-augmented generation is a common use-case for these databases to improve domain-specific responses of large language models. Retrieval can also be combined with metadata filtering or lexical search to support hybrid workflows. \n\nRecent funding activity includes companies like Aerospike, which raised $109M for its real-time database platform, and Zilliz, which raised $60M. Weaviate is an open-source option that stores both objects and vectors to allow for vector search combined with structured filtering. \n\nVector databases are experiencing a surge in popularity as the AI hype cycle reaches its peak.",
+    "thread": "Vector embeddings are mathematical representations of data in a high-dimensional space, with dimensions ranging from a few hundred to tens of thousands.\n\nThese embeddings are computed from raw data using machine learning methods like word embeddings, deep learning networks, or feature extraction algorithms.\n\nTo search for semantically similar records, these databases typically implement approximate nearest neighbor algorithms.\n\nCommon techniques for similarity search on these high-dimensional vectors include HNSW graphs, LSH and sketching, product quantization, and inverted files.\n\nIn recent benchmarks, HNSW-based implementations have been among the best performers.\n\nRetrieval-augmented generation is a common use-case for these systems to improve domain-specific responses of large language models.\n\nVector retrieval can be combined with metadata filtering or lexical search to support filtered and hybrid retrieval workflows.\n\nVector databases enable semantic search and retrieval-augmented generation by managing high-dimensional data embeddings."
+  },
+  "judged_by_model": true,
+  "rejudged": {
+    "from": 16,
+    "provider": "groq",
+    "models": [
+      "openai/gpt-oss-120b"
+    ],
+    "source_char_drift": 0
+  }
+}

@@ -1,0 +1,183 @@
+{
+  "id": "md-citerag",
+  "kind": "markdown",
+  "ref": "C:\\Users\\veera\\claude\\citerag\\README.md",
+  "title": "CiteRAG",
+  "segments": 95,
+  "chars": 28402,
+  "extracted_claims": 43,
+  "dropped_unanchored": 0,
+  "targets": [
+    "linkedin",
+    "thread"
+  ],
+  "verifier_errors": {
+    "linkedin": [],
+    "thread": []
+  },
+  "format_violations": {},
+  "repaired": [
+    "thread"
+  ],
+  "claim_utilisation": 0.27906976744186046,
+  "judged": {
+    "linkedin": {
+      "sentences": 9,
+      "windows": 3,
+      "claims": 9,
+      "unsupported": 2,
+      "rate": 0.2222222222222222,
+      "unjudged": 0,
+      "verdicts": [
+        {
+          "n": 1,
+          "sentence": "Table-aware ingestion decreased recall@5 by \u22120.067 in our RAG pipeline, proving that qualitative impressions of system performance are often wrong.",
+          "verdict": "unsupported",
+          "why": "Source never mentions table-aware ingestion affecting recall@5 or a -0.067 change"
+        },
+        {
+          "n": 2,
+          "sentence": "Most tutorial projects skip the golden-question evaluation harness, but we doubled our set from 30 to 60 questions to ensure candidate changes were not hidden by statistical noise.",
+          "verdict": "supported",
+          "why": "source says most tutorial projects skip the harness and that the golden set was expanded from 30 to 60 to reduce noise"
+        },
+        {
+          "n": 3,
+          "sentence": "This rigor revealed that hybrid retrieval using dense embeddings and keyword indexing provided the largest single performance improvement, increasing recall@5 by +0.133.",
+          "verdict": "supported",
+          "why": "source reports hybrid retrieval (dense+keyword) increased recall@5 by +0.133 and calls it the biggest single lever"
+        },
+        {
+          "n": 4,
+          "sentence": "We discovered that pdfplumber frequently merges words into single tokens, causing failures in FTS5 tokenization.",
+          "verdict": "supported",
+          "why": "source states pdfplumber frequently welds words, breaking FTS5 tokenization"
+        },
+        {
+          "n": 5,
+          "sentence": "All-lowercase welds represent 10.2% of all alphabetic tokens, rendering BM25 structurally blind to company-name queries.",
+          "verdict": "unsupported",
+          "why": "Source contains no discussion of lowercase welds, token percentages, or BM25 limitations"
+        },
+        {
+          "n": 6,
+          "sentence": "Query rewriting cannot fix issues where tokens are welded together in a way that prevents matching.",
+          "verdict": "supported",
+          "why": "source explicitly says query rewriting could not have fixed the welded\u2011token issue"
+        },
+        {
+          "n": 7,
+          "sentence": "Our final optimized pipeline achieved a recall@5 of 0.733.",
+          "verdict": "supported",
+          "why": "source lists a final recall@5 of 0.733 for the optimized pipeline"
+        },
+        {
+          "n": 8,
+          "sentence": "We kept the bge-reranker-base model as the default because the large model's 45-second per-query latency on CPU is unacceptable for a product.",
+          "verdict": "supported",
+          "why": "Source states default stays base because the large model's 45s CPU latency is unacceptable for a product"
+        },
+        {
+          "n": 9,
+          "sentence": "Measure your retrieval quality with numbers, not vibes.",
+          "verdict": "supported",
+          "why": "source promotes measuring retrieval quality with numbers rather than vibes"
+        }
+      ]
+    },
+    "thread": {
+      "sentences": 9,
+      "windows": 3,
+      "claims": 9,
+      "unsupported": 1,
+      "rate": 0.1111111111111111,
+      "unjudged": 0,
+      "verdicts": [
+        {
+          "n": 1,
+          "sentence": "Table-aware ingestion decreased recall@5 by -0.067.",
+          "verdict": "supported",
+          "why": "source lists table\u2011aware ingestion recall drop of \u20130.067"
+        },
+        {
+          "n": 2,
+          "sentence": "Most RAG projects ship these features on faith, but measuring against a golden set proves when your intuition is wrong.",
+          "verdict": "unsupported",
+          "why": "source never mentions other RAG projects or shipping features on faith"
+        },
+        {
+          "n": 3,
+          "sentence": "The initial 30-question evaluation set incorrectly suggested that query rewriting was the least valuable change, while the 60-question set revealed it as a critical failure mode.",
+          "verdict": "supported",
+          "why": "source notes query rewriting went from least valuable to most after expanding to 60 questions"
+        },
+        {
+          "n": 4,
+          "sentence": "Measurement bugs, such as false hits from stripping whitespace and false misses from misinterpreting commas, can lead to inaccurate evaluation of retrieval systems.",
+          "verdict": "supported",
+          "why": "source lists measurement bugs: false hits from whitespace stripping and false misses from comma handling"
+        },
+        {
+          "n": 5,
+          "sentence": "The pdfplumber tool frequently merges words together into single tokens, which causes failures in FTS5 tokenization.",
+          "verdict": "supported",
+          "why": "source states pdfplumber frequently welds words, causing single-token issues for FTS5"
+        },
+        {
+          "n": 6,
+          "sentence": "BM25 retrieval was structurally blind to company-name queries in holdings-table rows because of welded tokens.",
+          "verdict": "supported",
+          "why": "source says BM25 was structurally blind to company-name queries in holdings-table rows due to welded tokens"
+        },
+        {
+          "n": 7,
+          "sentence": "Hybrid retrieval using dense embeddings and keyword indexing provided the largest single performance improvement.",
+          "verdict": "supported",
+          "why": "source calls hybrid retrieval the biggest single lever (+0.133)"
+        },
+        {
+          "n": 8,
+          "sentence": "It increased recall@5 by +0.133.",
+          "verdict": "supported",
+          "why": "source records hybrid retrieval increased recall@5 by +0.133"
+        },
+        {
+          "n": 9,
+          "sentence": "RAG systems should prioritize the inclusion of a golden-question evaluation harness to objectively measure retrieval quality rather than relying on qualitative impressions.",
+          "verdict": "supported",
+          "why": "source promotes golden\u2011question eval harness as essential for objective measurement"
+        }
+      ]
+    }
+  },
+  "judged_claims": 18,
+  "judged_unsupported": 3,
+  "injections": {
+    "planted": 8,
+    "caught": 8,
+    "recall": 1.0,
+    "recall_by_rule": {
+      "number": 1.0,
+      "quote": 1.0,
+      "entity": 1.0,
+      "citation": 1.0
+    },
+    "missed": [],
+    "clean_bodies": 2,
+    "false_positive_bodies": 0,
+    "false_positives": []
+  },
+  "bodies": {
+    "linkedin": "Table-aware ingestion decreased recall@5 by \u22120.067 in our RAG pipeline, proving that qualitative impressions of system performance are often wrong.\n\nMost tutorial projects skip the golden-question evaluation harness, but we doubled our set from 30 to 60 questions to ensure candidate changes were not hidden by statistical noise. This rigor revealed that hybrid retrieval using dense embeddings and keyword indexing provided the largest single performance improvement, increasing recall@5 by +0.133.\n\nWe discovered that pdfplumber frequently merges words into single tokens, causing failures in FTS5 tokenization. All-lowercase welds represent 10.2% of all alphabetic tokens, rendering BM25 structurally blind to company-name queries. Query rewriting cannot fix issues where tokens are welded together in a way that prevents matching.\n\nOur final optimized pipeline achieved a recall@5 of 0.733. We kept the bge-reranker-base model as the default because the large model's 45-second per-query latency on CPU is unacceptable for a product. \n\nMeasure your retrieval quality with numbers, not vibes.\n\n#rag #llm #ai",
+    "thread": "Table-aware ingestion decreased recall@5 by -0.067. Most RAG projects ship these features on faith, but measuring against a golden set proves when your intuition is wrong.\n\nThe initial 30-question evaluation set incorrectly suggested that query rewriting was the least valuable change, while the 60-question set revealed it as a critical failure mode.\n\nMeasurement bugs, such as false hits from stripping whitespace and false misses from misinterpreting commas, can lead to inaccurate evaluation of retrieval systems.\n\nThe pdfplumber tool frequently merges words together into single tokens, which causes failures in FTS5 tokenization. BM25 retrieval was structurally blind to company-name queries in holdings-table rows because of welded tokens.\n\nHybrid retrieval using dense embeddings and keyword indexing provided the largest single performance improvement. It increased recall@5 by +0.133.\n\nRAG systems should prioritize the inclusion of a golden-question evaluation harness to objectively measure retrieval quality rather than relying on qualitative impressions."
+  },
+  "judged_by_model": true,
+  "rejudged": {
+    "from": 16,
+    "provider": "groq",
+    "models": [
+      "openai/gpt-oss-120b"
+    ],
+    "source_char_drift": 0
+  }
+}

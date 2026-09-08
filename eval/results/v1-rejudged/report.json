@@ -1,0 +1,36 @@
+{
+  "run": {
+    "at": "2026-09-08T11:07:54+00:00",
+    "rejudged_from": "v1",
+    "judge_provider": "groq",
+    "judge_models": [
+      "openai/gpt-oss-120b"
+    ],
+    "model_calls": 2
+  },
+  "complete": false,
+  "judged_by_model": true,
+  "sources_attempted": 15,
+  "sources_completed": 14,
+  "failures": [
+    {
+      "id": "art-ocr",
+      "error": "LLMError: every provider failed:\n  groq 429 [per-day quota]: {\"error\":{\"message\":\"Rate limit reached for model `openai/gpt-oss-120b` in organization `org_01kyw0066geyf9hjwgs1z5dpbe` service tier `on_demand` on tokens per day (TPD): Limit 200000, Used 198093, Requested 5416. Please try again in 25m15.888s. Need more tokens? Upgrade to Dev Tier today at https:/"
+    }
+  ],
+  "unsupported_claim_rate": null,
+  "unsupported_claim_rate_provisional": 0.1306122448979592,
+  "judged_claims": 245,
+  "judged_unsupported": 32,
+  "verifier_recall_on_injections": 1.0,
+  "verifier_recall_by_rule": {
+    "number": 1.0,
+    "quote": 1.0,
+    "entity": 1.0,
+    "citation": 1.0
+  },
+  "verifier_false_positive_rate": 0.03571428571428571,
+  "format_compliance": 1.0,
+  "claim_utilisation": 0.5629879793046896,
+  "artifacts": 28
+}

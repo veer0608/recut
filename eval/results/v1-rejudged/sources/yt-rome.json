@@ -1,0 +1,209 @@
+{
+  "id": "yt-rome",
+  "kind": "youtube",
+  "ref": "https://www.youtube.com/watch?v=0PkBP0dk4Lw",
+  "title": "Why Rome Never Really Fell made with vidsmith",
+  "segments": 10,
+  "chars": 2174,
+  "extracted_claims": 7,
+  "dropped_unanchored": 0,
+  "targets": [
+    "linkedin",
+    "thread"
+  ],
+  "verifier_errors": {
+    "linkedin": [],
+    "thread": []
+  },
+  "format_violations": {},
+  "repaired": [],
+  "claim_utilisation": 1.0,
+  "judged": {
+    "linkedin": {
+      "sentences": 12,
+      "claims": 12,
+      "unsupported": 0,
+      "rate": 0.0,
+      "unjudged": 0,
+      "verdicts": [
+        {
+          "n": 1,
+          "sentence": "The common historical narrative attributes the fall of Rome to barbarian invasions in 476.",
+          "verdict": "supported",
+          "why": "Matches source line stating common story blames barbarian hordes in 476"
+        },
+        {
+          "n": 2,
+          "sentence": "That simple narrative is completely wrong.",
+          "verdict": "supported",
+          "why": "Source explicitly says the simple narrative is completely wrong"
+        },
+        {
+          "n": 3,
+          "sentence": "Rome did not vanish in a single dramatic afternoon.",
+          "verdict": "supported",
+          "why": "Source says Rome did not vanish in a single dramatic afternoon"
+        },
+        {
+          "n": 4,
+          "sentence": "Instead, the empire dissolved slowly due to internal systemic decay.",
+          "verdict": "supported",
+          "why": "Source describes internal rot and gradual decay rather than a sudden fall"
+        },
+        {
+          "n": 5,
+          "sentence": "The Western Roman government struggled to function because it could not pay its financial obligations.",
+          "verdict": "supported",
+          "why": "Source notes Western government nearly stopped functioning because it couldn't pay its bills"
+        },
+        {
+          "n": 6,
+          "sentence": "Emperors devalued currency by mixing base metals into silver coins to cover military expenses.",
+          "verdict": "supported",
+          "why": "Source says emperors mixed base metals into silver coins to afford rising military costs"
+        },
+        {
+          "n": 7,
+          "sentence": "The vast physical size of the Roman Empire made it impossible to defend against fast-moving raiders.",
+          "verdict": "supported",
+          "why": "Source claims the empire's sheer size made defense impossible against fast raiders"
+        },
+        {
+          "n": 8,
+          "sentence": "Local commanders prioritized private security arrangements over central authority, while generals engaged in civil wars.",
+          "verdict": "supported",
+          "why": "Source mentions local commanders making private deals and generals staging civil wars"
+        },
+        {
+          "n": 9,
+          "sentence": "By 450, farmers were abandoning their land to seek protection from local warlords.",
+          "verdict": "supported",
+          "why": "Source depicts a 450 farmer abandoning land to flee to a local warlord"
+        },
+        {
+          "n": 10,
+          "sentence": "This mass exodus further depleted the tax base, ensuring the state could no longer provide for its citizens.",
+          "verdict": "supported",
+          "why": "Source links farmer exodus to starving the empire of taxes, depleting the tax base"
+        },
+        {
+          "n": 11,
+          "sentence": "Nobody wanted to serve a state that demanded everything and provided nothing in return.",
+          "verdict": "supported",
+          "why": "Source directly states nobody wanted to serve such a state"
+        },
+        {
+          "n": 12,
+          "sentence": "Do not look for a sudden ending when empires crumble.",
+          "verdict": "supported",
+          "why": "Source ends with \u201cDo not look for a sudden ending when empires crumble.\u201d"
+        }
+      ]
+    },
+    "thread": {
+      "sentences": 11,
+      "claims": 11,
+      "unsupported": 0,
+      "rate": 0.0,
+      "unjudged": 0,
+      "verdicts": [
+        {
+          "n": 1,
+          "sentence": "The common story blames barbarian hordes crashing through the borders in 476.",
+          "verdict": "supported",
+          "why": "s1 explicitly states the common story blames barbarian hordes in 476."
+        },
+        {
+          "n": 2,
+          "sentence": "That simple narrative is completely wrong.",
+          "verdict": "supported",
+          "why": "s2 says \"That simple narrative is completely wrong.\""
+        },
+        {
+          "n": 3,
+          "sentence": "Rome did not vanish in a single dramatic afternoon.",
+          "verdict": "supported",
+          "why": "s0 says Rome did not vanish in a single dramatic afternoon."
+        },
+        {
+          "n": 4,
+          "sentence": "Systems rot quietly from within long before the final banner falls.",
+          "verdict": "supported",
+          "why": "s8 claims systems rot quietly long before the final banner falls."
+        },
+        {
+          "n": 5,
+          "sentence": "The Western Roman government struggled to function because it could not pay its financial obligations.",
+          "verdict": "supported",
+          "why": "s2 notes the Western government could not pay its own bills, hindering function."
+        },
+        {
+          "n": 6,
+          "sentence": "Emperors devalued currency by mixing base metals into silver coins to cover military expenses.",
+          "verdict": "supported",
+          "why": "s3 describes emperors mixing base metals into silver coins to fund the military."
+        },
+        {
+          "n": 7,
+          "sentence": "The vast physical size of the Roman Empire made it impossible to defend against fast-moving raiders.",
+          "verdict": "supported",
+          "why": "s4 and s5 together say the empire's size made defense impossible against fast raiders."
+        },
+        {
+          "n": 8,
+          "sentence": "Local commanders in the Roman Empire often prioritized private security arrangements over central authority.",
+          "verdict": "supported",
+          "why": "s5 says local commanders made private deals, sidelining central authority."
+        },
+        {
+          "n": 9,
+          "sentence": "By 450, farmers were abandoning their land to seek protection from local warlords, further depleting the empire's tax revenue.",
+          "verdict": "supported",
+          "why": "s7 depicts farmers abandoning land for warlords, starving the empire of taxes."
+        },
+        {
+          "n": 10,
+          "sentence": "The Roman state suffered from internal instability as generals engaged in civil wars and the tax base declined.",
+          "verdict": "supported",
+          "why": "s6 mentions generals staging civil wars while the tax base shrank."
+        },
+        {
+          "n": 11,
+          "sentence": "The Roman Empire did not collapse due to a single catastrophic event, but rather dissolved slowly due to internal systemic decay.",
+          "verdict": "supported",
+          "why": "s0 and s8 together state the empire dissolved slowly from internal decay, not a single catastrophe."
+        }
+      ]
+    }
+  },
+  "judged_claims": 23,
+  "judged_unsupported": 0,
+  "injections": {
+    "planted": 8,
+    "caught": 8,
+    "recall": 1.0,
+    "recall_by_rule": {
+      "number": 1.0,
+      "quote": 1.0,
+      "entity": 1.0,
+      "citation": 1.0
+    },
+    "missed": [],
+    "clean_bodies": 2,
+    "false_positive_bodies": 0,
+    "false_positives": []
+  },
+  "bodies": {
+    "linkedin": "The common historical narrative attributes the fall of Rome to barbarian invasions in 476.\n\nThat simple narrative is completely wrong. Rome did not vanish in a single dramatic afternoon. Instead, the empire dissolved slowly due to internal systemic decay.\n\nThe Western Roman government struggled to function because it could not pay its financial obligations. Emperors devalued currency by mixing base metals into silver coins to cover military expenses.\n\nThe vast physical size of the Roman Empire made it impossible to defend against fast-moving raiders. Local commanders prioritized private security arrangements over central authority, while generals engaged in civil wars.\n\nBy 450, farmers were abandoning their land to seek protection from local warlords. This mass exodus further depleted the tax base, ensuring the state could no longer provide for its citizens. Nobody wanted to serve a state that demanded everything and provided nothing in return.\n\nDo not look for a sudden ending when empires crumble.\n\n#history #rome #economics",
+    "thread": "The common story blames barbarian hordes crashing through the borders in 476. That simple narrative is completely wrong.\n\nRome did not vanish in a single dramatic afternoon. Systems rot quietly from within long before the final banner falls.\n\nThe Western Roman government struggled to function because it could not pay its financial obligations.\n\nEmperors devalued currency by mixing base metals into silver coins to cover military expenses.\n\nThe vast physical size of the Roman Empire made it impossible to defend against fast-moving raiders.\n\nLocal commanders in the Roman Empire often prioritized private security arrangements over central authority.\n\nBy 450, farmers were abandoning their land to seek protection from local warlords, further depleting the empire's tax revenue.\n\nThe Roman state suffered from internal instability as generals engaged in civil wars and the tax base declined.\n\nThe Roman Empire did not collapse due to a single catastrophic event, but rather dissolved slowly due to internal systemic decay."
+  },
+  "judged_by_model": true,
+  "rejudged": {
+    "from": 22,
+    "provider": "groq",
+    "models": [
+      "openai/gpt-oss-120b"
+    ],
+    "source_char_drift": 0
+  }
+}

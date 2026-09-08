@@ -1,0 +1,167 @@
+{
+  "id": "art-double-entry",
+  "kind": "article",
+  "ref": "https://en.wikipedia.org/wiki/Double-entry_bookkeeping",
+  "title": "Double-entry bookkeeping - Wikipedia",
+  "segments": 34,
+  "chars": 18479,
+  "extracted_claims": 30,
+  "dropped_unanchored": 0,
+  "targets": [
+    "linkedin",
+    "thread"
+  ],
+  "verifier_errors": {
+    "linkedin": [],
+    "thread": []
+  },
+  "format_violations": {},
+  "repaired": [],
+  "claim_utilisation": 0.3333333333333333,
+  "judged": {
+    "linkedin": {
+      "sentences": 9,
+      "claims": 9,
+      "unsupported": 1,
+      "rate": 0.1111111111111111,
+      "unjudged": 0,
+      "verdicts": [
+        {
+          "n": 1,
+          "sentence": "In the late sixteenth century, number still carried the pejorative connotations associated with necromancy.",
+          "verdict": "supported",
+          "why": "Footnote 17 directly states the phrase about necromancy in the late sixteenth century."
+        },
+        {
+          "n": 2,
+          "sentence": "Double-entry bookkeeping helped confer cultural authority on numbers by using the balance.",
+          "verdict": "supported",
+          "why": "Footnote 17 says double\u2011entry bookkeeping conferred cultural authority on numbers by means of the balance."
+        },
+        {
+          "n": 3,
+          "sentence": "This system recalled both the scales of justice and the symmetry of God's world.",
+          "verdict": "supported",
+          "why": "Section s8 cites that the system recalled both the scales of justice and the symmetry of God\u2019s world."
+        },
+        {
+          "n": 4,
+          "sentence": "Every financial transaction is recorded with equal and opposite debits and credits.",
+          "verdict": "supported",
+          "why": "Section s1 defines double\u2011entry as recording each transaction with equal and opposite debits and credits."
+        },
+        {
+          "n": 5,
+          "sentence": "This methodology ensures the integrity of financial information by requiring entries into at least two nominal ledger accounts.",
+          "verdict": "supported",
+          "why": "Section s16 notes every transaction is entered into at least two nominal ledger accounts to maintain balance, ensuring integrity."
+        },
+        {
+          "n": 6,
+          "sentence": "The Farolfi firm's ledger from 1299\u20131300 provides the earliest evidence of this full system.",
+          "verdict": "supported",
+          "why": "Section s5 says the Farolfi firm\u2019s 1299\u20131300 ledger provides the earliest evidence of full double\u2011entry bookkeeping."
+        },
+        {
+          "n": 7,
+          "sentence": "Luca Pacioli later became known as the father of accounting after publishing the first detailed description of these methods.",
+          "verdict": "supported",
+          "why": "Section s7 calls Luca Pacioli the \u201cfather of accounting\u201d after publishing the first detailed description."
+        },
+        {
+          "n": 8,
+          "sentence": "Modern financial reporting still relies on this foundational equation: Assets = Liabilities + Equity.",
+          "verdict": "unsupported",
+          "why": "The source does not state that modern financial reporting currently relies on the equation; it only presents the equation itself."
+        },
+        {
+          "n": 9,
+          "sentence": "Accounting systems have evolved significantly since the end of the 13th century.",
+          "verdict": "supported",
+          "why": "The source traces development from the 13th\u2011century records through later centuries, showing significant evolution."
+        }
+      ]
+    },
+    "thread": {
+      "sentences": 7,
+      "claims": 7,
+      "unsupported": 2,
+      "rate": 0.2857142857142857,
+      "unjudged": 0,
+      "verdicts": [
+        {
+          "n": 1,
+          "sentence": "In the late sixteenth century, number still carried the pejorative connotations associated with necromancy.",
+          "verdict": "supported",
+          "why": "Footnote 17 directly states that in the late sixteenth century number still had pejorative necromancy connotations."
+        },
+        {
+          "n": 2,
+          "sentence": "Early modern accountants countered this by linking their work to the scales of justice and the symmetry of God's world.",
+          "verdict": "unsupported",
+          "why": "Source notes theological connotations but does not say accountants linked their work to justice scales to counter the pejorative view."
+        },
+        {
+          "n": 3,
+          "sentence": "Amatino Manucci created the earliest extant accounting records following this system at the end of the 13th century.",
+          "verdict": "supported",
+          "why": "Source says the earliest extant double\u2011entry records in Europe come from Amatino Manucci at the end of the 13th century."
+        },
+        {
+          "n": 4,
+          "sentence": "The Farolfi firm's ledger from 1299\u20131300 provides evidence of full double-entry bookkeeping.",
+          "verdict": "supported",
+          "why": "Source explicitly says the Farolfi firm\u2019s ledger of 1299\u20111300 evidences full double\u2011entry bookkeeping."
+        },
+        {
+          "n": 5,
+          "sentence": "Luca Pacioli is often called the father of accounting because he was the first to publish a detailed description of the system.",
+          "verdict": "supported",
+          "why": "Source records that Pacioli is often called the \"father of accounting\" because he first published a detailed description of the system."
+        },
+        {
+          "n": 6,
+          "sentence": "Every transaction requires equal and opposite debit and credit entries to ensure the integrity of financial information.",
+          "verdict": "supported",
+          "why": "Source describes double\u2011entry as requiring equal and opposite debit/credit entries to maintain accuracy and detect errors."
+        },
+        {
+          "n": 7,
+          "sentence": "This methodology is a foundational financial requirement that ensures accuracy and error detection by forcing every transaction into a balanced, symmetrical state.",
+          "verdict": "unsupported",
+          "why": "Source does not claim the method is a foundational financial requirement; it only states its purpose and benefits."
+        }
+      ]
+    }
+  },
+  "judged_claims": 16,
+  "judged_unsupported": 3,
+  "injections": {
+    "planted": 8,
+    "caught": 8,
+    "recall": 1.0,
+    "recall_by_rule": {
+      "number": 1.0,
+      "quote": 1.0,
+      "entity": 1.0,
+      "citation": 1.0
+    },
+    "missed": [],
+    "clean_bodies": 2,
+    "false_positive_bodies": 0,
+    "false_positives": []
+  },
+  "bodies": {
+    "linkedin": "In the late sixteenth century, number still carried the pejorative connotations associated with necromancy. \n\nDouble-entry bookkeeping helped confer cultural authority on numbers by using the balance. This system recalled both the scales of justice and the symmetry of God's world.\n\nEvery financial transaction is recorded with equal and opposite debits and credits. This methodology ensures the integrity of financial information by requiring entries into at least two nominal ledger accounts.\n\nThe Farolfi firm's ledger from 1299\u20131300 provides the earliest evidence of this full system. Luca Pacioli later became known as the father of accounting after publishing the first detailed description of these methods.\n\nModern financial reporting still relies on this foundational equation: Assets = Liabilities + Equity.\n\nAccounting systems have evolved significantly since the end of the 13th century.",
+    "thread": "In the late sixteenth century, number still carried the pejorative connotations associated with necromancy.\n\nEarly modern accountants countered this by linking their work to the scales of justice and the symmetry of God's world.\n\nAmatino Manucci created the earliest extant accounting records following this system at the end of the 13th century.\n\nThe Farolfi firm's ledger from 1299\u20131300 provides evidence of full double-entry bookkeeping.\n\nLuca Pacioli is often called the father of accounting because he was the first to publish a detailed description of the system.\n\nEvery transaction requires equal and opposite debit and credit entries to ensure the integrity of financial information.\n\nThis methodology is a foundational financial requirement that ensures accuracy and error detection by forcing every transaction into a balanced, symmetrical state."
+  },
+  "judged_by_model": true,
+  "rejudged": {
+    "from": 16,
+    "provider": "groq",
+    "models": [
+      "openai/gpt-oss-120b"
+    ],
+    "source_char_drift": 0
+  }
+}

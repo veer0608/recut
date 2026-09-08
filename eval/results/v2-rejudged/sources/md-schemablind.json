@@ -1,0 +1,186 @@
+{
+  "id": "md-schemablind",
+  "kind": "markdown",
+  "ref": "C:\\Users\\veera\\claude\\schemablind\\README.md",
+  "title": "schemablind",
+  "segments": 77,
+  "chars": 13752,
+  "extracted_claims": 30,
+  "dropped_unanchored": 0,
+  "targets": [
+    "linkedin",
+    "thread"
+  ],
+  "verifier_errors": {
+    "linkedin": [],
+    "thread": []
+  },
+  "format_violations": {},
+  "repaired": [],
+  "claim_utilisation": 0.36666666666666664,
+  "judged": {
+    "linkedin": {
+      "sentences": 9,
+      "claims": 9,
+      "unsupported": 0,
+      "rate": 0.0,
+      "unjudged": 0,
+      "verdicts": [
+        {
+          "n": 1,
+          "sentence": "The schemablind SQL agent operates without being provided a database schema.",
+          "verdict": "supported",
+          "why": "source says agent is given no schema"
+        },
+        {
+          "n": 2,
+          "sentence": "It interacts with unknown databases using four specific verbs: list_tables, describe_table, sample_rows, and run_sql_readonly.",
+          "verdict": "supported",
+          "why": "source lists the four verbs list_tables, describe_table, sample_rows, run_sql_readonly"
+        },
+        {
+          "n": 3,
+          "sentence": "Guessing an encoding is the most common way to write a query that runs cleanly and returns the wrong answer.",
+          "verdict": "supported",
+          "why": "source states guessing an encoding is the most common way a clean query returns the wrong answer"
+        },
+        {
+          "n": 4,
+          "sentence": "The sample_rows verb is used to determine the actual format of data values, such as whether a flag uses 0/1 or 'Y'/'N' encoding.",
+          "verdict": "supported",
+          "why": "source describes sample_rows as revealing actual value formats such as 0/1 vs 'Y'/'N'"
+        },
+        {
+          "n": 5,
+          "sentence": "Batching describe_table into one call reduced turns from 9.0 to 5.6 and tokens from 13,024 to 8,576.",
+          "verdict": "supported",
+          "why": "source reports batching describe_table reduced turns from 9.0 to 5.6 and tokens from 13,024 to 8,576"
+        },
+        {
+          "n": 6,
+          "sentence": "On the held-out half, the agent costs 11,816 tokens over 6.6 turns.",
+          "verdict": "supported",
+          "why": "source gives held\u2011out half cost of 11,816 tokens over 6.6 turns"
+        },
+        {
+          "n": 7,
+          "sentence": "The daily token cap of 200,000 is per model.",
+          "verdict": "supported",
+          "why": "source notes daily token cap of 200,000 is per model"
+        },
+        {
+          "n": 8,
+          "sentence": "Runs that encounter a daily refusal are abandoned rather than scored to prevent inaccurate performance reporting.",
+          "verdict": "supported",
+          "why": "source says runs hitting a daily refusal are abandoned rather than scored"
+        },
+        {
+          "n": 9,
+          "sentence": "The primary goal of measurement is to generate an accuracy-cost curve to identify where performance flattens, rather than determining a single best model.",
+          "verdict": "supported",
+          "why": "source says measurement aims for an accuracy\u00d7cost curve to find where it flattens, not a single best model"
+        }
+      ]
+    },
+    "thread": {
+      "sentences": 10,
+      "claims": 10,
+      "unsupported": 0,
+      "rate": 0.0,
+      "unjudged": 0,
+      "verdicts": [
+        {
+          "n": 1,
+          "sentence": "The oracle scores 100% on all 500 real Mini-Dev questions.",
+          "verdict": "supported",
+          "why": "Source says oracle scores 100% on all 500 real Mini-Dev questions"
+        },
+        {
+          "n": 2,
+          "sentence": "This confirms the scorer holds against real data and not only a fixture built to suit it.",
+          "verdict": "supported",
+          "why": "Source states scorer holds against real data, not only a fixture"
+        },
+        {
+          "n": 3,
+          "sentence": "A SQL agent should operate without being provided a database schema.",
+          "verdict": "supported",
+          "why": "Agent is described as given no schema"
+        },
+        {
+          "n": 4,
+          "sentence": "It interacts with unknown databases using four specific verbs: list_tables, describe_table, sample_rows, and run_sql_readonly.",
+          "verdict": "supported",
+          "why": "Four verbs (list_tables, describe_table, sample_rows, run_sql_readonly) are listed in source"
+        },
+        {
+          "n": 5,
+          "sentence": "The sample_rows verb is used to determine the actual format of data values.",
+          "verdict": "supported",
+          "why": "sample_rows verb shows actual data values"
+        },
+        {
+          "n": 6,
+          "sentence": "This helps identify if a flag uses 0/1 or 'Y'/'N' encoding, as guessing is the most common way to write a query that runs cleanly but returns the wrong answer.",
+          "verdict": "supported",
+          "why": "Source notes sample_rows helps identify 0/1 vs 'Y'/'N' encoding and that guessing is common error"
+        },
+        {
+          "n": 7,
+          "sentence": "Batching describe_table into one call reduced turns from 9.0 to 5.6 and tokens from 13,024 to 8,576.",
+          "verdict": "supported",
+          "why": "Source reports batching describe_table reduced turns from 9.0 to 5.6 and tokens from 13,024 to 8,576"
+        },
+        {
+          "n": 8,
+          "sentence": "The daily token cap is the primary factor that blocks model execution, rather than financial costs.",
+          "verdict": "supported",
+          "why": "Source says daily token cap blocks execution, not financial cost"
+        },
+        {
+          "n": 9,
+          "sentence": "Runs that encounter a daily refusal are abandoned rather than scored to prevent inaccurate performance reporting.",
+          "verdict": "supported",
+          "why": "Source says runs hitting daily refusal are abandoned rather than scored"
+        },
+        {
+          "n": 10,
+          "sentence": "The primary goal of measurement is to generate an accuracy-cost curve to identify where performance flattens, rather than determining a single best model.",
+          "verdict": "supported",
+          "why": "Source says primary measurement goal is an accuracy\u2011cost curve to find where performance flattens, not a single best model"
+        }
+      ]
+    }
+  },
+  "judged_claims": 19,
+  "judged_unsupported": 0,
+  "injections": {
+    "planted": 10,
+    "caught": 10,
+    "recall": 1.0,
+    "recall_by_rule": {
+      "number": 1.0,
+      "quote": 1.0,
+      "entity": 1.0,
+      "intensity": 1.0,
+      "citation": 1.0
+    },
+    "missed": [],
+    "clean_bodies": 2,
+    "false_positive_bodies": 0,
+    "false_positives": []
+  },
+  "bodies": {
+    "linkedin": "The schemablind SQL agent operates without being provided a database schema. It interacts with unknown databases using four specific verbs: list_tables, describe_table, sample_rows, and run_sql_readonly.\n\nGuessing an encoding is the most common way to write a query that runs cleanly and returns the wrong answer. The sample_rows verb is used to determine the actual format of data values, such as whether a flag uses 0/1 or 'Y'/'N' encoding.\n\nBatching describe_table into one call reduced turns from 9.0 to 5.6 and tokens from 13,024 to 8,576. On the held-out half, the agent costs 11,816 tokens over 6.6 turns.\n\nThe daily token cap of 200,000 is per model. Runs that encounter a daily refusal are abandoned rather than scored to prevent inaccurate performance reporting.\n\nThe primary goal of measurement is to generate an accuracy-cost curve to identify where performance flattens, rather than determining a single best model.",
+    "thread": "The oracle scores 100% on all 500 real Mini-Dev questions. This confirms the scorer holds against real data and not only a fixture built to suit it.\n\nA SQL agent should operate without being provided a database schema. It interacts with unknown databases using four specific verbs: list_tables, describe_table, sample_rows, and run_sql_readonly.\n\nThe sample_rows verb is used to determine the actual format of data values. This helps identify if a flag uses 0/1 or 'Y'/'N' encoding, as guessing is the most common way to write a query that runs cleanly but returns the wrong answer.\n\nBatching describe_table into one call reduced turns from 9.0 to 5.6 and tokens from 13,024 to 8,576.\n\nThe daily token cap is the primary factor that blocks model execution, rather than financial costs. Runs that encounter a daily refusal are abandoned rather than scored to prevent inaccurate performance reporting.\n\nThe primary goal of measurement is to generate an accuracy-cost curve to identify where performance flattens, rather than determining a single best model."
+  },
+  "judged_by_model": true,
+  "rejudged": {
+    "from": 19,
+    "provider": "groq",
+    "models": [
+      "openai/gpt-oss-120b"
+    ],
+    "source_char_drift": 0
+  }
+}

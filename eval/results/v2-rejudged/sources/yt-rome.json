@@ -1,0 +1,189 @@
+{
+  "id": "yt-rome",
+  "kind": "youtube",
+  "ref": "https://www.youtube.com/watch?v=0PkBP0dk4Lw",
+  "title": "Why Rome Never Really Fell made with vidsmith",
+  "segments": 10,
+  "chars": 2174,
+  "extracted_claims": 8,
+  "dropped_unanchored": 0,
+  "targets": [
+    "linkedin",
+    "thread"
+  ],
+  "verifier_errors": {
+    "linkedin": [],
+    "thread": []
+  },
+  "format_violations": {},
+  "repaired": [
+    "linkedin",
+    "thread"
+  ],
+  "claim_utilisation": 1.0,
+  "judged": {
+    "linkedin": {
+      "sentences": 9,
+      "claims": 9,
+      "unsupported": 1,
+      "rate": 0.1111111111111111,
+      "unjudged": 0,
+      "verdicts": [
+        {
+          "n": 1,
+          "sentence": "Farmers in 450 often abandoned their land to seek protection from local warlords, which deprived the empire of tax revenue.",
+          "verdict": "unsupported",
+          "why": "Source gives a single illustrative case, not that farmers 'often' abandoned land"
+        },
+        {
+          "n": 2,
+          "sentence": "The popular belief that the Roman Empire ended in a sudden, violent collapse is inaccurate.",
+          "verdict": "supported",
+          "why": "Source says the sudden violent collapse view is wrong and Rome did not vanish in one afternoon"
+        },
+        {
+          "n": 3,
+          "sentence": "Before the events of 476, the Western Roman government faced internal instability, including an inability to pay its financial obligations.",
+          "verdict": "supported",
+          "why": "Source states the Western government was fracturing and could not pay its bills before 476"
+        },
+        {
+          "n": 4,
+          "sentence": "Roman emperors devalued currency by mixing base metals into silver coins to cover rising military costs.",
+          "verdict": "supported",
+          "why": "Source notes emperors mixed base metals into silver coins to afford rising military costs"
+        },
+        {
+          "n": 5,
+          "sentence": "This runaway inflation led merchants to reject imperial money in favor of trading grain and olive oil.",
+          "verdict": "supported",
+          "why": "Source says runaway inflation made merchants stop accepting imperial money and trade grain and olive oil"
+        },
+        {
+          "n": 6,
+          "sentence": "The vast physical size of the Roman Empire made it impossible for central armies to defend against fast-moving raiders.",
+          "verdict": "supported",
+          "why": "Source claims the empire's size made defense impossible and armies couldn't block fast raiders"
+        },
+        {
+          "n": 7,
+          "sentence": "Local commanders often made private safety deals because central authority could not provide effective protection.",
+          "verdict": "supported",
+          "why": "Source reports local commanders made private safety deals because central authority was ineffective"
+        },
+        {
+          "n": 8,
+          "sentence": "The government suffered from internal rot as generals traded loyalty for bribes and engaged in frequent civil wars.",
+          "verdict": "supported",
+          "why": "Source describes generals trading loyalty for bribes and staging civil wars every few years"
+        },
+        {
+          "n": 9,
+          "sentence": "Rome did not vanish in a single dramatic afternoon.",
+          "verdict": "supported",
+          "why": "Source explicitly says Rome did not vanish in a single dramatic afternoon"
+        }
+      ]
+    },
+    "thread": {
+      "sentences": 10,
+      "claims": 10,
+      "unsupported": 0,
+      "rate": 0.0,
+      "unjudged": 0,
+      "verdicts": [
+        {
+          "n": 1,
+          "sentence": "The popular belief that the Roman Empire ended in a sudden, violent collapse is inaccurate.",
+          "verdict": "supported",
+          "why": "Source says popular belief of sudden violent collapse is wrong"
+        },
+        {
+          "n": 2,
+          "sentence": "Rome did not vanish in a single dramatic afternoon.",
+          "verdict": "supported",
+          "why": "Source explicitly states Rome did not vanish in a single dramatic afternoon"
+        },
+        {
+          "n": 3,
+          "sentence": "The Western Roman government faced internal instability, including an inability to pay its financial obligations, before the events of 476.",
+          "verdict": "supported",
+          "why": "Source notes internal rot and inability to pay bills before 476"
+        },
+        {
+          "n": 4,
+          "sentence": "Roman emperors devalued currency by mixing base metals into silver coins to cover rising military costs.",
+          "verdict": "supported",
+          "why": "Source describes emperors mixing base metals into silver to fund military costs"
+        },
+        {
+          "n": 5,
+          "sentence": "Runaway inflation caused by currency devaluation led merchants to reject imperial money in favor of trading grain and olive oil.",
+          "verdict": "supported",
+          "why": "Source links runaway inflation to merchants abandoning imperial money for grain and oil"
+        },
+        {
+          "n": 6,
+          "sentence": "The vast physical size of the Roman Empire made it impossible for central armies to defend against fast-moving raiders.",
+          "verdict": "supported",
+          "why": "Source says empire's size made defense impossible against fast raiders"
+        },
+        {
+          "n": 7,
+          "sentence": "Local commanders often made private safety deals because central authority could not provide effective protection.",
+          "verdict": "supported",
+          "why": "Source says local commanders made private safety deals due to weak central authority"
+        },
+        {
+          "n": 8,
+          "sentence": "The Roman government suffered from internal rot as generals traded loyalty for bribes and engaged in frequent civil wars.",
+          "verdict": "supported",
+          "why": "Source mentions generals trading loyalty for bribes and staging frequent civil wars"
+        },
+        {
+          "n": 9,
+          "sentence": "Farmers in 450 often abandoned their land to seek protection from local warlords, which deprived the empire of tax revenue.",
+          "verdict": "supported",
+          "why": "Source depicts farmers abandoning land for warlords, starving empire of taxes"
+        },
+        {
+          "n": 10,
+          "sentence": "The fall of the Roman Empire was not a sudden event caused by external invasion, but a long process of internal systemic collapse.",
+          "verdict": "supported",
+          "why": "Source emphasizes gradual internal collapse rather than sudden external invasion"
+        }
+      ]
+    }
+  },
+  "judged_claims": 19,
+  "judged_unsupported": 1,
+  "injections": {
+    "planted": 10,
+    "caught": 10,
+    "recall": 1.0,
+    "recall_by_rule": {
+      "number": 1.0,
+      "quote": 1.0,
+      "entity": 1.0,
+      "intensity": 1.0,
+      "citation": 1.0
+    },
+    "missed": [],
+    "clean_bodies": 2,
+    "false_positive_bodies": 0,
+    "false_positives": []
+  },
+  "bodies": {
+    "linkedin": "Farmers in 450 often abandoned their land to seek protection from local warlords, which deprived the empire of tax revenue.\n\nThe popular belief that the Roman Empire ended in a sudden, violent collapse is inaccurate. Before the events of 476, the Western Roman government faced internal instability, including an inability to pay its financial obligations.\n\nRoman emperors devalued currency by mixing base metals into silver coins to cover rising military costs. This runaway inflation led merchants to reject imperial money in favor of trading grain and olive oil.\n\nThe vast physical size of the Roman Empire made it impossible for central armies to defend against fast-moving raiders. Local commanders often made private safety deals because central authority could not provide effective protection. The government suffered from internal rot as generals traded loyalty for bribes and engaged in frequent civil wars.\n\nRome did not vanish in a single dramatic afternoon.",
+    "thread": "The popular belief that the Roman Empire ended in a sudden, violent collapse is inaccurate. Rome did not vanish in a single dramatic afternoon.\n\nThe Western Roman government faced internal instability, including an inability to pay its financial obligations, before the events of 476.\n\nRoman emperors devalued currency by mixing base metals into silver coins to cover rising military costs.\n\nRunaway inflation caused by currency devaluation led merchants to reject imperial money in favor of trading grain and olive oil.\n\nThe vast physical size of the Roman Empire made it impossible for central armies to defend against fast-moving raiders.\n\nLocal commanders often made private safety deals because central authority could not provide effective protection.\n\nThe Roman government suffered from internal rot as generals traded loyalty for bribes and engaged in frequent civil wars.\n\nFarmers in 450 often abandoned their land to seek protection from local warlords, which deprived the empire of tax revenue.\n\nThe fall of the Roman Empire was not a sudden event caused by external invasion, but a long process of internal systemic collapse."
+  },
+  "judged_by_model": true,
+  "rejudged": {
+    "from": 19,
+    "provider": "groq",
+    "models": [
+      "openai/gpt-oss-120b"
+    ],
+    "source_char_drift": 0
+  }
+}

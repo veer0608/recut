@@ -1,0 +1,205 @@
+{
+  "id": "md-schemablind",
+  "kind": "markdown",
+  "ref": "C:\\Users\\veera\\claude\\schemablind\\README.md",
+  "title": "schemablind",
+  "segments": 77,
+  "chars": 13752,
+  "extracted_claims": 25,
+  "dropped_unanchored": 0,
+  "targets": [
+    "linkedin",
+    "thread"
+  ],
+  "verifier_errors": {
+    "linkedin": [],
+    "thread": []
+  },
+  "format_violations": {},
+  "repaired": [
+    "thread"
+  ],
+  "claim_utilisation": 0.56,
+  "judged": {
+    "linkedin": {
+      "sentences": 11,
+      "claims": 11,
+      "unsupported": 0,
+      "rate": 0.0,
+      "unjudged": 0,
+      "verdicts": [
+        {
+          "n": 1,
+          "sentence": "Text-to-SQL agents should be evaluated on their ability to discover schema information independently rather than relying on pre-provided database schemas.",
+          "verdict": "supported",
+          "why": "Source explains evaluation should focus on discovering schema rather than using provided schema (s8\u2011s9)"
+        },
+        {
+          "n": 2,
+          "sentence": "Schemablind operates without a pre-provided schema.",
+          "verdict": "supported",
+          "why": "s2 states the agent is given no schema"
+        },
+        {
+          "n": 3,
+          "sentence": "It interacts with unknown databases using four specific verbs: list_tables, describe_table, sample_rows, and run_sql_readonly.",
+          "verdict": "supported",
+          "why": "s10\u2011s11 lists the four verbs list_tables, describe_table, sample_rows, run_sql_readonly"
+        },
+        {
+          "n": 4,
+          "sentence": "Batching describe_table calls reduced turns from 9.0 to 5.6 and tokens from 13,024 to 8,576.",
+          "verdict": "supported",
+          "why": "s56 reports turns fell from 9.0 to 5.6 and tokens from 13,024 to 8,576 after batching describe_table"
+        },
+        {
+          "n": 5,
+          "sentence": "On the held-out half, the agent costs 11,816 tokens over 6.6 turns.",
+          "verdict": "supported",
+          "why": "s60 says the held\u2011out half costs 11,816 tokens over 6.6 turns"
+        },
+        {
+          "n": 6,
+          "sentence": "The daily token cap is the primary factor blocking test runs, rather than monetary costs.",
+          "verdict": "supported",
+          "why": "s65 states the daily token cap, not money, blocks runs"
+        },
+        {
+          "n": 7,
+          "sentence": "The free tier daily cap is 200k tokens per model.",
+          "verdict": "supported",
+          "why": "s62 table lists daily cap as 200k tokens per model"
+        },
+        {
+          "n": 8,
+          "sentence": "Runs that hit a daily refusal are abandoned rather than scored to prevent inaccurate performance reporting.",
+          "verdict": "supported",
+          "why": "s65 notes runs that hit the daily refusal are abandoned rather than scored"
+        },
+        {
+          "n": 9,
+          "sentence": "Execution accuracy is measured by comparing the rows returned by the agent against a reference query.",
+          "verdict": "supported",
+          "why": "s6 defines execution accuracy as comparing rows of agent query and reference query"
+        },
+        {
+          "n": 10,
+          "sentence": "Tuning a prompt based on failed questions and then scoring it on those same questions results in a metric fitted to its own answer key.",
+          "verdict": "supported",
+          "why": "s67 explicitly says prompt tuned on failed questions and scored on same set yields a metric fitted to its own answer key"
+        },
+        {
+          "n": 11,
+          "sentence": "40% of the question set is held back from the model to prevent overfitting.",
+          "verdict": "supported",
+          "why": "s68 says 40% of the question set is held back to avoid overfitting"
+        }
+      ]
+    },
+    "thread": {
+      "sentences": 11,
+      "claims": 11,
+      "unsupported": 2,
+      "rate": 0.18181818181818182,
+      "unjudged": 0,
+      "verdicts": [
+        {
+          "n": 1,
+          "sentence": "A wrong query can be right by accident.",
+          "verdict": "supported",
+          "why": "source explicitly says a wrong query can be right by accident"
+        },
+        {
+          "n": 2,
+          "sentence": "Execution accuracy is measured by comparing the rows returned by the agent against those returned by a reference query on the same database.",
+          "verdict": "supported",
+          "why": "source defines execution accuracy as comparing rows of agent and reference query on the same database"
+        },
+        {
+          "n": 3,
+          "sentence": "The BIRD benchmark uses set comparison that ignores duplicates by default.",
+          "verdict": "supported",
+          "why": "source notes BIRD's set comparison ignores duplicates"
+        },
+        {
+          "n": 4,
+          "sentence": "This allows queries that are technically incorrect to pass as accurate.",
+          "verdict": "supported",
+          "why": "source explains the metric can deem technically incorrect queries correct (duplicate\u2011row bug, wrong query right by accident)"
+        },
+        {
+          "n": 5,
+          "sentence": "Tuning a prompt based on failed questions and then scoring it on those same questions results in a metric fitted to its own answer key.",
+          "verdict": "supported",
+          "why": "source states that tuning a prompt on failed questions and then scoring on those same questions yields a metric fitted to its own answer key"
+        },
+        {
+          "n": 6,
+          "sentence": "To prevent overfitting, 40% of the question set is held back from the model.",
+          "verdict": "unsupported",
+          "why": "source mentions 40% of questions are held back but does not claim the purpose is to prevent overfitting"
+        },
+        {
+          "n": 7,
+          "sentence": "The selection of this set is determined by a hash of the question text rather than editable fields.",
+          "verdict": "supported",
+          "why": "source says the held\u2011back set is chosen by a hash of the question text rather than any editable field"
+        },
+        {
+          "n": 8,
+          "sentence": "The daily token cap is the primary factor blocking test runs, rather than monetary costs.",
+          "verdict": "supported",
+          "why": "source says the free\u2011tier daily token cap, not money, blocks runs"
+        },
+        {
+          "n": 9,
+          "sentence": "A run that hits the daily token cap is abandoned rather than scored.",
+          "verdict": "supported",
+          "why": "source says a run that hits the daily token cap is abandoned rather than scored"
+        },
+        {
+          "n": 10,
+          "sentence": "Runs that hit a daily refusal are abandoned rather than scored to prevent inaccurate performance reporting.",
+          "verdict": "supported",
+          "why": "source says runs that hit a daily refusal are abandoned rather than scored to avoid counting them as wrong, i.e., to prevent inaccurate reporting"
+        },
+        {
+          "n": 11,
+          "sentence": "Text-to-SQL agents must be evaluated on their ability to discover schema information independently rather than relying on pre-provided database schemas.",
+          "verdict": "unsupported",
+          "why": "source describes schema\u2011blind evaluation but does not assert it is a required way to evaluate text\u2011to\u2011SQL agents"
+        }
+      ]
+    }
+  },
+  "judged_claims": 22,
+  "judged_unsupported": 2,
+  "injections": {
+    "planted": 8,
+    "caught": 8,
+    "recall": 1.0,
+    "recall_by_rule": {
+      "number": 1.0,
+      "quote": 1.0,
+      "entity": 1.0,
+      "citation": 1.0
+    },
+    "missed": [],
+    "clean_bodies": 2,
+    "false_positive_bodies": 0,
+    "false_positives": []
+  },
+  "bodies": {
+    "linkedin": "Text-to-SQL agents should be evaluated on their ability to discover schema information independently rather than relying on pre-provided database schemas.\n\nSchemablind operates without a pre-provided schema. It interacts with unknown databases using four specific verbs: list_tables, describe_table, sample_rows, and run_sql_readonly.\n\nBatching describe_table calls reduced turns from 9.0 to 5.6 and tokens from 13,024 to 8,576. On the held-out half, the agent costs 11,816 tokens over 6.6 turns.\n\nThe daily token cap is the primary factor blocking test runs, rather than monetary costs. The free tier daily cap is 200k tokens per model. Runs that hit a daily refusal are abandoned rather than scored to prevent inaccurate performance reporting.\n\nExecution accuracy is measured by comparing the rows returned by the agent against a reference query. Tuning a prompt based on failed questions and then scoring it on those same questions results in a metric fitted to its own answer key.\n\n40% of the question set is held back from the model to prevent overfitting.\n\n#sql #ai",
+    "thread": "A wrong query can be right by accident. Execution accuracy is measured by comparing the rows returned by the agent against those returned by a reference query on the same database.\n\nThe BIRD benchmark uses set comparison that ignores duplicates by default. This allows queries that are technically incorrect to pass as accurate.\n\nTuning a prompt based on failed questions and then scoring it on those same questions results in a metric fitted to its own answer key.\n\nTo prevent overfitting, 40% of the question set is held back from the model. The selection of this set is determined by a hash of the question text rather than editable fields.\n\nThe daily token cap is the primary factor blocking test runs, rather than monetary costs. A run that hits the daily token cap is abandoned rather than scored.\n\nRuns that hit a daily refusal are abandoned rather than scored to prevent inaccurate performance reporting.\n\nText-to-SQL agents must be evaluated on their ability to discover schema information independently rather than relying on pre-provided database schemas."
+  },
+  "judged_by_model": true,
+  "rejudged": {
+    "from": 22,
+    "provider": "groq",
+    "models": [
+      "openai/gpt-oss-120b"
+    ],
+    "source_char_drift": 0
+  }
+}
