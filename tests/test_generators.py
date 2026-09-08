@@ -329,3 +329,54 @@ class TestSourceTravelsToTheVideo:
         assert yaml.safe_load(render_config("T", "../schemablind/README.md"))["source"] == (
             "../schemablind/README.md"
         )
+
+
+class TestLocalSourcesCreditTheirTitle:
+    """A published credit has to be something a viewer can act on.
+
+    vidsmith writes this verbatim into a YouTube description. A URL is useful
+    there. An absolute path off a laptop credits nothing and publishes the
+    directory layout of the machine that made the video.
+    """
+
+    def _doc(self, source_type, ref, title):
+        from recut.models import Document
+
+        return Document(id="d", title=title, source_type=source_type, source_ref=ref)
+
+    def test_an_article_is_credited_by_its_url(self):
+        from recut.generate.vidsmith import credit_for
+
+        doc = self._doc("article", "https://example.com/post", "A Post")
+        assert credit_for(doc) == "https://example.com/post"
+
+    def test_a_video_is_credited_by_its_url(self):
+        from recut.generate.vidsmith import credit_for
+
+        doc = self._doc("youtube", "https://youtube.com/watch?v=x", "A Talk")
+        assert credit_for(doc) == "https://youtube.com/watch?v=x"
+
+    def test_a_local_file_is_credited_by_its_title(self):
+        from recut.generate.vidsmith import credit_for
+
+        doc = self._doc("markdown", r"C:\Users\someone\projects\thing\README.md", "schemablind")
+        assert credit_for(doc) == "schemablind"
+
+    def test_a_local_file_with_no_title_falls_back_to_the_path(self):
+        # Worse than a title and better than nothing: an empty credit would read
+        # as "adapted from" followed by silence.
+        from recut.generate.vidsmith import credit_for
+
+        doc = self._doc("markdown", "notes.md", "   ")
+        assert credit_for(doc) == "notes.md"
+
+    def test_the_file_still_records_where_it_actually_came_from(self):
+        # The comment is for whoever opens the file; the field is published.
+        # Losing the real path would trade one kind of traceability for another.
+        from recut.generate.vidsmith import render_config
+
+        raw = render_config("A video", r"C:\work\thing\README.md", credit="thing")
+        assert r"C:\work\thing\README.md" in raw
+        import yaml
+
+        assert yaml.safe_load(raw)["source"] == "thing"

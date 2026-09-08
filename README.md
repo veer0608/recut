@@ -121,6 +121,12 @@ into the description of anything published from the project. A video built out o
 someone else's writing credits it, and the credit is assembled rather than generated,
 because an attribution a model has paraphrased is not an attribution.
 
+An article or a video is credited by its URL, which is the only attribution a viewer
+can act on. A local file is credited by its own title instead: an absolute path off
+the machine that made the video credits nothing and publishes a directory layout. The
+real path stays in a comment at the top of the file, where it is useful to whoever
+opens it and goes nowhere near a description.
+
 Narration is written for a speech engine, so numbers are spelled out and symbols are
 rejected before they reach the voice: "four hundred seventy six", never "476". Visual
 queries have to name something a camera could point at, so "the concept of decline"

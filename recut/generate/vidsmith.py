@@ -54,19 +54,42 @@ CONFIG: dict = {
 }
 
 
-def render_config(title: str, source_ref: str) -> str:
+def credit_for(document: Document) -> str:
+    """What a published video should say it was adapted from.
+
+    vidsmith writes this verbatim into a YouTube description, where the only
+    useful attribution is one a viewer can follow. A URL is that. An absolute
+    path off someone's laptop is not: it credits nothing, and it publishes the
+    directory layout of the machine that made the video.
+
+    So a local source is credited by its own title instead. Decided on
+    `source_type` rather than by inspecting the string, because the ingest
+    adapter already knows and guessing from a path would be a second, worse
+    answer to a question that is settled.
+    """
+    if document.source_type in ("article", "youtube"):
+        return document.source_ref
+    return document.title.strip() or document.source_ref
+
+
+def render_config(title: str, source_ref: str, credit: str | None = None) -> str:
     """Dumped by PyYAML, not formatted into a template.
 
     A title is arbitrary text from a model, and titles containing a colon are
     completely ordinary ("Rome: how it really fell"). String interpolation emits
     invalid YAML for those and vidsmith would refuse the project.
+
+    `source_ref` and `credit` are different jobs. The comment on the first line
+    names the actual input, for whoever opens this file wondering where it came
+    from; `source` is published verbatim in a video description and has to be
+    something a viewer can act on. For a URL they are the same string.
     """
     body = yaml.safe_dump(
         # `source` is read by vidsmith and written verbatim into the
         # description of anything published from this project. The comment
         # on the first line is for a human reading the file; this is the
         # field the video actually credits.
-        {"title": title, "source": source_ref, **CONFIG},
+        {"title": title, "source": credit if credit is not None else source_ref, **CONFIG},
         sort_keys=False,
         allow_unicode=True,
         default_flow_style=False,
@@ -139,6 +162,8 @@ def build(document: Document, claims: ClaimSet, llm: LLM, note: str = "") -> Art
         meta=meta,
         files={
             "vidsmith/script.md": script,
-            "vidsmith/config.yaml": render_config(title, document.source_ref),
+            "vidsmith/config.yaml": render_config(
+                title, document.source_ref, credit=credit_for(document)
+            ),
         },
     )
