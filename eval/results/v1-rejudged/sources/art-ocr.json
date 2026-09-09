@@ -1,0 +1,179 @@
+{
+  "id": "art-ocr",
+  "kind": "article",
+  "ref": "https://en.wikipedia.org/wiki/Optical_character_recognition",
+  "title": "Optical character recognition - Wikipedia",
+  "segments": 48,
+  "chars": 31494,
+  "extracted_claims": 40,
+  "dropped_unanchored": 0,
+  "targets": [
+    "linkedin",
+    "thread"
+  ],
+  "verifier_errors": {
+    "linkedin": [],
+    "thread": []
+  },
+  "format_violations": {},
+  "repaired": [
+    "thread"
+  ],
+  "claim_utilisation": 0.3,
+  "judged": {
+    "linkedin": {
+      "sentences": 10,
+      "windows": 3,
+      "window_chars": 12000,
+      "claims": 10,
+      "unsupported": 3,
+      "rate": 0.3,
+      "unjudged": 0,
+      "verdicts": [
+        {
+          "n": 1,
+          "sentence": "Some OCR technology claims to capture 99.91% of data.",
+          "verdict": "supported",
+          "why": "Source entry 41\u2019s title claims OCR captures 99.91% of data"
+        },
+        {
+          "n": 2,
+          "sentence": "This evolution began in 1914 when Emanuel Goldberg developed a machine that converted characters into standard telegraph code.",
+          "verdict": "supported",
+          "why": "Source states Goldberg in 1914 developed a machine that read characters and converted them into standard telegraph code"
+        },
+        {
+          "n": 3,
+          "sentence": "By 1931, he was granted US Patent number 1,838,389 for a statistical machine used to search microfilm archives.",
+          "verdict": "supported",
+          "why": "Source says Goldberg was granted US Patent 1,838,389 in 1931 for his Statistical Machine for searching microfilm archives"
+        },
+        {
+          "n": 4,
+          "sentence": "Modern systems have moved far beyond those early experiments.",
+          "verdict": "supported",
+          "why": "Source describes advanced modern OCR systems with high accuracy, implying they have moved far beyond early experiments"
+        },
+        {
+          "n": 5,
+          "sentence": "Today, tools like PaddleOCR support over 80 languages, while specialized processes like binarization convert images to black-and-white to separate text from the background.",
+          "verdict": "supported",
+          "why": "Source notes PaddleOCR supports over 80 languages and describes binarization converting images to black\u2011and\u2011white to separate text"
+        },
+        {
+          "n": 6,
+          "sentence": "Other systems use the Levenshtein Distance algorithm to optimize results during post-processing.",
+          "verdict": "supported",
+          "why": "source states Levenshtein Distance used in OCR post\u2011processing"
+        },
+        {
+          "n": 7,
+          "sentence": "Efficiency remains a priority for large-scale operations.",
+          "verdict": "unsupported",
+          "why": "No source statement about efficiency being a priority for large\u2011scale operations"
+        },
+        {
+          "n": 8,
+          "sentence": "The New York Times uses a tool called Document Helper to process up to 5,400 pages per hour.",
+          "verdict": "supported",
+          "why": "source describes NYT's Document Helper processing up to 5,400 pages per hour"
+        },
+        {
+          "n": 9,
+          "sentence": "Despite these advancements, OCR systems still encounter 'scannos' when processing complex documents.",
+          "verdict": "unsupported",
+          "why": "Source contains no mention of \u2018scannos\u2019 or errors on complex documents"
+        },
+        {
+          "n": 10,
+          "sentence": "Accuracy is the ultimate metric for machine-encoded text.",
+          "verdict": "unsupported",
+          "why": "Source does not assert that accuracy is the ultimate metric for machine\u2011encoded text"
+        }
+      ]
+    },
+    "thread": {
+      "sentences": 7,
+      "windows": 3,
+      "window_chars": 12000,
+      "claims": 7,
+      "unsupported": 0,
+      "rate": 0.0,
+      "unjudged": 0,
+      "verdicts": [
+        {
+          "n": 1,
+          "sentence": "Some OCR technology claims to capture 99.91% of data.",
+          "verdict": "supported",
+          "why": "Source 41's title states OCR technology captures 99.91% of data, matching the claim."
+        },
+        {
+          "n": 2,
+          "sentence": "Errors in this process are sometimes referred to as 'scannos'.",
+          "verdict": "supported",
+          "why": "source says OCR errors are termed a scanno"
+        },
+        {
+          "n": 3,
+          "sentence": "A character error rate of 1% (99% accuracy) may result in an error rate of 5% or worse if word context is not used.",
+          "verdict": "supported",
+          "why": "source links 1% character error to up to 5% word error without context"
+        },
+        {
+          "n": 4,
+          "sentence": "The Levenshtein Distance algorithm is used in OCR post-processing to optimize results.",
+          "verdict": "supported",
+          "why": "source states Levenshtein Distance used in OCR post\u2011processing"
+        },
+        {
+          "n": 5,
+          "sentence": "Near-neighbor analysis uses co-occurrence frequencies to correct OCR errors.",
+          "verdict": "supported",
+          "why": "source describes near\u2011neighbor analysis using co\u2011occurrence to correct errors"
+        },
+        {
+          "n": 6,
+          "sentence": "Total OCR accuracy can be achieved through human review or Data Dictionary Authentication.",
+          "verdict": "supported",
+          "why": "source notes total accuracy achievable via human review or Data Dictionary Authentication"
+        },
+        {
+          "n": 7,
+          "sentence": "Machines have evolved from early telegraphic experiments to systems that now interpret and act upon visual text from diverse sources.",
+          "verdict": "supported",
+          "why": "source traces OCR from early telegraphy experiments to modern systems handling diverse visual text sources"
+        }
+      ]
+    }
+  },
+  "judged_claims": 17,
+  "judged_unsupported": 3,
+  "injections": {
+    "planted": 8,
+    "caught": 8,
+    "recall": 1.0,
+    "recall_by_rule": {
+      "number": 1.0,
+      "quote": 1.0,
+      "entity": 1.0,
+      "citation": 1.0
+    },
+    "missed": [],
+    "clean_bodies": 2,
+    "false_positive_bodies": 0,
+    "false_positives": []
+  },
+  "bodies": {
+    "linkedin": "Some OCR technology claims to capture 99.91% of data.\n\nThis evolution began in 1914 when Emanuel Goldberg developed a machine that converted characters into standard telegraph code. By 1931, he was granted US Patent number 1,838,389 for a statistical machine used to search microfilm archives.\n\nModern systems have moved far beyond those early experiments. Today, tools like PaddleOCR support over 80 languages, while specialized processes like binarization convert images to black-and-white to separate text from the background. Other systems use the Levenshtein Distance algorithm to optimize results during post-processing.\n\nEfficiency remains a priority for large-scale operations. The New York Times uses a tool called Document Helper to process up to 5,400 pages per hour. Despite these advancements, OCR systems still encounter 'scannos' when processing complex documents.\n\nAccuracy is the ultimate metric for machine-encoded text.\n\n#ocr #technology #data",
+    "thread": "Some OCR technology claims to capture 99.91% of data.\n\nErrors in this process are sometimes referred to as 'scannos'.\n\nA character error rate of 1% (99% accuracy) may result in an error rate of 5% or worse if word context is not used.\n\nThe Levenshtein Distance algorithm is used in OCR post-processing to optimize results.\n\nNear-neighbor analysis uses co-occurrence frequencies to correct OCR errors.\n\nTotal OCR accuracy can be achieved through human review or Data Dictionary Authentication.\n\nMachines have evolved from early telegraphic experiments to systems that now interpret and act upon visual text from diverse sources."
+  },
+  "judged_by_model": true,
+  "rejudged": {
+    "from": 17,
+    "provider": "groq",
+    "models": [
+      "openai/gpt-oss-120b"
+    ],
+    "source_char_drift": 0
+  }
+}
