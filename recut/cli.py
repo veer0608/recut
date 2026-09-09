@@ -11,7 +11,15 @@ from .ingest import ingest, source_kind
 from .ingest.markdown import slug
 from .llm import LLM, LLMError
 from .pipeline import GENERATORS, applicable, repurpose, unsupported, write_out
-from .review import APPROVED, ReviewQueue
+from .post import (
+    PartialThread,
+    PostError,
+    credentials_from_env,
+    post_thread,
+    posts_from,
+    refuse_reason,
+)
+from .review import APPROVED, POSTED, ReviewQueue
 
 GREEN, RED, YELLOW, DIM, OFF = "\033[32m", "\033[31m", "\033[33m", "\033[2m", "\033[0m"
 
@@ -88,6 +96,85 @@ def _build_approved(args) -> int:
     return 4 if failures else 0
 
 
+def _post_approved(args) -> int:
+    """Publish approved drafts to X. Prints and stops unless --confirm is given.
+
+    The default being a dry run is the whole design. Every other command here can
+    be run again; this one cannot be taken back, so the shape is look-then-send
+    rather than send-then-regret.
+    """
+    queue = ReviewQueue(args.db)
+    if args.draft:
+        drafts = [queue.get(args.draft)]
+    else:
+        drafts = [queue.get(row["id"]) for row in queue.list(APPROVED)]
+    drafts = [d for d in drafts if d]
+    if not drafts:
+        print(f"{DIM}nothing approved and waiting to be posted{OFF}")
+        return 0
+
+    postable = []
+    for draft in drafts:
+        reason = refuse_reason(draft)
+        if reason:
+            print(f"{DIM}{draft['target']:<9} {draft['id']}  skipped: {reason}{OFF}")
+        else:
+            postable.append(draft)
+    if not postable:
+        return 0
+
+    for draft in postable:
+        posts = posts_from(draft)
+        print()
+        print(f"{draft['target']} {draft['id']}  {len(posts)} post(s)")
+        # Warnings are shown rather than blocking: a human approved this draft
+        # knowing what the verifier said, and that approval is the gate. Showing
+        # them again is the last chance to notice one that was approved in haste.
+        for warning in draft.get("warnings") or []:
+            print(f"  {YELLOW}! {warning.get('rule')}: {warning.get('span')}{OFF}")
+        for i, post in enumerate(posts, 1):
+            print(f"  {DIM}{i}/{len(posts)} ({len(post)} chars){OFF} {post}")
+
+    if not args.confirm:
+        print()
+        print(
+            f"{YELLOW}dry run: nothing was posted.{OFF} "
+            f"Re-run with --confirm to publish the {len(postable)} draft(s) above."
+        )
+        return 0
+
+    try:
+        creds = credentials_from_env()
+    except PostError as exc:
+        print(f"{RED}{exc}{OFF}", file=sys.stderr)
+        return 3
+
+    failures = 0
+    for draft in postable:
+        posts = posts_from(draft)
+        try:
+            ids = post_thread(posts, creds)
+        except PartialThread as exc:
+            # The published half is real and has to be recorded even though the
+            # draft did not fully post, or those posts exist and nothing here
+            # knows their ids.
+            failures += 1
+            print(f"{RED}{draft['id']}: {exc}{OFF}", file=sys.stderr)
+            if exc.published:
+                queue.set_state(
+                    draft["id"], POSTED, note=f"partial: {','.join(exc.published)}"
+                )
+            continue
+        except PostError as exc:
+            failures += 1
+            print(f"{RED}{draft['id']}: {exc}{OFF}", file=sys.stderr)
+            continue
+        queue.set_state(draft["id"], POSTED, note=f"x:{','.join(ids)}")
+        print(f"{GREEN}posted{OFF} {draft['id']}  https://x.com/i/status/{ids[0]}")
+
+    return 4 if failures else 0
+
+
 def main(argv: list[str] | None = None) -> int:
     parser = argparse.ArgumentParser(prog="recut", description=__doc__)
     sub = parser.add_subparsers(dest="command", required=True)
@@ -122,12 +209,27 @@ def main(argv: list[str] | None = None) -> int:
     built.add_argument("--aspect", help="override the shape vidsmith renders, e.g. 16:9")
     built.add_argument("--env", default=".env", help="env file holding the API keys")
 
+    posted = sub.add_parser(
+        "post",
+        help="publish approved drafts to X. Prints what would go out unless --confirm",
+    )
+    posted.add_argument("--draft", default="", help="one draft id, default every approved one")
+    posted.add_argument("--db", default="recut.db", help="the review database")
+    posted.add_argument("--env", default=".env", help="env file holding the X credentials")
+    posted.add_argument(
+        "--confirm",
+        action="store_true",
+        help="actually publish. Without this the command is a dry run and posts nothing",
+    )
+
     args = parser.parse_args(argv)
     _utf8_stdout()
     load_dotenv(args.env, override=False)
 
     if args.command == "build":
         return _build_approved(args)
+    if args.command == "post":
+        return _post_approved(args)
 
     print(f"reading  {source_kind(args.source)}")
     try:

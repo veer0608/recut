@@ -24,6 +24,29 @@ directory before `--only` had narrowed anything, so `--fresh --only art-willison
 destroyed fourteen sources' stored bodies to regenerate one. Those bodies are what
 `rejudge.py` and `measure_copying` read and they cost a full run to produce.
 
+```bash
+.venv/Scripts/python -m recut post                    # dry run: prints what would go to X
+.venv/Scripts/python -m recut post --confirm          # actually publishes
+.venv/Scripts/python -m recut post --draft ID --confirm
+```
+
+**`recut post` publishes approved drafts to X, and is a dry run unless `--confirm`.**
+Posting is the only action in this product that cannot be taken back, so the default
+prints the posts in order and stops. `recut/post.py` refuses on four separate grounds
+before any request: the draft is not `approved`, the target is not `thread` (a linkedin
+body is prose and a vidsmith draft is a directory), the body is empty, or a post is over
+280 characters. That last one is re-checked here rather than trusted from generation,
+because a body can be edited in the queue afterwards and a thread that fails halfway has
+already published everything before the failure. `PartialThread` carries the ids that did
+go out for exactly that case: losing them leaves posts on the account nothing can point
+at. Credentials are the four OAuth 1.0a values (`X_API_KEY`, `X_API_SECRET`,
+`X_ACCESS_TOKEN`, `X_ACCESS_TOKEN_SECRET`), read from `.env`, and `Credentials.__repr__`
+is redacted so a traceback cannot write them to a log.
+
+The queue already enforced the important half before any of this existed: `posted` is
+reachable only from `approved`, and it is terminal. There is no undo for a published
+post, so the state machine does not pretend there is one.
+
 `recut build` renders drafts a human approved in the review queue and nothing else.
 The draft carries the emitted files through the queue, which is what makes this possible
 at all: before that column existed an approved vidsmith draft had nothing to render.

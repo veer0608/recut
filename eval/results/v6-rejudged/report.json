@@ -1,12 +1,12 @@
 {
   "run": {
-    "at": "2026-09-08T19:26:08+00:00",
+    "at": "2026-09-09T08:35:10+00:00",
     "rejudged_from": "v6",
     "judge_provider": "groq",
     "judge_models": [
       "openai/gpt-oss-120b"
     ],
-    "model_calls": 0
+    "model_calls": 3
   },
   "complete": false,
   "judged_by_model": true,
@@ -15,65 +15,57 @@
   ],
   "one_instrument": true,
   "sources_attempted": 15,
-  "sources_completed": 2,
+  "sources_completed": 4,
   "failures": [
     {
-      "id": "art-double-entry",
-      "error": "LLMError: every provider failed:\n  groq 429 [per-day quota]: {\"error\":{\"message\":\"Rate limit reached for model `openai/gpt-oss-120b` in organization `org_01kyw0066geyf9hjwgs1z5dpbe` service tier `on_demand` on tokens per day (TPD): Limit 200000, Used 198476, Requested 3766. Please try again in 16m8.544s. Need more tokens? Upgrade to Dev Tier today at https://"
-    },
-    {
       "id": "art-ocr",
-      "error": "not selected by --only"
+      "error": "LLMError: every provider failed:\n  groq 429 [per-day quota]: {\"error\":{\"message\":\"Rate limit reached for model `openai/gpt-oss-120b` in organization `org_01kyw0066geyf9hjwgs1z5dpbe` service tier `on_demand` on tokens per day (TPD): Limit 200000, Used 196077, Requested 4891. Please try again in 6m58.176s. Need more tokens? Upgrade to Dev Tier today at https://"
     },
     {
       "id": "art-reconciliation",
-      "error": "not selected by --only"
+      "error": "LLMError: every provider failed:\n  groq 429 [per-day quota]: {\"error\":{\"message\":\"Rate limit reached for model `openai/gpt-oss-120b` in organization `org_01kyw0066geyf9hjwgs1z5dpbe` service tier `on_demand` on tokens per day (TPD): Limit 200000, Used 197854, Requested 3574. Please try again in 10m16.896s. Need more tokens? Upgrade to Dev Tier today at https:/"
     },
     {
       "id": "art-retrieval",
-      "error": "not selected by --only"
+      "error": "LLMError: every provider failed:\n  groq 429 [per-day quota]: {\"error\":{\"message\":\"Rate limit reached for model `openai/gpt-oss-120b` in organization `org_01kyw0066geyf9hjwgs1z5dpbe` service tier `on_demand` on tokens per day (TPD): Limit 200000, Used 197850, Requested 4586. Please try again in 17m32.352s. Need more tokens? Upgrade to Dev Tier today at https:/"
     },
     {
       "id": "art-vector-db",
-      "error": "not selected by --only"
+      "error": "LLMError: every provider failed:\n  groq 429 [per-day quota]: {\"error\":{\"message\":\"Rate limit reached for model `openai/gpt-oss-120b` in organization `org_01kyw0066geyf9hjwgs1z5dpbe` service tier `on_demand` on tokens per day (TPD): Limit 200000, Used 197727, Requested 3171. Please try again in 6m27.936s. Need more tokens? Upgrade to Dev Tier today at https://"
     },
     {
       "id": "md-citerag",
-      "error": "not selected by --only"
+      "error": "LLMError: every provider failed:\n  groq 429 [per-day quota]: {\"error\":{\"message\":\"Rate limit reached for model `openai/gpt-oss-120b` in organization `org_01kyw0066geyf9hjwgs1z5dpbe` service tier `on_demand` on tokens per day (TPD): Limit 200000, Used 197713, Requested 5369. Please try again in 22m11.424s. Need more tokens? Upgrade to Dev Tier today at https:/"
     },
     {
       "id": "md-geojit",
-      "error": "not selected by --only"
+      "error": "LLMError: every provider failed:\n  groq 429 [per-day quota]: {\"error\":{\"message\":\"Rate limit reached for model `openai/gpt-oss-120b` in organization `org_01kyw0066geyf9hjwgs1z5dpbe` service tier `on_demand` on tokens per day (TPD): Limit 200000, Used 197588, Requested 4474. Please try again in 14m50.784s. Need more tokens? Upgrade to Dev Tier today at https:/"
     },
     {
       "id": "md-moneytrail",
-      "error": "not selected by --only"
+      "error": "LLMError: every provider failed:\n  groq 429 [per-day quota]: {\"error\":{\"message\":\"Rate limit reached for model `openai/gpt-oss-120b` in organization `org_01kyw0066geyf9hjwgs1z5dpbe` service tier `on_demand` on tokens per day (TPD): Limit 200000, Used 197574, Requested 6177. Please try again in 27m0.432s. Need more tokens? Upgrade to Dev Tier today at https://"
     },
     {
       "id": "md-n8n",
-      "error": "not selected by --only"
+      "error": "LLMError: every provider failed:\n  groq 429 [per-day quota]: {\"error\":{\"message\":\"Rate limit reached for model `openai/gpt-oss-120b` in organization `org_01kyw0066geyf9hjwgs1z5dpbe` service tier `on_demand` on tokens per day (TPD): Limit 200000, Used 197435, Requested 5126. Please try again in 18m26.352s. Need more tokens? Upgrade to Dev Tier today at https:/"
     },
     {
       "id": "md-reruns",
-      "error": "not selected by --only"
+      "error": "LLMError: every provider failed:\n  groq 429 [per-day quota]: {\"error\":{\"message\":\"Rate limit reached for model `openai/gpt-oss-120b` in organization `org_01kyw0066geyf9hjwgs1z5dpbe` service tier `on_demand` on tokens per day (TPD): Limit 200000, Used 197295, Requested 5109. Please try again in 17m18.528s. Need more tokens? Upgrade to Dev Tier today at https:/"
     },
     {
       "id": "md-schemablind",
-      "error": "not selected by --only"
+      "error": "LLMError: every provider failed:\n  groq 429 [per-day quota]: {\"error\":{\"message\":\"Rate limit reached for model `openai/gpt-oss-120b` in organization `org_01kyw0066geyf9hjwgs1z5dpbe` service tier `on_demand` on tokens per day (TPD): Limit 200000, Used 197156, Requested 5307. Please try again in 17m44.015999999s. Need more tokens? Upgrade to Dev Tier today at h"
     },
     {
       "id": "md-vidsmith",
-      "error": "not selected by --only"
-    },
-    {
-      "id": "yt-rome",
-      "error": "not selected by --only"
+      "error": "LLMError: every provider failed:\n  groq 429 [per-day quota]: {\"error\":{\"message\":\"Rate limit reached for model `openai/gpt-oss-120b` in organization `org_01kyw0066geyf9hjwgs1z5dpbe` service tier `on_demand` on tokens per day (TPD): Limit 200000, Used 197017, Requested 4070. Please try again in 7m49.584s. Need more tokens? Upgrade to Dev Tier today at https://"
     }
   ],
   "unsupported_claim_rate": null,
-  "unsupported_claim_rate_provisional": 0.08571428571428572,
-  "judged_claims": 35,
-  "judged_unsupported": 3,
+  "unsupported_claim_rate_provisional": 0.08695652173913043,
+  "judged_claims": 69,
+  "judged_unsupported": 6,
   "verifier_recall_on_injections": 1.0,
   "verifier_recall_by_rule": {
     "number": 1.0,
@@ -82,10 +74,10 @@
     "intensity": 1.0,
     "citation": 1.0
   },
-  "unplanted_error_rate": 0.5,
+  "unplanted_error_rate": 0.25,
   "unplanted_errors_by_rule": {},
   "format_compliance": 1.0,
-  "claim_utilisation": 0.5875,
+  "claim_utilisation": 0.6453125,
   "repair": {
     "attempted": 0,
     "kept": 0,
@@ -97,5 +89,5 @@
   },
   "dropped_unanchored": 0,
   "demoted_quotes": 0,
-  "artifacts": 4
+  "artifacts": 8
 }

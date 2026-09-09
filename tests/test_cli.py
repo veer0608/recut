@@ -181,3 +181,79 @@ class TestBuildApproved:
         self._queue(tmp_path, state="approved")
         monkeypatch.setattr(cli, "build_video", lambda *a, **k: (None, "vidsmith exited 1"))
         assert cli.main(["build", "--db", str(tmp_path / "q.db"), "--out", str(tmp_path / "o")]) == 4
+
+
+class TestPostCommand:
+    """The dry run is the safety property, so it is the one tested hardest."""
+
+    def _queued(self, tmp_path, state="approved", target="thread"):
+        from recut.review import ReviewQueue
+
+        db = tmp_path / "q.db"
+        queue = ReviewQueue(db)
+        body = chr(10).join(["One post.", "", "Two post."])
+        draft_id = queue.add("j1", {"title": "t"}, {"target": target, "body": body})
+        if state != "pending":
+            queue.set_state(draft_id, state)
+        return db, draft_id
+
+    def test_the_default_posts_nothing_even_with_credentials_present(
+        self, tmp_path, monkeypatch, capsys
+    ):
+        db, _ = self._queued(tmp_path)
+
+        def explode(*a, **k):
+            raise AssertionError("a dry run reached the network")
+
+        monkeypatch.setattr("recut.post.httpx.post", explode)
+        for name in ("X_API_KEY", "X_API_SECRET", "X_ACCESS_TOKEN", "X_ACCESS_TOKEN_SECRET"):
+            monkeypatch.setenv(name, "set")
+
+        assert cli.main(["post", "--db", str(db)]) == 0
+        out = capsys.readouterr().out
+        assert "dry run" in out and "One post." in out
+
+    def test_a_dry_run_leaves_the_draft_approved(self, tmp_path, capsys):
+        from recut.review import ReviewQueue
+
+        db, draft_id = self._queued(tmp_path)
+        cli.main(["post", "--db", str(db)])
+        assert ReviewQueue(db).get(draft_id)["state"] == "approved"
+
+    def test_confirm_without_credentials_fails_before_any_request(
+        self, tmp_path, monkeypatch, capsys
+    ):
+        db, _ = self._queued(tmp_path)
+
+        def explode(*a, **k):
+            raise AssertionError("tried to post without credentials")
+
+        monkeypatch.setattr("recut.post.httpx.post", explode)
+        for name in ("X_API_KEY", "X_API_SECRET", "X_ACCESS_TOKEN", "X_ACCESS_TOKEN_SECRET"):
+            monkeypatch.delenv(name, raising=False)
+
+        assert cli.main(["post", "--db", str(db), "--confirm", "--env", str(tmp_path / "none")]) == 3
+
+    def test_naming_an_unapproved_draft_is_refused_and_says_why(self, tmp_path, capsys):
+        # Without --draft only approved drafts are listed at all, so this is the
+        # path where a human points at one by id and the state check earns its keep.
+        db, draft_id = self._queued(tmp_path, state="pending")
+        assert cli.main(["post", "--db", str(db), "--draft", draft_id]) == 0
+        assert "not approved" in capsys.readouterr().out
+
+    def test_an_unapproved_draft_is_never_listed_for_posting(self, tmp_path, capsys):
+        db, _ = self._queued(tmp_path, state="pending")
+        assert cli.main(["post", "--db", str(db)]) == 0
+        assert "nothing approved" in capsys.readouterr().out
+
+    def test_a_linkedin_draft_is_skipped_by_name(self, tmp_path, capsys):
+        db, _ = self._queued(tmp_path, target="linkedin")
+        assert cli.main(["post", "--db", str(db)]) == 0
+        assert "not postable" in capsys.readouterr().out
+
+    def test_nothing_approved_is_not_an_error(self, tmp_path, capsys):
+        from recut.review import ReviewQueue
+
+        db = tmp_path / "empty.db"
+        ReviewQueue(db)
+        assert cli.main(["post", "--db", str(db)]) == 0

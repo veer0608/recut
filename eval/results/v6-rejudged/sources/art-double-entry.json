@@ -1,0 +1,363 @@
+{
+  "id": "art-double-entry",
+  "judged_by_model": true,
+  "kind": "article",
+  "ref": "https://en.wikipedia.org/wiki/Double-entry_bookkeeping",
+  "title": "Double-entry bookkeeping - Wikipedia",
+  "segments": 34,
+  "chars": 18479,
+  "extracted_claims": 32,
+  "dropped_unanchored": 0,
+  "targets": [
+    "linkedin",
+    "thread"
+  ],
+  "verifier_errors": {
+    "linkedin": [],
+    "thread": []
+  },
+  "format_violations": {},
+  "repaired": [
+    "linkedin"
+  ],
+  "claim_utilisation": 0.40625,
+  "judged": {
+    "linkedin": {
+      "sentences": 10,
+      "windows": 2,
+      "window_chars": 12000,
+      "claims": 10,
+      "unsupported": 2,
+      "rate": 0.2,
+      "unjudged": 0,
+      "verdicts": [
+        {
+          "n": 1,
+          "sentence": "The Farolfi firm's ledger from 1299\u20131300 provides evidence of full double-entry bookkeeping.",
+          "verdict": "supported",
+          "why": "Source s5 states the Farolfi firm's ledger of 1299\u20131300 evidences full double-entry bookkeeping."
+        },
+        {
+          "n": 2,
+          "sentence": "This method functions by recording every financial transaction with equal and opposite entries.",
+          "verdict": "supported",
+          "why": "Source s1 defines double-entry bookkeeping as recording each transaction with equal and opposite entries."
+        },
+        {
+          "n": 3,
+          "sentence": "By convention, debit entries are placed on the left side of a ledger, while credit entries are placed on the right.",
+          "verdict": "supported",
+          "why": "Source s16 says debits are posted on the left, credits on the right of a ledger."
+        },
+        {
+          "n": 4,
+          "sentence": "Asset and expense accounts typically increase with a debit.",
+          "verdict": "supported",
+          "why": "Source s22 table shows assets and expenses increase with a debit."
+        },
+        {
+          "n": 5,
+          "sentence": "Liability, capital, and revenue accounts typically increase with a credit.",
+          "verdict": "supported",
+          "why": "Source s22 table shows liabilities, capital, and revenue increase with a credit."
+        },
+        {
+          "n": 6,
+          "sentence": "A trial balance confirms that the sum of all debit balances equals the sum of all credit balances from the nominal ledger.",
+          "verdict": "supported",
+          "why": "Source s20 explains a trial balance confirms total debits equal total credits."
+        },
+        {
+          "n": 7,
+          "sentence": "Luca Pacioli is frequently referred to as the father of accounting because he published the first detailed description of the double-entry system.",
+          "verdict": "supported",
+          "why": "Source s7 notes Pacioli is often called the \"father of accounting\" because he first published a detailed description."
+        },
+        {
+          "n": 8,
+          "sentence": "US public companies must utilize double-entry accounting to satisfy SEC reporting mandates and GAAP standards.",
+          "verdict": "unsupported",
+          "why": "Source makes no mention of US SEC or GAAP requirements."
+        },
+        {
+          "n": 9,
+          "sentence": "UK law requires companies to produce reports that follow the double-entry model under Section 396 of the Companies Act 2006.",
+          "verdict": "unsupported",
+          "why": "Source does not reference UK Companies Act or legal requirements."
+        },
+        {
+          "n": 10,
+          "sentence": "Accounting systems vary globally, with Desi Namu originating from India and the Merdiban system utilized by the Ottoman Empire.",
+          "verdict": "supported",
+          "why": "Source s31 lists Desi Namu as an Indian accounting system and Merdiban as used by the Ottoman Empire."
+        }
+      ]
+    },
+    "thread": {
+      "sentences": 7,
+      "windows": 2,
+      "window_chars": 12000,
+      "claims": 7,
+      "unsupported": 0,
+      "rate": 0.0,
+      "unjudged": 0,
+      "verdicts": [
+        {
+          "n": 1,
+          "sentence": "The earliest existing European accounting records utilizing the modern double-entry system were created by Amatino Manucci in the 13th century.",
+          "verdict": "supported",
+          "why": "source s5 says earliest extant records from Manucci in the 13th century"
+        },
+        {
+          "n": 2,
+          "sentence": "The Farolfi firm's ledger from 1299\u20131300 provides evidence of full double-entry bookkeeping.",
+          "verdict": "supported",
+          "why": "source s5 notes Farolfi ledger 1299\u20111300 evidences full double\u2011entry bookkeeping"
+        },
+        {
+          "n": 3,
+          "sentence": "Every financial transaction must be recorded in at least two nominal ledger accounts to ensure that total debits match total credits.",
+          "verdict": "supported",
+          "why": "source s16 states every transaction is entered into at least two nominal ledger accounts to ensure debits equal credits"
+        },
+        {
+          "n": 4,
+          "sentence": "A debit entry signifies a value transfer into an account, whereas a credit entry signifies a value transfer out of an account.",
+          "verdict": "supported",
+          "why": "source s21 defines a debit as a transfer to an account and a credit as a transfer from an account"
+        },
+        {
+          "n": 5,
+          "sentence": "Asset and expense accounts typically increase with a debit, while liability, capital, and revenue accounts typically increase with a credit.",
+          "verdict": "supported",
+          "why": "source s22 table shows assets and expenses increase with debits, while liabilities, capital and revenue increase with credits"
+        },
+        {
+          "n": 6,
+          "sentence": "A trial balance confirms that the sum of all debit balances equals the sum of all credit balances from the nominal ledger.",
+          "verdict": "supported",
+          "why": "source s20 explains a trial balance confirms total debit balances equal total credit balances"
+        },
+        {
+          "n": 7,
+          "sentence": "Double-entry bookkeeping provides a rigorous, historically grounded framework for maintaining financial accuracy through the balancing of debits and credits.",
+          "verdict": "supported",
+          "why": "source s1 and s4 describe double\u2011entry bookkeeping as a historically based method that maintains financial accuracy by balancing debits and credits"
+        }
+      ]
+    }
+  },
+  "judged_claims": 17,
+  "judged_unsupported": 2,
+  "injections": {
+    "planted": 10,
+    "caught": 10,
+    "recall": 1.0,
+    "recall_by_rule": {
+      "number": 1.0,
+      "quote": 1.0,
+      "entity": 1.0,
+      "intensity": 1.0,
+      "citation": 1.0
+    },
+    "missed": [],
+    "clean_bodies": 2,
+    "false_positive_bodies": 0,
+    "false_positives": []
+  },
+  "bodies": {
+    "linkedin": "The Farolfi firm's ledger from 1299\u20131300 provides evidence of full double-entry bookkeeping.\n\nThis method functions by recording every financial transaction with equal and opposite entries. By convention, debit entries are placed on the left side of a ledger, while credit entries are placed on the right.\n\nAsset and expense accounts typically increase with a debit. Liability, capital, and revenue accounts typically increase with a credit. A trial balance confirms that the sum of all debit balances equals the sum of all credit balances from the nominal ledger.\n\nLuca Pacioli is frequently referred to as the father of accounting because he published the first detailed description of the double-entry system.\n\nUS public companies must utilize double-entry accounting to satisfy SEC reporting mandates and GAAP standards. UK law requires companies to produce reports that follow the double-entry model under Section 396 of the Companies Act 2006.\n\nAccounting systems vary globally, with Desi Namu originating from India and the Merdiban system utilized by the Ottoman Empire.",
+    "thread": "The earliest existing European accounting records utilizing the modern double-entry system were created by Amatino Manucci in the 13th century.\n\nThe Farolfi firm's ledger from 1299\u20131300 provides evidence of full double-entry bookkeeping.\n\nEvery financial transaction must be recorded in at least two nominal ledger accounts to ensure that total debits match total credits.\n\nA debit entry signifies a value transfer into an account, whereas a credit entry signifies a value transfer out of an account.\n\nAsset and expense accounts typically increase with a debit, while liability, capital, and revenue accounts typically increase with a credit.\n\nA trial balance confirms that the sum of all debit balances equals the sum of all credit balances from the nominal ledger.\n\nDouble-entry bookkeeping provides a rigorous, historically grounded framework for maintaining financial accuracy through the balancing of debits and credits."
+  },
+  "inventory": {
+    "claims": [
+      {
+        "id": "c0",
+        "kind": "fact",
+        "text": "Double-entry bookkeeping functions by recording every financial transaction with equal and opposite entries known as debits and credits."
+      },
+      {
+        "id": "c1",
+        "kind": "fact",
+        "text": "The primary objective of this method is to ensure financial records remain accurate and to facilitate the identification of fraud or errors."
+      },
+      {
+        "id": "c2",
+        "kind": "fact",
+        "text": "The accounting equation serves as the fundamental basis for the double-entry system."
+      },
+      {
+        "id": "c3",
+        "kind": "stat",
+        "text": "The earliest existing European accounting records utilizing the modern double-entry system were created by Amatino Manucci in the late 13th century."
+      },
+      {
+        "id": "c4",
+        "kind": "stat",
+        "text": "The Farolfi firm's ledger from 1299\u20131300 provides evidence of full double-entry bookkeeping."
+      },
+      {
+        "id": "c5",
+        "kind": "fact",
+        "text": "Luca Pacioli is frequently referred to as the father of accounting because he published the first detailed description of the double-entry system."
+      },
+      {
+        "id": "c6",
+        "kind": "fact",
+        "text": "During the early modern period in Europe, double-entry bookkeeping was associated with theological and cosmological ideas regarding justice and divine symmetry."
+      },
+      {
+        "id": "c7",
+        "kind": "fact",
+        "text": "The traditional British approach categorizes accounts into real, personal, and nominal groups."
+      },
+      {
+        "id": "c8",
+        "kind": "fact",
+        "text": "Primary journals are important because they allow for the tracing of business transactions back to an original voucher throughout the retention period."
+      },
+      {
+        "id": "c9",
+        "kind": "fact",
+        "text": "The accounting equation balances debits and credits by categorizing accounts into assets, capital, liabilities, revenues/incomes, and expenses/losses."
+      },
+      {
+        "id": "c10",
+        "kind": "fact",
+        "text": "Every financial transaction must be recorded in at least two nominal ledger accounts to ensure that total debits match total credits."
+      },
+      {
+        "id": "c11",
+        "kind": "fact",
+        "text": "By convention, debit entries are placed on the left side of a ledger, while credit entries are placed on the right."
+      },
+      {
+        "id": "c12",
+        "kind": "fact",
+        "text": "Daybooks often function as preliminary records that are later summarized and transferred into the nominal ledger."
+      },
+      {
+        "id": "c13",
+        "kind": "fact",
+        "text": "A trial balance confirms that the sum of all debit balances equals the sum of all credit balances from the nominal ledger."
+      },
+      {
+        "id": "c14",
+        "kind": "fact",
+        "text": "A debit entry signifies a value transfer into an account, whereas a credit entry signifies a value transfer out of an account."
+      },
+      {
+        "id": "c15",
+        "kind": "fact",
+        "text": "Asset and expense accounts typically increase with a debit, while liability, capital, and revenue accounts typically increase with a credit."
+      },
+      {
+        "id": "c16",
+        "kind": "stat",
+        "text": "A business transaction involving the purchase of $10,000 of inventory on credit and its subsequent sale for $15,000 cash results in a $5,000 increase in equity."
+      },
+      {
+        "id": "c17",
+        "kind": "narrative",
+        "text": "The novel Christie Malry's Own Double-Entry features a protagonist who applies the principles of double-entry bookkeeping to manage his personal life."
+      },
+      {
+        "id": "c18",
+        "kind": "fact",
+        "text": "Desi Namu is a recognized accounting system originating from India."
+      },
+      {
+        "id": "c19",
+        "kind": "fact",
+        "text": "The Merdiban accounting system was utilized by the Abbasid Caliphate, the Ottoman Empire, and the Ilkhanate."
+      },
+      {
+        "id": "c20",
+        "kind": "fact",
+        "text": "Momentum accounting and triple-entry bookkeeping are distinct accounting methodologies."
+      },
+      {
+        "id": "c21",
+        "kind": "fact",
+        "text": "Nostro and vostro accounts are typically maintained by one financial institution on behalf of another."
+      },
+      {
+        "id": "c22",
+        "kind": "fact",
+        "text": "Single-entry bookkeeping is an alternative method to double-entry systems."
+      },
+      {
+        "id": "c23",
+        "kind": "fact",
+        "text": "The double-entry accounting model is the only way to generate financial statements that meet the requirements for a true and fair view."
+      },
+      {
+        "id": "c24",
+        "kind": "fact",
+        "text": "US public companies must utilize double-entry accounting to satisfy SEC reporting mandates and GAAP standards."
+      },
+      {
+        "id": "c25",
+        "kind": "fact",
+        "text": "UK law requires companies to produce reports that follow the double-entry model under Section 396 of the Companies Act 2006."
+      },
+      {
+        "id": "c26",
+        "kind": "fact",
+        "text": "The fundamental accounting equation used in financial reporting is Assets = Liabilities + Equity."
+      },
+      {
+        "id": "c27",
+        "kind": "fact",
+        "text": "Every financial transaction involves two equal and opposite effects known as debit and credit."
+      },
+      {
+        "id": "c28",
+        "kind": "fact",
+        "text": "In the late sixteenth century, double-entry bookkeeping helped give cultural legitimacy to numbers by using the concept of the balance."
+      },
+      {
+        "id": "c29",
+        "kind": "fact",
+        "text": "Historically, the term books referred to physical bound volumes."
+      },
+      {
+        "id": "c30",
+        "kind": "stat",
+        "text": "Jane Gleeson-White authored a book titled Double Entry in November 2011."
+      },
+      {
+        "id": "c31",
+        "kind": "stat",
+        "text": "Jacob Soll wrote a book about the history of financial accountability and its impact on the success and failure of countries, published in April 2014."
+      }
+    ],
+    "hook_candidates": [
+      "Your bank statements can function as primary journals for tracking business transactions.",
+      "The roots of modern accounting can be traced back to a Florentine merchant in the 13th century.",
+      "Double-entry bookkeeping was once viewed as a reflection of the symmetry of God's world.",
+      "The father of accounting was a Franciscan friar who collaborated with Leonardo da Vinci.",
+      "Balancing the books is a practice that dates back to the 13th century.",
+      "Your ledger is not just a list of numbers; it is a system of checks where every entry must be balanced by an equal and opposite one.",
+      "The secret to accurate accounting is ensuring that every single transaction is recorded in at least two places simultaneously.",
+      "In the world of double-entry bookkeeping, a debit is not inherently good or bad\u2014it is simply a transfer of value into an account."
+    ],
+    "voice_samples": [
+      "The purpose of double-entry bookkeeping is to maintain accuracy in financial records and allow detection of errors or fraud.",
+      "In early modern Europe, double-entry bookkeeping had theological and cosmological connotations, recalling \"both the scales of justice and the symmetry of God's world\".",
+      "The great importance of the primary journals lies in the fact that they should make it possible to trace every single business transaction back to the original voucher without great effort at any given time during the retention periods, even for past events.",
+      "Pacioli is often called the \"father of accounting\" because he was the first to publish a detailed description of the double-entry system, thus enabling others to study and use it.",
+      "The accounting equation is a statement of equality between the debits and the credits.",
+      "In double-entry bookkeeping, every financial transaction is entered into at least two nominal ledger accounts to ensure that total debits equal total credits, maintaining balance in the general ledger."
+    ],
+    "thesis": "Double-entry bookkeeping provides a rigorous, historically grounded framework for maintaining financial accuracy through the balancing of debits and credits."
+  },
+  "rejudged": {
+    "from": 0,
+    "provider": "groq",
+    "models": [
+      "openai/gpt-oss-120b"
+    ],
+    "source_char_drift": 0
+  }
+}
