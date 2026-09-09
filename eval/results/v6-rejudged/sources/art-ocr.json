@@ -1,0 +1,440 @@
+{
+  "id": "art-ocr",
+  "judged_by_model": true,
+  "kind": "article",
+  "ref": "https://en.wikipedia.org/wiki/Optical_character_recognition",
+  "title": "Optical character recognition - Wikipedia",
+  "segments": 48,
+  "chars": 31494,
+  "extracted_claims": 49,
+  "dropped_unanchored": 0,
+  "targets": [
+    "linkedin",
+    "thread"
+  ],
+  "verifier_errors": {
+    "linkedin": [],
+    "thread": []
+  },
+  "format_violations": {},
+  "repaired": [],
+  "claim_utilisation": 0.1836734693877551,
+  "judged": {
+    "linkedin": {
+      "sentences": 8,
+      "windows": 3,
+      "window_chars": 12000,
+      "claims": 8,
+      "unsupported": 0,
+      "rate": 0.0,
+      "unjudged": 0,
+      "verdicts": [
+        {
+          "n": 1,
+          "sentence": "A character error rate of 1% (99% accuracy) may result in an error rate of 5% or worse when measuring by whole words rather than individual characters.",
+          "verdict": "supported",
+          "why": "Source s38 explicitly gives the 1% character error leading to ~5% word error example."
+        },
+        {
+          "n": 2,
+          "sentence": "Optical character recognition technology converts images of text into machine-readable formats from sources like scans, photos, or broadcast subtitles.",
+          "verdict": "supported",
+          "why": "Source defines OCR as converting images from scans, photos, scene photos, and subtitles into machine\u2011encoded text"
+        },
+        {
+          "n": 3,
+          "sentence": "Modern applications can identify various writing systems including Latin, Cyrillic, Arabic, Hebrew, Indic, Bengali, Devanagari, Tamil, Chinese, Japanese, and Korean.",
+          "verdict": "supported",
+          "why": "Source lists those writing systems as supported by OCR systems"
+        },
+        {
+          "n": 4,
+          "sentence": "Some software, such as Cuneiform and Tesseract, employs a two-pass approach to adaptively improve recognition of unusual or low-quality fonts.",
+          "verdict": "supported",
+          "why": "Source states Cuneiform and Tesseract use a two\u2011pass adaptive approach for unusual or low\u2011quality fonts"
+        },
+        {
+          "n": 5,
+          "sentence": "For specific tasks like reading license plates or invoices, systems can be customized by incorporating business rules.",
+          "verdict": "supported",
+          "why": "Source s28 mentions business rules and lists license plates and invoices as applications."
+        },
+        {
+          "n": 6,
+          "sentence": "Handwriting recognition can improve accuracy by analyzing the motion and sequence of pen strokes rather than just static glyph shapes.",
+          "verdict": "supported",
+          "why": "Source describes handwriting movement analysis that uses pen\u2011stroke motion to improve accuracy"
+        },
+        {
+          "n": 7,
+          "sentence": "Achieving greater than 98% accuracy for cursive script is unlikely without utilizing contextual or grammatical information.",
+          "verdict": "supported",
+          "why": "Source s40 states >98% accuracy unlikely without contextual/grammatical info."
+        },
+        {
+          "n": 8,
+          "sentence": "Accuracy metrics depend heavily on how the output is evaluated.",
+          "verdict": "supported",
+          "why": "Source s38 notes that measurement method greatly affects reported accuracy."
+        }
+      ]
+    },
+    "thread": {
+      "sentences": 8,
+      "windows": 3,
+      "window_chars": 12000,
+      "claims": 8,
+      "unsupported": 0,
+      "rate": 0.0,
+      "unjudged": 0,
+      "verdicts": [
+        {
+          "n": 1,
+          "sentence": "A character error rate of 1% (99% accuracy) may result in an error rate of 5% or worse when measuring by whole words rather than individual characters.",
+          "verdict": "supported",
+          "why": "source s38 explicitly gives that example"
+        },
+        {
+          "n": 2,
+          "sentence": "OCR technology converts images of text into machine-readable formats from sources like scans, photos, or broadcast subtitles.",
+          "verdict": "supported",
+          "why": "source defines OCR as converting images from scans, photos, or subtitles into machine\u2011encoded text"
+        },
+        {
+          "n": 3,
+          "sentence": "In 1931, he was granted US Patent number 1,838,389 for a microfilm search system using optical codes.",
+          "verdict": "supported",
+          "why": "source says Goldberg was granted US Patent 1,838,389 in 1931 for a microfilm search system using optical codes"
+        },
+        {
+          "n": 4,
+          "sentence": "Ray Kurzweil unveiled a reading machine for the blind on January 13, 1976, featuring a flatbed scanner and speech synthesis.",
+          "verdict": "supported",
+          "why": "source reports Kurzweil unveiled a blind\u2011reading machine on Jan\u202f13\u202f1976 with a flatbed scanner and speech synthesis"
+        },
+        {
+          "n": 5,
+          "sentence": "Some software, such as Cuneiform and Tesseract, employs a two-pass approach to adaptively improve recognition of unusual or low-quality fonts.",
+          "verdict": "supported",
+          "why": "source notes Cuneiform and Tesseract use a two\u2011pass adaptive approach for unusual or low\u2011quality fonts"
+        },
+        {
+          "n": 6,
+          "sentence": "Handwriting recognition can improve accuracy by analyzing the motion and sequence of pen strokes rather than just static glyph shapes.",
+          "verdict": "supported",
+          "why": "source describes handwriting movement analysis that captures pen\u2011stroke motion to improve accuracy"
+        },
+        {
+          "n": 7,
+          "sentence": "Achieving greater than 98% accuracy for cursive script is unlikely without utilizing contextual or grammatical information.",
+          "verdict": "supported",
+          "why": "source s40 says >98% accuracy unlikely without contextual or grammatical information"
+        },
+        {
+          "n": 8,
+          "sentence": "Optical character recognition technology has evolved from early telegraphic and mechanical experiments into a ubiquitous digital tool for automating data entry and accessibility.",
+          "verdict": "supported",
+          "why": "source traces OCR from early telegraphy/mechanical devices to widespread digital data\u2011entry and accessibility tools"
+        }
+      ]
+    }
+  },
+  "judged_claims": 16,
+  "judged_unsupported": 0,
+  "injections": {
+    "planted": 10,
+    "caught": 10,
+    "recall": 1.0,
+    "recall_by_rule": {
+      "number": 1.0,
+      "quote": 1.0,
+      "entity": 1.0,
+      "intensity": 1.0,
+      "citation": 1.0
+    },
+    "missed": [],
+    "clean_bodies": 2,
+    "false_positive_bodies": 0,
+    "false_positives": []
+  },
+  "bodies": {
+    "linkedin": "A character error rate of 1% (99% accuracy) may result in an error rate of 5% or worse when measuring by whole words rather than individual characters.\n\nOptical character recognition technology converts images of text into machine-readable formats from sources like scans, photos, or broadcast subtitles. Modern applications can identify various writing systems including Latin, Cyrillic, Arabic, Hebrew, Indic, Bengali, Devanagari, Tamil, Chinese, Japanese, and Korean.\n\nSome software, such as Cuneiform and Tesseract, employs a two-pass approach to adaptively improve recognition of unusual or low-quality fonts. For specific tasks like reading license plates or invoices, systems can be customized by incorporating business rules.\n\nHandwriting recognition can improve accuracy by analyzing the motion and sequence of pen strokes rather than just static glyph shapes. Achieving greater than 98% accuracy for cursive script is unlikely without utilizing contextual or grammatical information.\n\nAccuracy metrics depend heavily on how the output is evaluated.",
+    "thread": "A character error rate of 1% (99% accuracy) may result in an error rate of 5% or worse when measuring by whole words rather than individual characters.\n\nOCR technology converts images of text into machine-readable formats from sources like scans, photos, or broadcast subtitles.\n\nIn 1931, he was granted US Patent number 1,838,389 for a microfilm search system using optical codes.\n\nRay Kurzweil unveiled a reading machine for the blind on January 13, 1976, featuring a flatbed scanner and speech synthesis.\n\nSome software, such as Cuneiform and Tesseract, employs a two-pass approach to adaptively improve recognition of unusual or low-quality fonts.\n\nHandwriting recognition can improve accuracy by analyzing the motion and sequence of pen strokes rather than just static glyph shapes.\n\nAchieving greater than 98% accuracy for cursive script is unlikely without utilizing contextual or grammatical information.\n\nOptical character recognition technology has evolved from early telegraphic and mechanical experiments into a ubiquitous digital tool for automating data entry and accessibility."
+  },
+  "inventory": {
+    "claims": [
+      {
+        "id": "c0",
+        "kind": "fact",
+        "text": "OCR technology converts images of text into machine-readable formats from sources like scans, photos, or broadcast subtitles."
+      },
+      {
+        "id": "c1",
+        "kind": "stat",
+        "text": "Emanuel Goldberg created a machine in 1914 that translated characters into standard telegraph signals."
+      },
+      {
+        "id": "c2",
+        "kind": "fact",
+        "text": "Edmund Fournier d'Albe invented the Optophone, which used a handheld scanner to generate tones representing specific characters."
+      },
+      {
+        "id": "c3",
+        "kind": "stat",
+        "text": "In 1931, Emanuel Goldberg received US Patent number 1,838,389 for a microfilm search system using optical codes."
+      },
+      {
+        "id": "c4",
+        "kind": "stat",
+        "text": "Ray Kurzweil unveiled a reading machine for the blind on January 13, 1976, featuring a flatbed scanner and speech synthesis."
+      },
+      {
+        "id": "c5",
+        "kind": "fact",
+        "text": "While often credited to Kurzweil, omni-font OCR technology was utilized by firms such as CompuScan during the 1960s and 1970s."
+      },
+      {
+        "id": "c6",
+        "kind": "fact",
+        "text": "Modern OCR applications can identify various writing systems including Latin, Cyrillic, Arabic, Hebrew, Indic, Bengali, Devanagari, Tamil, Chinese, Japanese, and Korean."
+      },
+      {
+        "id": "c7",
+        "kind": "fact",
+        "text": "OCR software is sometimes used to test or bypass CAPTCHA security systems."
+      },
+      {
+        "id": "c8",
+        "kind": "fact",
+        "text": "OCR targets typewritten text one character at a time, while word recognition focuses on individual words."
+      },
+      {
+        "id": "c9",
+        "kind": "fact",
+        "text": "Intelligent character and word recognition systems are designed to process handwritten text, often utilizing machine learning."
+      },
+      {
+        "id": "c10",
+        "kind": "fact",
+        "text": "OCR is typically an offline process for static documents, though cloud-based APIs offer online alternatives."
+      },
+      {
+        "id": "c11",
+        "kind": "fact",
+        "text": "Handwriting recognition can improve accuracy by analyzing the motion and sequence of pen strokes rather than just static glyph shapes."
+      },
+      {
+        "id": "c12",
+        "kind": "fact",
+        "text": "Preprocessing techniques like de-skewing, despeckling, and binarization are frequently used to enhance OCR performance."
+      },
+      {
+        "id": "c13",
+        "kind": "fact",
+        "text": "Most commercial recognition algorithms require binary images to function effectively."
+      },
+      {
+        "id": "c14",
+        "kind": "fact",
+        "text": "Segmentation for proportional fonts is more complex than for fixed-pitch fonts because character spacing can be irregular."
+      },
+      {
+        "id": "c15",
+        "kind": "fact",
+        "text": "Matrix matching compares input images to stored glyphs pixel-by-pixel, while feature extraction breaks glyphs down into geometric components."
+      },
+      {
+        "id": "c16",
+        "kind": "fact",
+        "text": "Some OCR software, such as Cuneiform and Tesseract, employs a two-pass approach to adaptively improve recognition of unusual or low-quality fonts."
+      },
+      {
+        "id": "c17",
+        "kind": "fact",
+        "text": "Tesseract 5 uses an LSTM-based engine for recognition."
+      },
+      {
+        "id": "c18",
+        "kind": "stat",
+        "text": "PaddleOCR is a toolkit that supports recognition in more than 80 languages."
+      },
+      {
+        "id": "c19",
+        "kind": "fact",
+        "text": "Iterative OCR improves accuracy by cropping pages into sections and applying variable confidence thresholds."
+      },
+      {
+        "id": "c20",
+        "kind": "fact",
+        "text": "ALTO is an XML schema for OCR results maintained by the United States Library of Congress."
+      },
+      {
+        "id": "c21",
+        "kind": "fact",
+        "text": "Constraining OCR output with a lexicon can improve accuracy, though it may cause issues with words not found in the list, such as proper nouns."
+      },
+      {
+        "id": "c22",
+        "kind": "fact",
+        "text": "Near-neighbor analysis uses word co-occurrence frequencies to help correct OCR errors."
+      },
+      {
+        "id": "c23",
+        "kind": "fact",
+        "text": "The Levenshtein Distance algorithm is utilized in post-processing to refine OCR API outputs."
+      },
+      {
+        "id": "c24",
+        "kind": "fact",
+        "text": "Application-Oriented OCR customizes systems for specific tasks like reading license plates or invoices by incorporating business rules."
+      },
+      {
+        "id": "c25",
+        "kind": "stat",
+        "text": "The New York Times uses a proprietary tool called Document Helper to process up to 5,400 pages of content per hour."
+      },
+      {
+        "id": "c26",
+        "kind": "fact",
+        "text": "Specialized fonts like OCR-A, OCR-B, and MICR were designed to increase transcription accuracy for bank checks."
+      },
+      {
+        "id": "c27",
+        "kind": "fact",
+        "text": "Comb fields use pre-printed boxes to encourage legible handwriting, often using a dropout color that OCR systems can easily ignore."
+      },
+      {
+        "id": "c28",
+        "kind": "fact",
+        "text": "Palm OS utilized a simplified character set called Graffiti to accommodate limited hardware."
+      },
+      {
+        "id": "c29",
+        "kind": "fact",
+        "text": "Crowdsourcing, through platforms like Amazon Mechanical Turk or reCAPTCHA, can offer higher recognition accuracy than purely computer-driven OCR."
+      },
+      {
+        "id": "c30",
+        "kind": "stat",
+        "text": "The Information Science Research Institute managed the Annual Test of OCR Accuracy between 1992 and 1996."
+      },
+      {
+        "id": "c31",
+        "kind": "stat",
+        "text": "Commercial software for recognizing Latin script from the 19th and early 20th centuries achieves accuracy rates between 81% and 99%."
+      },
+      {
+        "id": "c32",
+        "kind": "fact",
+        "text": "Total accuracy in OCR can be reached through manual review or Data Dictionary Authentication."
+      },
+      {
+        "id": "c33",
+        "kind": "fact",
+        "text": "Active research is ongoing regarding the recognition of hand printing, cursive script, and East Asian characters."
+      },
+      {
+        "id": "c34",
+        "kind": "fact",
+        "text": "The MNIST database is a common tool for evaluating how well systems recognize handwritten digits."
+      },
+      {
+        "id": "c35",
+        "kind": "stat",
+        "text": "Measuring accuracy by whole words rather than individual characters can cause a 1% character error rate to appear as a 5% or worse error rate."
+      },
+      {
+        "id": "c36",
+        "kind": "fact",
+        "text": "OCR systems struggle to distinguish between the long s and the letter f."
+      },
+      {
+        "id": "c37",
+        "kind": "fact",
+        "text": "Recognizing cursive script is generally less accurate than recognizing hand-printed text."
+      },
+      {
+        "id": "c38",
+        "kind": "stat",
+        "text": "Achieving over 98% accuracy for cursive script is unlikely without utilizing contextual or grammatical information."
+      },
+      {
+        "id": "c39",
+        "kind": "fact",
+        "text": "Users can set confidence rates to trigger manual review when OCR software fails to meet specific accuracy thresholds."
+      },
+      {
+        "id": "c40",
+        "kind": "fact",
+        "text": "The term scanno is used to describe errors generated by OCR scanning."
+      },
+      {
+        "id": "c41",
+        "kind": "stat",
+        "text": "Unicode version 1.1, released in June 1993, introduced characters to support OCR."
+      },
+      {
+        "id": "c42",
+        "kind": "fact",
+        "text": "The Optophone, described in 1914, was an early device designed to read typeset characters."
+      },
+      {
+        "id": "c43",
+        "kind": "fact",
+        "text": "Emanuel Goldberg patented a statistical machine in 1931."
+      },
+      {
+        "id": "c44",
+        "kind": "stat",
+        "text": "Modern OCR technology can achieve data capture rates as high as 99.91 percent."
+      },
+      {
+        "id": "c45",
+        "kind": "narrative",
+        "text": "Google Books Ngram Viewer corpora from 2009 struggled with the elongated medial-s character, often misreading it as an f in pre-19th century English texts."
+      },
+      {
+        "id": "c46",
+        "kind": "fact",
+        "text": "The Tesseract OCR engine, originally developed by Ray Smith, remains a widely referenced tool in the field."
+      },
+      {
+        "id": "c47",
+        "kind": "fact",
+        "text": "Deep learning models like TrOCR utilize transformer-based architectures to improve optical character recognition performance."
+      },
+      {
+        "id": "c48",
+        "kind": "stat",
+        "text": "The Unicode standard includes a designated hexadecimal range from 2440 to 245F for optical character recognition symbols."
+      }
+    ],
+    "hook_candidates": [
+      "Your smartphone camera can translate foreign signs in real-time using optical character recognition.",
+      "Early reading machines for the blind used a handheld scanner to convert printed letters into audible tones.",
+      "The technology used to scan your bank statements was once patented to search microfilm archives in 1931.",
+      "OCR software is frequently used to challenge the security of anti-bot systems like CAPTCHA.",
+      "Before modern digital systems, early OCR machines had to be manually trained to recognize one specific font at a time.",
+      "Optical character recognition does more than just look at shapes; it can analyze the actual motion of a pen to decipher handwriting.",
+      "Modern OCR software often uses a two-pass system to learn the specific quirks of a font while it is scanning the document.",
+      "Standard OCR struggles with proportional fonts because the space between letters can sometimes be wider than the space between words."
+    ],
+    "voice_samples": [
+      "Early versions needed to be trained with images of each character, and worked on one font at a time.",
+      "In 1914, Emanuel Goldberg developed a machine that read characters and converted them into standard telegraph code.",
+      "The device included a CCD-type flatbed scanner and a text-to-speech synthesizer.",
+      "OCR engines have been developed into software applications specializing in various subjects such as receipts, invoices, checks, and legal billing documents.",
+      "Optical character recognition (OCR) \u2013 targets typewritten text, one glyph or character at a time.",
+      "Handwriting movement analysis can be used as input to handwriting recognition."
+    ],
+    "thesis": "Optical character recognition technology has evolved from early telegraphic and mechanical experiments into a ubiquitous digital tool for automating data entry and accessibility."
+  },
+  "rejudged": {
+    "from": 0,
+    "provider": "groq",
+    "models": [
+      "openai/gpt-oss-120b"
+    ],
+    "source_char_drift": 0
+  }
+}

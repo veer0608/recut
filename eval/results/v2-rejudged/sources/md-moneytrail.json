@@ -1,0 +1,196 @@
+{
+  "id": "md-moneytrail",
+  "kind": "markdown",
+  "ref": "C:\\Users\\veera\\claude\\moneytrail\\README.md",
+  "title": "moneytrail",
+  "segments": 153,
+  "chars": 35444,
+  "extracted_claims": 58,
+  "dropped_unanchored": 0,
+  "targets": [
+    "linkedin",
+    "thread"
+  ],
+  "verifier_errors": {
+    "linkedin": [],
+    "thread": []
+  },
+  "format_violations": {},
+  "repaired": [],
+  "claim_utilisation": 0.1724137931034483,
+  "judged": {
+    "linkedin": {
+      "sentences": 8,
+      "windows": 3,
+      "window_chars": 12000,
+      "claims": 8,
+      "unsupported": 0,
+      "rate": 0.0,
+      "unjudged": 0,
+      "verdicts": [
+        {
+          "n": 1,
+          "sentence": "Merchant coverage on a real 225-transaction statement was 18%.",
+          "verdict": "supported",
+          "why": "Source states merchant coverage was 18% on a 225\u2011transaction statement"
+        },
+        {
+          "n": 2,
+          "sentence": "Chasing that number would have been the wrong response.",
+          "verdict": "supported",
+          "why": "Source says \"chasing that number would have been the wrong response\""
+        },
+        {
+          "n": 3,
+          "sentence": "Most personal finance tools prioritize categorization as the first step.",
+          "verdict": "supported",
+          "why": "Source claims every personal\u2011finance tool starts by categorising transactions"
+        },
+        {
+          "n": 4,
+          "sentence": "Moneytrail uses a reconciliation gate to verify arithmetic against bank-published data before categorizing transactions.",
+          "verdict": "supported",
+          "why": "Source describes Moneytrail's first component as a reconciliation gate checked against bank\u2011published arithmetic before categorisation"
+        },
+        {
+          "n": 5,
+          "sentence": "If a statement does not reconcile to the paisa, the tool exports it with a 'reconciled = NO' stamp to ensure users are alerted to errors.",
+          "verdict": "supported",
+          "why": "source says failing statements are still exported with reconciled = NO"
+        },
+        {
+          "n": 6,
+          "sentence": "The codebase uses no floats to represent money, as binary floating-point math cannot promise accuracy to the paisa.",
+          "verdict": "supported",
+          "why": "Source says no floats are used because they cannot guarantee paisa accuracy"
+        },
+        {
+          "n": 7,
+          "sentence": "Instead, the tool records the method used to resolve a merchant name to ensure the normalizer remains debuggable.",
+          "verdict": "supported",
+          "why": "Source notes each merchant match records how it was reached for debugability"
+        },
+        {
+          "n": 8,
+          "sentence": "Statements that fail to reconcile are still exported to ensure users are alerted to errors.",
+          "verdict": "supported",
+          "why": "source states statements that fail to reconcile are still exported"
+        }
+      ]
+    },
+    "thread": {
+      "sentences": 12,
+      "windows": 3,
+      "window_chars": 12000,
+      "claims": 12,
+      "unsupported": 0,
+      "rate": 0.0,
+      "unjudged": 0,
+      "verdicts": [
+        {
+          "n": 1,
+          "sentence": "Most personal finance tools start by categorizing transactions, but that is the wrong first step.",
+          "verdict": "supported",
+          "why": "source states every personal\u2011finance tool starts by categorising transactions and that this is the wrong first step"
+        },
+        {
+          "n": 2,
+          "sentence": "A statement either reconciles to the paisa or it does not.",
+          "verdict": "supported",
+          "why": "source says a statement either reconciles to the paisa or it does not"
+        },
+        {
+          "n": 3,
+          "sentence": "Moneytrail rejects scanned PDFs rather than guessing at them.",
+          "verdict": "supported",
+          "why": "source notes scanned PDFs are rejected rather than guessed at"
+        },
+        {
+          "n": 4,
+          "sentence": "It uses a reconciliation gate to verify arithmetic against bank-published data before categorizing anything.",
+          "verdict": "supported",
+          "why": "source describes moneytrail\u2019s first component as a reconciliation gate checked against bank\u2011published arithmetic before categorisation"
+        },
+        {
+          "n": 5,
+          "sentence": "The codebase uses no floats to represent money because binary floating-point math cannot promise accuracy to the paisa.",
+          "verdict": "supported",
+          "why": "source explains no floats are used because binary floating\u2011point cannot guarantee paisa accuracy"
+        },
+        {
+          "n": 6,
+          "sentence": "Amounts are written as exact decimals.",
+          "verdict": "supported",
+          "why": "Source s80 explicitly says amounts are written as exact decimals"
+        },
+        {
+          "n": 7,
+          "sentence": "A test of 225 transactions across three months of an HDFC statement reconciled to the paisa against the bank's summary block.",
+          "verdict": "supported",
+          "why": "source reports 225 transactions over three months of an HDFC statement reconciled to the paisa against the bank\u2019s summary block"
+        },
+        {
+          "n": 8,
+          "sentence": "Merchant coverage on a real 225-transaction statement was 18%.",
+          "verdict": "supported",
+          "why": "source gives merchant coverage on the real 225\u2011transaction statement as 18%"
+        },
+        {
+          "n": 9,
+          "sentence": "Chasing that number would be the wrong response.",
+          "verdict": "supported",
+          "why": "source says \u201cchasing that number would have been the wrong response\u201d"
+        },
+        {
+          "n": 10,
+          "sentence": "Language models can produce a confident, plausible, but incorrect number when asked to read a ledger.",
+          "verdict": "supported",
+          "why": "source says a language model can produce a confident, plausible, wrong number when reading a ledger"
+        },
+        {
+          "n": 11,
+          "sentence": "The system validates model-generated JSON into a Query object to prevent the model from inventing merchants.",
+          "verdict": "supported",
+          "why": "source explains that model\u2011generated JSON is validated into a Query, preventing invented merchants"
+        },
+        {
+          "n": 12,
+          "sentence": "Personal finance tools must prioritize a reconciliation gate over categorization to ensure data integrity, as silent parsing errors render subsequent financial insights unreliable.",
+          "verdict": "supported",
+          "why": "source argues that a reconciliation gate must come before categorisation because parsing errors make later insights unreliable"
+        }
+      ]
+    }
+  },
+  "judged_claims": 20,
+  "judged_unsupported": 0,
+  "injections": {
+    "planted": 10,
+    "caught": 10,
+    "recall": 1.0,
+    "recall_by_rule": {
+      "number": 1.0,
+      "quote": 1.0,
+      "entity": 1.0,
+      "intensity": 1.0,
+      "citation": 1.0
+    },
+    "missed": [],
+    "clean_bodies": 2,
+    "false_positive_bodies": 0,
+    "false_positives": []
+  },
+  "bodies": {
+    "linkedin": "Merchant coverage on a real 225-transaction statement was 18%. Chasing that number would have been the wrong response.\n\nMost personal finance tools prioritize categorization as the first step. Moneytrail uses a reconciliation gate to verify arithmetic against bank-published data before categorizing transactions. If a statement does not reconcile to the paisa, the tool exports it with a 'reconciled = NO' stamp to ensure users are alerted to errors.\n\nThe codebase uses no floats to represent money, as binary floating-point math cannot promise accuracy to the paisa. Instead, the tool records the method used to resolve a merchant name to ensure the normalizer remains debuggable.\n\nStatements that fail to reconcile are still exported to ensure users are alerted to errors.",
+    "thread": "Most personal finance tools start by categorizing transactions, but that is the wrong first step. A statement either reconciles to the paisa or it does not.\n\nMoneytrail rejects scanned PDFs rather than guessing at them. It uses a reconciliation gate to verify arithmetic against bank-published data before categorizing anything.\n\nThe codebase uses no floats to represent money because binary floating-point math cannot promise accuracy to the paisa. Amounts are written as exact decimals.\n\nA test of 225 transactions across three months of an HDFC statement reconciled to the paisa against the bank's summary block.\n\nMerchant coverage on a real 225-transaction statement was 18%. Chasing that number would be the wrong response.\n\nLanguage models can produce a confident, plausible, but incorrect number when asked to read a ledger. The system validates model-generated JSON into a Query object to prevent the model from inventing merchants.\n\nPersonal finance tools must prioritize a reconciliation gate over categorization to ensure data integrity, as silent parsing errors render subsequent financial insights unreliable."
+  },
+  "judged_by_model": true,
+  "rejudged": {
+    "from": 20,
+    "provider": "groq",
+    "models": [
+      "openai/gpt-oss-120b"
+    ],
+    "source_char_drift": 0
+  }
+}

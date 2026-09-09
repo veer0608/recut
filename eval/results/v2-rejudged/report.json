@@ -1,35 +1,26 @@
 {
   "run": {
-    "at": "2026-09-09T08:29:39+00:00",
+    "at": "2026-09-09T14:04:29+00:00",
     "rejudged_from": "v2",
     "judge_provider": "groq",
     "judge_models": [
       "openai/gpt-oss-120b"
     ],
-    "model_calls": 18
+    "model_calls": 1
   },
-  "complete": false,
+  "complete": true,
   "judged_by_model": true,
   "judge_window_chars": [
     12000
   ],
   "one_instrument": true,
   "sources_attempted": 15,
-  "sources_completed": 13,
-  "failures": [
-    {
-      "id": "md-moneytrail",
-      "error": "LLMError: every provider failed:\n  groq 429 [per-day quota]: {\"error\":{\"message\":\"Rate limit reached for model `openai/gpt-oss-120b` in organization `org_01kyw0066geyf9hjwgs1z5dpbe` service tier `on_demand` on tokens per day (TPD): Limit 200000, Used 196003, Requested 4955. Please try again in 6m53.856s. Need more tokens? Upgrade to Dev Tier today at https://"
-    },
-    {
-      "id": "md-vidsmith",
-      "error": "LLMError: every provider failed:\n  groq 429 [per-day quota]: {\"error\":{\"message\":\"Rate limit reached for model `openai/gpt-oss-120b` in organization `org_01kyw0066geyf9hjwgs1z5dpbe` service tier `on_demand` on tokens per day (TPD): Limit 200000, Used 197783, Requested 6255. Please try again in 29m4.416s. Need more tokens? Upgrade to Dev Tier today at https://"
-    }
-  ],
-  "unsupported_claim_rate": null,
-  "unsupported_claim_rate_provisional": 0.07834101382488479,
-  "judged_claims": 217,
-  "judged_unsupported": 17,
+  "sources_completed": 15,
+  "failures": [],
+  "unsupported_claim_rate": 0.0694980694980695,
+  "unsupported_claim_rate_provisional": 0.0694980694980695,
+  "judged_claims": 259,
+  "judged_unsupported": 18,
   "verifier_recall_on_injections": 1.0,
   "verifier_recall_by_rule": {
     "number": 1.0,
@@ -38,10 +29,10 @@
     "intensity": 1.0,
     "citation": 1.0
   },
-  "unplanted_error_rate": 0.038461538461538464,
+  "unplanted_error_rate": 0.03333333333333333,
   "unplanted_errors_by_rule": {},
   "format_compliance": 1.0,
-  "claim_utilisation": 0.6069328720252629,
+  "claim_utilisation": 0.5619925378804917,
   "repair": {
     "attempted": 0,
     "kept": 0,
@@ -53,5 +44,5 @@
   },
   "dropped_unanchored": 0,
   "demoted_quotes": 0,
-  "artifacts": 26
+  "artifacts": 30
 }

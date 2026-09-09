@@ -343,15 +343,42 @@ Recall would need a hand-labelled inventory the golden set does not have.
 repeats are the only way to settle a rate.
 
 **The current judge is not uniformly more lenient, which is what this used to say.**
-Measured on identical stored bodies across 23 source comparisons: v1 goes 15.4% to 13.1%
-and v2 goes 10.2% to 7.5%, so the direction is down, but pooled that is `z=1.04, p=0.30`
-and it is not uniform. Groq is looser on 12 sources, **stricter on 5**, identical on 6.
-`md-vidsmith` goes 0/19 to 3/20 and `yt-rome` 0/19 to 1/19. A per-source figure from one
-judge cannot be swapped for the other's, and the aggregate shift is not established either.
+`v1-rejudged` is now complete at **13.4%** (35/262) against v1's published 15.5%, and
+`v2-rejudged` stands at 13 of 15.
+
+**Pair only the sources both judges checked the same number of sentences in.** Three of
+v1's fifteen did not: `md-citerag` 16 to 18, `md-vidsmith` 19 to 20, `yt-rome` 22 to 23.
+The bodies are identical, the judged sentence sets are not, so those three are not a
+before-and-after of anything. On the twelve that are comparable, v1 goes 17.9% to 14.4%
+(`z=0.95, p=0.34`); v2's fourteen shared sources are all comparable and go 10.1% to 7.2%
+(`z=1.14, p=0.25`). Direction down, neither significant.
+
+And not uniform, which is the part that matters for swapping a number: the current judge
+is **stricter on 2 of v1's sources** (`md-moneytrail`, `md-vidsmith`, the latter 0/19 to
+3/20) and **stricter on 5 of v2's** (`art-ocr`, `art-reconciliation`, `art-vector-db`,
+`art-willison`, `yt-rome`). A per-source figure from one judge cannot be swapped for the
+other's, and the aggregate shift is not established either.
+
+An earlier version of this paragraph pooled all shared sources without checking sentence
+counts and reported `z=1.04, p=0.30` over "23 source comparisons". The conclusion did not
+change; the arithmetic was over pairs that were not pairs.
 
 Published: **15.5% unsupported** (v1, 258 claims, all 15 sources). A v2 measured 10.0% but is not
 published: z=+1.86, p=0.063 on one run. Articles improved decisively (25.9% to 5.6%, p<0.001)
 while markdown regressed (8.9% to 15.0%).
+
+**Both runs are now scored on the current judge, and the gap crosses p<0.05 there.**
+`v1-rejudged` 13.4% (35/262) against `v2-rejudged` 6.9% (18/259): `z=2.42, p=0.016`,
+where the same two runs on the old judge were `z=1.86, p=0.063`.
+
+**That is not a second experiment and must not be read as one.** Rejudging re-scores the
+same single v1 run and single v2 run with a different instrument; it adds no runs, and
+generation variance is exactly what `--seed` cannot remove. The p-value moved because the
+measured gap widened, 5.5 points to 6.5, not because anything was repeated. The current
+judge also took v2 down further than v1 (3.1 points against 2.1) while being stricter on
+5 of v2's own sources, so the widening is not obviously the judge being cleaner rather
+than differently shaped. Repeats remain the only thing that settles a rate, and the
+README's rule that the headline does not move without them still holds.
 
 ## LLM access, where the traps are
 
