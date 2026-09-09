@@ -1,0 +1,166 @@
+{
+  "id": "art-ocr",
+  "kind": "article",
+  "ref": "https://en.wikipedia.org/wiki/Optical_character_recognition",
+  "title": "Optical character recognition - Wikipedia",
+  "segments": 48,
+  "chars": 31494,
+  "extracted_claims": 51,
+  "dropped_unanchored": 0,
+  "targets": [
+    "linkedin",
+    "thread"
+  ],
+  "verifier_errors": {
+    "linkedin": [],
+    "thread": []
+  },
+  "format_violations": {},
+  "repaired": [],
+  "claim_utilisation": 0.3137254901960784,
+  "judged": {
+    "linkedin": {
+      "sentences": 8,
+      "windows": 3,
+      "window_chars": 12000,
+      "claims": 8,
+      "unsupported": 1,
+      "rate": 0.125,
+      "unjudged": 0,
+      "verdicts": [
+        {
+          "n": 1,
+          "sentence": "A character error rate of 1% (99% accuracy) may result in an error rate of 5% or worse if word context is not used.",
+          "verdict": "supported",
+          "why": "Source s38 explicitly states a 1% character error rate may become 5% error without word context."
+        },
+        {
+          "n": 2,
+          "sentence": "Optical character recognition has evolved from early telegraphic experiments into a technology used to digitize printed text for electronic editing and searching.",
+          "verdict": "supported",
+          "why": "Source links early telegraphy experiments to modern digitizing for editing and searching"
+        },
+        {
+          "n": 3,
+          "sentence": "While modern tools like Tesseract 5 or TrOCR assist in this process, the underlying mechanics often rely on binarization, as most commercial recognition algorithms work only on binary images.",
+          "verdict": "supported",
+          "why": "Source mentions Tesseract\u202f5/TrOCR and states most commercial algorithms need binary images"
+        },
+        {
+          "n": 4,
+          "sentence": "Techniques such as near-neighbor analysis can help correct errors by utilizing co-occurrence frequencies of words.",
+          "verdict": "supported",
+          "why": "Source s25 describes near\u2011neighbor analysis using co\u2011occurrence frequencies to correct errors."
+        },
+        {
+          "n": 5,
+          "sentence": "For specialized tasks, some software uses a two-pass approach where high-confidence results from the first pass improve recognition of remaining letters.",
+          "verdict": "supported",
+          "why": "Source describes a two\u2011pass approach using high\u2011confidence results to improve remaining letters"
+        },
+        {
+          "n": 6,
+          "sentence": "Even with these methods, recognition of typewritten Latin script is not 100% accurate.",
+          "verdict": "supported",
+          "why": "Source s37 says typewritten Latin script text is still not 100% accurate."
+        },
+        {
+          "n": 7,
+          "sentence": "Users can set confidence rates to trigger notifications for manual review when the system encounters uncertainty.",
+          "verdict": "supported",
+          "why": "Source s41 notes users can set confidence rates and be notified for manual review."
+        },
+        {
+          "n": 8,
+          "sentence": "OCR technology can capture up to 99.91% of data.",
+          "verdict": "unsupported",
+          "why": "No source passage provides a 99.91% capture figure."
+        }
+      ]
+    },
+    "thread": {
+      "sentences": 7,
+      "windows": 3,
+      "window_chars": 12000,
+      "claims": 7,
+      "unsupported": 2,
+      "rate": 0.2857142857142857,
+      "unjudged": 0,
+      "verdicts": [
+        {
+          "n": 1,
+          "sentence": "OCR software can be used to defeat or test the robustness of CAPTCHA anti-bot systems.",
+          "verdict": "supported",
+          "why": "Source lists defeating/testing CAPTCHA as OCR use"
+        },
+        {
+          "n": 2,
+          "sentence": "Early experiments in the field included the Optophone, a handheld scanner that produced tones corresponding to characters, developed by Edmund Fournier d'Albe.",
+          "verdict": "supported",
+          "why": "Source describes Optophone by d'Albe with tones"
+        },
+        {
+          "n": 3,
+          "sentence": "In 1931, Emanuel Goldberg was granted US Patent number 1,838,389 for a statistical machine used to search microfilm archives.",
+          "verdict": "supported",
+          "why": "Source says Goldberg got 1931 patent 1,838,389 for statistical machine"
+        },
+        {
+          "n": 4,
+          "sentence": "By January 13, 1976, Ray Kurzweil unveiled a reading machine for the blind that included a flatbed scanner and a text-to-speech synthesizer.",
+          "verdict": "supported",
+          "why": "Source says Kurzweil unveiled product on Jan 13 1976 with flatbed scanner and TTS"
+        },
+        {
+          "n": 5,
+          "sentence": "Commercial OCR software accuracy for 19th- and early 20th-century newspaper pages varied from 81% to 99%.",
+          "verdict": "unsupported",
+          "why": "Source only lists references and does not state any accuracy percentages for 19th\u2011century newspapers."
+        },
+        {
+          "n": 6,
+          "sentence": "A character error rate of 1% (99% accuracy) may result in an error rate of 5% or worse if word context is not used.",
+          "verdict": "unsupported",
+          "why": "Source contains no claim about error rates increasing without word context."
+        },
+        {
+          "n": 7,
+          "sentence": "OCR technology has evolved from early mechanical experiments into a versatile way to digitize, search, and process text across diverse formats and applications.",
+          "verdict": "supported",
+          "why": "Source describes evolution from early experiments to versatile digitizing/searching applications"
+        }
+      ]
+    }
+  },
+  "judged_claims": 15,
+  "judged_unsupported": 3,
+  "injections": {
+    "planted": 10,
+    "caught": 10,
+    "recall": 1.0,
+    "recall_by_rule": {
+      "number": 1.0,
+      "quote": 1.0,
+      "entity": 1.0,
+      "intensity": 1.0,
+      "citation": 1.0
+    },
+    "missed": [],
+    "clean_bodies": 2,
+    "false_positive_bodies": 0,
+    "false_positives": []
+  },
+  "bodies": {
+    "linkedin": "A character error rate of 1% (99% accuracy) may result in an error rate of 5% or worse if word context is not used.\n\nOptical character recognition has evolved from early telegraphic experiments into a technology used to digitize printed text for electronic editing and searching. While modern tools like Tesseract 5 or TrOCR assist in this process, the underlying mechanics often rely on binarization, as most commercial recognition algorithms work only on binary images.\n\nTechniques such as near-neighbor analysis can help correct errors by utilizing co-occurrence frequencies of words. For specialized tasks, some software uses a two-pass approach where high-confidence results from the first pass improve recognition of remaining letters. Even with these methods, recognition of typewritten Latin script is not 100% accurate. Users can set confidence rates to trigger notifications for manual review when the system encounters uncertainty.\n\nOCR technology can capture up to 99.91% of data.",
+    "thread": "OCR software can be used to defeat or test the robustness of CAPTCHA anti-bot systems.\n\nEarly experiments in the field included the Optophone, a handheld scanner that produced tones corresponding to characters, developed by Edmund Fournier d'Albe.\n\nIn 1931, Emanuel Goldberg was granted US Patent number 1,838,389 for a statistical machine used to search microfilm archives.\n\nBy January 13, 1976, Ray Kurzweil unveiled a reading machine for the blind that included a flatbed scanner and a text-to-speech synthesizer.\n\nCommercial OCR software accuracy for 19th- and early 20th-century newspaper pages varied from 81% to 99%.\n\nA character error rate of 1% (99% accuracy) may result in an error rate of 5% or worse if word context is not used.\n\nOCR technology has evolved from early mechanical experiments into a versatile way to digitize, search, and process text across diverse formats and applications."
+  },
+  "judged_by_model": true,
+  "rejudged": {
+    "from": 15,
+    "provider": "groq",
+    "models": [
+      "openai/gpt-oss-120b"
+    ],
+    "source_char_drift": 0
+  }
+}

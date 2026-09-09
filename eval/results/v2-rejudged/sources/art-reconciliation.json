@@ -1,0 +1,180 @@
+{
+  "id": "art-reconciliation",
+  "kind": "article",
+  "ref": "https://en.wikipedia.org/wiki/Bank_reconciliation",
+  "title": "Bank reconciliation - Wikipedia",
+  "segments": 10,
+  "chars": 2637,
+  "extracted_claims": 9,
+  "dropped_unanchored": 0,
+  "targets": [
+    "linkedin",
+    "thread"
+  ],
+  "verifier_errors": {
+    "linkedin": [],
+    "thread": []
+  },
+  "format_violations": {},
+  "repaired": [
+    "thread"
+  ],
+  "claim_utilisation": 1.0,
+  "judged": {
+    "linkedin": {
+      "sentences": 9,
+      "windows": 1,
+      "window_chars": 12000,
+      "claims": 9,
+      "unsupported": 0,
+      "rate": 0.0,
+      "unjudged": 0,
+      "verdicts": [
+        {
+          "n": 1,
+          "sentence": "Stale cheques that are out of date are typically reversed rather than cancelled.",
+          "verdict": "supported",
+          "why": "source states stale cheques are reversed not cancelled"
+        },
+        {
+          "n": 2,
+          "sentence": "Bank reconciliation is the process of matching an entity's internal bank account balance with the balance reported by the financial institution.",
+          "verdict": "supported",
+          "why": "source defines bank reconciliation as matching balances"
+        },
+        {
+          "n": 3,
+          "sentence": "There are \"mainly three reasons\" for differences between these records: timing differences, transactions recorded by the bank but not the holder, and recording errors.",
+          "verdict": "supported",
+          "why": "source lists three reasons: timing, bank-only transactions, errors"
+        },
+        {
+          "n": 4,
+          "sentence": "Differences between internal books and bank records should be examined and, if appropriate, rectified.",
+          "verdict": "supported",
+          "why": "source says differences must be examined and rectified"
+        },
+        {
+          "n": 5,
+          "sentence": "It is considered good practice to perform bank reconciliations at frequent intervals to minimize the workload.",
+          "verdict": "supported",
+          "why": "source calls frequent reconciliation good practice to reduce work"
+        },
+        {
+          "n": 6,
+          "sentence": "Entries to rectify discrepancies are typically made in a subsequent period and should not be backdated.",
+          "verdict": "supported",
+          "why": "source says rectifying entries made later, not backdated"
+        },
+        {
+          "n": 7,
+          "sentence": "Financial institutions often provide direct downloads of transaction information into accounting software, typically using the .csv format.",
+          "verdict": "supported",
+          "why": "source notes institutions offer CSV downloads"
+        },
+        {
+          "n": 8,
+          "sentence": "Outstanding cheques are defined as \"outstanding cheques (ie., issued cheques that have still not been presented at the bank for payment)\".",
+          "verdict": "supported",
+          "why": "source defines outstanding cheques as not yet presented"
+        },
+        {
+          "n": 9,
+          "sentence": "Reconciling your bank account frequently is a good practice.",
+          "verdict": "supported",
+          "why": "source says frequent reconciliation is good practice"
+        }
+      ]
+    },
+    "thread": {
+      "sentences": 8,
+      "windows": 1,
+      "window_chars": 12000,
+      "claims": 8,
+      "unsupported": 1,
+      "rate": 0.125,
+      "unjudged": 0,
+      "verdicts": [
+        {
+          "n": 1,
+          "sentence": "When cheques become stale, they are typically reversed rather than cancelled.",
+          "verdict": "supported",
+          "why": "source s8 says stale cheques are typically reversed, not cancelled"
+        },
+        {
+          "n": 2,
+          "sentence": "Bank reconciliation matches your internal account balance with the balance reported by the financial institution.",
+          "verdict": "supported",
+          "why": "source s1 defines bank reconciliation as matching the entity\u2019s book balance to the bank\u2011reported balance"
+        },
+        {
+          "n": 3,
+          "sentence": "There are mainly three reasons for differences between your books and bank records: timing differences, transactions recorded by the bank but not the holder, and recording errors.",
+          "verdict": "supported",
+          "why": "source s3/s4 list the three reasons exactly as stated"
+        },
+        {
+          "n": 4,
+          "sentence": "Financial institutions often provide direct downloads of transaction information into accounting software, typically using the .csv format.",
+          "verdict": "supported",
+          "why": "source s2 notes many institutions offer direct .csv downloads into accounting software"
+        },
+        {
+          "n": 5,
+          "sentence": "Outstanding cheques are issued cheques that have still not been presented at the bank for payment.",
+          "verdict": "supported",
+          "why": "source s7 defines outstanding cheques as issued cheques not yet presented at the bank"
+        },
+        {
+          "n": 6,
+          "sentence": "A bank reconciliation statement lists the specific entries that caused the difference between the two balances.",
+          "verdict": "supported",
+          "why": "source s7 says the statement sets out the entries that caused the difference between balances"
+        },
+        {
+          "n": 7,
+          "sentence": "It is good practice to perform bank reconciliations at frequent intervals to minimize the workload.",
+          "verdict": "supported",
+          "why": "source s6 recommends reconciling at reasonably frequent intervals to minimise work"
+        },
+        {
+          "n": 8,
+          "sentence": "Bank reconciliation is a necessary accounting process to identify and rectify discrepancies between an entity's internal records and the records held by a financial institution.",
+          "verdict": "unsupported",
+          "why": "source describes the process but does not claim it is a necessary accounting procedure"
+        }
+      ]
+    }
+  },
+  "judged_claims": 17,
+  "judged_unsupported": 1,
+  "injections": {
+    "planted": 10,
+    "caught": 10,
+    "recall": 1.0,
+    "recall_by_rule": {
+      "number": 1.0,
+      "quote": 1.0,
+      "entity": 1.0,
+      "intensity": 1.0,
+      "citation": 1.0
+    },
+    "missed": [],
+    "clean_bodies": 2,
+    "false_positive_bodies": 0,
+    "false_positives": []
+  },
+  "bodies": {
+    "linkedin": "Stale cheques that are out of date are typically reversed rather than cancelled.\n\nBank reconciliation is the process of matching an entity's internal bank account balance with the balance reported by the financial institution. There are \"mainly three reasons\" for differences between these records: timing differences, transactions recorded by the bank but not the holder, and recording errors.\n\nDifferences between internal books and bank records should be examined and, if appropriate, rectified. It is considered good practice to perform bank reconciliations at frequent intervals to minimize the workload. Entries to rectify discrepancies are typically made in a subsequent period and should not be backdated.\n\nFinancial institutions often provide direct downloads of transaction information into accounting software, typically using the .csv format.\n\nOutstanding cheques are defined as \"outstanding cheques (ie., issued cheques that have still not been presented at the bank for payment)\".\n\nReconciling your bank account frequently is a good practice.",
+    "thread": "When cheques become stale, they are typically reversed rather than cancelled.\n\nBank reconciliation matches your internal account balance with the balance reported by the financial institution.\n\nThere are mainly three reasons for differences between your books and bank records: timing differences, transactions recorded by the bank but not the holder, and recording errors.\n\nFinancial institutions often provide direct downloads of transaction information into accounting software, typically using the .csv format.\n\nOutstanding cheques are issued cheques that have still not been presented at the bank for payment.\n\nA bank reconciliation statement lists the specific entries that caused the difference between the two balances.\n\nIt is good practice to perform bank reconciliations at frequent intervals to minimize the workload.\n\nBank reconciliation is a necessary accounting process to identify and rectify discrepancies between an entity's internal records and the records held by a financial institution."
+  },
+  "judged_by_model": true,
+  "rejudged": {
+    "from": 17,
+    "provider": "groq",
+    "models": [
+      "openai/gpt-oss-120b"
+    ],
+    "source_char_drift": 0
+  }
+}

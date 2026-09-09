@@ -1,0 +1,213 @@
+{
+  "id": "md-citerag",
+  "kind": "markdown",
+  "ref": "C:\\Users\\veera\\claude\\citerag\\README.md",
+  "title": "CiteRAG",
+  "segments": 95,
+  "chars": 28402,
+  "extracted_claims": 45,
+  "dropped_unanchored": 0,
+  "targets": [
+    "linkedin",
+    "thread"
+  ],
+  "verifier_errors": {
+    "linkedin": [],
+    "thread": [
+      "[error/intensity] 'significant': the source never says 'significant(?:ly)?'; do not add force it did not use"
+    ]
+  },
+  "format_violations": {},
+  "repaired": [
+    "linkedin"
+  ],
+  "claim_utilisation": 0.35555555555555557,
+  "judged": {
+    "linkedin": {
+      "sentences": 9,
+      "windows": 3,
+      "window_chars": 12000,
+      "claims": 9,
+      "unsupported": 0,
+      "rate": 0.0,
+      "unjudged": 0,
+      "verdicts": [
+        {
+          "n": 1,
+          "sentence": "Table-aware ingestion decreased recall@5 from 0.733 to 0.667 by introducing near-duplicate chunks that crowded the re-ranker.",
+          "verdict": "supported",
+          "why": "Source states recall@5 dropped to 0.667 due to near-duplicate chunks crowding the re\u2011ranker"
+        },
+        {
+          "n": 2,
+          "sentence": "Most RAG projects rely on qualitative impressions, but a golden-question evaluation harness is required to measure retrieval quality objectively.",
+          "verdict": "supported",
+          "why": "Source says most tutorial RAG projects skip the eval harness and that the harness proves retrieval quality with numbers, not vibes"
+        },
+        {
+          "n": 3,
+          "sentence": "In testing, the initial 30-question set incorrectly suggested that re-ranker quality was the binding constraint.",
+          "verdict": "supported",
+          "why": "Source notes the 30\u2011question set led to the belief that the re\u2011ranker was the binding constraint, later shown to be wrong"
+        },
+        {
+          "n": 4,
+          "sentence": "Doubling the evaluation set to 60 questions revealed that query rewriting was a more pressing need.",
+          "verdict": "supported",
+          "why": "Source reports that after expanding to 60 questions, query rewriting became the most valuable lever"
+        },
+        {
+          "n": 5,
+          "sentence": "Retrieval performance is often hindered by technical artifacts.",
+          "verdict": "supported",
+          "why": "Source shows welded tokens (a technical artifact) hurt retrieval, implying performance is hindered by such artifacts."
+        },
+        {
+          "n": 6,
+          "sentence": "The pdfplumber tool frequently emits words welded together, which causes FTS5 to tokenize them as a single token.",
+          "verdict": "supported",
+          "why": "Source explicitly states pdfplumber frequently emits welded words and FTS5 tokenizes each weld as one token."
+        },
+        {
+          "n": 7,
+          "sentence": "All-lowercase welds accounted for 1,971 / 2,144 (92%) of chunks containing a 16+ character weld.",
+          "verdict": "supported",
+          "why": "Source provides the exact figure 1,971 / 2,144 (92%) for all\u2011lowercase welds in 16+ char chunks."
+        },
+        {
+          "n": 8,
+          "sentence": "Implementing vocabulary-based re-spacing reduced the share of welded tokens from 10.2% to 5.4% and raised recall@5 from 0.683 to 0.767.",
+          "verdict": "supported",
+          "why": "Source reports weld share dropping from 10.2% to 5.4% and recall@5 increasing from 0.683 to 0.767 after re\u2011spacing."
+        },
+        {
+          "n": 9,
+          "sentence": "Aggregate metrics can be misleading when they contradict the retrieval hypothesis.",
+          "verdict": "supported",
+          "why": "Source notes an aggregate metric contradicted the hypothesis and was misleading."
+        }
+      ]
+    },
+    "thread": {
+      "sentences": 12,
+      "windows": 3,
+      "window_chars": 12000,
+      "claims": 12,
+      "unsupported": 2,
+      "rate": 0.16666666666666666,
+      "unjudged": 0,
+      "verdicts": [
+        {
+          "n": 1,
+          "sentence": "Table-aware ingestion decreased recall@5 from 0.733 to 0.667 because it introduced near-duplicate chunks that crowded the re-ranker.",
+          "verdict": "supported",
+          "why": "Source states table-aware ingestion lowered recall to 0.667 due to near-duplicate chunks crowding re\u2011ranker"
+        },
+        {
+          "n": 2,
+          "sentence": "Most RAG projects skip the golden-question evaluation harness, relying on qualitative impressions instead of measuring retrieval quality with numbers.",
+          "verdict": "supported",
+          "why": "Source says most tutorial RAG projects skip the golden\u2011question eval harness and rely on \u2018vibes\u2019 instead of numbers"
+        },
+        {
+          "n": 3,
+          "sentence": "The system uses SQLite with the sqlite-vec extension for local, zero-infrastructure vector storage.",
+          "verdict": "supported",
+          "why": "Stack table lists SQLite + sqlite\u2011vec as vector store, described as zero\u2011infra local"
+        },
+        {
+          "n": 4,
+          "sentence": "The bge-small-en-v1.5 embedding model is local, 384-dimensional, and requires no API key.",
+          "verdict": "supported",
+          "why": "Source describes bge\u2011small\u2011en\u2011v1.5 as local, 384\u2011dimensional, no API key"
+        },
+        {
+          "n": 5,
+          "sentence": "Hybrid retrieval improved recall@5 from 0.500 to 0.733.",
+          "verdict": "unsupported",
+          "why": "source provides no hybrid retrieval recall figures"
+        },
+        {
+          "n": 6,
+          "sentence": "Adding a re-ranker improved recall@5 from 0.467 to 0.500.",
+          "verdict": "supported",
+          "why": "Table shows recall rise from 0.467 to 0.500 after adding re\u2011ranker"
+        },
+        {
+          "n": 7,
+          "sentence": "Increasing the re-rank pool from 20 to 50 candidates decreased recall@5 from 0.733 to 0.700 because the extra distractors cost more than the recovered answers.",
+          "verdict": "supported",
+          "why": "Source reports recall drop from 0.733 to 0.700 when pool increased, citing distractor effect"
+        },
+        {
+          "n": 8,
+          "sentence": "All-lowercase welds accounted for 1,971 / 2,144 (92%) of chunks containing a 16+ character weld.",
+          "verdict": "supported",
+          "why": "source lists 1,971 / 2,144 (92%) chunks with 16+ char all\u2011lowercase welds"
+        },
+        {
+          "n": 9,
+          "sentence": "Vocabulary-based re-spacing reduced the share of welded tokens from 10.2% to 5.4%.",
+          "verdict": "supported",
+          "why": "source states welds fell from 10.2% to 5.4% after re\u2011spacing"
+        },
+        {
+          "n": 10,
+          "sentence": "Aggregate metrics can be misleading.",
+          "verdict": "supported",
+          "why": "source says aggregate metrics were the wrong instrument and can mislead"
+        },
+        {
+          "n": 11,
+          "sentence": "A 30-question set incorrectly suggested re-ranker quality was the binding constraint, while a 60-question set revealed query rewriting was a more significant need.",
+          "verdict": "supported",
+          "why": "source describes 30\u2011question set favoring re\u2011ranker and 60\u2011question set highlighting query rewriting need"
+        },
+        {
+          "n": 12,
+          "sentence": "A RAG system must include a golden-question evaluation harness to objectively measure retrieval quality rather than relying on qualitative impressions.",
+          "verdict": "unsupported",
+          "why": "source describes a golden-question harness but does not mandate it for all RAG systems"
+        }
+      ]
+    }
+  },
+  "judged_claims": 21,
+  "judged_unsupported": 2,
+  "injections": {
+    "planted": 10,
+    "caught": 10,
+    "recall": 1.0,
+    "recall_by_rule": {
+      "number": 1.0,
+      "quote": 1.0,
+      "entity": 1.0,
+      "intensity": 1.0,
+      "citation": 1.0
+    },
+    "missed": [],
+    "clean_bodies": 2,
+    "false_positive_bodies": 1,
+    "false_positives": [
+      {
+        "target": "thread",
+        "spans": [
+          "[error/intensity] 'significant': the source never says 'significant(?:ly)?'; do not add force it did not use"
+        ]
+      }
+    ]
+  },
+  "bodies": {
+    "linkedin": "Table-aware ingestion decreased recall@5 from 0.733 to 0.667 by introducing near-duplicate chunks that crowded the re-ranker.\n\nMost RAG projects rely on qualitative impressions, but a golden-question evaluation harness is required to measure retrieval quality objectively. In testing, the initial 30-question set incorrectly suggested that re-ranker quality was the binding constraint. Doubling the evaluation set to 60 questions revealed that query rewriting was a more pressing need.\n\nRetrieval performance is often hindered by technical artifacts. The pdfplumber tool frequently emits words welded together, which causes FTS5 to tokenize them as a single token. All-lowercase welds accounted for 1,971 / 2,144 (92%) of chunks containing a 16+ character weld. Implementing vocabulary-based re-spacing reduced the share of welded tokens from 10.2% to 5.4% and raised recall@5 from 0.683 to 0.767.\n\nAggregate metrics can be misleading when they contradict the retrieval hypothesis.",
+    "thread": "Table-aware ingestion decreased recall@5 from 0.733 to 0.667 because it introduced near-duplicate chunks that crowded the re-ranker.\n\nMost RAG projects skip the golden-question evaluation harness, relying on qualitative impressions instead of measuring retrieval quality with numbers.\n\nThe system uses SQLite with the sqlite-vec extension for local, zero-infrastructure vector storage. The bge-small-en-v1.5 embedding model is local, 384-dimensional, and requires no API key.\n\nHybrid retrieval improved recall@5 from 0.500 to 0.733. Adding a re-ranker improved recall@5 from 0.467 to 0.500.\n\nIncreasing the re-rank pool from 20 to 50 candidates decreased recall@5 from 0.733 to 0.700 because the extra distractors cost more than the recovered answers.\n\nAll-lowercase welds accounted for 1,971 / 2,144 (92%) of chunks containing a 16+ character weld. Vocabulary-based re-spacing reduced the share of welded tokens from 10.2% to 5.4%.\n\nAggregate metrics can be misleading. A 30-question set incorrectly suggested re-ranker quality was the binding constraint, while a 60-question set revealed query rewriting was a more significant need.\n\nA RAG system must include a golden-question evaluation harness to objectively measure retrieval quality rather than relying on qualitative impressions."
+  },
+  "judged_by_model": true,
+  "rejudged": {
+    "from": 21,
+    "provider": "groq",
+    "models": [
+      "openai/gpt-oss-120b"
+    ],
+    "source_char_drift": 0
+  }
+}
