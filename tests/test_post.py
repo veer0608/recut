@@ -190,3 +190,17 @@ class TestQueueCannotBeSkippedOrRepeated:
         with pytest.raises(TransitionError):
             queue.set_state(draft_id, APPROVED)
         assert refuse_reason(queue.get(draft_id)) is not None
+
+
+def test_the_queue_page_does_not_claim_nothing_can_post():
+    """The footer promised "Nothing here posts anything" and recut post broke it.
+
+    The page itself still posts nothing, which is the true and useful half. The
+    claim that nothing anywhere does is what stopped being true.
+    """
+    import pathlib
+
+    page = pathlib.Path(__file__).resolve().parent.parent / "web" / "index.html"
+    text = page.read_text(encoding="utf-8")
+    assert "Nothing here posts anything" not in text
+    assert "recut post --confirm" in text
