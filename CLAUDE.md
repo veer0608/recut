@@ -86,6 +86,16 @@ and is not wired into `pipeline.repurpose`. The stored entry carries `_dropped` 
 `_demoted_quotes` beside the `ClaimSet`, because those are diagnostics that do not
 survive `model_dump` and would otherwise come back as zero.
 
+**Do not cache judged verdicts the same way.** Caching the judge on
+`(body hash, judge model, window size)` is the obvious next saving and was proposed on
+2026-09-09, before anyone knew the judge disagrees with itself. A cache keyed on the body
+returns the first verdict forever, which does not merely hide judge variance: it makes it
+**unmeasurable**, because `judge_variance.py` works by judging the same body twice and a
+cache would hand back the same answer both times. Caching an instrument's output erases
+the evidence that the instrument moves. If it is ever built, `rejudge.py` must have a way
+to bypass it, and the bypass has to be the default for anything measuring the judge
+rather than using it.
+
 ## The one rule the whole design rests on
 
 **Outputs are never generated from the raw source.** `extract.py` turns a source into a
