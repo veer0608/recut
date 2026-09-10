@@ -1007,3 +1007,33 @@ class TestJudgeVariance:
     def test_only_sources_judged_in_both_are_compared(self):
         result = compare({"a": (1, 10), "b": (1, 10)}, {"a": (1, 10)})
         assert result["sources"] == 1
+
+
+class TestGoldenSourcesArePinned:
+    """A golden source that points at a file someone edits is not a fixed input.
+
+    md-vidsmith and md-reruns drifted +1952 and +2464 chars under runs that had
+    already been judged, which withheld two headlines. All seven markdown sources
+    pointed at live sibling READMEs and every one of them could have done the same.
+    """
+
+    def test_no_markdown_source_points_outside_the_repo(self):
+        for source in load_sources():
+            if source["kind"] != "markdown":
+                continue
+            assert "golden" in source["ref"].replace("\\", "/"), (
+                f"{source['id']} points at {source['ref']}, which is not a snapshot"
+            )
+
+    def test_every_markdown_source_resolves_to_a_file_that_exists(self):
+        import os
+
+        for source in load_sources():
+            if source["kind"] == "markdown":
+                assert os.path.exists(source["ref"]), source["id"]
+
+    def test_the_snapshots_are_not_empty(self):
+        import pathlib as pl
+
+        for path in (pl.Path("eval/golden/markdown")).glob("*.md"):
+            assert path.stat().st_size > 500, path

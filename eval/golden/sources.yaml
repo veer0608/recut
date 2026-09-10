@@ -1,64 +1,46 @@
-# The golden set. Real sources only: nothing here was written to be easy to score.
-#
-# Sources are capped at roughly 40k characters, which is the top of what anyone
-# actually feeds a repurposing tool: a blog post, a talk, a README. The 127k
-# character Fall of the Western Roman Empire article was dropped for that reason and
-# not for cost. An encyclopedia entry that long is a different task, and scoring it
-# here would move the headline number without telling you anything about the job.
-#
-# Local files are resolved relative to this file's directory, so the set is
-# reproducible on a clean clone as long as the sibling repos are present. Remote
-# sources are pinned by URL and can rot; a run records which ones failed to fetch
-# and refuses to publish a headline number if any of them did.
-
 sources:
-  # --- markdown, long form technical writing -------------------------------
-  - id: md-vidsmith
-    kind: markdown
-    ref: ../../../vidsmith/README.md
-  - id: md-citerag
-    kind: markdown
-    ref: ../../../citerag/README.md
-  - id: md-moneytrail
-    kind: markdown
-    ref: ../../../moneytrail/README.md
-  - id: md-schemablind
-    kind: markdown
-    ref: ../../../schemablind/README.md
-  - id: md-reruns
-    kind: markdown
-    ref: ../../../reruns/README.md
-  - id: md-n8n
-    kind: markdown
-    ref: ../../../n8n-statement-extractor/README.md
-  - id: md-geojit
-    kind: markdown
-    ref: ../../../geojit-report-app/README.md
-
-  # --- articles, dense with names and figures -------------------------------
-  - id: art-bank-statement
-    kind: article
-    ref: https://en.wikipedia.org/wiki/Bank_statement
-  - id: art-double-entry
-    kind: article
-    ref: https://en.wikipedia.org/wiki/Double-entry_bookkeeping
-  - id: art-vector-db
-    kind: article
-    ref: https://en.wikipedia.org/wiki/Vector_database
-  - id: art-retrieval
-    kind: article
-    ref: https://en.wikipedia.org/wiki/Retrieval-augmented_generation
-  - id: art-ocr
-    kind: article
-    ref: https://en.wikipedia.org/wiki/Optical_character_recognition
-  - id: art-reconciliation
-    kind: article
-    ref: https://en.wikipedia.org/wiki/Bank_reconciliation
-  - id: art-willison
-    kind: article
-    ref: https://simonwillison.net/2025/Sep/6/
-
-  # --- video, where timing and speech disfluency are the challenge ----------
-  - id: yt-rome
-    kind: youtube
-    ref: https://www.youtube.com/watch?v=0PkBP0dk4Lw
+- id: md-vidsmith
+  kind: markdown
+  ref: markdown/md-vidsmith.md
+- id: md-citerag
+  kind: markdown
+  ref: markdown/md-citerag.md
+- id: md-moneytrail
+  kind: markdown
+  ref: markdown/md-moneytrail.md
+- id: md-schemablind
+  kind: markdown
+  ref: markdown/md-schemablind.md
+- id: md-reruns
+  kind: markdown
+  ref: markdown/md-reruns.md
+- id: md-n8n
+  kind: markdown
+  ref: markdown/md-n8n.md
+- id: md-geojit
+  kind: markdown
+  ref: markdown/md-geojit.md
+- id: art-bank-statement
+  kind: article
+  ref: https://en.wikipedia.org/wiki/Bank_statement
+- id: art-double-entry
+  kind: article
+  ref: https://en.wikipedia.org/wiki/Double-entry_bookkeeping
+- id: art-vector-db
+  kind: article
+  ref: https://en.wikipedia.org/wiki/Vector_database
+- id: art-retrieval
+  kind: article
+  ref: https://en.wikipedia.org/wiki/Retrieval-augmented_generation
+- id: art-ocr
+  kind: article
+  ref: https://en.wikipedia.org/wiki/Optical_character_recognition
+- id: art-reconciliation
+  kind: article
+  ref: https://en.wikipedia.org/wiki/Bank_reconciliation
+- id: art-willison
+  kind: article
+  ref: https://simonwillison.net/2025/Sep/6/
+- id: yt-rome
+  kind: youtube
+  ref: https://www.youtube.com/watch?v=0PkBP0dk4Lw

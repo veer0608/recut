@@ -1,0 +1,746 @@
+# moneytrail
+
+[![ci](https://github.com/veer0608/moneytrail/actions/workflows/ci.yml/badge.svg)](https://github.com/veer0608/moneytrail/actions/workflows/ci.yml)
+
+Turn bank statements into a ledger that **provably adds up**, then ask it the
+questions no banking app will answer.
+
+> *Did that Myntra refund from March ever actually arrive?*
+> *What am I paying for every month that I stopped using?*
+> *Was I charged twice for anything this year?*
+
+Local-first: statements are parsed on your machine and never leave it.
+
+---
+
+## The idea
+
+Every personal-finance tool starts by categorising transactions. That is the
+wrong first step. If the parse dropped a row (a wrapped narration, a page
+break, a misread decimal) then every category total, every "you spent 23% more
+on food" insight, and every answer built on top of it is quietly wrong, and
+nothing in the product will ever tell you.
+
+So moneytrail's first component is not a categoriser. It is a **reconciliation
+gate**, and it is checked against arithmetic the bank already published:
+
+| check | what it proves |
+|---|---|
+| `chain` | walking the running-balance column, every row moves the balance by exactly its own amount; this localises a fault to a line number |
+| `totals` | `opening + credits − debits == closing`; catches faults the chain cannot see, including rows lost off the end |
+
+This is free ground truth. No labelling, no judgement, no model. A statement
+either reconciles to the paisa or it does not, and if it does not, the tool says
+which row and by how much.
+
+**Money is an integer count of paise, everywhere.** `0.1 + 0.2 != 0.3` in
+binary. A float pipeline cannot promise "to the paisa", so there are no floats
+in this codebase, amounts are only rendered as rupees at the edge.
+
+## It works
+
+A clean statement:
+
+```
+tests/fixtures/hdfc_april_2025.csv
+  bank            HDFC
+  account         XXXXXXXX4471
+  period          2025-04-01 -> 2025-04-25
+  transactions    7 (7 carry a running balance)
+  opening             ₹45,231.60  (explicit)
+  credits     +       ₹87,499.00
+  debits      -       ₹36,560.00
+  computed            ₹96,170.60
+  closing             ₹96,170.60  (explicit)
+  RECONCILED to the paisa
+```
+
+The same statement with one row lost during parsing:
+
+```
+tests/fixtures/hdfc_april_2025_dropped_row.csv
+  ...
+  computed            ₹96,819.60
+  closing             ₹96,170.60  (explicit)
+  FAILED -- 2 discrepancy(ies):
+    [chain] row 10: expected ₹1,27,320.60, statement says ₹1,26,671.60 (off by -₹649.00)
+            -- UPI-MYNTRADESIGNS-MYNTRA@AXISBANK-UTIB0000441-509912834-ORDER
+    [totals] statement total: expected ₹96,819.60, statement says ₹96,170.60 (off by -₹649.00)
+```
+
+₹649.00 is exactly the missing Netflix charge, and row 10 is the line right
+after the gap. A silent data-loss bug becomes a line number.
+
+### Reading a failure
+
+The walk resyncs to the bank's printed balance after each break, so faults stay
+local instead of cascading. That gives two distinguishable signatures:
+
+- **one** chain fault → a row is **missing** before that line
+- **two adjacent** faults with **equal and opposite** deltas → that row's
+  **balance** was misread; the amounts around it are fine
+
+## Usage
+
+```bash
+python -m moneytrail check path/to/statement.pdf
+python -m moneytrail check path/to/statement.csv
+python -m moneytrail check path/to/a/folder
+python -m moneytrail check statements/ --certificate certificate.pdf
+
+python -m moneytrail export statements/ --out ledger.xlsx
+
+python -m moneytrail merchants statements/
+python -m moneytrail review statements/
+python -m moneytrail spend statements/
+```
+
+Encrypted PDFs prompt for a password without echoing it, so it stays out of
+your shell history; the password is used to open the file and then dropped.
+`--password` is there for scripts, and `--no-prompt` reports locked files and
+carries on, for CI.
+
+Exit code is non-zero if anything fails to reconcile.
+
+```bash
+python -m pytest
+```
+
+## Status
+
+**Everything below is shipped.** 499 tests, CI green on 3.11 and 3.12.
+
+- **CSV / TSV / delimited-text** net-banking exports.
+- **PDF**, including the password-protected ones banks email you. Ruled tables
+  are recovered from their borders; borderless ones (which is most real
+  statements) have their columns recovered from where the words sit under the
+  header, wrapped narrations and all. Scanned PDFs are rejected rather than
+  guessed at, and so is a text layer carrying no column information: see
+  [Reading a PDF that draws no table](#reading-a-pdf-that-draws-no-table).
+- **Spreadsheets**, including the very common case of an OOXML workbook shipped
+  under an `.xls` name. Magic bytes decide the format, never the extension.
+- **Credit-card statements**, detected from content rather than filename.
+- The reconciliation gate and the CLI.
+
+### Cards reconcile differently
+
+A card statement has no running balance, so there is no chain to walk. What it
+does publish is a summary box, and that box is the ground truth:
+
+| check | what it proves |
+|---|---|
+| `summary` | `previous − payments + purchases + fees == total due`: the issuer's own arithmetic |
+| `rows-debit` / `rows-credit` | the transaction rows this parse recovered sum to the totals the box states: the only check that says the ledger is *complete* |
+
+A statement that prints no totals is reported `UNVERIFIED` rather than passing
+quietly. And the sign convention inverts: on a card, `Cr` is money coming off
+what you owe, the opposite of a bank statement's credit column, reading the
+bank convention there would flip the entire ledger.
+
+Card transactions reuse the same `Transaction` type, so the merchant rollup
+works on them unchanged. That matters, because the card statement is where the
+merchant spend actually is.
+
+All three formats go through one code path: a parser's only job is to recover a
+grid, and `parsers/table.py` turns rows into a statement. The test suite parses
+the same statement as CSV, as PDF and as a workbook, and asserts all three
+ledgers are identical.
+
+**Verified against a real bank export:** 225 transactions across three months of
+an HDFC statement reconcile to the paisa, and against the closing balance the
+bank prints in its own summary block, not merely against the rows' internal
+consistency. Four defects surfaced in that first contact with real data, none
+of which the synthetic fixtures could have found: divider rows drawn in
+asterisks, amounts masked with `******`, a two-row summary block at the foot,
+and an IFSC code being mistaken for a reference number. Each is now a test.
+
+**Phase 2 is shipped.** `moneytrail merchants` rolls a ledger up by counterparty
+and category.
+
+- narrations are taken apart structurally: find the VPA, and the counterparty
+  is the segment beside it, which works across banks without per-bank patterns
+- welded merchant names are un-welded (`SWIGGYINSTAMART` → Swiggy Instamart) by
+  minimum-cost segmentation over a vocabulary, all-or-nothing so a run that
+  cannot be fully covered is left intact
+- names resolve through a lexicon, and every match records *how* it was reached
+  (`lexicon` / `vpa` / `prefix` / `segmented` / `raw`), because a normaliser
+  that hides its confidence cannot be debugged
+
+### What measuring it changed
+
+Merchant coverage on the real statement came out at **18%**, and chasing that
+number would have been the wrong response. Classifying the *counterparty* first
+showed why it was low:
+
+| counterparty | share of a real 225-transaction statement |
+|---|---|
+| person-to-person transfer | 41% |
+| credit-card bill repayment | 18% |
+| bank charges and interest | 5% |
+| recognised merchant | 4% |
+| still unclassified | 32% |
+
+**This is not a merchant-heavy ledger.** A bigger brand lexicon would have moved
+almost nothing; the value is in transfers and card bills, which is where phases
+3 and 5 now point. Reporting one "resolved" percentage would have hidden that
+entirely, so the tool reports the classification breakdown alongside it: a
+transfer to a friend is understood, not an unresolved merchant.
+
+The same pass found the largest single outflow filed under the wrong category:
+CRED is a card-bill platform, not a fee.
+
+### Where the money actually went
+
+`moneytrail spend` treats a card bill payment as what it is: one event recorded
+twice, as a debit leaving the bank and as a credit reducing what the card says
+you owe. Counting both double-counts the money.
+
+```
+  bank outflow                  ₹45,900.00
+  repayments matched    -       ₹12,450.00   (1 linked to a card statement)
+  card charges          +        ₹8,320.50
+  ----------------------------------------
+  actually spent                ₹41,770.50
+```
+
+Repayments are matched to card-side payments on an exact amount and a date
+window. **A repayment with no card statement behind it stays counted**, because
+the purchases it settled are not in front of us, removing it would understate
+spending, and understating is the more dangerous error. The report names those
+repayments rather than burying the assumption. Card payments with no matching
+bank debit are reported too: they were settled from an account you did not
+supply.
+
+### The questions
+
+`moneytrail review` reports three things, and is careful about which:
+
+```
+  recurring charges
+    Housing Rent Shobha Apartme… monthly    ₹28,000.00  ₹3,40,666.67 /yr  last 2025-05-12  active
+    Netflix                      monthly       ₹649.00      ₹7,896.17 /yr  last 2025-05-05  active
+    Spotify                      monthly       ₹119.00      ₹1,447.83 /yr  last 2025-03-07  stopped
+
+  possible duplicate charges
+    2025-03-18  Swiggy      ₹450.00 x2  none refunded, ₹450.00 still out
+    2025-02-10  Amazon    ₹1,299.00 x2  1 refunded, ₹0.00 still out
+
+  refunds that arrived
+    2025-02-20  Amazon    ₹1,299.00  10 days after the 2025-02-10 charge
+    2025-04-27  Myntra    ₹2,499.00  12 days after the 2025-04-15 charge
+```
+
+- **Cadence is measured, not assumed.** Three charges at irregular gaps are a
+  habit, not a subscription, and are not reported as one. Amounts that swing
+  wildly disqualify a run too. Monthly rent qualifies: a cadence detector that
+  only found streaming services would be missing the expensive half.
+- **Duplicates are candidates, not verdicts.** Buying the same coffee twice
+  looks identical to being charged twice, so each one is reported with its span
+  and how much is still outstanding after any refund, and you judge.
+- **Refunds that never arrived cannot be found.** Nothing in a statement records
+  that you asked for one. The report says so rather than implying the absence of
+  a finding means nothing is owed to you.
+
+### More than one account
+
+Move ₹25,000 between your own accounts and a naive merge records ₹25,000 spent
+and ₹25,000 earned. Neither happened. `spend` matches debits on one account to
+credits on another and removes them from both sides:
+
+```
+  bank outflow                  ₹53,600.00
+  transfers to yourself -       ₹25,000.00   (1 moved between your own accounts)
+  actually spent                ₹28,600.00
+
+  bank inflow                 ₹1,05,000.00
+  less those transfers  -       ₹25,000.00
+  actually received             ₹80,000.00
+```
+
+Matching only ever pairs *across* accounts. A debit and credit on the same
+statement is a refund, not a transfer. And because paying a friend a round sum
+on the day someone pays you the same amount would look identical, both
+narrations are printed so you can see exactly what was matched to what.
+
+Card repayments and inter-account transfers turned out to be the same
+operation, namely finding the credit on another document that this debit
+produced, so they share one matcher rather than two that can drift apart.
+
+### Reading a PDF that draws no table
+
+Most converters recover a table from its **ruling** (the lines a document
+draws around its cells) because that is the easy case and pdfplumber does it
+for free. Most real bank statements draw no ruling at all. Three third-party
+sample PDFs, two ICICI and one HDFC from separate projects, report **zero
+lines, zero rects and zero edges** between them, and `extract_table()` returns
+`None` on all three. Before `words.py`, every PDF this project had parsed
+successfully was one it generated itself, in the single easiest layout there
+is, and the test suite had been agreeing with itself.
+
+`words.py` recovers the columns from where the words sit. The header names them
+at known positions, so: cluster words into lines by vertical position, find the
+line that names the columns, take the boundaries from the gaps between those
+names, and drop every later word into the column its centre falls in. Amounts
+are right-aligned under left-aligned headings, which is why a boundary sits
+midway between one heading and the next rather than at either edge, and why
+**direction comes from geometry**. On a real HDFC statement nothing but x
+position says that `100.00` is a withdrawal and `2,000.00` is a deposit.
+
+The hard part is that **a row is not a line**. Banks wrap a long narration over
+several lines and put the date and the amounts on whichever of them they like.
+Real HDFC statements print the date on the first line and the money on the
+second. Real ICICI statements centre the dated line inside the narration, so
+the text arrives above *and* below the figures. A row therefore starts at a
+line carrying a date and absorbs the lines after it, filling any cell it does
+not already have.
+
+Two numbers worth keeping. On a real HDFC header the word spaces measure 1.8pt
+and the narrowest column gap 12.7pt, so the threshold separating "space inside
+a heading" from "column boundary" is derived per line rather than fixed, because
+a constant that works on 10pt type does not work on 7pt, and the fixed 12.0 it
+replaced sat 0.7pt away from merging two money columns and losing a whole side
+of the ledger.
+
+What this does not do: statements whose text layer carries no column
+information at all. One of the three samples turned out to have been generated
+by flowing words left to right, so its amounts sit under the wrong headings in
+the file itself. No geometric method can read that, because the geometry is not
+there, and guessing would produce a ledger that reconciles against a wrong
+total, which is the one outcome this project exists to prevent. It is rejected
+instead.
+
+### Getting it back out
+
+```bash
+python -m moneytrail export statements/ --out ledger.xlsx
+```
+
+Every transaction across every statement, merged in date order, with the raw
+narration kept beside the resolved merchant so a row can still be found in the
+source PDF. `.csv` needs nothing installed; `.xlsx` needs the `xlsx` extra.
+
+The point is what travels with it. Any PDF-to-spreadsheet converter can lose a
+row to a wrapped narration or a page break, and what lands in the spreadsheet
+still looks like a spreadsheet. The person importing it has no way to tell.
+So the export carries a **reconciliation certificate**: per source file, the
+arithmetic that was checked, the SHA-256 of the exact bytes it was checked
+against, and whether it held.
+
+```
+  source          hdfc_april_2025.csv
+  sha-256         1f733d152275ccb99eb97138e2dcd1952e0337709ae993b170eba7deb68d0a52
+  bank            HDFC
+  period          2025-04-01 to 2025-04-25
+  transactions    7
+  opening             ₹45,231.60
+  credits     +       ₹87,499.00
+  debits      -       ₹36,560.00
+  computed            ₹96,170.60
+  statement           ₹96,170.60
+  checks run      chain, totals
+  VERDICT         RECONCILED
+```
+
+The digest binds the certificate to bytes rather than to a filename: a filename
+says which file was *meant*, a digest says which bytes were actually read, and
+only the second survives being emailed around. An `.xlsx` export carries the
+certificate as a second sheet, because a proof that travels separately from the thing
+it proves gets detached on the first forward.
+
+### The certificate as a page
+
+```bash
+python -m moneytrail check statements/ --certificate certificate.pdf
+```
+
+The same proof, rendered for the person who will never open a terminal and will
+never look at the second tab of a workbook: one page, the verdict at the top,
+the institution's own arithmetic laid out so it can be added up by hand, the
+full digest, and every flagged row with its line number. Needs the
+`certificate` extra (`pip install 'moneytrail[certificate]'`); `--certificate`
+with any other suffix writes the plain text version and needs nothing.
+
+It computes nothing of its own. Every figure and every verdict on the page comes
+from the same `certify()` the terminal output uses, so there is no second
+opinion to drift.
+
+Where a system font carrying ₹ can be found it is embedded and *verified* to
+have the glyph before use -- reportlab's built-in Helvetica has no U+20B9 at all
+and draws a box. Failing that the page says `INR 1,23,456.78`, because a missing
+currency mark on an Indian statement is not a cosmetic problem.
+
+A statement that fails to reconcile is **still exported**. Withholding the data
+only sends you back to a converter that cannot tell you anything is wrong. It
+is written stamped instead: every row carries `reconciled = NO`, the certificate
+leads with the failure, and the exit code is 1.
+
+```
+NOT RECONCILED -- 1 statement(s) did not add up:
+  hdfc_april_2025_dropped_row.csv
+    row 10: expected ₹1,27,320.60, statement says ₹1,26,671.60 (off by -₹649.00)
+    statement total: expected ₹96,819.60, statement says ₹96,170.60 (off by -₹649.00)
+```
+
+Amounts are written as exact decimals, never floats: summing the column is the
+first thing anyone receiving this will do, and it has to match the certificate
+printed beside it. CSV is written with a BOM so Excel on Windows opens it as
+UTF-8 rather than turning every rupee sign into mojibake.
+
+### The hosted version
+
+```bash
+pip install -e ".[web]"
+python -m moneytrail.api        # http://127.0.0.1:8000
+```
+
+Drop statements on the page, get the trust strip, the workbook and the
+certificate as a one-page PDF back. All three arrive in the same response and
+the browser saves them from memory: there is no download endpoint, because a
+download endpoint would need the file to still exist after the request that
+made it, and nothing here does. It exists
+because the people who most need the certificate, accountants reconciling a
+dozen client statements a month, will not `pip install` anything, and a promise
+nobody can reach is worth less than a weaker one they can.
+
+So this is the one place the local-first rule bends, and the README would rather
+be exact than reassuring. The CLI's promise is absolute: nothing leaves the
+machine. A server cannot say that. What it says instead is narrower and true:
+the uploaded bytes live inside a single request, in a temporary directory removed
+before the reply is written; there is no database, nothing is logged but the
+method and path, and no second request exists that could see them. The parsers
+take paths rather than bytes, so the upload really is written to disk for the
+seconds it takes to read it, and the page says so rather than claiming otherwise.
+There is a test asserting every scratch directory is gone by the time the
+response is built.
+
+The workbook rides home inside the same JSON response and is assembled into a
+file by your browser. That is what keeps the server stateless: no second request
+to serve means nothing worth keeping between them.
+
+`web.py` holds the reasoning and imports no framework; `api.py` is the only file
+that touches FastAPI. The page is a single HTML file with no build step, no CDN
+and no analytics, the same test the offline report has, asserting the served
+page contains no `http://`, no `src=` and no `@import`.
+
+### The landing page
+
+The tool sits at the top of it, not behind a call to action. For this product
+the demo *is* the pitch, a click that shows a missing row being caught argues
+better than any paragraph underneath it, and every step between a visitor and
+that moment costs some of them.
+
+`Try a broken one` loads a statement with one ₹649 row removed, whose own
+closing balance still agrees with its own last row, and reconciles it in front
+of you. It has to be the site's own file: nobody uploads a bank statement to
+prove a point to a page they have not decided to trust yet. There is a test
+asserting the sample actually fails, so the demo can never quietly become a
+prop that passes.
+
+Price, shop link and repository link are all served by `/api/pricing` rather
+than written into the markup. A price in HTML drifts from the checkout it links
+to, and the served page is asserted to contain **no absolute URL at all**,
+which is what keeps "this page loads nothing from anywhere else" checkable by
+reading it instead of trusting it.
+
+### Paying for it
+
+The hosted service charges for volume: one statement at a time free, batches
+with a licence key. The certificate is never behind the paywall: it is the
+entire argument for the product, and a free tier without it would be one more
+silent converter with nothing to come back for. What a firm pays to stop doing
+is reconciling a dozen clients one file at a time.
+
+Licence keys rather than accounts, and that is a design constraint rather than
+a shortcut. Accounts need a database, a session, a password reset and somewhere
+to keep an email address, and the sentence this product rests on is that there
+is no database and nothing is kept between requests. A paid tier built on
+storage would sell the reason anyone trusts it in order to charge for it. A key
+is a bearer token for batch conversion, it lives in your browser, and there is
+no account for it to unlock.
+
+```bash
+MONEYTRAIL_GUMROAD_PRODUCT_ID   # set it to turn the gate on
+MONEYTRAIL_BUY_URL              # where the page sends someone who needs a key
+```
+
+**With no product id set, everything is unlocked.** The CLI, a local run and
+anyone self-hosting this repo never meet a paywall. The gate exists on the
+hosted instance and nowhere else.
+
+Two details worth keeping, both of which cost money when they are wrong. Gumroad
+answers `success: true` for a purchase that was later refunded, so the refund,
+dispute, chargeback and subscription fields are checked separately; reading
+success as "has paid" would leave anyone who took their money back with
+permanent access. And a payment processor's outage must not lock out someone who
+paid, so a key that verified recently keeps working from cache for a day, while
+a key never seen before is told to *try again*, a different sentence from
+*that key is not valid*, and one that has to stay different.
+
+### The trust strip
+
+```bash
+python -m moneytrail report statements/ --open
+```
+
+Writes one self-contained HTML file. Deliberately a file, not a server: no
+ports, no build step, and no network of any kind. There is a test asserting the
+page contains no `http`, no `<script>`, no `src=` and no `@import`, so the "your
+data never leaves the machine" claim is checkable by reading the output.
+
+The layout is an argument about what matters:
+
+1. **Was every statement read correctly?** One tile per statement, green if it
+   reconciled to the paisa, amber if it reconciled only against figures taken
+   from its own rows, red with the row locator and the exact delta if it failed.
+   *No other finance tool tells you this*, and every number below it is
+   worthless if the answer is no.
+2. **Open loops**: duplicate charges never refunded, card bills paid with no
+   card statement covering them, card payments no supplied account explains.
+3. **Recurring**: active and stopped, with the annual cost.
+4. **Where it went**: the category breakdown, last and smallest, because it is
+   the part every other app already has.
+
+Generated reports contain everything the statements do, so `*.html` is
+gitignored and the command says so each time it runs.
+
+### Asking it things
+
+```bash
+python -m moneytrail ask "how much did I spend on rent in March" statements/
+```
+
+```
+  ₹28,000.00 spent on rent in March 2025, across 1 transaction
+
+  filters   direction=debit, category=rent, period=March 2025
+  evidence  1 row
+    2025-03-12     ₹28,000.00  Housing Rent Shobha A… ACH D- HOUSING RENT SHOBHA APARTMENTS
+```
+
+**No model runs here, and that is the design rather than a shortcut.** A
+language model asked to read a ledger and report a total can produce a
+confident, plausible, wrong number, and nothing in the output would show it.
+Questions are parsed into a structured query; the arithmetic is done by code;
+every answer arrives carrying the rows it came from.
+
+That also leaves the right seam for a model: let it translate English into one
+of these queries, and keep the engine computing the number. The model picks
+what to ask; it never gets to decide what the answer is. That seam is now
+built, and [measured](#letting-a-model-ask).
+
+Three consequences worth pointing at:
+
+- **It refuses rather than answering a different question.** Ask about a
+  merchant these statements have never seen and it says so. An earlier version
+  silently dropped the unknown name and returned the total for *everything* that
+  month, the exact failure this project exists to prevent, caught by a test.
+- **Relative dates resolve against the ledger, not against today.** A statement
+  ending in May answers "last month" as April forever, so the same question
+  cannot drift into a different answer over time.
+- **What it cannot do, it says.** Ask whether a refund arrived and never got
+  one, and the answer notes that a refund you were owed but never issued leaves
+  no trace in a statement.
+
+### Letting a model ask
+
+The regex parser understands the questions it was built for and nothing else.
+A model understands the phrasing but cannot be trusted with the arithmetic. So
+the model is given one job, turning English into a query, and the engine keeps
+the other:
+
+```bash
+python -m moneytrail ask --model llama-3.3-70b-versatile "what did I spend on food in the first half of the year" statements/
+```
+
+It is handed the query schema and *this ledger's own merchant and category
+names*, and returns JSON. That JSON is validated into the same `Query` the
+regex parser produces and executed by the same `run()`. A model that invents a
+merchant is refused by the same guard that refuses an unknown name typed by a
+person, because the engine would answer an invented merchant with a confident
+zero, and a confident zero reads exactly like *you spent nothing there*.
+
+The output names which parser worked the question out. With no key configured,
+`--model` falls back to the built-in parser and says so; without the flag,
+nothing reaches for a network even when a key is present.
+
+No dependency and nothing to install: `moneytrail/llm.py` speaks HTTP over the
+standard library, and Groq, OpenAI, Gemini, Together, OpenRouter and a local
+Ollama all take the same request shape, so swapping provider is one
+environment variable.
+
+### The scorecard
+
+`evals/questions.yaml` holds 71 questions, each paired with **the query it
+should become**, never with a number. Gold answers are produced by running
+the gold query through the engine, which is what made a golden set this size
+free to label and is why it cannot go stale: change the engine and the gold
+changes with it.
+
+```bash
+python -m evals.runner --models deterministic,llama-3.3-70b-versatile
+```
+
+Two accuracies, because they answer different questions. **Query accuracy**
+asks whether the parser requested the same measurement, field by field.
+**Answer accuracy** only asks whether the number matched, which a wrong query
+can manage by luck. Three question sets, because two would have been
+dishonest:
+
+| set | n | what it is |
+|---|---|---|
+| deterministic-covered | 39 | what the regex parser was built for. CI holds it at 100% here |
+| model-only | 25 | one query expresses these; no regex parses them |
+| beyond-schema | 7 | no single query expresses these at all; refusing is the right answer |
+
+The only lever on model quality here is the prompt, and a prompt tuned by
+reading the questions it failed, then scored on those same questions, reports
+a number fitted to its own answer key. So **40% of the set is held back**, and
+which 40% is decided by a hash of the question text rather than by anything
+editable, whoever tunes the prompt does not get to choose what they are
+marked on. The table below is the **held-out half**, 29 questions the prompt
+was never shown.
+
+<!-- SCORECARD -->
+
+**deterministic-covered** (16 questions)
+
+| parser | query acc | answer acc | refused | $/question | p50 |
+|---|---|---|---|---|---|
+| built-in regex parser | 100.0% | 100.0% | 18.8% | $0 | 0 ms |
+| openai/gpt-oss-120b | 100.0% | 100.0% | 18.8% | $0.000272 | 1145 ms |
+| openai/gpt-oss-20b | 100.0% | 100.0% | 18.8% | $0.00014 | 708 ms |
+| llama-3.1-8b-instant | 81.2% | 87.5% | 18.8% | $0.000056 | 380 ms |
+| llama-3.3-70b-versatile | 93.8% | 93.8% | 18.8% | $0.000654 | 360 ms |
+
+**model-only** (10 questions)
+
+| parser | query acc | answer acc | refused | $/question | p50 |
+|---|---|---|---|---|---|
+| built-in regex parser | 0.0% | 0.0% | 100.0% | $0 | 0 ms |
+| openai/gpt-oss-120b | 80.0% | 90.0% | 10.0% | $0.000318 | 1263 ms |
+| openai/gpt-oss-20b | 80.0% | 90.0% | 10.0% | $0.000171 | 872 ms |
+| llama-3.1-8b-instant | 60.0% | 80.0% | 0.0% | $0.000057 | 532 ms |
+| llama-3.3-70b-versatile | 90.0% | 100.0% | 0.0% | $0.000668 | 375 ms |
+
+**beyond-schema** (3 questions)
+
+| parser | query acc | answer acc | refused | $/question | p50 |
+|---|---|---|---|---|---|
+| built-in regex parser | 100.0% | 100.0% | 100.0% | $0 | 0 ms |
+| openai/gpt-oss-120b | 66.7% | 66.7% | 66.7% | $0.000306 | 1119 ms |
+| openai/gpt-oss-20b | 66.7% | 66.7% | 66.7% | $0.000143 | 763 ms |
+| llama-3.1-8b-instant | 33.3% | 33.3% | 33.3% | $0.000055 | 509 ms |
+| llama-3.3-70b-versatile | 66.7% | 66.7% | 66.7% | $0.00064 | 350 ms |
+
+**overall** (29 questions)
+
+| parser | query acc | answer acc | refused | $/question | p50 |
+|---|---|---|---|---|---|
+| built-in regex parser | 65.5% | 65.5% | 55.2% | $0 | 0 ms |
+| openai/gpt-oss-120b | 89.7% | 93.1% | 20.7% | $0.000291 | 1150 ms |
+| openai/gpt-oss-20b | 89.7% | 93.1% | 20.7% | $0.000151 | 734 ms |
+| llama-3.1-8b-instant | 69.0% | 79.3% | 13.8% | $0.000056 | 397 ms |
+| llama-3.3-70b-versatile | 89.7% | 93.1% | 17.2% | $0.000657 | 358 ms |
+
+<!-- /SCORECARD -->
+
+**A model earns its place on the half the regex cannot reach.** The parser
+scores 0% on model-only by construction; the models reach 80–90%.
+
+**And size is not what buys it.** Three models tie at exactly 89.7% query and
+93.1% answer accuracy, across a **4.4× spread in price**:
+
+| model | $/question | vs cheapest |
+|---|---|---|
+| `openai/gpt-oss-20b` | $0.000151 | 1.0× |
+| `openai/gpt-oss-120b` | $0.000291 | 1.9× |
+| `llama-3.3-70b-versatile` | $0.000657 | 4.4× |
+
+They get there differently. `llama-3.3-70b` is the best on the model-only half
+(90% query, 100% answer) and pays for it by slipping to 93.8% on the questions
+the regex parser handles perfectly, while the two `gpt-oss` models hold 100%
+there. On the whole held-out set that nets out identical. `gpt-oss-20b` is the
+one to run: same accuracy, a quarter of the price of the 70B, and the fastest
+of the three at the p50.
+
+Below that, `llama-3.1-8b-instant` at a third of the price is genuinely worse
+(69% query), so the cheap end does have a floor. The finding is that the
+ceiling arrives early, not that size never matters.
+
+**And the prompt tuning did not survive contact with the held-out half.**
+Iterating against dev failures moved the test half from 27/29 to 26/29 on
+query accuracy. One question was fixed, two broke, and the cause is traceable
+rather than statistical: a rule reading *"'how many'/'how often' are count,
+everything else is total"*, written to fix a dev question about BigBasket,
+swallowed *"did money come back from Myntra?"*, which is a refund question,
+contradicting a rule higher up the same prompt. At n=29 one question is inside
+the noise, but the mechanism is not: it is what tuning against a visible set
+looks like from the inside, and without the split it would have been published
+as an improvement.
+
+The third set exists because two of the questions this phase was designed
+around: *"compare March and April"*, *"which subscription went up in price"*.
+turn out not to be expressible in the query schema at all. Scoring them against
+an invented gold query would have measured nothing, so they are scored as
+refusals, and what gets measured is whether a parser knows the limits of the
+tool it is driving. The built-in parser manages 57% there: it reads
+"subscription" and answers, where the honest reply is that one query cannot say
+it. That is a finding, recorded rather than tuned away.
+
+The built-in parser is a row in the table at $0, and on the half it was built
+for it wins. CI gates it at 100% on those questions and never gates on a model,
+which costs money and moves on someone else's schedule.
+
+## Roadmap
+
+| phase | what |
+|---|---|
+|, | Grow the parser against real statements from other banks; every format so far has broken it in a new way, and none of the breaks were in the reconciliation engine |
+|, | Get it in front of one accountant. The remaining risk is contact with real files, not features |
+
+### The number to report
+
+Once it runs on real statements, the headline is not an accuracy score, it is:
+
+> reconciles to the paisa on *N* of *M* statement-months across *K* banks,
+> with every failure documented.
+
+Anything that does not reconcile is a parser bug with a line number attached, so
+the metric is also the bug tracker.
+
+## Design notes
+
+- **Derived endpoints are flagged.** If a statement states neither an opening
+  nor a closing balance, both are reconstructed from the rows. The totals check
+  still catches rows dropped in the middle, but it can no longer catch a fault
+  in the first or last row. `is_tautological()` surfaces that rather than
+  letting it pass as a clean reconcile.
+- **Unparseable input raises.** An amount silently read as zero is worse than a
+  crash, because it still reconciles against a wrong total.
+- **Absence is not zero.** Indian statements leave the unused side of the
+  debit/credit pair empty; `parse_optional_amount` returns `None`, not `0`.
+- **Parsers map by header alias, not column position.** Every bank names its
+  columns differently; adding a bank should be a new entry in a tuple, not a new
+  branch in the parser.
+- **A half-recovered PDF table is rejected.** If none of the three extraction
+  passes finds a header the file is refused, because a table missing rows would
+  still reconcile, against a wrong total. That includes a statement whose text
+  layer carries no column information at all: the geometry is not there to be
+  read, and guessing at it is the failure this rule exists to prevent.
+- **Failures carry a locator.** Row number for CSV, row *and page* for PDF, so
+  a discrepancy in a six-page statement is findable.
+- **`.gitignore` blocks `*.pdf`, `*.csv`, `/statements/` and `/data/` by
+  default**, with an explicit exception for the synthetic test fixtures. A tool
+  that eats bank data must not make it easy to commit any.
+
+## Prior art
+
+B2B APIs (Perfios, Docsumo and similar) parse Indian statements well, but they
+are built for lenders doing underwriting, not for you asking questions about
+your own money. Consumer apps are cloud-hosted, closed, and usually tied to one
+account. Open-source parsers mostly stop at categorisation. The gap this fills
+is *local + multi-bank + answers reconciliation questions*.
+
+## Licence
+
+MIT.

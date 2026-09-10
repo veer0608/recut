@@ -296,6 +296,21 @@ That is the mechanism working, not evidence that today's changes improved anythi
 `art-retrieval` was already clean before them, and `art-willison` was a claim with
 nothing to quote.
 
+**The markdown sources are pinned snapshots, not live files.** All seven pointed at
+sibling repos' READMEs -- `../../../vidsmith/README.md` and so on -- so every one of them
+was a golden input that someone edits. Two already had: `md-vidsmith` +1952 chars and
+`md-reruns` +2464, which is what withheld the v2 and v6 headlines. They now live in
+`eval/golden/markdown/<id>.md` and the refs point there.
+
+What pinning does **not** do is repair the runs that already drifted. The snapshot is
+today's text, not the text those bodies were generated from, so `v2-rejudged` and
+`v6-rejudged` stay correctly withheld. It stops the next one.
+
+It also means the golden set changed, so a rate measured after this is not strictly
+comparable to one measured before it on those two sources. That was already true the
+moment the files were edited; pinning makes it visible and stops it recurring silently.
+Refreshing a snapshot on purpose is a deliberate act that should be its own commit.
+
 ## The eval, and the abandonment rule
 
 `eval/run_eval.py` publishes one number or none. If any golden source fails,
