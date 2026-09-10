@@ -404,14 +404,40 @@ wrote the same files, last write won, and each printed a rate consistent with it
 in-memory results. **To stop a loop, kill the shell script, not the interpreter it
 spawns.**
 
-**The two passes disagreed, and that is the finding worth keeping.** The same stored body,
-the same `openai/gpt-oss-120b`, judged twice: **1/20 unsupported, then 2/20**. One
-sentence of twenty, and the source's rate doubles. Every rate in this file assumes the
-judge is a fixed instrument, and this is the only same-body-same-judge repeat that exists;
-it did not agree with itself. That is judge variance sitting *on top of* the generation
-variance `--seed` cannot remove, and no run here has ever measured it. It is one
-observation and not a variance estimate, but it is a reason to treat a few points of
-difference between runs as noise until something measures how much the judge moves.
+**The two passes disagreed, which is what sent someone to measure it.** Same stored body,
+same `openai/gpt-oss-120b`: 1/20 unsupported, then 2/20.
+
+## The judge is not a fixed instrument
+
+`eval/judge_variance.py` compares two judgements of the **same bodies** by the same judge.
+Generation is not repeated and cannot contribute, so whatever differs is the instrument.
+Run it with `rejudge.py <run> --suffix=-rejudged-b` (the equals form: a value starting
+with a dash is otherwise read as a flag). It needs no headline, so `--only` on a handful
+of sources answers the question cheaply.
+
+Three sources have now been judged twice:
+
+    md-vidsmith    1/20  ->  2/20      (accidental, two processes racing)
+    art-vector-db  1/16  ->  3/16
+    art-willison   1/13  ->  1/13
+    pooled         3/49 = 6.1%  ->  6/49 = 12.2%
+
+**The rate doubled on the same text.** On the two sources measured deliberately the swing
+is 6.9 points, and **v1-rejudged 13.4% against v2-rejudged 6.9% is a 6.5 point gap**. The
+effect this project has been trying to establish is smaller than its instrument's own
+movement, so that comparison's `z=2.42, p=0.016` is **not safe**: the test assumes a fixed
+judge and there isn't one. Nothing published moves on this -- 15.5% stands, as it did --
+but the case for moving it is weaker than it looked yesterday, not stronger.
+
+**All three moved the same way**, stricter on the second pass or unchanged, never more
+lenient. Three observations cannot support that as a claim. It matters only because it is
+the difference between symmetric noise, which averages out over a full set, and passes
+that are not exchangeable, which does not. Worth resolving before anyone reads a rate
+difference of a few points as real.
+
+Honest limits: three sources, 49 claims, and a full-set swing would likely be smaller
+through averaging. `md-geojit` and `md-n8n` were in the same batch and never landed, so
+this is the measurement the budget allowed rather than the one worth having.
 
 ## LLM access, where the traps are
 

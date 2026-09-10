@@ -311,6 +311,28 @@ by the abandonment rule, that withholds the headline number rather than quietly
 scoring the eight that remain. Point `eval/golden/sources.yaml` at your own long-form
 writing to run it somewhere else.
 
+### The judge disagrees with itself by about as much as the effect
+
+Two judgements of the **same stored outputs** by the same model, three sources:
+
+| source | first pass | second pass |
+|---|---|---|
+| md-vidsmith | 1/20 | 2/20 |
+| art-vector-db | 1/16 | 3/16 |
+| art-willison | 1/13 | 1/13 |
+| pooled | 3/49 = 6.1% | 6/49 = **12.2%** |
+
+Nothing was regenerated. The text being judged was byte-identical between passes,
+so the whole difference is the judge. On the two measured deliberately the swing is
+6.9 points, against a 6.5 point gap between the two runs this project most wants to
+compare.
+
+That is the honest state of the measurement: the instrument moves by about as much
+as the thing it is measuring. It is three sources and 49 claims, and a full-set
+figure would likely be smaller through averaging, but it is the only such
+measurement that exists and it did not come out well. `eval/judge_variance.py`
+computes it from two judged runs and makes no model calls of its own.
+
 ### A second run measured 10.0%, and the headline stays at 15.5%
 
 An anti-inflation pass landed after v1: a shared faithfulness block across every

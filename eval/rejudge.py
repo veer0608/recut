@@ -75,7 +75,15 @@ def rejudge_source(checkpoint: Path, judge_llm, partial_dir: Path | None = None)
 def main(argv: list[str] | None = None) -> int:
     ap = argparse.ArgumentParser(prog="rejudge", description=__doc__)
     ap.add_argument("runs", help="comma separated run names under eval/results")
-    ap.add_argument("--suffix", default="-rejudged", help="where to write the new run")
+    # Every useful value here starts with a dash, and argparse reads a leading dash
+    # as another flag: `--suffix -rejudged-b` fails with "expected one argument"
+    # rather than doing anything. The equals form works, so the help says so.
+    ap.add_argument(
+        "--suffix",
+        default="-rejudged",
+        help="where to write the new run. Use the equals form, --suffix=-rejudged-b, "
+        "because a value starting with a dash is otherwise read as a flag",
+    )
     ap.add_argument("--env", default=".env")
     ap.add_argument(
         "--only",

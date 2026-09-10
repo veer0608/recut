@@ -10,6 +10,7 @@ sys.path.insert(0, str(Path(__file__).resolve().parent.parent / "eval"))
 
 from inject import plant, score  # noqa: E402
 from judge import judge, sentences_of  # noqa: E402
+from judge_variance import compare  # noqa: E402
 from run_eval import aggregate, clear_stale, load_sources  # noqa: E402
 
 from recut.ingest.markdown import ingest_text  # noqa: E402
@@ -944,3 +945,44 @@ def test_clearing_an_empty_directory_is_not_an_event(tmp_path):
     sources = tmp_path / "sources"
     sources.mkdir()
     assert clear_stale(sources) == 0
+
+
+class TestJudgeVariance:
+    """Same bodies, same judge, twice. Whatever differs is the instrument.
+
+    The only repeat that exists happened by accident: v6 md-vidsmith judged 1/20
+    and then 2/20 by openai/gpt-oss-120b on the same stored body.
+    """
+
+    def test_a_judge_that_reproduces_itself_reports_no_movement(self):
+        a = {"md-n8n": (3, 15), "art-ocr": (0, 16)}
+        result = compare(a, dict(a))
+        assert result["claims_that_moved"] == 0
+        assert result["sources_that_moved"] == 0
+        assert result["first_rate"] == result["second_rate"]
+
+    def test_the_md_vidsmith_case_is_counted_as_one_claim_moving(self):
+        result = compare({"md-vidsmith": (1, 20)}, {"md-vidsmith": (2, 20)})
+        assert result["claims_that_moved"] == 1
+        assert result["sources_that_moved"] == 1
+        assert result["first_rate"] == 0.05 and result["second_rate"] == 0.10
+
+    def test_movement_in_both_directions_is_counted_not_cancelled(self):
+        # Two sources moving opposite ways leave the rate untouched while the judge
+        # has in fact disagreed with itself twice. Summing the signed deltas would
+        # report a stable instrument.
+        result = compare(
+            {"a": (2, 10), "b": (2, 10)}, {"a": (3, 10), "b": (1, 10)}
+        )
+        assert result["claims_that_moved"] == 2
+        assert result["first_rate"] == result["second_rate"]
+
+    def test_a_changed_denominator_is_flagged_separately(self):
+        # The passes did not agree on what was even checkable, which is a bigger
+        # disagreement than the verdicts.
+        result = compare({"md-citerag": (2, 16)}, {"md-citerag": (2, 18)})
+        assert result["mismatched_denominators"] == ["md-citerag"]
+
+    def test_only_sources_judged_in_both_are_compared(self):
+        result = compare({"a": (1, 10), "b": (1, 10)}, {"a": (1, 10)})
+        assert result["sources"] == 1

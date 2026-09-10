@@ -1,0 +1,156 @@
+{
+  "id": "art-willison",
+  "kind": "article",
+  "ref": "https://simonwillison.net/2025/Sep/6/",
+  "title": "Simon Willison\u2019s Weblog",
+  "segments": 30,
+  "chars": 6007,
+  "extracted_claims": 8,
+  "dropped_unanchored": 0,
+  "targets": [
+    "linkedin",
+    "thread"
+  ],
+  "verifier_errors": {
+    "linkedin": [],
+    "thread": []
+  },
+  "format_violations": {},
+  "repaired": [
+    "linkedin"
+  ],
+  "claim_utilisation": 1.0,
+  "judged": {
+    "linkedin": {
+      "sentences": 7,
+      "windows": 1,
+      "window_chars": 12000,
+      "claims": 7,
+      "unsupported": 0,
+      "rate": 0.0,
+      "unjudged": 0,
+      "verdicts": [
+        {
+          "n": 1,
+          "sentence": "Anthropic has agreed to pay at least $1.5 billion plus interest to settle a class-action lawsuit regarding the use of pirated books in its training data.",
+          "verdict": "supported",
+          "why": "Source states Anthropic will pay at least $1.5\u202fB plus interest to settle the class\u2011action lawsuit."
+        },
+        {
+          "n": 2,
+          "sentence": "Settlement payouts are expected to be approximately $3,000 per book or work.",
+          "verdict": "supported",
+          "why": "Source says payouts are expected to be about $3,000 per book or work."
+        },
+        {
+          "n": 3,
+          "sentence": "This comes as the maximum allowed penalty for pirating books in this case was $150,000 per book.",
+          "verdict": "supported",
+          "why": "Source notes the maximum allowed penalty was $150,000 per book."
+        },
+        {
+          "n": 4,
+          "sentence": "Separately, it appears to be legal in the USA to purchase a used physical book, scan it, discard the paper copy, and train AI on the resulting digital content under the umbrella of 'fair use'.",
+          "verdict": "supported",
+          "why": "Source claims it appears legal in the USA to buy used books, scan, discard, and train under fair use."
+        },
+        {
+          "n": 5,
+          "sentence": "Anthropic stated that the specific digital copies covered by the settlement were not used in the training of its commercially released AI models.",
+          "verdict": "supported",
+          "why": "Source quotes Anthropic saying the specific digital copies were not used in training its commercial models."
+        },
+        {
+          "n": 6,
+          "sentence": "Meanwhile, the Kimi-K2-Instruct-0905 model features a context window increased to 256,000 tokens and is a mixture-of-experts configuration with 1 trillion parameters.",
+          "verdict": "supported",
+          "why": "Source reports the model\u2019s context window is 256,000 tokens and it is a 1\u2011trillion\u2011parameter mixture\u2011of\u2011experts model."
+        },
+        {
+          "n": 7,
+          "sentence": "Using summaries of images for retrieval can yield significantly higher recall than using CLIP embeddings alone.",
+          "verdict": "supported",
+          "why": "Source provides an example where image\u2011summary embeddings give much higher recall than CLIP alone."
+        }
+      ]
+    },
+    "thread": {
+      "sentences": 6,
+      "windows": 1,
+      "window_chars": 12000,
+      "claims": 6,
+      "unsupported": 1,
+      "rate": 0.16666666666666666,
+      "unjudged": 0,
+      "verdicts": [
+        {
+          "n": 1,
+          "sentence": "Anthropic has agreed to pay at least $1.5 billion plus interest to settle a class-action lawsuit regarding the use of pirated books in its training data.",
+          "verdict": "supported",
+          "why": "Source s3 states Anthropic will pay at least $1.5\u202fbillion plus interest to settle the class-action lawsuit."
+        },
+        {
+          "n": 2,
+          "sentence": "Settlement payouts for the Anthropic class-action lawsuit are expected to be approximately $3,000 per book or work.",
+          "verdict": "supported",
+          "why": "Source s3 says payouts are expected to be about $3,000 per book or work."
+        },
+        {
+          "n": 3,
+          "sentence": "This settlement is a discount, as the maximum allowed penalty for pirating books in this case was $150,000 per book.",
+          "verdict": "supported",
+          "why": "Source s4 notes the maximum allowed penalty was $150,000 per book, making $3,000 a discount."
+        },
+        {
+          "n": 4,
+          "sentence": "Anthropic stated that the specific digital copies covered by the settlement were not used in the training of its commercially released AI models.",
+          "verdict": "supported",
+          "why": "Source s13 records Anthropic\u2019s statement that the specific digital copies were not used in training its commercial models."
+        },
+        {
+          "n": 5,
+          "sentence": "Meanwhile, it appears to be legal in the USA to purchase a used physical book, scan it, discard the paper copy, and train AI on the resulting digital content under the umbrella of 'fair use'.",
+          "verdict": "supported",
+          "why": "Source s6 claims it appears legal in the USA to buy used books, scan and discard them, and train on the scans under fair use."
+        },
+        {
+          "n": 6,
+          "sentence": "The legal landscape is shifting toward settlements for past copyright infringement while establishing a potential 'fair use' precedent for the destructive scanning of physical books.",
+          "verdict": "unsupported",
+          "why": "Source does not claim a broader shift in the legal landscape; it only describes this settlement and a possible precedent."
+        }
+      ]
+    }
+  },
+  "judged_claims": 13,
+  "judged_unsupported": 1,
+  "injections": {
+    "planted": 10,
+    "caught": 10,
+    "recall": 1.0,
+    "recall_by_rule": {
+      "number": 1.0,
+      "quote": 1.0,
+      "entity": 1.0,
+      "intensity": 1.0,
+      "citation": 1.0
+    },
+    "missed": [],
+    "clean_bodies": 2,
+    "false_positive_bodies": 0,
+    "false_positives": []
+  },
+  "bodies": {
+    "linkedin": "Anthropic has agreed to pay at least $1.5 billion plus interest to settle a class-action lawsuit regarding the use of pirated books in its training data.\n\nSettlement payouts are expected to be approximately $3,000 per book or work. This comes as the maximum allowed penalty for pirating books in this case was $150,000 per book.\n\nSeparately, it appears to be legal in the USA to purchase a used physical book, scan it, discard the paper copy, and train AI on the resulting digital content under the umbrella of 'fair use'.\n\nAnthropic stated that the specific digital copies covered by the settlement were not used in the training of its commercially released AI models.\n\nMeanwhile, the Kimi-K2-Instruct-0905 model features a context window increased to 256,000 tokens and is a mixture-of-experts configuration with 1 trillion parameters.\n\nUsing summaries of images for retrieval can yield significantly higher recall than using CLIP embeddings alone.",
+    "thread": "Anthropic has agreed to pay at least $1.5 billion plus interest to settle a class-action lawsuit regarding the use of pirated books in its training data.\n\nSettlement payouts for the Anthropic class-action lawsuit are expected to be approximately $3,000 per book or work.\n\nThis settlement is a discount, as the maximum allowed penalty for pirating books in this case was $150,000 per book.\n\nAnthropic stated that the specific digital copies covered by the settlement were not used in the training of its commercially released AI models.\n\nMeanwhile, it appears to be legal in the USA to purchase a used physical book, scan it, discard the paper copy, and train AI on the resulting digital content under the umbrella of 'fair use'.\n\nThe legal landscape is shifting toward settlements for past copyright infringement while establishing a potential 'fair use' precedent for the destructive scanning of physical books."
+  },
+  "judged_by_model": true,
+  "rejudged": {
+    "from": 13,
+    "provider": "groq",
+    "models": [
+      "openai/gpt-oss-120b"
+    ],
+    "source_char_drift": 0
+  }
+}
