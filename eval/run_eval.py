@@ -356,6 +356,21 @@ def aggregate(results: list[dict], failures: list[dict], run: dict) -> dict:
     # over 1,586 claims, which is worth knowing: it is insurance, not a working
     # part. demoted is new and its rate is the signal for whether extraction has
     # started filling verbatim on quote claims.
+    # A rejudged source is scored against the source re-ingested today, not the one
+    # the body was written from. rejudge.py detects the difference and warned about
+    # it on the terminal; nothing reached report.json, so a rate whose sources had
+    # moved read as clean forever after. v6-rejudged was judged with md-reruns
+    # +2464 chars and md-vidsmith +1952. It happened not to matter there, 8.7% over
+    # the thirteen undrifted sources against 8.6% over all fifteen, but that was
+    # luck and the file could not have told anyone either way.
+    drifted = {
+        r.get("id", "?"): r["rejudged"]["source_char_drift"]
+        for r in results
+        if (r.get("rejudged") or {}).get("source_char_drift")
+    }
+    drifted_claims = sum(
+        r.get("judged_claims", 0) for r in results if r.get("id", "?") in drifted
+    )
     dropped_claims = sum(r.get("dropped_unanchored", 0) for r in results)
     demoted_quotes = sum(r.get("demoted_quotes", 0) for r in results)
 
@@ -407,6 +422,10 @@ def aggregate(results: list[dict], failures: list[dict], run: dict) -> dict:
         "format_compliance": (1 - violations / artifacts) if artifacts else None,
         "claim_utilisation": (sum(utilisations) / len(utilisations)) if utilisations else None,
         "repair": repair,
+        # Recorded, not enforced. Whether drift should withhold the headline the way
+        # an unjudged source does is a separate decision and has not been made.
+        "sources_drifted": dict(sorted(drifted.items())),
+        "drifted_claims": drifted_claims,
         "dropped_unanchored": dropped_claims,
         "demoted_quotes": demoted_quotes,
         "artifacts": artifacts,
@@ -555,6 +574,15 @@ def main(argv: list[str] | None = None) -> int:
                 f"{DIM}            {rule:<10} repair cleared {stat['cleared']}/{stat['seen']}"
                 f" ({stat['rate']:.0%}){OFF}"
             )
+    if report["sources_drifted"]:
+        share = report["drifted_claims"] / judged if (judged := report["judged_claims"]) else 0
+        print(
+            f"{YELLOW}drift       {len(report['sources_drifted'])} source(s) moved since the "
+            f"bodies were written, carrying {report['drifted_claims']} of "
+            f"{report['judged_claims']} judged claims ({share:.0%}){OFF}"
+        )
+        for name, delta in report["sources_drifted"].items():
+            print(f"{DIM}            {name:<20} {delta:+d} chars{OFF}")
     print(
         f"inventory   {report['dropped_unanchored']} claim(s) dropped unanchored, "
         f"{report['demoted_quotes']} quote claim(s) demoted for want of verbatim"

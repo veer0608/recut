@@ -1,0 +1,339 @@
+{
+  "id": "md-reruns",
+  "judged_by_model": true,
+  "kind": "markdown",
+  "ref": "C:\\Users\\veera\\claude\\reruns\\README.md",
+  "title": "reruns",
+  "segments": 61,
+  "chars": 14231,
+  "extracted_claims": 29,
+  "dropped_unanchored": 0,
+  "targets": [
+    "linkedin",
+    "thread"
+  ],
+  "verifier_errors": {
+    "linkedin": [],
+    "thread": []
+  },
+  "format_violations": {},
+  "repaired": [
+    "linkedin"
+  ],
+  "claim_utilisation": 0.3448275862068966,
+  "judged": {
+    "linkedin": {
+      "sentences": 9,
+      "windows": 2,
+      "window_chars": 12000,
+      "claims": 9,
+      "unsupported": 0,
+      "rate": 0.0,
+      "unjudged": 0,
+      "verdicts": [
+        {
+          "n": 1,
+          "sentence": "An agent with a 0.60 success rate on single attempts would statistically perform near 0.08 across five independent trials.",
+          "verdict": "supported",
+          "why": "s6 states a 0.60 single-attempt score would be near 0.08 over five independent trials"
+        },
+        {
+          "n": 2,
+          "sentence": "Reliability in AI support agents is measured by running tasks five times to account for non-deterministic behavior.",
+          "verdict": "supported",
+          "why": "s6 explains running a task five times measures reliability/non\u2011determinism"
+        },
+        {
+          "n": 3,
+          "sentence": "A task is considered successful only when the final database state is correct, the tool usage is appropriate, and the policy has been followed.",
+          "verdict": "supported",
+          "why": "s14\u2011s16 define success as state, calls, and policy all passing"
+        },
+        {
+          "n": 4,
+          "sentence": "Grading does not involve an LLM judge.",
+          "verdict": "supported",
+          "why": "s12 says there is no LLM judge in grading"
+        },
+        {
+          "n": 5,
+          "sentence": "Instead, the system compares final database states against expectations and evaluates policy adherence via code functions.",
+          "verdict": "supported",
+          "why": "s12 notes final state is diffed against expectations and policy is checked by functions"
+        },
+        {
+          "n": 6,
+          "sentence": "The framework supports re-scoring finished trials from disk using the --regrade command, which avoids the cost of re-running the model.",
+          "verdict": "supported",
+          "why": "Source s52\u2011s53 describes --regrade re\u2011scoring without model runs."
+        },
+        {
+          "n": 7,
+          "sentence": "In a recent set of trials, 29 out of 37 state-changing calls occurred after the simulated customer had already departed.",
+          "verdict": "supported",
+          "why": "Source s66 states 29 of 37 state\u2011changing calls happened after the customer left."
+        },
+        {
+          "n": 8,
+          "sentence": "The evaluation system now ensures episodes conclude immediately after the agent produces text without a tool call.",
+          "verdict": "supported",
+          "why": "s28 describes episodes ending when the agent outputs text without a tool call"
+        },
+        {
+          "n": 9,
+          "sentence": "Testing an agent once tells you if it can perform a task, but testing it five times tells you if it can be trusted.",
+          "verdict": "supported",
+          "why": "s6 contrasts learning from one run vs five runs for trustworthiness"
+        }
+      ]
+    },
+    "thread": {
+      "sentences": 7,
+      "windows": 2,
+      "window_chars": 12000,
+      "claims": 7,
+      "unsupported": 2,
+      "rate": 0.2857142857142857,
+      "unjudged": 0,
+      "verdicts": [
+        {
+          "n": 1,
+          "sentence": "An agent with a 0.60 success rate on single attempts would statistically perform near 0.08 across five independent trials.",
+          "verdict": "supported",
+          "why": "Source s6 explicitly states a 0.60 single\u2011attempt score would be about 0.08 over five independent trials."
+        },
+        {
+          "n": 2,
+          "sentence": "Reliability in AI support agents is measured by running tasks \"five times\" to account for non-deterministic behavior.",
+          "verdict": "supported",
+          "why": "Source s6 and s27 explain reliability is measured by running each task five times to capture nondeterminism."
+        },
+        {
+          "n": 3,
+          "sentence": "The system is intentionally designed to allow agents to commit policy violations so it can verify if the agent truly follows the rules.",
+          "verdict": "supported",
+          "why": "Source s20\u201122 says the backend permits violations so the system can test whether the agent follows policy."
+        },
+        {
+          "n": 4,
+          "sentence": "A task is considered successful only when the final database state is correct, the tool usage is appropriate, and the policy has been followed.",
+          "verdict": "supported",
+          "why": "Source s14\u201116 defines a passing task as requiring correct state, correct calls, and policy compliance."
+        },
+        {
+          "n": 5,
+          "sentence": "Scoring rules that rely on regex matching against generated prose can incorrectly flag valid agent behavior as policy violations.",
+          "verdict": "unsupported",
+          "why": "source makes no mention of regex\u2011based scoring rules"
+        },
+        {
+          "n": 6,
+          "sentence": "The evaluation framework now declares customer intent directly within the task definition rather than relying on regex patterns.",
+          "verdict": "unsupported",
+          "why": "source does not state that intent is declared in task definitions instead of using regex"
+        },
+        {
+          "n": 7,
+          "sentence": "Measuring AI reliability requires accounting for non-deterministic conversations rather than just static scripts.",
+          "verdict": "supported",
+          "why": "Source s27 argues reliability measurement must handle varied conversations, not just fixed scripts."
+        }
+      ]
+    }
+  },
+  "judged_claims": 16,
+  "judged_unsupported": 2,
+  "injections": {
+    "planted": 10,
+    "caught": 10,
+    "recall": 1.0,
+    "recall_by_rule": {
+      "number": 1.0,
+      "quote": 1.0,
+      "entity": 1.0,
+      "intensity": 1.0,
+      "citation": 1.0
+    },
+    "missed": [],
+    "clean_bodies": 2,
+    "false_positive_bodies": 0,
+    "false_positives": []
+  },
+  "bodies": {
+    "linkedin": "An agent with a 0.60 success rate on single attempts would statistically perform near 0.08 across five independent trials.\n\nReliability in AI support agents is measured by running tasks five times to account for non-deterministic behavior. A task is considered successful only when the final database state is correct, the tool usage is appropriate, and the policy has been followed.\n\nGrading does not involve an LLM judge. Instead, the system compares final database states against expectations and evaluates policy adherence via code functions. The framework supports re-scoring finished trials from disk using the --regrade command, which avoids the cost of re-running the model.\n\nIn a recent set of trials, 29 out of 37 state-changing calls occurred after the simulated customer had already departed. The evaluation system now ensures episodes conclude immediately after the agent produces text without a tool call.\n\nTesting an agent once tells you if it can perform a task, but testing it five times tells you if it can be trusted.",
+    "thread": "An agent with a 0.60 success rate on single attempts would statistically perform near 0.08 across five independent trials.\n\nReliability in AI support agents is measured by running tasks \"five times\" to account for non-deterministic behavior.\n\nThe system is intentionally designed to allow agents to commit policy violations so it can verify if the agent truly follows the rules.\n\nA task is considered successful only when the final database state is correct, the tool usage is appropriate, and the policy has been followed.\n\nScoring rules that rely on regex matching against generated prose can incorrectly flag valid agent behavior as policy violations.\n\nThe evaluation framework now declares customer intent directly within the task definition rather than relying on regex patterns.\n\nMeasuring AI reliability requires accounting for non-deterministic conversations rather than just static scripts."
+  },
+  "inventory": {
+    "claims": [
+      {
+        "id": "c0",
+        "kind": "stat",
+        "text": "The benchmark tool executes every task five times to determine which outcomes persist."
+      },
+      {
+        "id": "c1",
+        "kind": "stat",
+        "text": "An agent with a 0.60 success rate on single attempts would statistically perform near 0.08 across five independent trials."
+      },
+      {
+        "id": "c2",
+        "kind": "fact",
+        "text": "Grading for these agents does not involve an LLM judge; instead, it compares final database states against expectations and evaluates policy adherence via code functions."
+      },
+      {
+        "id": "c3",
+        "kind": "fact",
+        "text": "A task is considered successful only when the final database state is correct, the tool usage is appropriate, and the policy has been followed."
+      },
+      {
+        "id": "c4",
+        "kind": "fact",
+        "text": "The grading system does not mandate the use of the escalate_to_human tool, which significantly impacts the pass rate of agents that otherwise follow rules correctly."
+      },
+      {
+        "id": "c5",
+        "kind": "opinion",
+        "text": "The backend is intentionally designed to allow agents to commit policy violations so that the system can verify if the agent truly follows the rules."
+      },
+      {
+        "id": "c6",
+        "kind": "stat",
+        "text": "The pass^k metric measures the proportion of tasks that succeed across all k trials, whereas pass@1 measures the success rate of all individual task-trials."
+      },
+      {
+        "id": "c7",
+        "kind": "narrative",
+        "text": "When an agent prematurely signals the end of a conversation, it can prevent necessary tool calls from executing, leading to incomplete trials."
+      },
+      {
+        "id": "c8",
+        "kind": "fact",
+        "text": "The evaluation system now ensures episodes conclude immediately after the agent produces text without a tool call, providing a closing turn when a customer departs."
+      },
+      {
+        "id": "c9",
+        "kind": "stat",
+        "text": "An initial evaluation run was abandoned after completing 60 out of 75 trials because it exhausted the daily token allowance."
+      },
+      {
+        "id": "c10",
+        "kind": "fact",
+        "text": "Scoring rules that rely on regex matching against generated prose can incorrectly flag valid agent behavior as policy violations."
+      },
+      {
+        "id": "c11",
+        "kind": "fact",
+        "text": "The evaluation framework now declares customer intent directly within the task definition rather than relying on regex patterns."
+      },
+      {
+        "id": "c12",
+        "kind": "fact",
+        "text": "Refusal tasks are now evaluated by requiring a lookup rather than mandating the use of an escalate_to_human tool."
+      },
+      {
+        "id": "c13",
+        "kind": "fact",
+        "text": "The evaluation system prevents data loss by ensuring that output paths do not overwrite checkpoint files."
+      },
+      {
+        "id": "c14",
+        "kind": "fact",
+        "text": "The framework supports re-scoring finished trials from disk using the --regrade command, which avoids the cost of re-running the model."
+      },
+      {
+        "id": "c15",
+        "kind": "fact",
+        "text": "The system refuses to output a percentage score for partial runs, instead reporting the progress made, because unfinished trials are indistinguishable from failures."
+      },
+      {
+        "id": "c16",
+        "kind": "stat",
+        "text": "The --dry-run command estimates the token cost of executing remaining trials before they are actually run."
+      },
+      {
+        "id": "c17",
+        "kind": "fact",
+        "text": "A domain is defined as a directory containing three specific files, and the package does not hardcode retail logic."
+      },
+      {
+        "id": "c18",
+        "kind": "stat",
+        "text": "In a recent set of trials, 29 out of 37 state-changing calls occurred after the simulated customer had already departed."
+      },
+      {
+        "id": "c19",
+        "kind": "stat",
+        "text": "Out of the trials analyzed, 24 passed only because a closing turn was implemented; otherwise, they would have failed due to an unchanged state."
+      },
+      {
+        "id": "c20",
+        "kind": "fact",
+        "text": "The simulator previously stopped upon hearing an announcement of intent, which led to pervasive truncation errors."
+      },
+      {
+        "id": "c21",
+        "kind": "fact",
+        "text": "The simulator has been updated to stop only when an action is completed or a final refusal is issued, rather than on a stated intention."
+      },
+      {
+        "id": "c22",
+        "kind": "fact",
+        "text": "The harness version is checked by the system, which prevents mixing trials from different measurement periods."
+      },
+      {
+        "id": "c23",
+        "kind": "fact",
+        "text": "The grader does not require the agent to speak, as evidenced by trials like status_question that can be passed in total silence."
+      },
+      {
+        "id": "c24",
+        "kind": "stat",
+        "text": "In the current run, all five unknown_email trials were successfully completed without the assistant speaking."
+      },
+      {
+        "id": "c25",
+        "kind": "fact",
+        "text": "The twenty tasks in the suite are hand-written rather than derived from actual customer support logs."
+      },
+      {
+        "id": "c26",
+        "kind": "stat",
+        "text": "Five tasks were added to the suite after initial runs showed that nine out of twelve tasks had never failed across 88 trials."
+      },
+      {
+        "id": "c27",
+        "kind": "fact",
+        "text": "The suite does not currently test for adversarial users attempting to force a refund."
+      },
+      {
+        "id": "c28",
+        "kind": "fact",
+        "text": "The software is licensed under the MIT license."
+      }
+    ],
+    "hook_candidates": [
+      "Testing an AI agent once tells you if it can perform a task, but testing it five times tells you if it can be trusted.",
+      "The most effective way to see if an AI follows your rules is to give it every opportunity to break them.",
+      "AI support agents often fail because they refuse to use a tool, not because they misunderstand the policy.",
+      "A single grading decision can be the difference between a pass and a fail in automated agent evaluation.",
+      "Measuring AI reliability requires accounting for non-deterministic conversations rather than just static scripts.",
+      "A single premature sentence from an AI agent can invalidate an entire test trial.",
+      "Your evaluation framework might be scoring the test harness instead of the model.",
+      "Re-running failed AI trials to debug them is a waste of your token budget."
+    ],
+    "voice_samples": [
+      "Run that task once and you learn whether the agent can do it.",
+      "The backend permits every violation it is asked to commit.",
+      "That abandoned run was not wasted."
+    ],
+    "thesis": "Reliability in AI support agents should be measured by running tasks multiple times to account for non-deterministic behavior and potential policy violations."
+  },
+  "rejudged": {
+    "from": 0,
+    "provider": "groq",
+    "models": [
+      "openai/gpt-oss-120b"
+    ],
+    "source_char_drift": 2464
+  }
+}

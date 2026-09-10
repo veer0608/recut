@@ -1,0 +1,466 @@
+{
+  "id": "md-vidsmith",
+  "judged_by_model": true,
+  "kind": "markdown",
+  "ref": "C:\\Users\\veera\\claude\\vidsmith\\README.md",
+  "title": "vidsmith",
+  "segments": 141,
+  "chars": 29674,
+  "extracted_claims": 49,
+  "dropped_unanchored": 0,
+  "targets": [
+    "linkedin",
+    "thread"
+  ],
+  "verifier_errors": {
+    "linkedin": [],
+    "thread": []
+  },
+  "format_violations": {},
+  "repaired": [
+    "linkedin"
+  ],
+  "claim_utilisation": 0.20408163265306123,
+  "judged": {
+    "linkedin": {
+      "sentences": 10,
+      "windows": 3,
+      "window_chars": 12000,
+      "claims": 10,
+      "unsupported": 1,
+      "rate": 0.1,
+      "unjudged": 0,
+      "verdicts": [
+        {
+          "n": 1,
+          "sentence": "Nothing transcribed the audio to place those captions.",
+          "verdict": "supported",
+          "why": "source s3 explicitly says nothing transcribed the audio to place captions"
+        },
+        {
+          "n": 2,
+          "sentence": "Most video tools rely on post-generation transcription, but vidsmith derives timing data directly from the neural voice engine's word-boundary events.",
+          "verdict": "supported",
+          "why": "source s10 contrasts most tools using transcription with vidsmith using WordBoundary events"
+        },
+        {
+          "n": 3,
+          "sentence": "This approach avoids a separate transcription step entirely.",
+          "verdict": "supported",
+          "why": "source s10 states there is no transcription step"
+        },
+        {
+          "n": 4,
+          "sentence": "Punctuation marks are re-inserted by referencing the original script, as the engine's boundary events omit them.",
+          "verdict": "supported",
+          "why": "source s11 explains punctuation is stitched back from the script"
+        },
+        {
+          "n": 5,
+          "sentence": "Scenes are divided into shots at sentence boundaries, with picture changes occurring exactly where the speaker finishes a sentence.",
+          "verdict": "supported",
+          "why": "source s40 describes splitting scenes into shots at sentence boundaries with picture changes at full stops"
+        },
+        {
+          "n": 6,
+          "sentence": "If a sentence exceeds the maximum shot duration, it is split at the final comma.",
+          "verdict": "supported",
+          "why": "source s42 says sentences longer than max_shot_seconds are broken at the last comma"
+        },
+        {
+          "n": 7,
+          "sentence": "For users who require it for licensing reasons, Amazon Polly is supported as an alternative.",
+          "verdict": "supported",
+          "why": "source s35 lists Amazon Polly as an alternative for licensing reasons"
+        },
+        {
+          "n": 8,
+          "sentence": "It provides word timing data, though it charges for audio generation and speech marks separately, effectively doubling the cost per script length.",
+          "verdict": "supported",
+          "why": "source s38 notes Polly charges audio and speech marks separately, doubling cost"
+        },
+        {
+          "n": 9,
+          "sentence": "Rendering pipelines skip previously completed stages to avoid redundant processing.",
+          "verdict": "supported",
+          "why": "source s31\u2019s `--force` flag implies cached stages are reused, i.e., skipped by default"
+        },
+        {
+          "n": 10,
+          "sentence": "The system includes 200 fast tests run in seconds; 12 more marked `slow` encode real video.",
+          "verdict": "unsupported",
+          "why": "no mention of test counts or slow/fast tests in source"
+        }
+      ]
+    },
+    "thread": {
+      "sentences": 10,
+      "windows": 3,
+      "window_chars": 12000,
+      "claims": 10,
+      "unsupported": 1,
+      "rate": 0.1,
+      "unjudged": 0,
+      "verdicts": [
+        {
+          "n": 1,
+          "sentence": "Nothing transcribed the audio to place those captions.",
+          "verdict": "supported",
+          "why": "Source s3 explicitly says nothing transcribed the audio to place captions."
+        },
+        {
+          "n": 2,
+          "sentence": "The software pulls timing data directly from the neural voice engine instead of relying on post-generation transcription.",
+          "verdict": "supported",
+          "why": "s10 explains timings come from Edge TTS word\u2011boundary events, not transcription."
+        },
+        {
+          "n": 3,
+          "sentence": "Most video tools transcribe audio to time captions, but this method avoids that extra step entirely.",
+          "verdict": "supported",
+          "why": "s10 states most tools transcribe with Whisper, vidsmith does not."
+        },
+        {
+          "n": 4,
+          "sentence": "Scenes divide into shots at sentence boundaries.",
+          "verdict": "supported",
+          "why": "s40 notes scenes are split into shots at sentence boundaries."
+        },
+        {
+          "n": 5,
+          "sentence": "Picture changes occur exactly where the speaker finishes a sentence.",
+          "verdict": "supported",
+          "why": "s40 says picture changes exactly where the speaker lands a full stop."
+        },
+        {
+          "n": 6,
+          "sentence": "If a sentence is too long for a shot, the system splits it at the final comma.",
+          "verdict": "supported",
+          "why": "s42 says sentences longer than max_shot_seconds are broken at the last comma."
+        },
+        {
+          "n": 7,
+          "sentence": "It reverts to fewer, longer shots if it runs out of clips.",
+          "verdict": "supported",
+          "why": "s42 describes collapsing to fewer, longer shots when clips run out."
+        },
+        {
+          "n": 8,
+          "sentence": "A demonstration build takes 62s to render 32.7s of picture, mixing and encoding.",
+          "verdict": "supported",
+          "why": "s7 shows a demo build took 62\u202fs to build 32.7\u202fs of picture."
+        },
+        {
+          "n": 9,
+          "sentence": "The pipeline skips completed stages to avoid redundant work.",
+          "verdict": "supported",
+          "why": "s31\u2019s `--force` flag to redo cached stages implies default skipping of completed stages."
+        },
+        {
+          "n": 10,
+          "sentence": "Video creation tools should derive caption and cut timings directly from the speech engine's word-boundary events rather than relying on post-generation transcription.",
+          "verdict": "unsupported",
+          "why": "Source describes using word timings from TTS engines but does not state a recommendation to prefer them over post\u2011generation transcription."
+        }
+      ]
+    }
+  },
+  "judged_claims": 20,
+  "judged_unsupported": 2,
+  "injections": {
+    "planted": 10,
+    "caught": 10,
+    "recall": 1.0,
+    "recall_by_rule": {
+      "number": 1.0,
+      "quote": 1.0,
+      "entity": 1.0,
+      "intensity": 1.0,
+      "citation": 1.0
+    },
+    "missed": [],
+    "clean_bodies": 2,
+    "false_positive_bodies": 0,
+    "false_positives": []
+  },
+  "bodies": {
+    "linkedin": "Nothing transcribed the audio to place those captions. Most video tools rely on post-generation transcription, but vidsmith derives timing data directly from the neural voice engine's word-boundary events.\n\nThis approach avoids a separate transcription step entirely. Punctuation marks are re-inserted by referencing the original script, as the engine's boundary events omit them.\n\nScenes are divided into shots at sentence boundaries, with picture changes occurring exactly where the speaker finishes a sentence. If a sentence exceeds the maximum shot duration, it is split at the final comma.\n\nFor users who require it for licensing reasons, Amazon Polly is supported as an alternative. It provides word timing data, though it charges for audio generation and speech marks separately, effectively doubling the cost per script length.\n\nRendering pipelines skip previously completed stages to avoid redundant processing. The system includes 200 fast tests run in seconds; 12 more marked `slow` encode real video.\n\n#vidsmith #videoediting #automation",
+    "thread": "Nothing transcribed the audio to place those captions. The software pulls timing data directly from the neural voice engine instead of relying on post-generation transcription.\n\nMost video tools transcribe audio to time captions, but this method avoids that extra step entirely.\n\nScenes divide into shots at sentence boundaries. Picture changes occur exactly where the speaker finishes a sentence.\n\nIf a sentence is too long for a shot, the system splits it at the final comma. It reverts to fewer, longer shots if it runs out of clips.\n\nA demonstration build takes 62s to render 32.7s of picture, mixing and encoding. The pipeline skips completed stages to avoid redundant work.\n\nVideo creation tools should derive caption and cut timings directly from the speech engine's word-boundary events rather than relying on post-generation transcription."
+  },
+  "inventory": {
+    "claims": [
+      {
+        "id": "c0",
+        "kind": "fact",
+        "text": "The vidsmith tool generates videos from markdown scripts by using a neural voice, selecting visuals, creating word-timed captions, adding music, and producing an mp4 file along with subtitle and metadata files."
+      },
+      {
+        "id": "c1",
+        "kind": "fact",
+        "text": "The software uses Microsoft's neural voice engine to provide timing data for captions and video cuts, which avoids the need for a separate transcription step."
+      },
+      {
+        "id": "c2",
+        "kind": "fact",
+        "text": "Users can run the software without an account or API keys by utilizing the free Microsoft edge-tts endpoint."
+      },
+      {
+        "id": "c3",
+        "kind": "fact",
+        "text": "The only required external dependency for the software is ffmpeg."
+      },
+      {
+        "id": "c4",
+        "kind": "fact",
+        "text": "Punctuation marks are automatically re-inserted into the caption stream by referencing the original script, as the speech engine's boundary events omit them."
+      },
+      {
+        "id": "c5",
+        "kind": "fact",
+        "text": "Amazon Polly is supported as an alternative voice provider for users who require it for licensing reasons."
+      },
+      {
+        "id": "c6",
+        "kind": "stat",
+        "text": "A demonstration build of a project takes approximately 62 seconds to render a 32.7-second video."
+      },
+      {
+        "id": "c7",
+        "kind": "fact",
+        "text": "Polly is one of the few services that provides word timing data, allowing for cuts that align with sentence boundaries."
+      },
+      {
+        "id": "c8",
+        "kind": "fact",
+        "text": "Polly charges for both the audio generation and the speech marks separately, effectively doubling the cost per script length."
+      },
+      {
+        "id": "c9",
+        "kind": "fact",
+        "text": "The generative engine from Polly does not provide speech marks, preventing its use for timing captions or cuts."
+      },
+      {
+        "id": "c10",
+        "kind": "fact",
+        "text": "Scenes are divided into shots at sentence boundaries, with picture changes occurring exactly where the speaker finishes a sentence."
+      },
+      {
+        "id": "c11",
+        "kind": "fact",
+        "text": "If a sentence exceeds the maximum shot duration, it is split at the final comma, or the plan reverts to fewer, longer shots if insufficient clips are available."
+      },
+      {
+        "id": "c12",
+        "kind": "fact",
+        "text": "Gemini can be used to rerank stock footage candidates by comparing preview stills against the narration to ensure visual relevance."
+      },
+      {
+        "id": "c13",
+        "kind": "fact",
+        "text": "The reranking process rejects candidates that do not match the subject, and only judged candidates are eligible for use."
+      },
+      {
+        "id": "c14",
+        "kind": "fact",
+        "text": "Synthesized music beds are created using detuned sine waves with echo and low-pass filtering to serve as atmospheric background."
+      },
+      {
+        "id": "c15",
+        "kind": "stat",
+        "text": "The generated music bed typically sits at -34 dB and ducks by 8 dB during speech."
+      },
+      {
+        "id": "c16",
+        "kind": "fact",
+        "text": "Diagrams are automatically generated for concepts that cannot be filmed, using a JSON specification to draw layouts like flow, tree, stack, or compare."
+      },
+      {
+        "id": "c17",
+        "kind": "fact",
+        "text": "Diagram layout positions are dynamically calculated based on caption settings to ensure they do not overlap."
+      },
+      {
+        "id": "c18",
+        "kind": "fact",
+        "text": "The decision on which scenes to illustrate is made once to ensure consistency across different aspect ratios."
+      },
+      {
+        "id": "c19",
+        "kind": "fact",
+        "text": "The system prefers using stock photographs for thumbnails because they are composed for individual viewing, unlike frames cut from video."
+      },
+      {
+        "id": "c20",
+        "kind": "stat",
+        "text": "Thumbnail candidates are filtered to ensure they are spaced at least 2.5 seconds apart."
+      },
+      {
+        "id": "c21",
+        "kind": "fact",
+        "text": "The check utility verifies that delivered files are consistent with each other and reports errors if they disagree."
+      },
+      {
+        "id": "c22",
+        "kind": "fact",
+        "text": "YouTube will reject an entire chapter list if any chapter does not start at 0:00."
+      },
+      {
+        "id": "c23",
+        "kind": "fact",
+        "text": "The validation check tool operates without calling any models or network services, allowing it to function even when API quotas are exhausted."
+      },
+      {
+        "id": "c24",
+        "kind": "fact",
+        "text": "AI image generation is intentionally excluded because free-tier image models typically return resource exhaustion errors."
+      },
+      {
+        "id": "c25",
+        "kind": "fact",
+        "text": "API keys can be provided via environment variables or stored in .env files located in the project, parent, or repository root directories."
+      },
+      {
+        "id": "c26",
+        "kind": "fact",
+        "text": "The rendering pipeline skips previously completed stages to avoid redundant processing, though users can force specific stages to rerun."
+      },
+      {
+        "id": "c27",
+        "kind": "stat",
+        "text": "The system includes 200 fast tests that execute in seconds, alongside 12 slower tests that perform actual video encoding."
+      },
+      {
+        "id": "c28",
+        "kind": "fact",
+        "text": "The test suite enforces critical invariants such as ensuring caption lines do not overlap and that all utilized clips are accounted for in the credits."
+      },
+      {
+        "id": "c29",
+        "kind": "stat",
+        "text": "The web service limits concurrent renders to one at a time, queueing up to three additional requests before returning a 429 error."
+      },
+      {
+        "id": "c30",
+        "kind": "fact",
+        "text": "Cancelling a render is a cooperative process where the system stops at the next stage boundary rather than immediately during an encode."
+      },
+      {
+        "id": "c31",
+        "kind": "fact",
+        "text": "Cloudflare tunnels allow local servers to be accessed via a public URL without requiring a dedicated domain or cloud hosting account."
+      },
+      {
+        "id": "c32",
+        "kind": "fact",
+        "text": "The -NoToken flag allows tunnels to operate without authentication, which is intended for temporary demonstrations rather than secure production use."
+      },
+      {
+        "id": "c33",
+        "kind": "fact",
+        "text": "The cloudflared utility can be installed using the winget package manager."
+      },
+      {
+        "id": "c34",
+        "kind": "fact",
+        "text": "Exposed instances without a VIDSMITH_TOKEN will consume Pexels and Gemini quotas from anyone who accesses the URL."
+      },
+      {
+        "id": "c35",
+        "kind": "fact",
+        "text": "The /healthz endpoint remains accessible without a token, but the keys field is restricted to authorized callers."
+      },
+      {
+        "id": "c36",
+        "kind": "stat",
+        "text": "Hugging Face Spaces provides 2 vCPU and 16 GB of memory, which is sufficient for 1080p video encoding."
+      },
+      {
+        "id": "c37",
+        "kind": "stat",
+        "text": "As of August 25, 2026, free Docker-based Spaces on Hugging Face are no longer available and require a PRO subscription."
+      },
+      {
+        "id": "c38",
+        "kind": "stat",
+        "text": "Encoding a five-minute video on a 2 vCPU instance typically takes about eleven minutes."
+      },
+      {
+        "id": "c39",
+        "kind": "stat",
+        "text": "AWS deployments require at least 2 vCPUs and 2 GB of memory to successfully encode 1080p video."
+      },
+      {
+        "id": "c40",
+        "kind": "fact",
+        "text": "DuckDNS subdomains can be used to obtain valid SSL certificates for AWS instances, preventing tokens from being transmitted over plain HTTP."
+      },
+      {
+        "id": "c41",
+        "kind": "fact",
+        "text": "Render deployments use a native Python runtime and fetch ffmpeg and DejaVu fonts during the build process."
+      },
+      {
+        "id": "c42",
+        "kind": "fact",
+        "text": "The software is licensed under the PolyForm Noncommercial 1.0.0 terms, which permit personal and non-profit use."
+      },
+      {
+        "id": "c43",
+        "kind": "stat",
+        "text": "Commercial licenses are available for a one-time fee of $49 for individuals or $299 for companies."
+      },
+      {
+        "id": "c44",
+        "kind": "fact",
+        "text": "The edge-tts narration path lacks authorization for commercial use, whereas Amazon Polly is the recommended alternative for commercial projects."
+      },
+      {
+        "id": "c45",
+        "kind": "fact",
+        "text": "Polly maintains existing caption and cut timings by reporting word-level timing data."
+      },
+      {
+        "id": "c46",
+        "kind": "fact",
+        "text": "Polly charges for both audio and speech marks as separate requests, effectively doubling the script length cost for a video."
+      },
+      {
+        "id": "c47",
+        "kind": "fact",
+        "text": "The generative engine in Polly is not a selectable option because it does not provide speech marks."
+      },
+      {
+        "id": "c48",
+        "kind": "fact",
+        "text": "The vidsmith doctor utility provides information on which keys are resolvable."
+      }
+    ],
+    "hook_candidates": [
+      "Most video tools transcribe audio to time captions, but vidsmith gets that data directly from the voice engine itself.",
+      "Your bank statement is not a record of what you spent; it is a record of what your bank found convenient to store.",
+      "You can generate a complete, narrated video with perfectly synced captions using only a markdown file.",
+      "The merchant name on your bank statement is typed by a payment processor, not the shop where you bought your coffee.",
+      "Stop relying on external transcription models to time your video captions.",
+      "Stock footage search engines often return irrelevant results because they rank by popularity rather than visual content.",
+      "Automated video narration often looks artificial because it lacks the precise shot-to-sentence alignment found in human editing.",
+      "You can force an automated video generator to create custom diagrams when stock footage fails to illustrate your point."
+    ],
+    "voice_samples": [
+      "Script in, narrated and captioned YouTube video out.",
+      "That is untouched output.",
+      "A scene is not a shot.",
+      "Every check is a fault that reached a finished build here.",
+      "AI image generation is not wired in on purpose.",
+      "Nothing went red, because the only tests touching it were testing the fallback."
+    ],
+    "thesis": "Video creation tools should derive caption and cut timings directly from the speech engine's word-boundary events rather than relying on post-generation transcription."
+  },
+  "rejudged": {
+    "from": 0,
+    "provider": "groq",
+    "models": [
+      "openai/gpt-oss-120b"
+    ],
+    "source_char_drift": 1952
+  }
+}

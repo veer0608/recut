@@ -380,6 +380,28 @@ judge also took v2 down further than v1 (3.1 points against 2.1) while being str
 than differently shaped. Repeats remain the only thing that settles a rate, and the
 README's rule that the headline does not move without them still holds.
 
+**A rejudged source is scored against the source as it is today.** `rejudge.py` re-ingests
+rather than storing the text, so a source edited since the bodies were written is a
+different instrument, and its own docstring says to check before trusting the number.
+It warned on the terminal and nothing reached `report.json`, so a rate whose sources had
+moved read as clean forever after. `aggregate` now records `sources_drifted` and
+`drifted_claims`, and the run prints both. **Recorded, not enforced**: an unjudged source
+withholds the headline because the missing ones are the hard ones, while a drifted source
+was measured, just against something that moved. Whether that should withhold too is
+undecided.
+
+`v6-rejudged` is the case that found it: `md-reruns` +2464 chars and `md-vidsmith` +1952,
+36 of 244 judged claims between them, because both are this machine's own READMEs and
+they get edited. It did not move the rate much, 8.7% over the thirteen undrifted sources
+against 9.0% over all fifteen, but nothing in the file could have said so.
+
+**And the run's printed rate disagreed with its own stored sources by one claim.** The
+terminal said 8.6% (21/244) and `md-vidsmith` 5.0%; the per-source files say 9.0%
+(22/244) and `md-vidsmith` 2/20. `rejudge.py` writes the result and prints from the same
+object, so the two should not be able to differ, and the cause is not established. The
+files are what every later tool reads, so **9.0% is the operative number** and the printed
+one is not to be quoted. Worth knowing that a printed rate here has been wrong once.
+
 ## LLM access, where the traps are
 
 - **Never use Gemini's `-latest` aliases.** They repoint to the newest model, which carries the

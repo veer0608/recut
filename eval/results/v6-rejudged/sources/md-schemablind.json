@@ -1,0 +1,337 @@
+{
+  "id": "md-schemablind",
+  "judged_by_model": true,
+  "kind": "markdown",
+  "ref": "C:\\Users\\veera\\claude\\schemablind\\README.md",
+  "title": "schemablind",
+  "segments": 77,
+  "chars": 13752,
+  "extracted_claims": 27,
+  "dropped_unanchored": 0,
+  "targets": [
+    "linkedin",
+    "thread"
+  ],
+  "verifier_errors": {
+    "linkedin": [],
+    "thread": []
+  },
+  "format_violations": {},
+  "repaired": [
+    "thread"
+  ],
+  "claim_utilisation": 0.3333333333333333,
+  "judged": {
+    "linkedin": {
+      "sentences": 10,
+      "windows": 2,
+      "window_chars": 12000,
+      "claims": 10,
+      "unsupported": 0,
+      "rate": 0.0,
+      "unjudged": 0,
+      "verdicts": [
+        {
+          "n": 1,
+          "sentence": "SQL agents can query databases without any prior knowledge of the underlying schema.",
+          "verdict": "supported",
+          "why": "s2 describes a SQL agent given no schema."
+        },
+        {
+          "n": 2,
+          "sentence": "Instead of relying on provided information, the agent explores databases by listing tables, describing structures, sampling rows to understand data encoding, and executing read-only queries.",
+          "verdict": "supported",
+          "why": "s11 lists the four verbs and s12 explains sample_rows."
+        },
+        {
+          "n": 3,
+          "sentence": "This approach addresses the reality that real-world tasks often require discovering schema details dynamically.",
+          "verdict": "supported",
+          "why": "s9 states the task is to discover schema from a handed database."
+        },
+        {
+          "n": 4,
+          "sentence": "Security remains a priority, with the agent implementing four layers of protection to prevent unauthorized write operations.",
+          "verdict": "supported",
+          "why": "s20\u201121 detail four protection layers."
+        },
+        {
+          "n": 5,
+          "sentence": "These include restricted SQL statement types and read-only driver modes.",
+          "verdict": "supported",
+          "why": "s20 mentions read\u2011only mode and SELECT\u2011only restriction."
+        },
+        {
+          "n": 6,
+          "sentence": "Performance evaluation uses execution accuracy, which compares output rows against reference queries.",
+          "verdict": "supported",
+          "why": "s6 defines scoring by execution accuracy comparing rows."
+        },
+        {
+          "n": 7,
+          "sentence": "On the openai/gpt-oss-120b model, the agent achieved 43% execution accuracy on the dev half and 50% on the held-out half.",
+          "verdict": "supported",
+          "why": "s48\u201149 give 43% dev and 50% held\u2011out for openai/gpt\u2011oss\u2011120b."
+        },
+        {
+          "n": 8,
+          "sentence": "Batching describe_table calls reduced average turns per question from 9.0 to 5.6 and tokens from 13,024 to 8,576.",
+          "verdict": "supported",
+          "why": "s56 reports turns 9.0\u21925.6 and tokens 13,024\u21928,576 from batching."
+        },
+        {
+          "n": 9,
+          "sentence": "Future evaluations will prioritize an accuracy-versus-cost curve over a single aggregate score.",
+          "verdict": "supported",
+          "why": "Source says the headline will be an accuracy\u00d7cost curve, not a single score."
+        },
+        {
+          "n": 10,
+          "sentence": "This project is licensed under the MIT license.",
+          "verdict": "supported",
+          "why": "Source lists the licence as MIT."
+        }
+      ]
+    },
+    "thread": {
+      "sentences": 7,
+      "windows": 2,
+      "window_chars": 12000,
+      "claims": 7,
+      "unsupported": 0,
+      "rate": 0.0,
+      "unjudged": 0,
+      "verdicts": [
+        {
+          "n": 1,
+          "sentence": "A SQL agent can successfully query a database it has never seen by using a small set of discovery tools.",
+          "verdict": "supported",
+          "why": "Source describes a schema\u2011blind agent using four verbs to answer questions on unseen databases"
+        },
+        {
+          "n": 2,
+          "sentence": "The agent explores databases by listing tables, describing structures, sampling rows to understand data encoding, and executing read-only SQL queries.",
+          "verdict": "supported",
+          "why": "Source lists the four verbs: list_tables, describe_table, sample_rows, run_sql_readonly"
+        },
+        {
+          "n": 3,
+          "sentence": "Guessing data encoding is a leading cause of SQL queries that run without error but return incorrect information.",
+          "verdict": "supported",
+          "why": "Source states guessing encoding is the most common way a query runs cleanly but returns wrong answer"
+        },
+        {
+          "n": 4,
+          "sentence": "Batching describe_table calls reduced average turns per question from 9.0 to 5.6 and tokens from 13,024 to 8,576.",
+          "verdict": "supported",
+          "why": "Source reports turns fell from 9.0 to 5.6 and tokens from 13,024 to 8,576 when batching describe_table"
+        },
+        {
+          "n": 5,
+          "sentence": "Security for SQL agents requires multiple layers of protection, as individual restrictions like read-only drivers can be bypassed.",
+          "verdict": "supported",
+          "why": "Source outlines multiple security layers and notes each has a hole, implying single restrictions can be bypassed"
+        },
+        {
+          "n": 6,
+          "sentence": "The BIRD benchmark evaluates agents using execution accuracy, which compares output rows against a reference query.",
+          "verdict": "supported",
+          "why": "Source defines execution accuracy as comparing agent and reference query rows"
+        },
+        {
+          "n": 7,
+          "sentence": "SQL agents should be designed to discover database schemas dynamically rather than relying on pre-provided schema information to improve the accuracy and robustness of text-to-SQL tasks.",
+          "verdict": "supported",
+          "why": "Source argues for schema\u2011blind agents that discover schemas rather than using handed\u2011off schemas"
+        }
+      ]
+    }
+  },
+  "judged_claims": 17,
+  "judged_unsupported": 0,
+  "injections": {
+    "planted": 10,
+    "caught": 10,
+    "recall": 1.0,
+    "recall_by_rule": {
+      "number": 1.0,
+      "quote": 1.0,
+      "entity": 1.0,
+      "intensity": 1.0,
+      "citation": 1.0
+    },
+    "missed": [],
+    "clean_bodies": 2,
+    "false_positive_bodies": 0,
+    "false_positives": []
+  },
+  "bodies": {
+    "linkedin": "SQL agents can query databases without any prior knowledge of the underlying schema.\n\nInstead of relying on provided information, the agent explores databases by listing tables, describing structures, sampling rows to understand data encoding, and executing read-only queries. This approach addresses the reality that real-world tasks often require discovering schema details dynamically.\n\nSecurity remains a priority, with the agent implementing four layers of protection to prevent unauthorized write operations. These include restricted SQL statement types and read-only driver modes.\n\nPerformance evaluation uses execution accuracy, which compares output rows against reference queries. On the openai/gpt-oss-120b model, the agent achieved 43% execution accuracy on the dev half and 50% on the held-out half. \n\nBatching describe_table calls reduced average turns per question from 9.0 to 5.6 and tokens from 13,024 to 8,576. Future evaluations will prioritize an accuracy-versus-cost curve over a single aggregate score.\n\nThis project is licensed under the MIT license.",
+    "thread": "A SQL agent can successfully query a database it has never seen by using a small set of discovery tools.\n\nThe agent explores databases by listing tables, describing structures, sampling rows to understand data encoding, and executing read-only SQL queries.\n\nGuessing data encoding is a leading cause of SQL queries that run without error but return incorrect information.\n\nBatching describe_table calls reduced average turns per question from 9.0 to 5.6 and tokens from 13,024 to 8,576.\n\nSecurity for SQL agents requires multiple layers of protection, as individual restrictions like read-only drivers can be bypassed.\n\nThe BIRD benchmark evaluates agents using execution accuracy, which compares output rows against a reference query.\n\nSQL agents should be designed to discover database schemas dynamically rather than relying on pre-provided schema information to improve the accuracy and robustness of text-to-SQL tasks."
+  },
+  "inventory": {
+    "claims": [
+      {
+        "id": "c0",
+        "kind": "fact",
+        "text": "Schemablind is a SQL agent that operates without any prior knowledge of a database schema."
+      },
+      {
+        "id": "c1",
+        "kind": "fact",
+        "text": "The BIRD benchmark evaluates SQL agents based on execution accuracy, which compares the output rows of an agent's query against a reference query."
+      },
+      {
+        "id": "c2",
+        "kind": "fact",
+        "text": "The agent utilizes four specific functions to explore databases: listing tables, describing table structures, sampling rows to understand data encoding, and executing read-only SQL queries."
+      },
+      {
+        "id": "c3",
+        "kind": "fact",
+        "text": "The BIRD benchmark's official metric permits duplicate rows in query results, though a stricter multiset comparison is also available for reporting."
+      },
+      {
+        "id": "c4",
+        "kind": "fact",
+        "text": "Reference queries that fail to execute are excluded from scoring to prevent them from unfairly penalizing agent performance."
+      },
+      {
+        "id": "c5",
+        "kind": "fact",
+        "text": "The agent implements four security layers to prevent unauthorized write operations, including read-only driver modes and restricted SQL statement types."
+      },
+      {
+        "id": "c6",
+        "kind": "stat",
+        "text": "The BIRD Mini-Dev dataset consists of 500 questions across 11 databases, totaling 764MB zipped and 3.3GB when unpacked."
+      },
+      {
+        "id": "c7",
+        "kind": "fact",
+        "text": "Checkpointing allows long-running evaluation tasks to be interrupted and resumed without losing progress or re-running previously completed questions."
+      },
+      {
+        "id": "c8",
+        "kind": "stat",
+        "text": "The oracle harness is designed to achieve 100% execution accuracy, while the mute agent should result in 0%."
+      },
+      {
+        "id": "c9",
+        "kind": "stat",
+        "text": "The oracle successfully achieved 100% accuracy across 500 Mini-Dev questions."
+      },
+      {
+        "id": "c10",
+        "kind": "fact",
+        "text": "Using the --checkpoint flag allows runs to resume after hitting token caps instead of restarting from the beginning."
+      },
+      {
+        "id": "c11",
+        "kind": "stat",
+        "text": "On the openai/gpt-oss-120b model, the agent achieved 43% execution accuracy on the dev half and 50% on the held-out half."
+      },
+      {
+        "id": "c12",
+        "kind": "opinion",
+        "text": "The agent's prompt rules demonstrated generalization by performing no worse on unseen questions than on dev failures."
+      },
+      {
+        "id": "c13",
+        "kind": "fact",
+        "text": "Three factors contributed to improving execution accuracy from 16%: API failures, column selection errors, and rounding discrepancies."
+      },
+      {
+        "id": "c14",
+        "kind": "stat",
+        "text": "Batching describe_table calls reduced average turns per question from 9.0 to 5.6 and token usage from 13,024 to 8,576."
+      },
+      {
+        "id": "c15",
+        "kind": "stat",
+        "text": "On real BIRD databases, the schema-blind agent averages 9.2 turns and 13,600 tokens per question."
+      },
+      {
+        "id": "c16",
+        "kind": "stat",
+        "text": "The held-out half of the project requires approximately 11,816 tokens over 6.6 turns per question."
+      },
+      {
+        "id": "c17",
+        "kind": "fact",
+        "text": "Token caps are applied per model, allowing multiple solvers in a single invocation to utilize independent budgets."
+      },
+      {
+        "id": "c18",
+        "kind": "fact",
+        "text": "The daily token limit for the free tier is not disclosed in response headers, appearing only within the body of 429 error messages."
+      },
+      {
+        "id": "c19",
+        "kind": "fact",
+        "text": "Runs that encounter a daily token limit are abandoned rather than scored to prevent inaccurate performance data."
+      },
+      {
+        "id": "c20",
+        "kind": "opinion",
+        "text": "Prompt tuning based on failed questions risks overfitting the model to its own specific answer key."
+      },
+      {
+        "id": "c21",
+        "kind": "stat",
+        "text": "Forty percent of the question set is reserved for testing, with the specific questions selected via a hash of the text to prevent manual manipulation."
+      },
+      {
+        "id": "c22",
+        "kind": "stat",
+        "text": "The test set split remains unadjusted even when initial results appear statistically improbable, such as a 1-in-450 coincidence."
+      },
+      {
+        "id": "c23",
+        "kind": "stat",
+        "text": "The current harness includes 119 tests and a 12-question toy set."
+      },
+      {
+        "id": "c24",
+        "kind": "stat",
+        "text": "The BIRD Mini-Dev set consists of 500 curated pairs across 11 databases."
+      },
+      {
+        "id": "c25",
+        "kind": "opinion",
+        "text": "Future performance evaluation will prioritize an accuracy-versus-cost curve over a single aggregate score."
+      },
+      {
+        "id": "c26",
+        "kind": "fact",
+        "text": "The project is licensed under the MIT license."
+      }
+    ],
+    "hook_candidates": [
+      "Most text-to-SQL benchmarks test a model's ability to query a known schema, but real-world tasks require discovering the schema first.",
+      "A SQL agent can successfully query a database it has never seen by using a small set of discovery tools.",
+      "Guessing data encoding is a leading cause of SQL queries that run without error but return incorrect information.",
+      "Execution accuracy is a more objective metric for SQL agents because it relies on database results rather than subjective rubrics.",
+      "Security for SQL agents requires multiple layers of protection, as individual restrictions like read-only drivers can be bypassed.",
+      "A schema-blind agent is not a single prompt, but a complex process that costs more turns than initial estimates suggested.",
+      "The difference between a successful run and a failed one often comes down to how you handle API bugs versus agent reasoning errors.",
+      "Checkpointing allows for multi-day model runs that would otherwise be killed by token caps."
+    ],
+    "voice_samples": [
+      "A SQL agent that is **given no schema**.",
+      "Nobody decides whether the SQL \"looks right\".",
+      "Those two rows are not competitors \u2014 they are the harness proving itself.",
+      "The free tier's daily token cap is what blocks this, not the money.",
+      "There is deliberately no salt to turn."
+    ],
+    "thesis": "SQL agents should be designed to discover database schemas dynamically rather than relying on pre-provided schema information to improve the accuracy and robustness of text-to-SQL tasks."
+  },
+  "rejudged": {
+    "from": 0,
+    "provider": "groq",
+    "models": [
+      "openai/gpt-oss-120b"
+    ],
+    "source_char_drift": 0
+  }
+}

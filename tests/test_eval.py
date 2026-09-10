@@ -747,6 +747,42 @@ def test_a_kept_repair_that_only_tied_is_not_counted_as_reducing():
     assert rep["fully_cleared"] == 0
 
 
+def test_a_drifted_source_is_named_in_the_report():
+    """The terminal warned and report.json did not, so a rate whose sources had
+    moved read as clean forever after. v6-rejudged was judged with md-reruns
+    +2464 chars and md-vidsmith +1952 and nothing in the file said so."""
+    a = _result({}); a["id"] = "md-reruns"; a["judged_claims"] = 16
+    a["rejudged"] = {"source_char_drift": 2464}
+    b = _result({}); b["id"] = "art-ocr"; b["judged_claims"] = 20
+    b["rejudged"] = {"source_char_drift": 0}
+    report = aggregate([a, b], [], {"at": "x"})
+    assert report["sources_drifted"] == {"md-reruns": 2464}
+    # The claims at risk, not just the source count: that is what bounds the rate.
+    assert report["drifted_claims"] == 16
+
+
+def test_a_live_run_has_no_drift_because_it_never_rejudged():
+    # run_source writes no "rejudged" key at all, so the field must not assume one.
+    report = aggregate([_result({})], [], {"at": "x"})
+    assert report["sources_drifted"] == {}
+    assert report["drifted_claims"] == 0
+
+
+def test_drift_does_not_withhold_the_headline():
+    """Recorded, not enforced, and that is a decision rather than an oversight.
+
+    An unjudged source withholds the rate because the missing sources are the hard
+    ones. A drifted source is measured, just against a source that has moved, and
+    whether that should also withhold has not been decided.
+    """
+    a = _result({}); a["id"] = "md-reruns"; a["judged_claims"] = 16
+    a["judged_by_model"] = True
+    a["rejudged"] = {"source_char_drift": 2464}
+    report = aggregate([a], [], {"at": "x"})
+    assert report["sources_drifted"]
+    assert report["unsupported_claim_rate"] is not None
+
+
 def test_the_inventory_counters_are_summed_across_sources():
     a = _result({}); a["dropped_unanchored"] = 2; a["demoted_quotes"] = 1
     b = _result({}); b["dropped_unanchored"] = 0; b["demoted_quotes"] = 3

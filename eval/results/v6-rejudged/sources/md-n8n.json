@@ -1,0 +1,276 @@
+{
+  "id": "md-n8n",
+  "judged_by_model": true,
+  "kind": "markdown",
+  "ref": "C:\\Users\\veera\\claude\\n8n-statement-extractor\\README.md",
+  "title": "Statement & Invoice PDF \u2192 Reconciled Rows",
+  "segments": 46,
+  "chars": 11348,
+  "extracted_claims": 16,
+  "dropped_unanchored": 0,
+  "targets": [
+    "linkedin",
+    "thread"
+  ],
+  "verifier_errors": {
+    "linkedin": [
+      "[error/intensity] 'prove': the source never says 'proves?'; do not add force it did not use"
+    ],
+    "thread": []
+  },
+  "format_violations": {},
+  "repaired": [
+    "linkedin"
+  ],
+  "claim_utilisation": 0.5625,
+  "judged": {
+    "linkedin": {
+      "sentences": 9,
+      "windows": 1,
+      "window_chars": 12000,
+      "claims": 9,
+      "unsupported": 2,
+      "rate": 0.2222222222222222,
+      "unjudged": 0,
+      "verdicts": [
+        {
+          "n": 1,
+          "sentence": "Your reconciliation process might report a perfect closing balance while still missing errors in the middle of your statement.",
+          "verdict": "supported",
+          "why": "Source notes closing balance can match while a middle row is flagged"
+        },
+        {
+          "n": 2,
+          "sentence": "Most alternative extraction methods pipe PDF data directly into vision models, which often leads to data drift.",
+          "verdict": "supported",
+          "why": "Source says others pipe PDFs into vision models, causing drift"
+        },
+        {
+          "n": 3,
+          "sentence": "The design philosophy here dictates that the AI model must not interact with numerical values it could potentially hallucinate.",
+          "verdict": "supported",
+          "why": "Source states the model never touches numbers it could invent"
+        },
+        {
+          "n": 4,
+          "sentence": "In testing, digital PDF parsing achieved a 100 percent reconciliation rate across 16 rows.",
+          "verdict": "supported",
+          "why": "Source reports 16/16 rows, 100% reconciled for digital PDF"
+        },
+        {
+          "n": 5,
+          "sentence": "However, in a test of 15 of 16 rows, the LLM node correctly structured the data while mislabeling one salary disbursement as a credit.",
+          "verdict": "supported",
+          "why": "Source describes 15/16 rows correct and one salary mis\u2011labelled as credit"
+        },
+        {
+          "n": 6,
+          "sentence": "Automated financial document extraction should prioritize deterministic data handling and arithmetic validation over relying solely on LLM vision models to ensure accuracy.",
+          "verdict": "unsupported",
+          "why": "Source describes its own approach but does not explicitly state a should\u2011prioritize recommendation"
+        },
+        {
+          "n": 7,
+          "sentence": "The system now infers decimal separators by examining tokens containing both dots and commas to avoid misparsing European number formats.",
+          "verdict": "supported",
+          "why": "Source explains node infers decimal separator from tokens containing both '.' and ','"
+        },
+        {
+          "n": 8,
+          "sentence": "There are 17 paid listings against 177 free ones for document or PDF extraction tasks on the n8n library.",
+          "verdict": "supported",
+          "why": "Source gives the numbers 17 paid vs 177 free listings"
+        },
+        {
+          "n": 9,
+          "sentence": "Arithmetic validation is required to prove accuracy.",
+          "verdict": "unsupported",
+          "why": "Source does not explicitly claim arithmetic validation is required, only that it is performed"
+        }
+      ]
+    },
+    "thread": {
+      "sentences": 6,
+      "windows": 1,
+      "window_chars": 12000,
+      "claims": 6,
+      "unsupported": 1,
+      "rate": 0.16666666666666666,
+      "unjudged": 0,
+      "verdicts": [
+        {
+          "n": 1,
+          "sentence": "Your reconciliation process might report a perfect closing balance while still missing errors in the middle of your statement.",
+          "verdict": "supported",
+          "why": "Source shows closing balance matches while a middle row is flagged as error"
+        },
+        {
+          "n": 2,
+          "sentence": "The system identified and resolved \"eight\" distinct flaws to ensure accuracy.",
+          "verdict": "supported",
+          "why": "Source lists eight flaws identified and fixed"
+        },
+        {
+          "n": 3,
+          "sentence": "Most alternative extraction methods pipe PDF data directly into vision models, which often leads to data drift.",
+          "verdict": "supported",
+          "why": "Source says others pipe PDF into vision models, causing drift"
+        },
+        {
+          "n": 4,
+          "sentence": "The design philosophy dictates that the AI model must not interact with numerical values it could potentially hallucinate.",
+          "verdict": "supported",
+          "why": "Source states model never touches numbers it could invent"
+        },
+        {
+          "n": 5,
+          "sentence": "In a test of \"15 of 16\" rows, the LLM node correctly structured the data but mislabeled one salary disbursement as a credit.",
+          "verdict": "supported",
+          "why": "Source reports 15/16 rows correct, one salary mislabeled as credit"
+        },
+        {
+          "n": 6,
+          "sentence": "Automated financial document extraction should prioritize deterministic data handling and arithmetic validation over relying solely on LLM vision models.",
+          "verdict": "unsupported",
+          "why": "Source describes its own approach but does not state this recommendation"
+        }
+      ]
+    }
+  },
+  "judged_claims": 15,
+  "judged_unsupported": 3,
+  "injections": {
+    "planted": 10,
+    "caught": 10,
+    "recall": 1.0,
+    "recall_by_rule": {
+      "number": 1.0,
+      "quote": 1.0,
+      "entity": 1.0,
+      "intensity": 1.0,
+      "citation": 1.0
+    },
+    "missed": [],
+    "clean_bodies": 2,
+    "false_positive_bodies": 1,
+    "false_positives": [
+      {
+        "target": "linkedin",
+        "spans": [
+          "[error/intensity] 'prove': the source never says 'proves?'; do not add force it did not use"
+        ]
+      }
+    ]
+  },
+  "bodies": {
+    "linkedin": "Your reconciliation process might report a perfect closing balance while still missing errors in the middle of your statement.\n\nMost alternative extraction methods pipe PDF data directly into vision models, which often leads to data drift. The design philosophy here dictates that the AI model must not interact with numerical values it could potentially hallucinate.\n\nIn testing, digital PDF parsing achieved a 100 percent reconciliation rate across 16 rows. However, in a test of 15 of 16 rows, the LLM node correctly structured the data while mislabeling one salary disbursement as a credit.\n\nAutomated financial document extraction should prioritize deterministic data handling and arithmetic validation over relying solely on LLM vision models to ensure accuracy. The system now infers decimal separators by examining tokens containing both dots and commas to avoid misparsing European number formats.\n\nThere are 17 paid listings against 177 free ones for document or PDF extraction tasks on the n8n library.\n\nArithmetic validation is required to prove accuracy.",
+    "thread": "Your reconciliation process might report a perfect closing balance while still missing errors in the middle of your statement.\n\nThe system identified and resolved \"eight\" distinct flaws to ensure accuracy.\n\nMost alternative extraction methods pipe PDF data directly into vision models, which often leads to data drift.\n\nThe design philosophy dictates that the AI model must not interact with numerical values it could potentially hallucinate.\n\nIn a test of \"15 of 16\" rows, the LLM node correctly structured the data but mislabeled one salary disbursement as a credit.\n\nAutomated financial document extraction should prioritize deterministic data handling and arithmetic validation over relying solely on LLM vision models."
+  },
+  "inventory": {
+    "claims": [
+      {
+        "id": "c0",
+        "kind": "fact",
+        "text": "The n8n workflow converts bank statements or invoices into structured rows while verifying the math against the document's balance column."
+      },
+      {
+        "id": "c1",
+        "kind": "stat",
+        "text": "In the n8n library, there are 17 paid listings compared to 177 free ones for document or PDF extraction tasks."
+      },
+      {
+        "id": "c2",
+        "kind": "stat",
+        "text": "Eleven of the seventeen paid document extraction listings on n8n are specifically designed for resume screening."
+      },
+      {
+        "id": "c3",
+        "kind": "opinion",
+        "text": "The design philosophy dictates that the AI model must not interact with numerical values it could potentially hallucinate."
+      },
+      {
+        "id": "c4",
+        "kind": "opinion",
+        "text": "Most alternative extraction methods pipe PDF data directly into vision models, which often leads to data drift."
+      },
+      {
+        "id": "c5",
+        "kind": "fact",
+        "text": "The demo PDF contains three specific challenges: descriptions wrapping to new lines, transactions split across pages, and negative values formatted with accounting parentheses."
+      },
+      {
+        "id": "c6",
+        "kind": "fact",
+        "text": "Overlapping columns in a PDF's text layer can cause numbers to fuse into incorrect values, a problem that cannot be solved by parser logic."
+      },
+      {
+        "id": "c7",
+        "kind": "stat",
+        "text": "In testing with real n8n version 2.35.7, the digital PDF parsing achieved a 100 percent reconciliation rate across 16 rows."
+      },
+      {
+        "id": "c8",
+        "kind": "fact",
+        "text": "A test using an image-only PDF processed through Google Gemini vision successfully demonstrated the end-to-end path of scanning, OCR, parsing, and reconciliation."
+      },
+      {
+        "id": "c9",
+        "kind": "stat",
+        "text": "In a test of 16 rows, the LLM node correctly structured 15 rows while mislabeling one salary disbursement as a credit."
+      },
+      {
+        "id": "c10",
+        "kind": "fact",
+        "text": "The reconciliation process caught a movement error in the middle of a statement despite the closing balances matching exactly."
+      },
+      {
+        "id": "c11",
+        "kind": "stat",
+        "text": "While extraction has been proven on a real 86-row card statement, no real statement featuring a balance column has undergone reconciliation yet."
+      },
+      {
+        "id": "c12",
+        "kind": "opinion",
+        "text": "Google Gemini is a preferable choice for long-running workflows on a free tier because Groq's free tier imposes a daily token limit that can cause silent batch failures."
+      },
+      {
+        "id": "c13",
+        "kind": "stat",
+        "text": "A review of the system identified and resolved eight distinct flaws."
+      },
+      {
+        "id": "c14",
+        "kind": "fact",
+        "text": "JavaScript's Date constructor can silently corrupt dates where the day is 12 or less by misinterpreting them as months."
+      },
+      {
+        "id": "c15",
+        "kind": "fact",
+        "text": "The system now infers decimal separators by examining tokens containing both dots and commas to avoid misparsing European number formats."
+      }
+    ],
+    "hook_candidates": [
+      "Most automated document extraction tools fail because they trust vision models to handle numbers they shouldn't touch.",
+      "Your bank statement is likely to extract as garbage if the PDF's internal column spacing is too tight.",
+      "The market for PDF extraction is flooded with free resume screeners, but almost nobody is selling accurate financial data parsing.",
+      "If your extraction pipeline doesn't perform row-by-row arithmetic validation, you are essentially hoping for accuracy rather than proving it.",
+      "A parser bug is often just a symptom of a poorly generated source PDF.",
+      "Your reconciliation process might report a perfect closing balance while still missing errors in the middle of your statement.",
+      "Automated document extraction can silently corrupt your data if it misinterprets date formats or decimal separators.",
+      "The most expensive bugs in data extraction are those that produce incorrect output without triggering any error messages."
+    ],
+    "voice_samples": [
+      "The model never touches a number it could invent.",
+      "Nodes 5 and 7 are the product."
+    ],
+    "thesis": "Automated financial document extraction should prioritize deterministic data handling and arithmetic validation over relying solely on LLM vision models to ensure accuracy."
+  },
+  "rejudged": {
+    "from": 0,
+    "provider": "groq",
+    "models": [
+      "openai/gpt-oss-120b"
+    ],
+    "source_char_drift": 0
+  }
+}
