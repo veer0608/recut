@@ -439,6 +439,16 @@ Honest limits: three sources, 49 claims, and a full-set swing would likely be sm
 through averaging. `md-geojit` and `md-n8n` were in the same batch and never landed, so
 this is the measurement the budget allowed rather than the one worth having.
 
+**The full version is booked**: scheduled task `recut-judge-variance`, one-time, 2026-09-11
+at 17:00 local. It resumes `v2-rejudged-b`, so it pays only for the thirteen sources still
+missing. 17:00 because Groq's tokens-per-day is a trailing 24-hour window and the judge
+spend on the 10th ran 14:59 to 15:40; `recut-eval-v4` has already fired and is disabled,
+and the daily `reruns-eval-resume` at 12:55 is pinned to other models. Scheduled tasks
+only run while the app is open, so a closed app defers it to next launch rather than
+skipping it. The question it is aimed at is whether the movement is **symmetric**: all
+three sources so far moved the same way, and symmetric noise averages out across a full
+set while non-exchangeable passes do not.
+
 ## LLM access, where the traps are
 
 - **Never use Gemini's `-latest` aliases.** They repoint to the newest model, which carries the
