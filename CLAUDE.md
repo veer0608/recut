@@ -395,12 +395,23 @@ undecided.
 they get edited. It did not move the rate much, 8.7% over the thirteen undrifted sources
 against 9.0% over all fifteen, but nothing in the file could have said so.
 
-**And the run's printed rate disagreed with its own stored sources by one claim.** The
-terminal said 8.6% (21/244) and `md-vidsmith` 5.0%; the per-source files say 9.0%
-(22/244) and `md-vidsmith` 2/20. `rejudge.py` writes the result and prints from the same
-object, so the two should not be able to differ, and the cause is not established. The
-files are what every later tool reads, so **9.0% is the operative number** and the printed
-one is not to be quoted. Worth knowing that a printed rate here has been wrong once.
+**Two rejudge processes ran at once and the second overwrote the first.** A printed rate
+of 8.6% disagreed with the stored sources' 9.0%, which should be impossible because
+`rejudge.py` writes the result and prints from the same object. The cause was outside it:
+killing the loop's `python` processes left the **bash wrapper alive**, and it launched its
+next pass twenty minutes into a foreground full pass. Both judged `md-vidsmith`, both
+wrote the same files, last write won, and each printed a rate consistent with its own
+in-memory results. **To stop a loop, kill the shell script, not the interpreter it
+spawns.**
+
+**The two passes disagreed, and that is the finding worth keeping.** The same stored body,
+the same `openai/gpt-oss-120b`, judged twice: **1/20 unsupported, then 2/20**. One
+sentence of twenty, and the source's rate doubles. Every rate in this file assumes the
+judge is a fixed instrument, and this is the only same-body-same-judge repeat that exists;
+it did not agree with itself. That is judge variance sitting *on top of* the generation
+variance `--seed` cannot remove, and no run here has ever measured it. It is one
+observation and not a variance estimate, but it is a reason to treat a few points of
+difference between runs as noise until something measures how much the judge moves.
 
 ## LLM access, where the traps are
 
