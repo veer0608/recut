@@ -394,11 +394,20 @@ README's rule that the headline does not move without them still holds.
 rather than storing the text, so a source edited since the bodies were written is a
 different instrument, and its own docstring says to check before trusting the number.
 It warned on the terminal and nothing reached `report.json`, so a rate whose sources had
-moved read as clean forever after. `aggregate` now records `sources_drifted` and
-`drifted_claims`, and the run prints both. **Recorded, not enforced**: an unjudged source
-withholds the headline because the missing ones are the hard ones, while a drifted source
-was measured, just against something that moved. Whether that should withhold too is
-undecided.
+moved read as clean forever after. `aggregate` records `sources_drifted` and
+`drifted_claims`, and **drift withholds the headline**, the way an incomplete run does. A
+source edited since the bodies were written was judged against a different text than the
+one that produced them, so the rate is partly measuring a source nobody generated from --
+the same kind of fault as a run that mixes judge window sizes. The **provisional
+survives**: the number is not wrong so much as not comparable, and discarding it would
+cost more than labelling it.
+
+Enforcing it cost two of the three headlines, including one that was not expected.
+`md-vidsmith` had drifted under **v2** as well, so `v2-rejudged` 6.9% is now withheld and
+`v6-rejudged` 9.0% with it; only `v1-rejudged` 13.4% still publishes. Dropping
+`md-vidsmith` from both sides leaves v1 vs v2 at `z=2.18, p=0.029`, so the comparison does
+not collapse -- but it now rests on a withheld figure *and* on a judge that moved 6.9
+points on identical text, and those are two separate reasons to leave 15.5% alone.
 
 `v6-rejudged` is the case that found it: `md-reruns` +2464 chars and `md-vidsmith` +1952,
 36 of 244 judged claims between them, because both are this machine's own READMEs and

@@ -17,7 +17,7 @@
   "sources_attempted": 15,
   "sources_completed": 15,
   "failures": [],
-  "unsupported_claim_rate": 0.0694980694980695,
+  "unsupported_claim_rate": null,
   "unsupported_claim_rate_provisional": 0.0694980694980695,
   "judged_claims": 259,
   "judged_unsupported": 18,
@@ -42,6 +42,10 @@
     "still_failing_by_rule": {},
     "cleared_by_rule": {}
   },
+  "sources_drifted": {
+    "md-vidsmith": 1952
+  },
+  "drifted_claims": 22,
   "dropped_unanchored": 0,
   "demoted_quotes": 0,
   "artifacts": 30

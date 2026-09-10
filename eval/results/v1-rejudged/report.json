@@ -41,6 +41,8 @@
     "still_failing_by_rule": {},
     "cleared_by_rule": {}
   },
+  "sources_drifted": {},
+  "drifted_claims": 0,
   "dropped_unanchored": 0,
   "demoted_quotes": 0,
   "artifacts": 30

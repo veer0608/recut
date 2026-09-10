@@ -407,7 +407,13 @@ def aggregate(results: list[dict], failures: list[dict], run: dict) -> dict:
         "failures": failures,
         # The abandonment rule, enforced rather than remembered. A rate over the
         # sources that happened to survive is a rate over the easy ones.
-        "unsupported_claim_rate": headline if complete else None,
+        # Drift withholds the headline the way an incomplete run does. A source
+        # edited since the bodies were written was judged against a different text
+        # than the one that produced them, so the rate is partly measuring a source
+        # nobody generated from. The provisional survives, because the number is not
+        # wrong so much as not comparable, and losing it would cost more than saying
+        # what it is.
+        "unsupported_claim_rate": headline if (complete and not drifted) else None,
         "unsupported_claim_rate_provisional": headline,
         "judged_claims": judged_claims,
         "judged_unsupported": judged_unsupported,
@@ -595,6 +601,18 @@ def main(argv: list[str] | None = None) -> int:
         print(
             f"{DIM}            the deterministic scores above stand; entailment "
             f"was never measured{OFF}"
+        )
+    elif report["complete"] and report["sources_drifted"]:
+        moved = ", ".join(report["sources_drifted"])
+        print(
+            f"{YELLOW}no headline rate: {len(report['sources_drifted'])} source(s) "
+            f"changed since the bodies were written{OFF}"
+        )
+        print(
+            f"{DIM}            provisional over all of them was "
+            f"{_pct(report['unsupported_claim_rate_provisional'])}, but "
+            f"{report['drifted_claims']} of {report['judged_claims']} judged claims "
+            f"were scored against text that has moved: {moved}{OFF}"
         )
     elif report["complete"]:
         print(f"{GREEN}UNSUPPORTED CLAIM RATE  {_pct(report['unsupported_claim_rate'])}{OFF}")

@@ -17,7 +17,7 @@
   "sources_attempted": 15,
   "sources_completed": 15,
   "failures": [],
-  "unsupported_claim_rate": 0.09016393442622951,
+  "unsupported_claim_rate": null,
   "unsupported_claim_rate_provisional": 0.09016393442622951,
   "judged_claims": 244,
   "judged_unsupported": 22,

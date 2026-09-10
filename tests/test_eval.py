@@ -769,19 +769,40 @@ def test_a_live_run_has_no_drift_because_it_never_rejudged():
     assert report["drifted_claims"] == 0
 
 
-def test_drift_does_not_withhold_the_headline():
-    """Recorded, not enforced, and that is a decision rather than an oversight.
+def test_drift_withholds_the_headline():
+    """A drifted source was judged against text that did not produce the bodies.
 
-    An unjudged source withholds the rate because the missing sources are the hard
-    ones. A drifted source is measured, just against a source that has moved, and
-    whether that should also withhold has not been decided.
+    The rate is then partly measuring a source nobody generated from, which is a
+    different instrument in the same way a mixed judge window is. This was recorded
+    but not enforced for one day; enforcing it is the decision.
     """
     a = _result({}); a["id"] = "md-reruns"; a["judged_claims"] = 16
     a["judged_by_model"] = True
     a["rejudged"] = {"source_char_drift": 2464}
     report = aggregate([a], [], {"at": "x"})
     assert report["sources_drifted"]
-    assert report["unsupported_claim_rate"] is not None
+    assert report["unsupported_claim_rate"] is None
+
+
+def test_drift_keeps_the_provisional_figure():
+    """Withheld, not destroyed. The number is not wrong so much as not comparable,
+    and discarding it would cost more than labelling it does."""
+    a = _result({}); a["id"] = "md-reruns"; a["judged_claims"] = 16
+    a["judged_unsupported"] = 2
+    a["judged_by_model"] = True
+    a["rejudged"] = {"source_char_drift": 2464}
+    report = aggregate([a], [], {"at": "x"})
+    assert report["unsupported_claim_rate"] is None
+    assert report["unsupported_claim_rate_provisional"] == 2 / 16
+
+
+def test_an_undrifted_complete_run_still_publishes(self=None):
+    a = _result({}); a["id"] = "md-geojit"; a["judged_claims"] = 16
+    a["judged_unsupported"] = 1
+    a["judged_by_model"] = True
+    a["rejudged"] = {"source_char_drift": 0}
+    report = aggregate([a], [], {"at": "x"})
+    assert report["unsupported_claim_rate"] == 1 / 16
 
 
 def test_the_inventory_counters_are_summed_across_sources():
