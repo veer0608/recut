@@ -1,0 +1,6 @@
+# The golden markdown sources are pinned snapshots and their length is measured.
+# rejudge.py reports drift as a character count against what a run stored, so a
+# line-ending conversion on checkout would make every pinned source look edited
+# and withhold every headline on a fresh clone. -text keeps them byte-identical
+# on every platform. git warned about exactly this when they were first added.
+eval/golden/markdown/*.md -text
