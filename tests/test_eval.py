@@ -1004,6 +1004,42 @@ class TestJudgeVariance:
         result = compare({"md-citerag": (2, 16)}, {"md-citerag": (2, 18)})
         assert result["mismatched_denominators"] == ["md-citerag"]
 
+    def test_a_source_that_moved_between_passes_is_excluded_not_counted(self):
+        """rejudge.py re-ingests, so a source edited between the two passes means
+        they judged different words. Counting that would measure the source and
+        call it the instrument, which is the mistake this tool exists to avoid.
+
+        v2's stored refs point at live READMEs, so md-vidsmith is exposed to it.
+        """
+        first = {"md-vidsmith": (1, 22), "art-ocr": (2, 16)}
+        second = {"md-vidsmith": (4, 22), "art-ocr": (2, 16)}
+        result = compare(
+            first, second, {"md-vidsmith": 1952, "art-ocr": 0}, {"md-vidsmith": 3000, "art-ocr": 0}
+        )
+        assert result["contaminated"] == ["md-vidsmith"]
+        assert result["sources"] == 1
+        # The three-claim jump on the contaminated source must not reach the totals.
+        assert result["claims_that_moved"] == 0
+        assert result["first_totals"] == (2, 16)
+
+    def test_equal_drift_in_both_passes_is_not_contamination(self):
+        # Both passes saw the same edited source, so they still judged the same
+        # words as each other. That is exactly the comparison this makes.
+        result = compare(
+            {"md-vidsmith": (1, 22)},
+            {"md-vidsmith": (2, 22)},
+            {"md-vidsmith": 1952},
+            {"md-vidsmith": 1952},
+        )
+        assert result["contaminated"] == []
+        assert result["claims_that_moved"] == 1
+
+    def test_drift_defaults_to_zero_when_a_run_never_recorded_it(self):
+        # Runs judged before source_char_drift existed carry no such key.
+        result = compare({"a": (1, 10)}, {"a": (2, 10)})
+        assert result["contaminated"] == []
+        assert result["sources"] == 1
+
     def test_only_sources_judged_in_both_are_compared(self):
         result = compare({"a": (1, 10), "b": (1, 10)}, {"a": (1, 10)})
         assert result["sources"] == 1

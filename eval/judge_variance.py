@@ -14,7 +14,7 @@ Unlike a rate, this does not need the full golden set. Self-agreement is measure
 per source, so `--only` on a handful of sources answers the question at a fraction
 of the budget:
 
-    python eval/rejudge.py v2 --suffix -rejudged-b --only md-n8n,md-geojit,art-ocr
+    python eval/rejudge.py v2 --suffix=-rejudged-b --only md-n8n,md-geojit,art-ocr
 
 No model calls happen here. This reads what those runs already stored.
 """
@@ -43,9 +43,39 @@ def judged(run: str) -> dict[str, tuple[int, int]]:
     return out
 
 
-def compare(first: dict, second: dict) -> dict:
-    """Per-source disagreement between two judgements of the same bodies."""
-    shared = sorted(set(first) & set(second))
+def drift(run: str) -> dict[str, int]:
+    """Source id to the char drift that pass saw when it re-ingested the source."""
+    out: dict[str, int] = {}
+    for path in sorted((RESULTS / run / "sources").glob("*.json")):
+        data = json.loads(path.read_text(encoding="utf-8"))
+        if data.get("judged_claims"):
+            out[data["id"]] = (data.get("rejudged") or {}).get("source_char_drift", 0)
+    return out
+
+
+def compare(
+    first: dict,
+    second: dict,
+    first_drift: dict | None = None,
+    second_drift: dict | None = None,
+) -> dict:
+    """Per-source disagreement between two judgements of the same bodies.
+
+    `*_drift` is what each pass saw when it re-ingested the source. rejudge.py
+    re-ingests rather than storing text, so a source edited between the two passes
+    means they judged different words and the difference is not the judge at all.
+    Such a source is excluded from the totals rather than counted: including it
+    would measure the source and call it the instrument, which is the exact
+    mistake this tool exists to avoid.
+    """
+    first_drift = first_drift or {}
+    second_drift = second_drift or {}
+    contaminated = sorted(
+        s
+        for s in set(first) & set(second)
+        if first_drift.get(s, 0) != second_drift.get(s, 0)
+    )
+    shared = sorted((set(first) & set(second)) - set(contaminated))
     rows = []
     for source in shared:
         (u1, c1), (u2, c2) = first[source], second[source]
@@ -69,6 +99,7 @@ def compare(first: dict, second: dict) -> dict:
     return {
         "sources": len(rows),
         "rows": rows,
+        "contaminated": contaminated,
         "sources_that_moved": len(moved),
         "claims_that_moved": sum(abs(r["delta"]) for r in rows),
         "mismatched_denominators": [r["id"] for r in rows if not r["same_denominator"]],
@@ -89,7 +120,13 @@ def _z(a: int, na: int, b: int, nb: int) -> tuple[float, float]:
 
 
 def report(result: dict) -> None:
-    print(f"{result['sources']} source(s) judged twice by the same judge, same bodies\n")
+    if result["contaminated"]:
+        print(
+            f"{RED}excluded, the source moved between the two passes so they did "
+            f"not judge the same words: {', '.join(result['contaminated'])}{OFF}"
+        )
+    print(f"{result['sources']} source(s) judged twice by the same judge, same bodies")
+    print()
     for row in result["rows"]:
         u1, c1 = row["first"]
         u2, c2 = row["second"]
@@ -128,6 +165,7 @@ def main(argv: list[str] | None = None) -> int:
     args = ap.parse_args(argv)
 
     first, second = judged(args.first), judged(args.second)
+    drifts = (drift(args.first), drift(args.second))
     if not first or not second:
         print(f"{RED}nothing judged in one of those runs{OFF}")
         return 1
@@ -135,7 +173,7 @@ def main(argv: list[str] | None = None) -> int:
     if not shared:
         print(f"{RED}no source was judged in both{OFF}")
         return 1
-    report(compare(first, second))
+    report(compare(first, second, *drifts))
     return 0
 
 
