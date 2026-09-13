@@ -1,0 +1,196 @@
+{
+  "id": "md-reruns",
+  "kind": "markdown",
+  "ref": "C:\\Users\\veera\\claude\\reruns\\README.md",
+  "title": "reruns",
+  "segments": 61,
+  "chars": 14231,
+  "extracted_claims": 27,
+  "dropped_unanchored": 0,
+  "targets": [
+    "linkedin",
+    "thread"
+  ],
+  "verifier_errors": {
+    "linkedin": [],
+    "thread": []
+  },
+  "format_violations": {},
+  "repaired": [],
+  "claim_utilisation": 0.3333333333333333,
+  "judged": {
+    "linkedin": {
+      "sentences": 10,
+      "windows": 2,
+      "window_chars": 12000,
+      "claims": 10,
+      "unsupported": 3,
+      "rate": 0.3,
+      "unjudged": 0,
+      "verdicts": [
+        {
+          "n": 1,
+          "sentence": "An agent scoring 0.60 on single attempts would theoretically score near 0.08 across five independent trials.",
+          "verdict": "supported",
+          "why": "source s6 gives same calculation"
+        },
+        {
+          "n": 2,
+          "sentence": "To evaluate reliability, the benchmark runs every task \"five times\" and reports the results.",
+          "verdict": "supported",
+          "why": "source s2 says benchmark runs every task five times"
+        },
+        {
+          "n": 3,
+          "sentence": "Grading does not involve an LLM judge.",
+          "verdict": "supported",
+          "why": "source s12 states there is no LLM judge"
+        },
+        {
+          "n": 4,
+          "sentence": "Instead, the final state is diffed against a seed and policy functions read the trace.",
+          "verdict": "supported",
+          "why": "source s12 describes diffing final state and policy functions reading trace"
+        },
+        {
+          "n": 5,
+          "sentence": "In the current run, 29 of 37 state-changing calls occurred after the simulated customer had left.",
+          "verdict": "supported",
+          "why": "source states 29 of 37 state\u2011changing calls happened after the simulated customer had left"
+        },
+        {
+          "n": 6,
+          "sentence": "In \"24 trials\", every write occurred after the simulated customer had left.",
+          "verdict": "supported",
+          "why": "source says in 24 trials every write occurred after the simulated customer had left"
+        },
+        {
+          "n": 7,
+          "sentence": "Trials killed by a token cap were previously cached as failures.",
+          "verdict": "unsupported",
+          "why": "source does not say token\u2011capped trials were cached as failures"
+        },
+        {
+          "n": 8,
+          "sentence": "This caused resumed runs to count unrun trials as errors.",
+          "verdict": "unsupported",
+          "why": "source makes no claim that resumed runs counted unrun trials as errors"
+        },
+        {
+          "n": 9,
+          "sentence": "The oracle fixture must score \"1.000\", while the mute fixture must score \"0.000\".",
+          "verdict": "supported",
+          "why": "source s47 shows oracle 1.000 and mute 0.000"
+        },
+        {
+          "n": 10,
+          "sentence": "Measuring performance across multiple independent trials reveals how an agent handles policy adherence.",
+          "verdict": "unsupported",
+          "why": "source does not assert that measuring across multiple trials reveals policy adherence"
+        }
+      ]
+    },
+    "thread": {
+      "sentences": 10,
+      "windows": 2,
+      "window_chars": 12000,
+      "claims": 10,
+      "unsupported": 2,
+      "rate": 0.2,
+      "unjudged": 0,
+      "verdicts": [
+        {
+          "n": 1,
+          "sentence": "An agent scoring 0.60 on single attempts would theoretically score near 0.08 across five independent trials.",
+          "verdict": "supported",
+          "why": "source says 0.60 on single attempts would be near 0.08 on five"
+        },
+        {
+          "n": 2,
+          "sentence": "The benchmark runs every task five times to measure reliability.",
+          "verdict": "supported",
+          "why": "source states benchmark runs every task five times"
+        },
+        {
+          "n": 3,
+          "sentence": "Relying on single-turn benchmarks hides how often an agent fails when forced to repeat its work.",
+          "verdict": "supported",
+          "why": "source implies single\u2011turn benchmarks miss reliability information that multiple runs reveal"
+        },
+        {
+          "n": 4,
+          "sentence": "The grader does not use an LLM.",
+          "verdict": "supported",
+          "why": "source says there is no LLM judge in grading"
+        },
+        {
+          "n": 5,
+          "sentence": "It diffs the final database state against a seed and reads the trace with policy functions.",
+          "verdict": "supported",
+          "why": "source describes diffing final state against seed and policy functions reading the trace"
+        },
+        {
+          "n": 6,
+          "sentence": "The backend is intentionally designed to permit policy violations.",
+          "verdict": "supported",
+          "why": "source notes backend permits any violation it is asked to commit"
+        },
+        {
+          "n": 7,
+          "sentence": "You have to let an agent break a rule to see if it actually follows one.",
+          "verdict": "supported",
+          "why": "source says the only way to know if policy is followed is to let the agent break it"
+        },
+        {
+          "n": 8,
+          "sentence": "In 24 trials, every write occurred after the simulated customer had left.",
+          "verdict": "unsupported",
+          "why": "source does not mention 24 trials with writes after customer left"
+        },
+        {
+          "n": 9,
+          "sentence": "Agents often fail because they keep working after the conversation ends.",
+          "verdict": "unsupported",
+          "why": "source does not claim agents often fail by working after conversation ends"
+        },
+        {
+          "n": 10,
+          "sentence": "Grading requires measuring performance across multiple independent trials to accurately evaluate if an agent is reliable.",
+          "verdict": "supported",
+          "why": "source emphasizes measuring across multiple independent trials to assess reliability"
+        }
+      ]
+    }
+  },
+  "judged_claims": 20,
+  "judged_unsupported": 5,
+  "injections": {
+    "planted": 10,
+    "caught": 10,
+    "recall": 1.0,
+    "recall_by_rule": {
+      "number": 1.0,
+      "quote": 1.0,
+      "entity": 1.0,
+      "intensity": 1.0,
+      "citation": 1.0
+    },
+    "missed": [],
+    "clean_bodies": 2,
+    "false_positive_bodies": 0,
+    "false_positives": []
+  },
+  "bodies": {
+    "linkedin": "An agent scoring 0.60 on single attempts would theoretically score near 0.08 across five independent trials.\n\nTo evaluate reliability, the benchmark runs every task \"five times\" and reports the results. Grading does not involve an LLM judge. Instead, the final state is diffed against a seed and policy functions read the trace.\n\nIn the current run, 29 of 37 state-changing calls occurred after the simulated customer had left. In \"24 trials\", every write occurred after the simulated customer had left.\n\nTrials killed by a token cap were previously cached as failures. This caused resumed runs to count unrun trials as errors. The oracle fixture must score \"1.000\", while the mute fixture must score \"0.000\".\n\nMeasuring performance across multiple independent trials reveals how an agent handles policy adherence.",
+    "thread": "An agent scoring 0.60 on single attempts would theoretically score near 0.08 across five independent trials.\n\nThe benchmark runs every task five times to measure reliability. Relying on single-turn benchmarks hides how often an agent fails when forced to repeat its work.\n\nThe grader does not use an LLM. It diffs the final database state against a seed and reads the trace with policy functions.\n\nThe backend is intentionally designed to permit policy violations. You have to let an agent break a rule to see if it actually follows one.\n\nIn 24 trials, every write occurred after the simulated customer had left. Agents often fail because they keep working after the conversation ends.\n\nGrading requires measuring performance across multiple independent trials to accurately evaluate if an agent is reliable."
+  },
+  "judged_by_model": true,
+  "rejudged": {
+    "from": 20,
+    "provider": "groq",
+    "models": [
+      "openai/gpt-oss-120b"
+    ],
+    "source_char_drift": 2464
+  }
+}

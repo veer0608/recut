@@ -157,9 +157,18 @@ def main(argv: list[str] | None = None) -> int:
         report = aggregate(results, failures, meta)
         (out_dir / "report.json").write_text(json.dumps(report, indent=2), encoding="utf-8")
 
-        if report["complete"]:
+        # complete is not the same as publishable. Drift withholds the headline on a
+        # complete run, and this line assumed a complete run always had one: the
+        # full v2 repeat judged all fifteen sources, wrote report.json, then died
+        # here formatting None. The work was saved; the exit was a traceback.
+        if report["complete"] and report["unsupported_claim_rate"] is not None:
             print(f"{GREEN}  UNSUPPORTED CLAIM RATE  {report['unsupported_claim_rate']:.1%}{OFF}"
                   f"  over {report['judged_claims']} judged claims")
+        elif report["complete"]:
+            provisional = report.get("unsupported_claim_rate_provisional")
+            shown = f"{provisional:.1%}" if provisional is not None else "n/a"
+            print(f"{YELLOW}  no headline: {len(report.get('sources_drifted') or {})} "
+                  f"source(s) drifted since the bodies were written; provisional {shown}{OFF}")
         else:
             print(f"{YELLOW}  no headline: {len(failures)} source(s) did not judge{OFF}")
     return 0

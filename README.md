@@ -311,27 +311,25 @@ by the abandonment rule, that withholds the headline number rather than quietly
 scoring the eight that remain. Point `eval/golden/sources.yaml` at your own long-form
 writing to run it somewhere else.
 
-### The judge disagrees with itself by about as much as the effect
+### The judge moves by about a point
 
-Two judgements of the **same stored outputs** by the same model, three sources:
+The same stored outputs, judged twice by the same model, nothing regenerated. On the
+eleven sources whose text had not changed between passes:
 
-| source | first pass | second pass |
+| | first pass | second pass |
 |---|---|---|
-| md-vidsmith | 1/20 | 2/20 |
-| art-vector-db | 1/16 | 3/16 |
-| art-willison | 1/13 | 1/13 |
-| pooled | 3/49 = 6.1% | 6/49 = **12.2%** |
+| unsupported | 13/179 = 7.3% | 11/179 = 6.1% |
 
-Nothing was regenerated. The text being judged was byte-identical between passes,
-so the whole difference is the judge. On the two measured deliberately the swing is
-6.9 points, against a 6.5 point gap between the two runs this project most wants to
-compare.
+A 1.1 point swing, in both directions: four sources moved, two stricter on one pass and
+two on the other, and seven did not move at all. Against that, the 6.5 point gap between
+the two runs this project most wants to compare is well clear of the instrument's own
+movement.
 
-That is the honest state of the measurement: the instrument moves by about as much
-as the thing it is measuring. It is three sources and 49 claims, and a full-set
-figure would likely be smaller through averaging, but it is the only such
-measurement that exists and it did not come out well. `eval/judge_variance.py`
-computes it from two judged runs and makes no model calls of its own.
+An earlier three-source version of this measurement said the swing was 6.9 points and all
+in one direction. It was wrong, and it was wrong the ordinary way: one source carried the
+whole effect. Single-source rates still move a lot, one went from 20% to 6.7% on identical
+text, so only the pooled figure is worth reading. `eval/judge_variance.py` computes it and
+makes no model calls of its own.
 
 ### A second run measured 10.0%, and the headline stays at 15.5%
 

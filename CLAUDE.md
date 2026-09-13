@@ -441,47 +441,43 @@ spawns.**
 **The two passes disagreed, which is what sent someone to measure it.** Same stored body,
 same `openai/gpt-oss-120b`: 1/20 unsupported, then 2/20.
 
-## The judge is not a fixed instrument
+## The judge moves, by about one point on a full set
 
 `eval/judge_variance.py` compares two judgements of the **same bodies** by the same judge.
 Generation is not repeated and cannot contribute, so whatever differs is the instrument.
 Run it with `rejudge.py <run> --suffix=-rejudged-b` (the equals form: a value starting
-with a dash is otherwise read as a flag). It needs no headline, so `--only` on a handful
-of sources answers the question cheaply.
+with a dash is otherwise read as a flag).
 
-Three sources have now been judged twice:
+**Full set, v2 judged twice:** eleven comparable sources, 179 claims, and the judge changed
+its mind on six of them across four sources. Pooled **7.3% -> 6.1%, a 1.1 point swing**
+(`z=0.42, p=0.67`), and the movement goes **both ways**: `art-bank-statement` 3/15 -> 1/15,
+`art-double-entry` 1/14 -> 0/14, `yt-rome` 1/19 -> 0/19, `art-vector-db` 1/16 -> 3/16.
+Seven sources did not move at all.
 
-    md-vidsmith    1/20  ->  2/20      (accidental, two processes racing)
-    art-vector-db  1/16  ->  3/16
-    art-willison   1/13  ->  1/13
-    pooled         3/49 = 6.1%  ->  6/49 = 12.2%
+**This reverses what was written here on 2026-09-10**, and the reversal is the point worth
+keeping. Three sources had said 6.1% -> 12.2%, a 6.9 point swing, "all moved the same way",
+and that v1-vs-v2's `p=0.016` was therefore not safe. Two of those three were deliberate,
+one was the accidental race, and `art-vector-db` alone carried the effect. At eleven sources
+the swing is a sixth of that and the direction disappears. It is the same mistake as the
+copying-repair reading, where nine repairs said 1 in 6 and fifteen sources said 5 in 10:
+**a small sample of an LLM's behaviour will show a direction that is not there.**
 
-**The rate doubled on the same text.** On the two sources measured deliberately the swing
-is 6.9 points, and **v1-rejudged 13.4% against v2-rejudged 6.9% is a 6.5 point gap**. The
-effect this project has been trying to establish is smaller than its instrument's own
-movement, so that comparison's `z=2.42, p=0.016` is **not safe**: the test assumes a fixed
-judge and there isn't one. Nothing published moves on this -- 15.5% stands, as it did --
-but the case for moving it is weaker than it looked yesterday, not stronger.
+So **v1-rejudged 13.4% against v2-rejudged 6.9% survives.** A 6.5 point gap sits well
+above a 1.1 point noise floor. What still stands from the earlier reading is narrower and
+true: **per-source rates are not safe to compare**, because `art-bank-statement` moved from
+20% to 6.7% on identical text. The aggregate is steady because six flips out of 179 cancel;
+one source's number does not have that protection.
 
-**All three moved the same way**, stricter on the second pass or unchanged, never more
-lenient. Three observations cannot support that as a claim. It matters only because it is
-the difference between symmetric noise, which averages out over a full set, and passes
-that are not exchangeable, which does not. Worth resolving before anyone reads a rate
-difference of a few points as real.
+**Four sources were excluded, and drift is still spreading.** `art-retrieval` +322,
+`md-citerag` +3015, `md-reruns` +2464, `md-vidsmith`, all because the two passes
+re-ingested different text. `md-citerag` and `art-retrieval` are new since the 10th. Pinning
+`eval/golden/` protects future runs; v2's stored refs still point at live files and at a
+live web page, so every rejudge of an old run loses more of its set over time.
 
-Honest limits: three sources, 49 claims, and a full-set swing would likely be smaller
-through averaging. `md-geojit` and `md-n8n` were in the same batch and never landed, so
-this is the measurement the budget allowed rather than the one worth having.
-
-**The full version is booked**: scheduled task `recut-judge-variance`, one-time, 2026-09-11
-at 17:00 local. It resumes `v2-rejudged-b`, so it pays only for the thirteen sources still
-missing. 17:00 because Groq's tokens-per-day is a trailing 24-hour window and the judge
-spend on the 10th ran 14:59 to 15:40; `recut-eval-v4` has already fired and is disabled,
-and the daily `reruns-eval-resume` at 12:55 is pinned to other models. Scheduled tasks
-only run while the app is open, so a closed app defers it to next launch rather than
-skipping it. The question it is aimed at is whether the movement is **symmetric**: all
-three sources so far moved the same way, and symmetric noise averages out across a full
-set while non-exchangeable passes do not.
+The scheduled run meant to take this measurement fired on time and did nothing: one
+`Bash` call hit a permission prompt with nobody present, and the task still reported
+`succeeded` because the session exited cleanly. Its status field describes the session,
+not the work. The artifact is the check -- `v2-rejudged-b` was still at 2 of 15.
 
 ## LLM access, where the traps are
 
